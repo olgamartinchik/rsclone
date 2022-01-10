@@ -8,7 +8,7 @@
     "lint": "eslint . --ext .ts && prettier --check .",
     "lint:fix": "eslint . --ext .ts --fix && prettier --write .",
     "style": "sass --watch src/scss/style.scss src/style.css",
-    "test":"",
+    "test": "",
     "build": "rss-scripts build -ts"
   },
   "husky": {
@@ -33,6 +33,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
     "html-webpack-plugin": "^5.3.2",
+    "husky": "^7.0.4",
     "mini-css-extract-plugin": "^1.6.2",
     "rss-scripts": "^0.2.4",
     "sass": "^1.42.1",
