@@ -12376,4 +12376,7 @@ $jscomp.polyfill = function (e, r, p, m) {
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.sidenav');
   M.Sidenav.init(elems);
+
+  var elems = document.querySelectorAll('.datepicker');
+  M.Datepicker.init(elems);
 });

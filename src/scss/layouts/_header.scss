@@ -10,6 +10,10 @@ nav {
   & .brand-logo img{
     width: 168px;
     height: 24px;
+    @extend %transition;
+    &:hover {
+      transform: scale(1.1);
+    }
   }
   & ul a {
     color: $color-text-navbar;

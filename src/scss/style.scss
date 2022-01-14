@@ -40,6 +40,13 @@
 @import "components/datepicker";
 @import "components/timepicker";
 
+//Fontawesome
+
+@import "fontawesome/fontawesome.scss";
+@import "fontawesome/solid.scss";
+@import "fontawesome/regular.scss";
+@import "fontawesome/brands.scss";
+
 //Abstract
 
 @import "abstract/constants";
@@ -50,9 +57,11 @@
 
 @import "layouts/header";
 @import "layouts/startingContent";
+@import "layouts/registration";
 @import "layouts/footer";
 
 //Base
 
 @import "base/base";
 @import "base/buttons";
+@import "base/inputs";
