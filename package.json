@@ -5,7 +5,10 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "tsc && node dist/app.js",
-    "server": "tsc && nodemon src/app.ts "
+    "server": "tsc && nodemon src/app.ts,  tsc && nodemon dist/app.ts",
+    "client":"npm run start --prefix client",
+    "style":"npm run style --prefix client",
+    "dev":"concurrently \"npm run server\" \"npm run client\" \"npm run style\""
   },
   "repository": {
     "type": "git",
