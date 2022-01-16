@@ -14743,6 +14743,11 @@ input[type=password]:not(.browser-default) {
     margin-left: 0;
   }
 }
+.main-page {
+  min-height: calc(100vh - 150px);
+  background: rgba(144, 150, 159, 0.1);
+}
+
 .decorative {
   width: 100%;
   height: 154px;
@@ -14754,7 +14759,6 @@ input[type=password]:not(.browser-default) {
   display: flex;
   justify-content: center;
   padding: 0 138px 48px;
-  background: rgba(144, 150, 159, 0.1);
 }
 
 .left-block {
@@ -14827,6 +14831,7 @@ input[type=password]:not(.browser-default) {
   border-radius: 12px;
   text-align: left;
   position: relative;
+  cursor: pointer;
 }
 .program-card .title {
   font-weight: 700;
@@ -14857,7 +14862,7 @@ input[type=password]:not(.browser-default) {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding: 6px 20px;
+  padding: 6px 15px;
   height: 78px;
 }
 .program-card .card-info .btn-large {
@@ -14909,6 +14914,7 @@ input[type=password]:not(.browser-default) {
   top: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
+  pointer-events: none;
 }
 
 .title-container {
@@ -14943,10 +14949,41 @@ input[type=password]:not(.browser-default) {
   background-color: #666;
   opacity: 0.5;
 }
-.middle-dot.active {
+.middle-dot .active {
   opacity: 1;
 }
 
+@media (max-width: 992px) {
+  .card-title {
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .main-content {
+    padding: 0 0px 48px;
+  }
+}
+@media (max-width: 560px) {
+  .left-block {
+    min-width: 300px;
+    width: 300px;
+    margin-right: 0;
+  }
+
+  .card-title {
+    display: block;
+  }
+
+  .program-card .image {
+    width: 240px;
+    height: 145px;
+  }
+
+  .program-card .card-info {
+    justify-content: center;
+  }
+}
 .footer {
   background-color: #666;
   min-height: 30px;
@@ -15026,6 +15063,14 @@ body {
   font-size: 16px;
 }
 
+header {
+  min-height: 64px;
+}
+
+footer {
+  min-height: 80px;
+}
+
 .hidden {
   display: none;
 }
@@ -15053,13 +15098,18 @@ body {
 .btn-large.header-tablet {
   visibility: hidden;
 }
-.btn-large:hover {
+.btn-large :hover {
   color: white;
   opacity: 0.9;
 }
 
 .sidenav .btn-large {
   margin-left: 100px;
+}
+
+.btn-completed {
+  padding: 0 10px;
+  background: linear-gradient(270deg, #3680e0 -24.77%, #53e9f4 95.41%);
 }
 
 @media (max-width: 768px) {

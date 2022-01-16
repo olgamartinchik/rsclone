@@ -1,13 +1,13 @@
 nav {
   background-color: $color-background; 
-  & .nav-wrapper {
+  .nav-wrapper {
     max-width: 1200px;
     margin: 0 auto;
   }
-  & .brand-logo {
+  .brand-logo {
     padding-left: 30px;
   }
-  & .brand-logo img{
+  .brand-logo img{
     width: 168px;
     height: 24px;
     @extend %transition;
@@ -15,10 +15,10 @@ nav {
       transform: scale(1.1);
     }
   }
-  & ul li.active a {
+  ul li.active a {
     color: $color-active-on-light;
   }
-  & ul a {
+  ul a {
     display: flex;
     color: $color-text-navbar;
     font-weight: 500;

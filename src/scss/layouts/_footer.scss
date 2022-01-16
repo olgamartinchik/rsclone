@@ -9,7 +9,7 @@
         align-items: center;
         justify-content: space-between;
     }
-    & .link {
+    .link {
         text-decoration: none;
         color: $color-text-on-dark;
         &:hover {
@@ -35,10 +35,10 @@
 @media (max-width: 768px) {
     .info {
         width: 375px;
-        & .copyright {
+        .copyright {
             width: 10%;
         }
-        & .year {
+        .year {
             width: 10%;
         }
     }

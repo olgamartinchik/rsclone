@@ -46,23 +46,23 @@
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        & .row {
+        .row {
             flex-basis: 25%;
         }
-        & .row .col.m6 {
+        .row .col.m6 {
             width: 100%;
         }
     }
-    & .card {
+    .card {
         border-radius: 25px;
         min-height: 300px;
         text-align: center;
-        & .card-image img {
+        .card-image img {
             height: 150px;
             border-radius: 25px;
             object-fit: cover;
         }
-        & .card-image .card-title {
+        .card-image .card-title {
             display: block;
             padding: 10px;
             padding-bottom: 0;
@@ -110,11 +110,11 @@
         min-height: 600px;
         background-position: 75%;
         padding: 0;
-        & .btn-container {
+        .btn-container {
             display: flex;
             justify-content: center;
         }
-        & .btn-large {
+        .btn-large {
             width: 320px;
         }
     }

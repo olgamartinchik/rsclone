@@ -4,6 +4,14 @@ body {
   font-size: 16px;
 }
 
+header {
+  min-height: 64px;
+}
+
+footer {
+  min-height: 80px;
+}
+
 .hidden {
   display: none;
 }
