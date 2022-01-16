@@ -71,7 +71,7 @@
     }
 }
 
-.icon-gender {
+.icon {
     margin-right: 8px;
     @extend %fa-icon;
     @extend .fas;
@@ -89,6 +89,42 @@
         &:before {
             content: fa-content($fa-var-mars-stroke-v);
         }
+    }
+    &.user {
+        &:before {
+            content: fa-content($fa-var-user);
+        }
+    }
+    &.browse {
+        &:before {
+            content: fa-content($fa-var-search);
+        }
+    }
+    &.meal {
+        &:before {
+            content: fa-content($fa-var-utensils);
+        }
+    }
+    &.settings {
+        &:before {
+            content: fa-content($fa-var-cogs);
+        }
+    }
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    & .profile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $color-text-on-dark;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: $color-settings-active;
     }
 }
 
@@ -219,14 +255,46 @@ button:focus {
 }
 
 .tip-accent {
-  font-size: 20px;
-  font-weight: 500;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .center-img {
-  display: block;
-  margin: 0 auto;
-  margin-bottom: 50px;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.login {
+    height: 100vh;
+    width: 100%;
+    background: url('../../assets/img/login-bg.jpg') no-repeat 50% fixed;
+    background-size: cover;
+    &-content {
+        width: 400px;
+        color: #fff;
+        margin: 0 auto;
+        padding: 80px 0 40px;
+        text-align: center;
+        height: 100%;
+        position: relative;
+    }
+}
+
+.input-field > label {
+    color: $color-text-on-dark;
+}
+
+input[type='email']:not(.browser-default),
+input[type='password']:not(.browser-default) {
+    border-bottom: 1px solid $color-text-on-dark;
+}
+
+@media (max-width: 500px) {
+    .login-content,
+    .congratulations-content {
+        width: 300px;
+    }
 }
 
 @media (max-width: 400px) {

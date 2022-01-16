@@ -15,7 +15,11 @@ nav {
       transform: scale(1.1);
     }
   }
+  & ul li.active a {
+    color: $color-active-on-light;
+  }
   & ul a {
+    display: flex;
     color: $color-text-navbar;
     font-weight: 500;
     font-size: 17px;
