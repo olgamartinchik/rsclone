@@ -1,52 +1,52 @@
 {
-  "version": "0.1.0",
-  "description": "Fiton clone",
-  "private": true,
-  "name": "rsclone",
-  "scripts": {
-    "start": "rss-scripts start -ts",
-    "lint": "eslint . --ext .ts && prettier --check .",
-    "lint:fix": "eslint . --ext .ts --fix && prettier --write .",
-    "style": "sass --watch src/scss/style.scss src/style.css",
-    "test": "",
-    "build": "rss-scripts build -ts"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run lint && npm run test"
+    "version": "0.1.0",
+    "description": "Fiton clone",
+    "private": true,
+    "name": "rsclone",
+    "scripts": {
+        "start": "rss-scripts start -ts",
+        "lint": "eslint . --ext .ts && prettier --check .",
+        "lint:fix": "eslint . --ext .ts --fix && prettier --write .",
+        "style": "sass --watch src/scss/style.scss src/style.css",
+        "test": "",
+        "build": "rss-scripts build -ts"
+    },
+    "husky": {
+        "hooks": {
+            "pre-push": "npm run lint && npm run test"
+        }
+    },
+    "prettier": {
+        "trailingComma": "es5",
+        "tabWidth": 4,
+        "semi": true,
+        "singleQuote": true,
+        "printWidth": 120
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.9.0",
+        "@typescript-eslint/parser": "^5.9.0",
+        "clean-webpack-plugin": "^4.0.0",
+        "copy-webpack-plugin": "^8.1.1",
+        "css-loader": "^5.2.7",
+        "eslint": "^8.6.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-plugin-import": "^2.25.4",
+        "html-webpack-plugin": "^5.3.2",
+        "husky": "^7.0.4",
+        "mini-css-extract-plugin": "^1.6.2",
+        "rss-scripts": "^0.2.4",
+        "sass": "^1.42.1",
+        "sass-loader": "^11.1.1",
+        "webpack": "^5.58.1",
+        "webpack-cli": "^4.9.0",
+        "webpack-dev-server": "^4.3.1",
+        "webpack-remove-empty-scripts": "^0.7.1"
+    },
+    "dependencies": {
+        "eslint-config-airbnb-typescript": "^16.1.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "prettier": "^2.5.1"
     }
-  },
-  "prettier": {
-    "trailingComma": "es5",
-    "tabWidth": 4,
-    "semi": true,
-    "singleQuote": true,
-    "printWidth": 120
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.9.0",
-    "@typescript-eslint/parser": "^5.9.0",
-    "clean-webpack-plugin": "^4.0.0",
-    "copy-webpack-plugin": "^8.1.1",
-    "css-loader": "^5.2.7",
-    "eslint": "^8.6.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.4",
-    "html-webpack-plugin": "^5.3.2",
-    "husky": "^7.0.4",
-    "mini-css-extract-plugin": "^1.6.2",
-    "rss-scripts": "^0.2.4",
-    "sass": "^1.42.1",
-    "sass-loader": "^11.1.1",
-    "webpack": "^5.58.1",
-    "webpack-cli": "^4.9.0",
-    "webpack-dev-server": "^4.3.1",
-    "webpack-remove-empty-scripts": "^0.7.1"
-  },
-  "dependencies": {
-    "eslint-config-airbnb-typescript": "^16.1.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.5.1"
-  }
 }

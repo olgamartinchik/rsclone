@@ -1,3 +1,7 @@
+input {
+    cursor: pointer;
+}
+
 .input-group {
     @include flex;
     width: 100%;
@@ -9,11 +13,13 @@
         display: block;
         margin-right: 50px;
         color: $color-placeholder;
+        cursor: pointer;
     }
     & > span.title {
         width: 75px;
         font-size: 16px;
         margin-bottom: 0;
+        text-align: left;
     }
 }
 
@@ -44,6 +50,7 @@
             font-size: 14px;
             font-weight: 500;
             color: $color-placeholder;
+            cursor: pointer;
             &.active {
                 color: $color-primary;
                 border-bottom: 2px solid $color-primary;
@@ -95,6 +102,11 @@ input[type='number']:not(.browser-default):focus:not([readonly]) + label,
 input[type='search']:not(.browser-default):focus:not([readonly]) + label,
 textarea.materialize-textarea:focus:not([readonly]) + label {
     color: $color-primary;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+    height: 5px;
+    background: linear-gradient(to right, $color-primary 0%, $color-primary 50%, $color-border 50%, $color-border 100%);
 }
 
 @media (max-width: 400px) {
