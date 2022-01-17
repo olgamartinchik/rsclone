@@ -1,12 +1,23 @@
 const express = require("express");
 const config = require("config");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const app = express();
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 
-app.use('/api/auth', require('../routes/auth.routes'))
+app.use(cors(corsOptions));
 
-const PORT = config.get("port") || 5000;
+app.use(express.json({ extended: true }));
+
+//initialize routs
+app.use("/api/auth", require("./routes/auth.routes"));
+
+const PORT = process.env.PORT || config.get("port");
 //////
 // app.get('/', (req, res) => {
 //   res.send('The sedulous hyena ate the antelope!');
@@ -18,7 +29,9 @@ async function start() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    app.listen(5000, () => console.log(`App has been started on port ${PORT}...`));
+    app.listen(process.env.PORT || 5000, () =>
+      console.log(`App has been started on port ${PORT}...`)
+    );
   } catch (e) {
     console.log("Server Error", e.message);
     process.exit(1);
@@ -26,4 +39,3 @@ async function start() {
 }
 
 start();
-

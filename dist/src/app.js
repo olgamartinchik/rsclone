@@ -11,8 +11,11 @@ const express = require("express");
 const config = require("config");
 const mongoose = require("mongoose");
 const app = express();
+app.use(express.json({ extended: true }));
+//initialize routs
 app.use('/api/auth', require('../routes/auth.routes'));
-const PORT = config.get("port") || 5000;
+app.all("*", (req, res) => { res.sendStatus(404); });
+const PORT = process.env.PORT || config.get("port");
 //////
 // app.get('/', (req, res) => {
 //   res.send('The sedulous hyena ate the antelope!');
@@ -25,7 +28,7 @@ function start() {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
             });
-            app.listen(5000, () => console.log(`App has been started on port ${PORT}...`));
+            app.listen(process.env.PORT || 5000, () => console.log(`App has been started on port ${PORT}...`));
         }
         catch (e) {
             console.log("Server Error", e.message);

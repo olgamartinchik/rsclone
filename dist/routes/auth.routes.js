@@ -17,14 +17,17 @@ const router = Router();
 // /api/auth/register
 router.post('/register', 
 //массив валидаторов
-[
-    check('email', 'Incorrect email').isEmail(),
-    check('password', 'Password must include one lowercase character, one uppercase character, a number, and a special character.').isLength({ min: 6 })
-    // .matches(
-    //     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/,
-    //   )
-], (req, res) => __awaiter(this, void 0, void 0, function* () {
+// [
+//     check('email', 'Incorrect email').isEmail(),
+//     check('password', 'Password must include one lowercase character, one uppercase character, a number, and a special character.').isLength({min:6})
+//     // .matches(
+//     //     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/,
+//     //   )
+// ],
+(req, res) => __awaiter(this, void 0, void 0, function* () {
+    console.log('register error');
     try {
+        console.log('register error');
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({
@@ -39,6 +42,7 @@ router.post('/register',
             });
         }
         const hashedPassword = yield bcrypt.hash(password, 12);
+        //
         const user = new User({ email, password: hashedPassword });
         yield user.save();
         res.status(201).json({ message: "User created" });
@@ -50,10 +54,11 @@ router.post('/register',
 // /api/auth/login
 router.post('/login', 
 //массив валидаторов
-[
-    check('email', 'Incorrect email').isEmail().normalizeEmail(),
-    check('password', 'Enter password').exists()
-], (req, res) => __awaiter(this, void 0, void 0, function* () {
+// [
+//     check('email', 'Incorrect email').isEmail().normalizeEmail(),
+//     check('password', 'Enter password' ).exists()
+// ],
+(req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
