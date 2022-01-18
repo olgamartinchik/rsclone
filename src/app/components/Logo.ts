@@ -1,5 +1,5 @@
 import Node from './Node';
-import { Src, Routes, Alt } from '../../services/constants';
+import { Src, Routes, Alt } from '../services/constants';
 
 export default class Logo {
   logo: Node<HTMLElement>;

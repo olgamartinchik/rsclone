@@ -1,6 +1,6 @@
-import StartPage from "./app/views/pages/StartPage";
-import Menu from "./app/views/components/Menu";
-import Logo from "./app/views/components/Logo";
+import StartPage from "./app/pages/startingPage/StartPageView";
+import Menu from "./app/components/Menu";
+import Logo from "./app/components/Logo";
 
 const startPage = new StartPage();
 // const navWrapper = document.querySelector('.nav-wrapper') as HTMLElement;

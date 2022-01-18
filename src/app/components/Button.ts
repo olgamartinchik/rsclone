@@ -11,12 +11,12 @@ export default class Button {
     this.button.node.innerHTML = text;
   }
 
-  makeCompleted(): void {
+  setCompleted(): void {
     this.button.node.innerHTML = 'Completed';
     this.button.node.classList.add('btn-completed');
   }
 
-  addForTablet(): void {
+  setForTablet(): void {
     this.button.node.innerHTML = 'Signup';
     this.button.node.classList.add('header-tablet');
   }

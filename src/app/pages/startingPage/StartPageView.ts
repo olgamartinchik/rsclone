@@ -1,4 +1,4 @@
-import DefaultPage from "./DefaultPage";
+import DefaultPage from "../DefaultPage";
 
 export default class StartPage extends DefaultPage {
   constructor() {

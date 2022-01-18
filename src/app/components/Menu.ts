@@ -1,13 +1,15 @@
 import Node from './Node';
 import Button from './Button';
-import { Id } from '../../services/constants';
+import { Id } from '../services/constants';
 
 export default class Menu {
   menu: Node<HTMLElement>;
   links: Array<string>;
+  icons: Array<string> | undefined;
   
-  constructor(parentNode: HTMLElement, links: Array<string>) {
+  constructor(parentNode: HTMLElement, links: Array<string>, icons?: Array<string>) {
     this.links = links;
+    this.icons = icons;
     this.menu = new Node(parentNode, 'ul', 'right hide-on-med-and-down');
   }
 
@@ -24,6 +26,10 @@ export default class Menu {
       menuLink.node.innerHTML = link;
     });
     this.addButton();
+  }
+
+  addIcons() {
+
   }
 
   addButton() {
