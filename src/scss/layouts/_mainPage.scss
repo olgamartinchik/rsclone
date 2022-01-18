@@ -203,7 +203,7 @@
     border-radius: 50%;
     background-color: $color-text-navbar;
     opacity: 0.5;
-    .active {
+    &.active {
         opacity: 1;
     }
 }
