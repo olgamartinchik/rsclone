@@ -10,25 +10,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const express = require("express");
 const config = require("config");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const app = express();
-const PORT = config.get("port") || 5000;
+app.use(require("morgan")("dev"));
+const corsOptions = {
+    origin: "*",
+    credentials: true,
+    optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+// app.use(cors());
+app.use(express.json({ extended: true }));
+//initialize routs
+app.use("/api/auth", require("./routes/auth.routes"));
+const PORT = process.env.PORT || config.get("port");
 function start() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield mongoose.connect(config.get("mongoUri"), {
-                // useNewUrlParser: true,
-                // useUnifiedTopology: true,
-                // useCreateIndex: true,
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
             });
+            app.listen(process.env.PORT || 5000, () => console.log(`App has been started on port ${PORT}...`));
         }
         catch (e) {
-            // console.log("Server Error", e.message);
+            console.log("Server Error", e.message);
             process.exit(1);
         }
     });
 }
 start();
-app.listen(5000, () => console.log(`App has been started on port ${PORT}...`));
 //# sourceMappingURL=app.js.map

@@ -8,64 +8,77 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const useHttp_1 = __importDefault(require("./useHttp"));
+require("materialize-css");
 let form = {
+    userName: '',
     email: '',
-    password: ''
+    password: '',
 };
 class Auth {
-    // form: Record<string, string>
     constructor() {
-        // this.email=''
-        // this.password=''
-        this.useHttp = new useHttp_1.default();
-        // this.form={
-        //     email:'',
-        //     password:''
-        // }
     }
     handleInput() {
         const email = document.querySelector('.email');
         const password = document.querySelector('.password');
+        const userName = document.querySelector('.userName');
+        userName.addEventListener('change', this.getDataValue);
         email.addEventListener('change', this.getDataValue);
         password.addEventListener('change', this.getDataValue);
     }
     getDataValue(e) {
+        if (e.target.closest('.userName')) {
+            let input = e.target.closest('.userName');
+            form.userName = input.value;
+        }
         if (e.target.closest('.email')) {
             let input = e.target.closest('.email');
             form.email = input.value;
-            console.log('email', input.value);
         }
         if (e.target.closest('.password')) {
             let input = e.target.closest('.password');
             form.password = input.value;
-            console.log('password', input.value);
         }
     }
-    registerHandler() {
+    responseHandler(path) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('click');
-            // const email=this.form!.email
-            // const password=this.form!.password
+            console.log('form', form);
             try {
-                // const data=await  this.useHttp.request('/api/auth/register', 'POST', null, form)
-                const data = yield fetch('http://localhost:5000/api/auth/register', { method: 'POST', body: JSON.stringify(Object.assign({}, form)) });
-                console.log('data', data);
+                const response = yield fetch(`http://localhost:5000/api/auth/${path}`, { method: 'POST', body: JSON.stringify(Object.assign({}, form)),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    } });
+                const data = yield response.json();
+                console.log('response', response);
+                if (!response.ok) {
+                    throw new Error(data.message || "Something went wrong");
+                }
+                console.log('data', data.message, data);
+                this.createMessage(data.message);
+                return data;
             }
             catch (e) {
+                this.createMessage(e.message);
+                console.log('error', e.message);
             }
         });
     }
-    handlerRegister() {
+    createMessage(text) {
+        if (window.M && text) {
+            window.M.toast({ html: text });
+        }
+    }
+    enterHandler() {
         this.handleInput();
+        const enter = document.querySelector('.enter');
+        enter.addEventListener('click', () => {
+            this.responseHandler('login');
+        });
         const register = document.querySelector('.register');
-        register.addEventListener('click', this.registerHandler);
+        register.addEventListener('click', () => {
+            this.responseHandler('register');
+        });
     }
 }
-// new Auth().handleInput()
-new Auth().handlerRegister();
+new Auth().enterHandler();
 //# sourceMappingURL=auth.js.map

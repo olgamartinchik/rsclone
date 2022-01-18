@@ -40,7 +40,7 @@ class UseHttp {
     //      const error=this.error
     //     return {loading, request, error,clearError}
     // }
-    request(url, method = "GET", body = null, headers) {
+    request(url, method = "GET", body = null, headers = {}) {
         return __awaiter(this, void 0, void 0, function* () {
             this.loading = true;
             try {
