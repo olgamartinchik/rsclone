@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const app = express();
+
+app.use(require("morgan")("dev"));
+
 const corsOptions = {
   origin: "*",
   credentials: true, //access-control-allow-credentials:true
@@ -11,6 +14,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+// app.use(cors());
 
 app.use(express.json({ extended: true }));
 
@@ -18,11 +22,7 @@ app.use(express.json({ extended: true }));
 app.use("/api/auth", require("./routes/auth.routes"));
 
 const PORT = process.env.PORT || config.get("port");
-//////
-// app.get('/', (req, res) => {
-//   res.send('The sedulous hyena ate the antelope!');
-// });
-//////
+
 async function start() {
   try {
     await mongoose.connect(config.get("mongoUri"), {
