@@ -1,4 +1,3 @@
-import workoutManager from './app/services/workoutManager';
-import { userSettings } from './app/services/mocks/defaultData';
+import App from './app/app';
 
-console.log(workoutManager.getProgram(userSettings));
+new App().start();

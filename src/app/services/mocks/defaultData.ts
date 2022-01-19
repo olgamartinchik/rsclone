@@ -1,7 +1,7 @@
 import { Gender, Goal, WorkoutsNumber, WorkoutsProgramDuration, WorkoutType } from '../constants';
 
-export const userSettings = {
-    goal: Goal.weight,
+const userSettings = {
+    goal: Goal.toned,
     weight: 70,
     height: 175,
     age: 26,
@@ -12,3 +12,5 @@ export const userSettings = {
     workoutLength: { min: 10, max: 35 },
     favWorkouts: [WorkoutType.dance],
 };
+
+export default userSettings;
