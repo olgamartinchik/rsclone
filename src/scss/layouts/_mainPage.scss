@@ -89,6 +89,7 @@
     cursor: pointer;
     .title {
         font-weight: 700;
+        overflow: hidden;
     }
     .image-container {
         overflow: hidden;
@@ -203,7 +204,7 @@
     border-radius: 50%;
     background-color: $color-text-navbar;
     opacity: 0.5;
-    .active {
+    &.active {
         opacity: 1;
     }
 }
