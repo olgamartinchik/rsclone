@@ -1,0 +1,38 @@
+.btn-large {
+    background: linear-gradient(270deg, #e03694 -24.77%, #f47253 95.41%);
+    border-radius: 10px;
+    font-family: 'Poppins', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    &.header-tablet {
+        visibility: hidden;
+    }
+    :hover {
+        color: $color-active-on-dark;
+        opacity: 0.9;
+    }
+}
+
+.sidenav .btn-large {
+    margin-left: 100px;
+}
+
+.btn-completed {
+    padding: 0 10px;
+    background: linear-gradient(270deg, $color-background-linear-5 -24.77%, $color-background-linear-6 95.41%);
+}
+
+@media (max-width: 768px) {
+    .btn-large.header-tablet {
+        visibility: visible;
+        float: right;
+        margin-top: 12px;
+        height: 40px;
+        line-height: 40px;
+    }
+}
+
+@media (max-width: 600px) {
+    .btn-large.header-tablet {
+        margin-top: 8px;
+    }
+}

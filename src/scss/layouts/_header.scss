@@ -1,0 +1,52 @@
+nav {
+    background-color: $color-background;
+    .nav-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .brand-logo {
+        padding-left: 30px;
+    }
+    .brand-logo img {
+        width: 168px;
+        height: 24px;
+        @extend %transition;
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+    ul li.active a {
+        color: $color-active-on-light;
+    }
+    ul a {
+        display: flex;
+        color: $color-text-navbar;
+        font-weight: 500;
+        font-size: 17px;
+        &:hover {
+            color: $color-active-on-light;
+        }
+    }
+}
+
+nav .brand-logo {
+    padding-left: 30px;
+}
+
+@media only screen and (max-width: 992px) {
+    nav .brand-logo {
+        left: 0;
+        transform: translateX(0%);
+    }
+}
+
+@media (max-width: 480px) {
+    nav .brand-logo img {
+        width: 120px;
+        height: 20px;
+    }
+
+    .btn-large.header-tablet {
+        padding: 0 20px;
+    }
+}
