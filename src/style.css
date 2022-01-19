@@ -14975,7 +14975,7 @@ input[type=password]:not(.browser-default) {
   padding: 12px 16px 6px;
 }
 
-.duration {
+.parameters {
   display: inline-block;
   margin-top: 10px;
   margin-bottom: 6px;
@@ -15053,6 +15053,7 @@ input[type=password]:not(.browser-default) {
 .footer .link {
   text-decoration: none;
   color: white;
+  margin-right: 5px;
 }
 .footer .link:hover {
   color: #fc6f00;
