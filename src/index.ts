@@ -13,3 +13,6 @@ import Footer from "./app/components/Footer";
 
 // const footer = document.querySelector('footer') as HTMLElement;
 // new Footer(footer);
+import App from './app/app';
+
+new App().start();

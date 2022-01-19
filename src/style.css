@@ -14889,6 +14889,10 @@ input[type=password]:not(.browser-default) {
 }
 .program-card .title {
   font-weight: 700;
+<<<<<<< HEAD
+=======
+  overflow: hidden;
+>>>>>>> 30a6d38d01b1172e3cb9805d4d5c093eb42309b6
 }
 .program-card .image-container {
   overflow: hidden;
@@ -14975,7 +14979,11 @@ input[type=password]:not(.browser-default) {
   padding: 12px 16px 6px;
 }
 
+<<<<<<< HEAD
 .parameters {
+=======
+.duration {
+>>>>>>> 30a6d38d01b1172e3cb9805d4d5c093eb42309b6
   display: inline-block;
   margin-top: 10px;
   margin-bottom: 6px;
@@ -15053,7 +15061,10 @@ input[type=password]:not(.browser-default) {
 .footer .link {
   text-decoration: none;
   color: white;
+<<<<<<< HEAD
   margin-right: 5px;
+=======
+>>>>>>> 30a6d38d01b1172e3cb9805d4d5c093eb42309b6
 }
 .footer .link:hover {
   color: #fc6f00;
