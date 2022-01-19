@@ -1,13 +1,6 @@
-import {
-    IWorkoutManager,
-    TStrategies,
-    TSettings,
-    TWorkoutProgram,
-    TWorkout,
-    IntensityType,
-    WorkoutType,
-} from '../types';
-import trainingsData from './trainings.json';
+import { IWorkoutManager, TStrategies, TSettings, TWorkoutProgram, TWorkout } from './types';
+import { IntensityType, WorkoutType } from './constants';
+import trainingsData from './mocks/trainings.json';
 import Utils from './utils';
 
 class WorkoutManager implements IWorkoutManager {

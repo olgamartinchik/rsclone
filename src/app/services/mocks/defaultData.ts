@@ -1,4 +1,4 @@
-import { Gender, Goal, WorkoutsNumber, WorkoutsProgramDuration, WorkoutType } from '../types';
+import { Gender, Goal, WorkoutsNumber, WorkoutsProgramDuration, WorkoutType } from '../constants';
 
 export const userSettings = {
     goal: Goal.weight,
