@@ -1,6 +1,7 @@
 import Card from '../../components/card/card';
-import footer from '../../components/footer/footer';
-import header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
+import Header from '../../components/header/header';
+import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 
 class MainPageView {
@@ -14,9 +15,15 @@ class MainPageView {
 
     render(data: Card[], onclick: (e: Event) => void, week: number): void {
         this.rootNode.textContent = '';
-        this.rootNode.append(header.getTemplate());
+        this.rootNode.append(Header.getTemplate());
+
+        const navWrapper = document.querySelector('.nav-wrapper') as HTMLElement;
+        const navbar = new NavBar(navWrapper, ['For you', 'Browse', 'Meals', 'Settings'], false, ['user', 'browse', 'meal', 'settings']);
+        navbar.generateMenu();
+        navbar.addProfileLink('O');
+
         this.setContents(data, onclick, week);
-        this.rootNode.append(footer.getTemplate());
+        this.rootNode.append(Footer.getTemplate());
     }
 
     setContents(data: Card[], onclick: (e: Event) => void, week: number): void {

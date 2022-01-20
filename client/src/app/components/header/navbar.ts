@@ -1,8 +1,8 @@
-import Node from './Node';
-import Button from './Button';
-import { Id, Routes } from '../services/constants';
+import Node from '../Node';
+import Button from '../Button';
+import { Id, Routes } from '../../services/constants';
 
-export default class Menu {
+export default class NavBar {
   menu: Node<HTMLElement>;
   links: Array<string>;
   icons: Array<string> | undefined;
@@ -57,4 +57,4 @@ export default class Menu {
     profileIcon.node.innerHTML = `${user}`;
     menuLink.node.innerHTML += 'Profile';
   }
-} 
+};

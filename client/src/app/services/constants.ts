@@ -41,31 +41,12 @@ export enum Gender {
   female = 'female',
 }
 
-export enum Src {
-  logo = './assets/img/logo.png',
-  rsSchool = './assets/img/svg/rss.svg',
-}
-
 export enum Routes {
   startPage = '/',
   profile = '/Profile',
 }
 
-export enum Alt {
-  logo = 'FitOn',
-  rsSchool = 'RSSchool',
-}
-
-
 export enum Id {
   menu = 'nav-mobile',
   mobileMenu = 'mobile-demo'
-}
-
-export enum FooterInfo {
-  copyright = '©',
-  yearOfCreation = '2022',
-  rsSchoolLink = 'https://rs.school/',
-  rsSchoolLogoWidth = '100',
-  rsSchoolLogoHeight = '35',
 }
