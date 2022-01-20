@@ -1,6 +1,6 @@
 import Card from '../../components/card/card';
 import footer from '../../components/footer/footer';
-import menu from '../../components/menu/menu';
+import header from '../../components/header/header';
 import Node from '../../components/Node';
 
 class MainPageView {
@@ -12,36 +12,31 @@ class MainPageView {
         this.rootNode = <HTMLElement>document.getElementById('app');
     }
 
-    render(data: Card[], onclick: (e: Event) => void): void {
+    render(data: Card[], onclick: (e: Event) => void, week: number): void {
         this.rootNode.textContent = '';
-        this.rootNode.append(menu.getTemplate());
-        this.setContents(data, onclick);
+        this.rootNode.append(header.getTemplate());
+        this.setContents(data, onclick, week);
         this.rootNode.append(footer.getTemplate());
     }
 
-    setContents(data: Card[], onclick: (e: Event) => void): void {
+    setContents(data: Card[], onclick: (e: Event) => void, week: number): void {
         const main = new Node(this.rootNode, 'main', 'main-page');
         new Node(main.node, 'div', 'decorative');
         const contentWrapper = new Node(main.node, 'div', 'main-content');
         const mainContent = new Node(contentWrapper.node, 'div','left-block');
         this.contentBlock = new Node(mainContent.node, 'div', 'content-block z-depth-1');
         
-        
-        this.contentBlock.node.insertAdjacentHTML('afterbegin', this.getContentBlockTitle());
+        this.getContentBlockTitle(week);
         this.getCards(data, onclick);
         this.cardsWrapper.node.insertAdjacentHTML('beforeend', this.getAddWorkoutBlock());
     }
 
-    getContentBlockTitle(): string {
-        return `
-        <div class="title-block">   
-            <div>
-              <p class="title card-title gradient-text">Kick start</p>
-              <p class="subtitle">Week 1</p> 
-            </div>
-            <span>See all</span>
-        </div>
-        `;
+    getContentBlockTitle(week: number): void {
+        const titleBlock = new Node(this.contentBlock.node, 'div', 'title-block');
+        const titleWrapper = new Node(titleBlock.node, 'div');
+        new Node(titleWrapper.node, 'p', 'title card-title gradient-text', 'Kick start');
+        new Node(titleWrapper.node, 'p', 'subtitle', `Week ${week + 1}`);
+        new Node(titleBlock.node, 'span', '', 'See all');
     }
 
     getCards(data: Card[], onclick: (e: Event) => void): void {

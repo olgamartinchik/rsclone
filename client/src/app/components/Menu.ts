@@ -48,7 +48,7 @@ export default class Menu {
     this.generateLinks(mobileMenu.node, false, this.icons);
   }
 
-  addProfileLink(user): void {
+  addProfileLink(user: string): void {
     const menuItem = new Node(this.menu.node, 'li');
     const menuLink = new Node(menuItem.node, 'a');
     menuLink.setAttribute('href', `/${Routes.profile}`);

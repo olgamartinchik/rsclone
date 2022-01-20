@@ -1,5 +1,4 @@
 import Menu from "./app/components/Menu";
-import Logo from "./app/components/Logo";
 
 
 // const navWrapper = document.querySelector('.nav-wrapper') as HTMLElement;

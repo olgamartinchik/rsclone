@@ -13,7 +13,7 @@ class MainPageController {
 
     public createPage() {
         const trainings = this.model.getWeekTrainings();
-        this.view.render(trainings, this.handleCardClick.bind(this));
+        this.view.render(trainings, this.handleCardClick.bind(this), this.model.week);
     }
 
     public handleCardClick(e: Event): void {
