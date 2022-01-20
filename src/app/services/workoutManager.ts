@@ -47,4 +47,4 @@ class WorkoutManager implements IWorkoutManager {
     }
 }
 
-export default new WorkoutManager();
+export default WorkoutManager;
