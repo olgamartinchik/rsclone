@@ -1,7 +1,7 @@
-import WorkoutManager from '../services/workoutManager';
-import userSettings from '../services/mocks/defaultData';
-import { TWorkoutProgram } from '../services/types';
-import Card from '../components/card/card';
+import WorkoutManager from '../../services/workoutManager';
+import userSettings from '../../services/mocks/defaultData';
+import { TWorkoutProgram } from '../../services/types';
+import Card from '../../components/card/card';
 
 class MainPageModel {
     private wrManager: WorkoutManager;

@@ -6,7 +6,7 @@ export default function cardTemplate(data: TWorkout): string {
     <div class="image" style="background-image: url('../../assets/trainings/${data.img}.webp')"></div>
     <div class="card-info">
       <div>
-        <div class="duration">
+        <div class="parameters">
           <span>${Math.round(data.duration / 60)} min</span>
           <span class="separator">|</span>
           <span class="right-space">Intensity</span>

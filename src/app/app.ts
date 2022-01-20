@@ -1,4 +1,4 @@
-import MainPageController from './pages/mainPageController';
+import MainPageController from './pages/mainPage/mainPageController';
 
 class App {
     private mainPageController: MainPageController;
