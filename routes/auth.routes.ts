@@ -42,7 +42,7 @@ router.post(
           message: "Incorrect register data",
         });
       }
-
+      console.log("Body1", req.body);
       const { userName, email, password } = req.body;
       const candidate = await User.findOne({ email });
       const candidateName = await User.findOne({ userName });
@@ -52,11 +52,13 @@ router.post(
       if (candidate) {
         return res.status(400).json({ message: "Such user exists" });
       }
+      console.log("Body2", req.body);
       const hashedPassword = await bcrypt.hash(password, 12);
       //
       const user = new User({ userName, email, password: hashedPassword });
-
+      console.log("Body3", req.body);
       await user.save();
+      console.log("Body4", req.body);
       res.status(201).json({ message: "User created" });
     } catch (e) {
       res
@@ -65,6 +67,8 @@ router.post(
     }
   }
 );
+
+
 
 // /api/auth/login
 router.post(

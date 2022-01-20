@@ -43,7 +43,7 @@ class Auth {
     async responseHandler(path:string){
      console.log('form',form)
         try{            
-            const response = await fetch(`http://localhost:5000/api/auth/${path}`,{ method:'POST', body:JSON.stringify({...form})
+            const response = await fetch(`https://rsclonebackend.herokuapp.com/api/auth/${path}`,{ method:'POST', body:JSON.stringify({...form})
             , headers: {
                     'Content-Type': 'application/json'
                   }})
