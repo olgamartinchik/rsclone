@@ -31,7 +31,8 @@ class MainPageView {
         new Node(main.node, 'div', 'decorative');
         const contentWrapper = new Node(main.node, 'div', 'main-content');
         const mainContent = new Node(contentWrapper.node, 'div','left-block');
-        this.contentBlock = new Node(mainContent.node, 'div', 'content-block z-depth-1');
+        this.contentBlock = new Node(mainContent.node, 'section', 'content-block z-depth-1');
+        new Node(this.contentBlock.node, 'h2', 'hidden', 'Program');
         
         this.getContentBlockTitle(week);
         this.getCards(data, onclick);
