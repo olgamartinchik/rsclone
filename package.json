@@ -5,7 +5,7 @@
   "private": true,
   "name": "rsclone",
   "scripts": {
-    "start": "rss-scripts start -ts",
+    "start": "rss-scripts start -ts sass --watch src/scss/style.scss src/style.css",
     "lint": "eslint . --ext .ts && prettier --check .",
     "lint:fix": "eslint . --ext .ts --fix && prettier --write .",
     "style": "sass --watch src/scss/style.scss src/style.css",

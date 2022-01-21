@@ -37,3 +37,8 @@ export type TWorkoutProgram = Array<TWorkout[]>;
 export interface IWorkoutManager {
     getProgram: (data: TSettings) => TWorkoutProgram;
 }
+
+export type RouteOption = {
+    path: RegExp;
+    callback: () => void;
+};
