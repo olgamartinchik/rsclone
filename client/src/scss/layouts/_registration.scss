@@ -191,7 +191,6 @@
 
 input[type='text']:not(.browser-default) {
     width: 70%;
-    margin-bottom: 0;
     border-bottom: none;
 }
 
@@ -297,7 +296,9 @@ button:focus {
 }
 
 input[type='email']:not(.browser-default),
-input[type='password']:not(.browser-default) {
+input[type='password']:not(.browser-default),
+input[type='text']:not(.browser-default) {
+    width: 100%;
     border-bottom: 1px solid $color-text-on-dark;
 }
 

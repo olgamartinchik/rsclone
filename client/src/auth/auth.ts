@@ -1,4 +1,3 @@
-import 'materialize-css'
 
 let form:any={
     userName:'',
@@ -6,11 +5,11 @@ let form:any={
     password:'',
    
 }
-declare global {
-    interface Window {
-      M?: any;
-    }
-  }
+// declare global {
+//     interface Window {
+//       M?: any;
+//     }
+//   }
 class Auth {
     constructor(){
     }
@@ -53,19 +52,19 @@ class Auth {
                 throw new Error(data.message||"Something went wrong")
             }
             console.log('data', data.message, data)
-            this.createMessage(data.message)
+            // this.createMessage(data.message)
             return data
         }catch(e:any){
-            this.createMessage(e.message)
+            // this.createMessage(e.message)
             console.log('error', e.message)
         }
 
     }
-    createMessage(text:string){
-        if(window.M && text){
-            window.M.toast({html:text})
-        }
-    }
+    // createMessage(text:string){
+    //     if(window.M && text){
+    //         M.toast({html:text})
+    //     }
+    // }
    
     enterHandler(){        
         this.handleInput()

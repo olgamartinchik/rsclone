@@ -18,7 +18,6 @@ class MainPageController {
 
     public handleCardClick(e: Event): void {
         const currCard = <HTMLElement>e.currentTarget;
-        console.log(currCard.id, 'card clicked');
     }
 }
 

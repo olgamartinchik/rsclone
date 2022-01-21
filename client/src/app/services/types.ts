@@ -37,3 +37,9 @@ export type TWorkoutProgram = Array<TWorkout[]>;
 export interface IWorkoutManager {
     getProgram: (data: TSettings) => TWorkoutProgram;
 }
+
+export type TLoginForm = {
+    userName: string,
+    email: string,
+    password: string,
+}

@@ -1,3 +1,7 @@
+@charset "UTF-8";
+.materialize-red {
+  background-color: #e51c23 !important;
+}
 
 .materialize-red-text {
   color: #e51c23 !important;
@@ -14649,7 +14653,6 @@ nav .brand-logo {
 
 input[type=text]:not(.browser-default) {
   width: 70%;
-  margin-bottom: 0;
   border-bottom: none;
 }
 
@@ -14754,7 +14757,9 @@ button:focus {
 }
 
 input[type=email]:not(.browser-default),
-input[type=password]:not(.browser-default) {
+input[type=password]:not(.browser-default),
+input[type=text]:not(.browser-default) {
+  width: 100%;
   border-bottom: 1px solid white;
 }
 
@@ -15143,7 +15148,7 @@ footer {
 
 *::-webkit-scrollbar {
   height: 4px;
-  width: 50px;
+  width: 5px;
 }
 
 *::-webkit-scrollbar-track {
