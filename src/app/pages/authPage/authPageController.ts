@@ -24,6 +24,6 @@ export default class AuthController {
     }
 
     public checkAuthData(name: string, email: string, password: string) {
-        this.model.getLoginFormValue(name, email, password);
+        this.model.handleUserData(name, email, password);
     }
 }

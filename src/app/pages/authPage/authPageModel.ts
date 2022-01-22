@@ -12,12 +12,19 @@ export default class AuthModel {
         };
     }
 
-    public getLoginFormValue(name: string, email: string, password: string) {
+    public handleUserData(name: string, email: string, password: string) {
         this.form.userName = name;
         this.form.email = email;
         this.form.password = password;
 
-        const clientManager = ClientManager.getInstance();
+        const clientManager = new ClientManager();
         clientManager.postData('register', this.form);
+        
+        const message: string = clientManager.text;
+        this.createMessage(message);
+    }
+
+    public createMessage(text: string) {
+        window.M.toast({html: `${text}`});
     }
 }
