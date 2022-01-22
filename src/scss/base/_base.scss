@@ -1,0 +1,49 @@
+body {
+    font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+header {
+    min-height: 64px;
+}
+
+footer {
+    min-height: 80px;
+}
+
+.hidden {
+    display: none;
+}
+
+.wrapper {
+    margin: 0 auto;
+}
+
+.title {
+    font-family: 'Poppins', Helvetica, Arial, sans-serif;
+    font-weight: 800;
+}
+
+.subtitle {
+    font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+}
+
+//Scroll for Chrome
+
+*::-webkit-scrollbar {
+    height: 4px;
+    width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+    background: $color-text-on-dark;
+    border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 30px;
+      border-radius: 30px;
+      background-color:$color-primary;
+}
