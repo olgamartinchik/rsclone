@@ -6,7 +6,9 @@ import Node from '../../components/Node';
 
 class MainPageView {
     private rootNode: HTMLElement;
+
     contentBlock!: Node<HTMLElement>;
+
     cardsWrapper!: Node<HTMLElement>;
 
     constructor() {
@@ -18,7 +20,12 @@ class MainPageView {
         this.rootNode.append(Header.getTemplate());
 
         const navWrapper = document.querySelector('.nav-wrapper') as HTMLElement;
-        const navbar = new NavBar(navWrapper, ['For you', 'Browse', 'Meals', 'Settings'], false, ['user', 'browse', 'meal', 'settings']);
+        const navbar = new NavBar(navWrapper, ['For you', 'Browse', 'Meals', 'Settings'], false, [
+            'user',
+            'browse',
+            'meal',
+            'settings',
+        ]);
         navbar.generateMenu();
         navbar.addProfileLink('O');
 
@@ -30,10 +37,10 @@ class MainPageView {
         const main = new Node(this.rootNode, 'main', 'main-page');
         new Node(main.node, 'div', 'decorative');
         const contentWrapper = new Node(main.node, 'div', 'main-content');
-        const mainContent = new Node(contentWrapper.node, 'div','left-block');
+        const mainContent = new Node(contentWrapper.node, 'div', 'left-block');
         this.contentBlock = new Node(mainContent.node, 'section', 'content-block z-depth-1');
         new Node(this.contentBlock.node, 'h2', 'hidden', 'Program');
-        
+
         this.getContentBlockTitle(week);
         this.getCards(data, onclick);
         this.cardsWrapper.node.insertAdjacentHTML('beforeend', this.getAddWorkoutBlock());
@@ -49,8 +56,8 @@ class MainPageView {
 
     getCards(data: Card[], onclick: (e: Event) => void): void {
         const cardElems = data.map((card) => card.getTemplate(onclick));
-        
-        this.cardsWrapper = new Node(this.contentBlock.node, 'div', 'workout-list'); 
+
+        this.cardsWrapper = new Node(this.contentBlock.node, 'div', 'workout-list');
         this.cardsWrapper.node.append(...cardElems);
     }
 

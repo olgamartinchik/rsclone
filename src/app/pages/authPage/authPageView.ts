@@ -1,18 +1,19 @@
-import Auth from "../../components/auth/auth";
+import Auth from '../../components/auth/auth';
 
 export default class AuthView {
-  private rootNode: HTMLElement;
-  auth: Auth;
+    private rootNode: HTMLElement;
 
-  constructor() {
-    this.rootNode = <HTMLElement>document.getElementById('app');
-    this.auth = new Auth(this.rootNode);
-  }
+    auth: Auth;
 
-  public render(onclick: (e: Event) => void) {
-    this.rootNode.textContent = '';
+    constructor() {
+        this.rootNode = <HTMLElement>document.getElementById('app');
+        this.auth = new Auth(this.rootNode);
+    }
 
-    this.rootNode.append(this.auth.getTemplate());
-    this.rootNode.append(this.auth.addButton(onclick));
-  }
+    public render(onclick: (e: Event) => void) {
+        this.rootNode.textContent = '';
+
+        this.rootNode.append(this.auth.getTemplate());
+        this.rootNode.append(this.auth.addButton(onclick));
+    }
 }

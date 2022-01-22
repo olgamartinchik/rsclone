@@ -1,23 +1,23 @@
-import { TLoginForm } from "../../services/types";
-import ClientManager from "../../services/clientManager";
+import { TLoginForm } from '../../services/types';
+import ClientManager from '../../services/clientManager';
 
 export default class AuthModel {
-  form: TLoginForm;
+    form: TLoginForm;
 
-  constructor() {
-    this.form = {
-      userName: '',
-      email: '',
-      password: '',
-    };
-  }
+    constructor() {
+        this.form = {
+            userName: '',
+            email: '',
+            password: '',
+        };
+    }
 
-  public getLoginFormValue(name: string, email: string, password: string) {
-    this.form.userName = name;
-    this.form.email = email;
-    this.form.password = password;
+    public getLoginFormValue(name: string, email: string, password: string) {
+        this.form.userName = name;
+        this.form.email = email;
+        this.form.password = password;
 
-    const clientManager = ClientManager.getInstance();
-    clientManager.postData('register', this.form);
-  }
+        const clientManager = ClientManager.getInstance();
+        clientManager.postData('register', this.form);
+    }
 }

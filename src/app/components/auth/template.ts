@@ -1,5 +1,5 @@
 export default function authTemplate(id: string, type: string, text: string): string {
-  return `
+    return `
   <div class="input-field col s12">
       <input id=${id} type=${type} class="validate" />
       <label for=${id}>${text}</label>

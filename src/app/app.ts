@@ -3,6 +3,7 @@ import AuthController from './pages/authPage/authPageController';
 
 class App {
     private mainPageController: MainPageController;
+
     private authController: AuthController;
 
     constructor() {

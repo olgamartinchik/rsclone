@@ -1,5 +1,5 @@
 export default function headerTemplate(): string {
-  return `
+    return `
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
@@ -11,4 +11,3 @@ export default function headerTemplate(): string {
     </div>
   `;
 }
-
