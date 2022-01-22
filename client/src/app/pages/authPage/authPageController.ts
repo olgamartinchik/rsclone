@@ -12,6 +12,18 @@ export default class AuthController {
   }
 
   public createPage() {
-    this.view.render();
+    this.view.render(this.handleInputChange.bind(this));
+  }
+
+  public handleInputChange(): void {
+    const nameInput = document.querySelector('#nick-name') as HTMLInputElement;
+    const emailInput = document.querySelector('#email')  as HTMLInputElement;
+    const passwordInput = document.querySelector('#password')  as HTMLInputElement;
+
+    this.checkAuthData(nameInput.value, emailInput.value, passwordInput.value);
+  }
+
+  public checkAuthData(name: string, email: string, password: string) {
+    this.model.getLoginFormValue(name, email, password);
   }
 }

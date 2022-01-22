@@ -6,11 +6,13 @@ export default class AuthView {
 
   constructor() {
     this.rootNode = <HTMLElement>document.getElementById('app');
-    this.auth = new Auth(this.rootNode, true);
+    this.auth = new Auth(this.rootNode);
   }
 
-  render() {
+  public render(onclick: (e: Event) => void) {
     this.rootNode.textContent = '';
+
     this.rootNode.append(this.auth.getTemplate());
+    this.rootNode.append(this.auth.addButton(onclick));
   }
 }

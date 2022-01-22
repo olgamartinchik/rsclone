@@ -300,6 +300,8 @@ input[type='password']:not(.browser-default),
 input[type='text']:not(.browser-default) {
     width: 100%;
     border-bottom: 1px solid $color-text-on-dark;
+    color: $color-text-on-dark;
+    padding-left: 5px;
 }
 
 @media (max-width: 500px) {
