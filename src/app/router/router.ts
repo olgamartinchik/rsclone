@@ -92,7 +92,7 @@ export class Router implements IRouter {
         }
 
         this.current = this.getRoute();
-        
+
         this.routes.some((route) => {
             if (this.current) {
                 const match = this.current.match(route.path) as [];
