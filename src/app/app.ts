@@ -30,11 +30,15 @@ class App {
             },
             {
                 path: /program/,
-                callback: () => console.log('program page'),
+                callback: () => this.mainPageController.createPage(),
             },
             {
                 path: /profile/,
                 callback: () => console.log('profile page'),
+            },
+            {
+                path: /settings/,
+                callback: () => console.log('settings page'),
             },
             {
                 path: /browse\/workout\/(\d{1,2})/,

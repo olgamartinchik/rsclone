@@ -19,8 +19,8 @@ class MainPageView {
         this.rootNode.textContent = '';
         this.rootNode.append(Header.getTemplate());
 
-        const navWrapper = document.querySelector('.nav-wrapper') as HTMLElement;
-        const navbar = new NavBar(navWrapper, ['For you', 'Browse', 'Meals', 'Settings'], false, [
+        const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
+        const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
             'browse',
             'meal',
@@ -35,11 +35,11 @@ class MainPageView {
 
     setContents(data: Card[], onclick: (e: Event) => void, week: number): void {
         const main = new Node(this.rootNode, 'main', 'main-page');
-        new Node(main.node, 'div', 'decorative');
+        Node.setChild(main.node, 'div', 'decorative');
         const contentWrapper = new Node(main.node, 'div', 'main-content');
         const mainContent = new Node(contentWrapper.node, 'div', 'left-block');
         this.contentBlock = new Node(mainContent.node, 'section', 'content-block z-depth-1');
-        new Node(this.contentBlock.node, 'h2', 'hidden', 'Program');
+        Node.setChild(this.contentBlock.node, 'h2', 'hidden', 'Program');
 
         this.getContentBlockTitle(week);
         this.getCards(data, onclick);
@@ -49,9 +49,9 @@ class MainPageView {
     getContentBlockTitle(week: number): void {
         const titleBlock = new Node(this.contentBlock.node, 'div', 'title-block');
         const titleWrapper = new Node(titleBlock.node, 'div');
-        new Node(titleWrapper.node, 'p', 'title card-title gradient-text', 'Kick start');
-        new Node(titleWrapper.node, 'p', 'subtitle', `Week ${week + 1}`);
-        new Node(titleBlock.node, 'span', '', 'See all');
+        Node.setChild(titleWrapper.node, 'p', 'title card-title gradient-text', 'Kick start');
+        Node.setChild(titleWrapper.node, 'p', 'subtitle', `Week ${week + 1}`);
+        Node.setChild(titleBlock.node, 'span', '', 'See all');
     }
 
     getCards(data: Card[], onclick: (e: Event) => void): void {

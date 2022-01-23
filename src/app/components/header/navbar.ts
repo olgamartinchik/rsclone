@@ -1,6 +1,6 @@
 import Node from '../Node';
 import Button from '../Button';
-import { Id, Routes } from '../../services/constants';
+import { Id } from '../../services/constants';
 
 export default class NavBar {
     menu: Node<HTMLElement>;
@@ -19,22 +19,23 @@ export default class NavBar {
         const menuMobile = new Node(parentNode, 'a', 'sidenav-trigger');
         menuMobile.setAttribute('data-target', 'mobile-demo');
         menuMobile.setAttribute('href', '#');
-        new Node(menuMobile.node, 'i', 'material-icons', 'menu');
+        Node.setChild(menuMobile.node, 'i', 'material-icons', 'menu');
     }
 
     generateMenu(attributeName = Id.menu): void {
+        this.menu.node.textContent = '';
         this.menu.setAttribute('id', attributeName);
         this.generateLinks(this.menu.node, this.needsButton, this.icons);
         this.generateMobileMenu();
     }
 
-    generateLinks(parentNode, needsButton: boolean, icons?: Array<string> | undefined): void {
+    generateLinks(parentNode: HTMLElement, needsButton: boolean, icons?: Array<string> | undefined): void {
         this.links.forEach((link, index) => {
             const menuItem = new Node(parentNode, 'li');
             const menuLink = new Node(menuItem.node, 'a');
-            menuLink.setAttribute('href', `/${link}`);
+            menuLink.setAttribute('href', `#/${link.toLowerCase()}`);
             if (icons) {
-                new Node(menuLink.node, 'i', `icon ${(this.icons as Array<string>)[index]}`);
+                Node.setChild(menuLink.node, 'i', `icon ${(this.icons as Array<string>)[index]}`);
             }
             menuLink.node.innerHTML += link;
         });
@@ -54,7 +55,7 @@ export default class NavBar {
     addProfileLink(user: string): void {
         const menuItem = new Node(this.menu.node, 'li');
         const menuLink = new Node(menuItem.node, 'a');
-        menuLink.setAttribute('href', `/${Routes.profile}`);
+        menuLink.setAttribute('href', `#/profile`);
         const iconContainer = new Node(menuLink.node, 'div', 'icon-container');
         const profileIcon = new Node(iconContainer.node, 'span', 'profile');
         profileIcon.node.innerHTML = `${user}`;

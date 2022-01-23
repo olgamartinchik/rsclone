@@ -9,6 +9,7 @@ class Footer {
     }
 
     public getTemplate(): HTMLElement {
+        this.rootNode.textContent = '';
         this.rootNode.insertAdjacentHTML('afterbegin', footerTemplate());
         return this.rootNode;
     }

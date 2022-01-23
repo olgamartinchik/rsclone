@@ -8,6 +8,7 @@ class Header {
     }
 
     public getTemplate(): HTMLElement {
+        this.rootNode.textContent = '';
         this.rootNode.insertAdjacentHTML('afterbegin', headerTemplate());
         return this.rootNode;
     }

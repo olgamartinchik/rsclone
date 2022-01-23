@@ -55,7 +55,7 @@ export class Router implements IRouter {
             route = this.root !== '/main' ? route.replace(this.root, '/main') : route;
         } else {
             const match = window.location.href.match(/#(.*)$/);
-            route = match && match[1] ? match[1] : '/main';
+            route = match && match[1] ? match[1] : this.root;
         }
 
         return this.getPath(route);
