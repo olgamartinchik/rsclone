@@ -1,6 +1,7 @@
 import Node from '../Node';
 import Button from '../Button';
 import { Id } from '../../services/constants';
+import MaterializeHandler from '../../services/materialize/materializeHandler';
 
 export default class NavBar {
     menu: Node<HTMLElement>;
@@ -11,7 +12,10 @@ export default class NavBar {
 
     needsButton: boolean;
 
+    private materializeHandler: MaterializeHandler;
+
     constructor(parentNode: HTMLElement, links: Array<string>, needsButton: boolean, icons?: Array<string>) {
+        this.materializeHandler = new MaterializeHandler();
         this.links = links;
         this.icons = icons;
         this.needsButton = needsButton;
@@ -27,6 +31,7 @@ export default class NavBar {
         this.menu.setAttribute('id', attributeName);
         this.generateLinks(this.menu.node, this.needsButton, this.icons);
         this.generateMobileMenu();
+        this.materializeHandler.initSidenav();
     }
 
     generateLinks(parentNode: HTMLElement, needsButton: boolean, icons?: Array<string> | undefined): void {

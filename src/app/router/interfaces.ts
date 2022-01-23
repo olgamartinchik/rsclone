@@ -13,5 +13,5 @@ export interface IRouter {
 export interface IRouterOptions {
     root: string;
     mode: string;
-    routes: Array<RouteOption>;
+    routes?: RouteOption[];
 }

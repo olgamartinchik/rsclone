@@ -2,7 +2,7 @@ import { RouteOption } from '../services/types';
 import { IRouter, IRouterOptions } from './interfaces';
 
 export class Router implements IRouter {
-    private routes: Array<RouteOption>;
+    private routes: RouteOption[];
 
     private mode: string | null;
 
@@ -13,7 +13,10 @@ export class Router implements IRouter {
     private intervalId: ReturnType<typeof setInterval> | null;
 
     constructor(options: IRouterOptions) {
-        this.routes = options.routes;
+        if (options.routes) {
+            this.routes = options.routes;
+        }
+        this.routes = [];
         this.mode = null;
         this.root = '/';
         this.mode = window.history.length ? 'history' : 'hash';
@@ -33,6 +36,10 @@ export class Router implements IRouter {
             path,
             callback,
         });
+    }
+
+    addAllPath(routes: RouteOption[]): void {
+        this.routes = routes;
     }
 
     removePath(path: RegExp): void {
@@ -111,3 +118,5 @@ export class Router implements IRouter {
         });
     }
 }
+
+export default new Router({ root: 'main', mode: 'hash' });

@@ -1,7 +1,7 @@
-class MainPageModel {
+class ProfilePageModel {
     getData() {
         console.log('data is being loaded');
     }
 }
 
-export default MainPageModel;
+export default ProfilePageModel;

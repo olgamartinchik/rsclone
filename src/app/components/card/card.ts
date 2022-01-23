@@ -6,7 +6,7 @@ class Card {
 
     private data: TWorkout;
 
-    private id: string;
+    public id: string;
 
     constructor(data: TWorkout) {
         this.data = data;
