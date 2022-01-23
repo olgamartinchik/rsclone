@@ -1,5 +1,5 @@
 import router, { Router } from './router/router';
-import Config from './router/routes';
+import Config from './router/config';
 
 class App {
     private router: Router;
