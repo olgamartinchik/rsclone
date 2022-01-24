@@ -1,3 +1,4 @@
+import router from '../../router/router';
 import MainPageView from './mainPageView';
 
 class MainPageController {
@@ -8,7 +9,15 @@ class MainPageController {
     }
 
     public createPage() {
-        this.view.render();
+        this.view.render(this.signUpHandler.bind(this), this.loginHandler.bind(this));
+    }
+
+    private signUpHandler(): void {
+        router.navigate('/register');
+    }
+
+    private loginHandler(): void {
+        router.navigate('/login');
     }
 }
 
