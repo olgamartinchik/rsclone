@@ -191,7 +191,6 @@
 
 input[type='text']:not(.browser-default) {
     width: 70%;
-    margin-bottom: 0;
     border-bottom: none;
 }
 
@@ -282,12 +281,15 @@ button:focus {
     background: url('../../assets/img/login-bg.jpg') no-repeat 50% fixed;
     background-size: cover;
     &-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         width: 400px;
         color: #fff;
         margin: 0 auto;
         padding: 80px 0 40px;
         text-align: center;
-        height: 100%;
+        height: 60%;
         position: relative;
     }
 }
@@ -297,8 +299,24 @@ button:focus {
 }
 
 input[type='email']:not(.browser-default),
-input[type='password']:not(.browser-default) {
+input[type='password']:not(.browser-default),
+input[type='text']:not(.browser-default) {
+    width: 100%;
     border-bottom: 1px solid $color-text-on-dark;
+    color: $color-text-on-dark;
+    padding-left: 12px;
+}
+
+.auth-link {
+    display: block;
+    width: 100%;
+    align-self: flex-start;
+    text-align: right;
+    color: $color-text-on-dark;
+    cursor: pointer;
+    &:hover {
+        color: $color-primary;
+    }
 }
 
 @media (max-width: 500px) {

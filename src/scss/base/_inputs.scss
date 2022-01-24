@@ -23,6 +23,10 @@ input {
     }
 }
 
+.auth-field {
+    width: 100%;
+}
+
 .icon-select {
     @extend %fa-icon;
     @extend .fas;
@@ -107,6 +111,12 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
 input[type='range']::-webkit-slider-runnable-track {
     height: 5px;
     background: linear-gradient(to right, $color-primary 0%, $color-primary 50%, $color-border 50%, $color-border 100%);
+}
+
+input[type='text']:not(.browser-default).invalid,
+input[type='email']:not(.browser-default).invalid,
+input[type='password']:not(.browser-default).invalid {
+    color: $color-invalid;
 }
 
 @media (max-width: 400px) {
