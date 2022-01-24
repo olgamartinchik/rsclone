@@ -2,14 +2,14 @@ import footer from '../../components/footer/footer';
 import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 
-class MainPageView {
+class WorkoutPageView {
     private rootNode: HTMLElement;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
     }
 
-    render() {
+    render(id: string): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
 
@@ -21,10 +21,14 @@ class MainPageView {
             'settings',
         ]);
         navbar.generateMenu();
-        this.rootNode.insertAdjacentHTML('beforeend', `<main class="main-page"><span>This is Main Page!</span></main>`);
+        navbar.addProfileLink('O');
+        this.rootNode.insertAdjacentHTML(
+            'beforeend',
+            `<main class="main-page"><span>This is Workout Page for training with id ${id}!</span></main>`
+        );
 
         this.rootNode.append(footer.getTemplate());
     }
 }
 
-export default MainPageView;
+export default WorkoutPageView;

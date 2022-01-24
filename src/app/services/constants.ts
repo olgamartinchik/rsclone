@@ -41,11 +41,6 @@ export enum Gender {
     female = 'female',
 }
 
-export enum Routes {
-    startPage = '/',
-    profile = '/Profile',
-}
-
 export enum Id {
     menu = 'nav-mobile',
     mobileMenu = 'mobile-demo',
