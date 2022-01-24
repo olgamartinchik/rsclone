@@ -43,3 +43,8 @@ export type TLoginForm = {
     email: string;
     password: string;
 };
+
+export type TToken = {
+    userID: string;
+    jwtToken: string;
+};

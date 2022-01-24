@@ -281,6 +281,9 @@ button:focus {
     background: url('../../assets/img/login-bg.jpg') no-repeat 50% fixed;
     background-size: cover;
     &-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         width: 400px;
         color: #fff;
         margin: 0 auto;
@@ -302,6 +305,18 @@ input[type='text']:not(.browser-default) {
     border-bottom: 1px solid $color-text-on-dark;
     color: $color-text-on-dark;
     padding-left: 12px;
+}
+
+.auth-link {
+    display: block;
+    width: 100%;
+    align-self: flex-start;
+    text-align: right;
+    color: $color-text-on-dark;
+    cursor: pointer;
+    &:hover {
+        color: $color-primary;
+    }
 }
 
 @media (max-width: 500px) {

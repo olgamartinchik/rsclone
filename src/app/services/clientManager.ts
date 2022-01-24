@@ -1,14 +1,19 @@
-import { TLoginForm } from '../services/types';
+import { TLoginForm, TToken } from '../services/types';
 
 class ClientManager {
     private static _instance: ClientManager | null;
     text: string;
+    tokenInfo: TToken;
 
     constructor() {
         if (!ClientManager._instance) {
             ClientManager._instance = this;
         }
         this.text = '';
+        this.tokenInfo = {
+            userID: '',
+            jwtToken: '',
+        };
         return ClientManager._instance;
     }
 
@@ -23,25 +28,27 @@ class ClientManager {
                 },
             });
             const data = await response.json();
-            // console.log('response', response);
             if (!response.ok) {
                 throw new Error(data.message || 'Something went wrong');
             }
-            // console.log('data', data.message, data);
-            console.log('error', data.message);
+
             this.text = data.message;
-            console.log(data.message);
+            this.tokenInfo.jwtToken = data.token;
+            this.tokenInfo.userID = data.userId;
             
             return data;
         } catch (e: any) {
             this.text = e.message;
-            // this.createMessage(e.message)
-            // console.log('error', e.message);
+            console.log('error', e.message);
         }
     }
 
     public get message(): string {
         return this.text;
+    }
+
+    public get token(): TToken {
+        return this.tokenInfo;
     }
 }
 

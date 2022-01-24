@@ -14743,6 +14743,9 @@ button:focus {
   background-size: cover;
 }
 .login-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   width: 400px;
   color: #fff;
   margin: 0 auto;
@@ -14763,6 +14766,18 @@ input[type=text]:not(.browser-default) {
   border-bottom: 1px solid white;
   color: white;
   padding-left: 12px;
+}
+
+.auth-link {
+  display: block;
+  width: 100%;
+  align-self: flex-start;
+  text-align: right;
+  color: white;
+  cursor: pointer;
+}
+.auth-link:hover {
+  color: #ff8a80;
 }
 
 @media (max-width: 500px) {
@@ -15228,6 +15243,10 @@ input {
   font-size: 16px;
   margin-bottom: 0;
   text-align: left;
+}
+
+.auth-field {
+  width: 100%;
 }
 
 .icon-select:before {

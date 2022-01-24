@@ -11,8 +11,10 @@ export default class Auth {
         this.form = new Node(this.main.node, 'form', 'login-content');
     }
 
-    public getTemplate(): HTMLElement {
+    public getTemplate(isLogin: boolean): HTMLElement {
+        if(!isLogin) { 
         this.form.node.insertAdjacentHTML('beforeend', authTemplate('nick-name', 'text', 'Name'));
+        }
         this.form.node.insertAdjacentHTML('beforeend', authTemplate('email', 'email', 'Email'));
         this.form.node.insertAdjacentHTML('beforeend', authTemplate('password', 'password', 'Password'));
 
@@ -22,6 +24,7 @@ export default class Auth {
     public addButton(onclick: (e: Event) => void): HTMLElement {
         const button = document.createElement('a');
         button.className = 'waves-effect waves-light btn-large';
+        button.setAttribute('data-auth', 'register');
         button.innerHTML = 'Get Started';
         this.form.node.append(button);
 
