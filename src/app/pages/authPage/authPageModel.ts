@@ -1,5 +1,8 @@
 import { TLoginForm, TToken } from '../../services/types';
+import router from '../../router/router';
 import ClientManager from '../../services/clientManager';
+import { Message } from '../../services/constants';
+export { Message } from '../../services/constants';
 
 export default class AuthModel {
     form: TLoginForm;
@@ -20,26 +23,21 @@ export default class AuthModel {
         this.form.password = password;
     }
 
-    public async registerHandler() {
+    public async authHandler(type: string) {
         const clientManager = new ClientManager();   
-        await clientManager.postData('register', this.form);
+        await clientManager.postData(`${type}`, this.form);
 
         const message: string = clientManager.text;
-        this.createMessage(message);
+        if (message !== Message.registerSuccess) {
+            this.createMessage(message);
+        }
 
         const tokenInfo: TToken = clientManager.token;
         this.setLocalStorage(tokenInfo);
-    }
-    
-    public async loginHandler() {
-        const clientManager = new ClientManager();   
-        await clientManager.postData('login', this.form);
 
-        const message: string = clientManager.text;
-        this.createMessage(message);
-
-        const tokenInfo: TToken = clientManager.token;
-        this.setLocalStorage(tokenInfo);
+        if (message !== Message.loginError) {
+            router.navigate('/program');
+        }
     }
 
     private setLocalStorage(tokenInfo: TToken): void {

@@ -9,19 +9,9 @@ class RegisterPageView {
         this.rootNode = <HTMLElement>document.getElementById('app');
     }
 
-    render() {
+    render(): void {
         this.rootNode.textContent = '';
-        this.rootNode.append(header.getTemplate());
 
-        const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
-        const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
-            'user',
-            'browse',
-            'meal',
-            'settings',
-        ]);
-        navbar.generateMenu();
-        navbar.addProfileLink('O');
         this.rootNode.insertAdjacentHTML(
             'beforeend',
             `<main class="main-page"><span>This is Register Page!</span></main>`

@@ -1,3 +1,4 @@
+import router from '../../router/router';
 import AuthModel from './authPageModel';
 import AuthView from './authPageView';
 import { TToken } from '../../services/types';
@@ -14,12 +15,12 @@ export default class AuthController {
         this.isLogin = false;
     }
 
-    public createPage() {
-        this.isLogin = false;
+    public createPage(isLogin: boolean): void {
+        this.isLogin = isLogin;
         const token: TToken = JSON.parse(localStorage.getItem('token') as string);
         if(token && token.jwtToken.length > 0) this.isLogin = true;
 
-        this.view.render(this.handleInputChange.bind(this), this.handleButtonClick.bind(this), this.isLogin);
+        this.view.render(this.handleInputChange.bind(this), this.handleButtonClick.bind(this), this.isLogin, this.signUpHandler.bind(this));
     }
 
     public handleInputChange(): void {
@@ -34,10 +35,12 @@ export default class AuthController {
     }
 
     public handleButtonClick(): void {
-        if (this.isLogin) {
-            this.model.loginHandler();
-        } else {
-            this.model.registerHandler();
+        this.isLogin ? this.model.authHandler('login') : this.model.authHandler('register'); 
+    }
+
+    private signUpHandler(): void {
+        if (!this.isLogin) {
+            router.navigate('/goals');
         }
     }
 }

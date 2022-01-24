@@ -12,6 +12,8 @@ export default class NavBar {
 
     needsButton: boolean;
 
+    navButton: Button | null;
+
     private materializeHandler: MaterializeHandler;
 
     constructor(parentNode: HTMLElement, links: Array<string>, needsButton: boolean, icons?: Array<string>) {
@@ -20,6 +22,7 @@ export default class NavBar {
         this.icons = icons;
         this.needsButton = needsButton;
         this.menu = new Node(parentNode, 'ul', 'right hide-on-med-and-down');
+        this.navButton = null;
         const menuMobile = new Node(parentNode, 'a', 'sidenav-trigger');
         menuMobile.setAttribute('data-target', 'mobile-demo');
         menuMobile.setAttribute('href', '#');
@@ -45,7 +48,7 @@ export default class NavBar {
             menuLink.node.innerHTML += link;
         });
         if (needsButton) {
-            new Button(this.menu.node);
+            this.navButton = new Button(this.menu.node);
         }
     }
 
@@ -65,5 +68,9 @@ export default class NavBar {
         const profileIcon = new Node(iconContainer.node, 'span', 'profile');
         profileIcon.node.innerHTML = `${user}`;
         menuLink.node.innerHTML += 'Profile';
+    }
+
+    public get button() {
+        return this.navButton;
     }
 }
