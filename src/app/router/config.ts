@@ -1,10 +1,9 @@
 import BrowsePageController from '../pages/browsePage/browsePageController';
-import LoginPageController from '../pages/loginPage/loginPageController';
+import AuthPageController from '../pages/authPage/authPageController';
 import MainPageController from '../pages/mainPage/mainPageController';
 import MealPageController from '../pages/mealPage/mealPageController';
 import ProfilePageController from '../pages/profilePage/profilePageController';
 import ProgramPageController from '../pages/programPage/programPageController';
-import RegisterPageController from '../pages/registerPage/registerPageController';
 import SettingsPageController from '../pages/settingsPage/settingsPageController';
 import WorkoutPageController from '../pages/workoutPage/workoutPageController';
 import { RouteOption } from '../services/types';
@@ -16,9 +15,7 @@ class Config {
 
     public browsePageController: BrowsePageController;
 
-    public loginPageController: LoginPageController;
-
-    public registerPageController: RegisterPageController;
+    public authPageController: AuthPageController;
 
     public profilePageController: ProfilePageController;
 
@@ -32,8 +29,7 @@ class Config {
         this.programPageController = new ProgramPageController();
         this.mainPageController = new MainPageController();
         this.browsePageController = new BrowsePageController();
-        this.loginPageController = new LoginPageController();
-        this.registerPageController = new RegisterPageController();
+        this.authPageController = new AuthPageController();
         this.profilePageController = new ProfilePageController();
         this.settingsPageController = new SettingsPageController();
         this.mealPageController = new MealPageController();
@@ -47,12 +43,8 @@ class Config {
                 callback: () => this.mainPageController.createPage(),
             },
             {
-                path: /login/,
-                callback: () => this.loginPageController.createPage(),
-            },
-            {
-                path: /register/,
-                callback: () => this.registerPageController.createPage(),
+                path: /auth/,
+                callback: () => this.authPageController.createPage(),
             },
             {
                 path: /program/,

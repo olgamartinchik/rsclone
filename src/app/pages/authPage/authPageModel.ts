@@ -35,6 +35,9 @@ export default class AuthModel {
         const clientManager = new ClientManager();   
         await clientManager.postData('login', this.form);
 
+        const message: string = clientManager.text;
+        this.createMessage(message);
+
         const tokenInfo: TToken = clientManager.token;
         this.setLocalStorage(tokenInfo);
     }

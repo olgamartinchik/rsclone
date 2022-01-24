@@ -1,19 +1,20 @@
-import MainPageController from './pages/mainPage/mainPageController';
-import AuthController from './pages/authPage/authPageController';
+import router, { Router } from './router/router';
+import Config from './router/config';
 
 class App {
-    private mainPageController: MainPageController;
+    private router: Router;
 
-    private authController: AuthController;
+    private config: Config;
 
     constructor() {
-        this.mainPageController = new MainPageController();
-        this.authController = new AuthController();
+        this.router = router;
+        this.config = new Config();
     }
 
-    start() {
-        // this.mainPageController.createPage();
-        this.authController.createPage();
+    public start(): void {
+        const routes = this.config.getRoutes();
+
+        this.router.addAllPath(routes);
     }
 }
 
