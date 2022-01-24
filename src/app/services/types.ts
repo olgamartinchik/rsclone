@@ -38,6 +38,16 @@ export interface IWorkoutManager {
     getProgram: (data: TSettings) => TWorkoutProgram;
 }
 
+export type TLoginForm = {
+    userName: string;
+    email: string;
+    password: string;
+};
+
+export type TToken = {
+    userID: string;
+    jwtToken: string;
+};
 export type RouteOption = {
     path: RegExp;
     callback: () => void;
