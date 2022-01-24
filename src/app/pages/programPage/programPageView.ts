@@ -19,13 +19,8 @@ class ProgramPageView {
         this.rootNode.textContent = '';
         this.rootNode.append(Header.getTemplate());
 
-<<<<<<< HEAD:src/app/pages/mainPage/mainPageView.ts
-        const navWrapper = document.querySelector('.nav-wrapper') as HTMLElement;
-        const navbar = new NavBar(navWrapper, ['For you', 'Browse', 'Meals', 'Settings'], false, [
-=======
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
->>>>>>> 8b1b8ce6845bd9ea80b25a5cfc0fb796f6bca0df:src/app/pages/programPage/programPageView.ts
             'user',
             'browse',
             'meal',
@@ -39,21 +34,12 @@ class ProgramPageView {
     }
 
     setContents(data: Card[], onclick: (e: Event) => void, week: number): void {
-<<<<<<< HEAD:src/app/pages/mainPage/mainPageView.ts
-        const main = new Node(this.rootNode, 'main', 'main-page');
-        new Node(main.node, 'div', 'decorative');
-        const contentWrapper = new Node(main.node, 'div', 'main-content');
-        const mainContent = new Node(contentWrapper.node, 'div', 'left-block');
-        this.contentBlock = new Node(mainContent.node, 'section', 'content-block z-depth-1');
-        new Node(this.contentBlock.node, 'h2', 'hidden', 'Program');
-=======
         const Program = new Node(this.rootNode, 'main', 'main-page');
         Node.setChild(Program.node, 'div', 'decorative');
         const contentWrapper = new Node(Program.node, 'div', 'main-content');
         const ProgramContent = new Node(contentWrapper.node, 'div', 'left-block');
         this.contentBlock = new Node(ProgramContent.node, 'section', 'content-block z-depth-1');
         Node.setChild(this.contentBlock.node, 'h2', 'hidden', 'Program');
->>>>>>> 8b1b8ce6845bd9ea80b25a5cfc0fb796f6bca0df:src/app/pages/programPage/programPageView.ts
 
         this.getContentBlockTitle(week);
         this.getCards(data, onclick);
