@@ -12,35 +12,30 @@ class MainPageView {
         this.rootNode = <HTMLElement>document.getElementById('app');
     }
 
-    render(signUpHandler: () => void, loginHandler: () => void): void {
+    render(authHandler: () => void): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
 
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
-        const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Login'], true, [
-            'user',
-            'browse',
-            'meal',
-            'login',
-        ]);
+        const navbar = new NavBar(navWrapper, ['Team', 'Auth'], true);
         navbar.generateMenu();
         if (navbar.button) {
-            navbar.button.button.node.onclick = () => signUpHandler();
+            navbar.button.button.node.onclick = () => authHandler();
         }
-        
-        this.createMainLayout(signUpHandler);
+
+        this.createMainLayout(authHandler);
 
         this.rootNode.append(footer.getTemplate());
     }
 
-    private createMainLayout(signUpHandler: () => void) {
+    private createMainLayout(authHandler: () => void) {
         const main = new Node(this.rootNode, 'main', '');
         const sectionPromo = new Node(main.node, 'section', 'promo');
         const promoWrapper = new Node(sectionPromo.node, 'section', 'wrapper promo-wrapper');
         promoWrapper.node.insertAdjacentHTML('afterbegin', this.getPromoSectionTitle());
         const btnContainer = new Node(promoWrapper.node, 'div', 'btn-container');
         const btnSignUp = new Button(btnContainer.node, 'Signup for free');
-        btnSignUp.button.node.onclick = () => signUpHandler();
+        btnSignUp.button.node.onclick = () => authHandler();
 
         const sectionResults = new Node(main.node, 'section', 'results');
         const resultsWrapper = new Node(sectionResults.node, 'div', 'wrapper results-wrapper');

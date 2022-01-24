@@ -14,14 +14,14 @@ export default class AuthModel {
 
     public changeHandler(name: string, email: string, password: string) {
         if (name) {
-        this.form.userName = name;
+            this.form.userName = name;
         }
         this.form.email = email;
         this.form.password = password;
     }
 
     public async registerHandler() {
-        const clientManager = new ClientManager();   
+        const clientManager = new ClientManager();
         await clientManager.postData('register', this.form);
 
         const message: string = clientManager.text;
@@ -30,9 +30,9 @@ export default class AuthModel {
         const tokenInfo: TToken = clientManager.token;
         this.setLocalStorage(tokenInfo);
     }
-    
+
     public async loginHandler() {
-        const clientManager = new ClientManager();   
+        const clientManager = new ClientManager();
         await clientManager.postData('login', this.form);
 
         const message: string = clientManager.text;
@@ -43,10 +43,10 @@ export default class AuthModel {
     }
 
     private setLocalStorage(tokenInfo: TToken): void {
-        localStorage.setItem('token', JSON.stringify(tokenInfo))
+        localStorage.setItem('token', JSON.stringify(tokenInfo));
     }
 
     private createMessage(text: string) {
-        window.M.toast({html: `${text}`});
+        window.M.toast({ html: `${text}` });
     }
 }

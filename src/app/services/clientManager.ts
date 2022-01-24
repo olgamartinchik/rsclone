@@ -2,7 +2,9 @@ import { TLoginForm, TToken } from '../services/types';
 
 class ClientManager {
     private static _instance: ClientManager | null;
+
     text: string;
+
     tokenInfo: TToken;
 
     constructor() {
@@ -35,7 +37,7 @@ class ClientManager {
             this.text = data.message;
             this.tokenInfo.jwtToken = data.token;
             this.tokenInfo.userID = data.userId;
-            
+
             return data;
         } catch (e: any) {
             this.text = e.message;

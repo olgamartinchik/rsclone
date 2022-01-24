@@ -1,5 +1,5 @@
 import cardResultTemplate from './template';
-import {TCardResultValues} from './types';
+import { TCardResultValues } from './types';
 
 class CardResult {
     private values: TCardResultValues[];
@@ -30,10 +30,11 @@ class CardResult {
     }
 
     public getTemplate(): string {
-        return this.values
-            .reduce((prev, next, index) => prev + cardResultTemplate(next.title, next.subTitle, index + 1), '');
+        return this.values.reduce(
+            (prev, next, index) => prev + cardResultTemplate(next.title, next.subTitle, index + 1),
+            ''
+        );
     }
-
 }
 
 export default new CardResult();
