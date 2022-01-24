@@ -2,7 +2,7 @@ import footer from '../../components/footer/footer';
 import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 
-class MainPageView {
+class ProfilePageView {
     private rootNode: HTMLElement;
 
     constructor() {
@@ -21,10 +21,14 @@ class MainPageView {
             'settings',
         ]);
         navbar.generateMenu();
-        this.rootNode.insertAdjacentHTML('beforeend', `<main class="main-page"><span>This is Main Page!</span></main>`);
+        navbar.addProfileLink('O');
+        this.rootNode.insertAdjacentHTML(
+            'beforeend',
+            `<main class="main-page"><span>This is Profile Page!</span></main>`
+        );
 
         this.rootNode.append(footer.getTemplate());
     }
 }
 
-export default MainPageView;
+export default ProfilePageView;

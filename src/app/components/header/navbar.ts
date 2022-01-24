@@ -1,60 +1,69 @@
 import Node from '../Node';
 import Button from '../Button';
-import { Id, Routes } from '../../services/constants';
+import { Id } from '../../services/constants';
+import MaterializeHandler from '../../services/materialize/materializeHandler';
 
 export default class NavBar {
-  menu: Node<HTMLElement>;
-  links: Array<string>;
-  icons: Array<string> | undefined;
-  needsButton: boolean;
-  
-  constructor(parentNode: HTMLElement, links: Array<string>, needsButton: boolean, icons?: Array<string>) {
-    this.links = links;
-    this.icons = icons;
-    this.needsButton = needsButton;
-    this.menu = new Node(parentNode, 'ul', 'right hide-on-med-and-down');
-    const menuMobile = new Node(parentNode, 'a', 'sidenav-trigger');
-    menuMobile.setAttribute('data-target', 'mobile-demo');
-    menuMobile.setAttribute('href', '#');
-    new Node(menuMobile.node, 'i', 'material-icons', 'menu');
-  }
+    menu: Node<HTMLElement>;
 
-  generateMenu(attributeName = Id.menu): void {
-    this.menu.setAttribute('id', attributeName);
-    this.generateLinks(this.menu.node, this.needsButton, this.icons);
-    this.generateMobileMenu();
-  }
+    links: Array<string>;
 
-  generateLinks(parentNode, needsButton: boolean, icons?: Array<string> | undefined): void {
-    this.links.forEach((link, index) => {
-      const menuItem = new Node(parentNode, 'li');
-      const menuLink = new Node(menuItem.node, 'a');
-      menuLink.setAttribute('href', `/${link}`);
-      if (icons) {
-        new Node(menuLink.node, 'i',  `icon ${(this.icons as Array<string>)[index]}`);
-      }
-      menuLink.node.innerHTML += link;
-    });
-    if (needsButton) {
-      new Button(this.menu.node);
+    icons: Array<string> | undefined;
+
+    needsButton: boolean;
+
+    private materializeHandler: MaterializeHandler;
+
+    constructor(parentNode: HTMLElement, links: Array<string>, needsButton: boolean, icons?: Array<string>) {
+        this.materializeHandler = new MaterializeHandler();
+        this.links = links;
+        this.icons = icons;
+        this.needsButton = needsButton;
+        this.menu = new Node(parentNode, 'ul', 'right hide-on-med-and-down');
+        const menuMobile = new Node(parentNode, 'a', 'sidenav-trigger');
+        menuMobile.setAttribute('data-target', 'mobile-demo');
+        menuMobile.setAttribute('href', '#');
+        Node.setChild(menuMobile.node, 'i', 'material-icons', 'menu');
     }
-  }
 
-  generateMobileMenu() {
-    const header = document.querySelector('header');
-    const mobileMenu = new Node(header, 'ul', 'sidenav');
-    mobileMenu.setAttribute('id', Id.mobileMenu);
+    generateMenu(attributeName = Id.menu): void {
+        this.menu.node.textContent = '';
+        this.menu.setAttribute('id', attributeName);
+        this.generateLinks(this.menu.node, this.needsButton, this.icons);
+        this.generateMobileMenu();
+        this.materializeHandler.initSidenav();
+    }
 
-    this.generateLinks(mobileMenu.node, false, this.icons);
-  }
+    generateLinks(parentNode: HTMLElement, needsButton: boolean, icons?: Array<string> | undefined): void {
+        this.links.forEach((link, index) => {
+            const menuItem = new Node(parentNode, 'li');
+            const menuLink = new Node(menuItem.node, 'a');
+            menuLink.setAttribute('href', `#/${link.toLowerCase()}`);
+            if (icons) {
+                Node.setChild(menuLink.node, 'i', `icon ${(this.icons as Array<string>)[index]}`);
+            }
+            menuLink.node.innerHTML += link;
+        });
+        if (needsButton) {
+            new Button(this.menu.node);
+        }
+    }
 
-  addProfileLink(user: string): void {
-    const menuItem = new Node(this.menu.node, 'li');
-    const menuLink = new Node(menuItem.node, 'a');
-    menuLink.setAttribute('href', `/${Routes.profile}`);
-    const iconContainer = new Node(menuLink.node, 'div', 'icon-container');
-    const profileIcon = new Node(iconContainer.node, 'span', 'profile');
-    profileIcon.node.innerHTML = `${user}`;
-    menuLink.node.innerHTML += 'Profile';
-  }
-};
+    generateMobileMenu() {
+        const header = document.querySelector('header');
+        const mobileMenu = new Node(header, 'ul', 'sidenav');
+        mobileMenu.setAttribute('id', Id.mobileMenu);
+
+        this.generateLinks(mobileMenu.node, false, this.icons);
+    }
+
+    addProfileLink(user: string): void {
+        const menuItem = new Node(this.menu.node, 'li');
+        const menuLink = new Node(menuItem.node, 'a');
+        menuLink.setAttribute('href', `#/profile`);
+        const iconContainer = new Node(menuLink.node, 'div', 'icon-container');
+        const profileIcon = new Node(iconContainer.node, 'span', 'profile');
+        profileIcon.node.innerHTML = `${user}`;
+        menuLink.node.innerHTML += 'Profile';
+    }
+}

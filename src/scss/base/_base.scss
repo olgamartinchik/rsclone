@@ -34,7 +34,7 @@ footer {
 
 *::-webkit-scrollbar {
     height: 4px;
-    width: 5px;
+    width: 0;
 }
 
 *::-webkit-scrollbar-track {
@@ -44,6 +44,6 @@ footer {
 
 *::-webkit-scrollbar-thumb {
     -webkit-border-radius: 30px;
-      border-radius: 30px;
-      background-color:$color-primary;
+    border-radius: 30px;
+    background-color: $color-primary;
 }

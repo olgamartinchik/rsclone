@@ -1,7 +1,7 @@
-class MainPageModel {
+class SettingsPageModel {
     getData() {
         console.log('data is being loaded');
     }
 }
 
-export default MainPageModel;
+export default SettingsPageModel;

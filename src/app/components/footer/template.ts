@@ -1,5 +1,5 @@
 export default function footerTemplate(): string {
-  return `
+    return `
   <div class="wrapper footer-wrapper">
       <div class="info">
         <p class="copyright">©</p>
