@@ -1,4 +1,4 @@
 export type TCardResultValues = {
-  title: string;
-  subTitle: string;
+    title: string;
+    subTitle: string;
 };

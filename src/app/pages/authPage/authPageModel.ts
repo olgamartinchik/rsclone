@@ -17,7 +17,7 @@ export default class AuthModel {
 
     public changeHandler(name: string, email: string, password: string) {
         if (name) {
-        this.form.userName = name;
+            this.form.userName = name;
         }
         this.form.email = email;
         this.form.password = password;
@@ -41,10 +41,10 @@ export default class AuthModel {
     }
 
     private setLocalStorage(tokenInfo: TToken): void {
-        localStorage.setItem('token', JSON.stringify(tokenInfo))
+        localStorage.setItem('token', JSON.stringify(tokenInfo));
     }
 
     private createMessage(text: string) {
-        window.M.toast({html: `${text}`});
+        window.M.toast({ html: `${text}` });
     }
 }

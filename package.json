@@ -6,6 +6,7 @@
     "scripts": {
         "start": "rss-scripts start -ts",
         "dev": "concurrently \"npm run start\" \"npm run style\" ",
+        "start": "rss-scripts start -ts",
         "lint": "eslint . --ext .ts && prettier --check .",
         "lint:fix": "eslint . --ext .ts --fix && prettier --write .",
         "style": "sass --watch src/scss/style.scss src/style.css",

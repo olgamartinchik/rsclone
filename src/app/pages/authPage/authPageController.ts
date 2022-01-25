@@ -7,6 +7,7 @@ export default class AuthController {
     private model: AuthModel;
 
     private view: AuthView;
+
     isLogin: boolean;
 
     constructor() {
@@ -18,7 +19,7 @@ export default class AuthController {
     public createPage(isLogin: boolean): void {
         this.isLogin = isLogin;
         const token: TToken = JSON.parse(localStorage.getItem('token') as string);
-        if(token && token.jwtToken.length > 0) this.isLogin = true;
+        if (token && token.jwtToken.length > 0) this.isLogin = true;
 
         this.view.render(this.handleInputChange.bind(this), this.handleButtonClick.bind(this), this.isLogin, this.signUpHandler.bind(this));
     }
@@ -29,7 +30,7 @@ export default class AuthController {
         const passwordInput = document.querySelector('#password') as HTMLInputElement;
 
         let nameInputValue = '';
-        nameInput ? nameInputValue = nameInput.value : nameInputValue = ''; 
+        nameInput ? (nameInputValue = nameInput.value) : (nameInputValue = '');
 
         this.model.changeHandler(nameInputValue, emailInput.value, passwordInput.value);
     }

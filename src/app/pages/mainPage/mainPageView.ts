@@ -17,17 +17,12 @@ class MainPageView {
         this.rootNode.append(header.getTemplate());
 
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
-        const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Login'], true, [
-            'user',
-            'browse',
-            'meal',
-            'login',
-        ]);
+        const navbar = new NavBar(navWrapper, ['Team', 'Auth'], true);
         navbar.generateMenu();
         if (navbar.button) {
             navbar.button.button.node.onclick = () => signUpHandler();
         }
-        
+
         this.createMainLayout(signUpHandler);
 
         this.rootNode.append(footer.getTemplate());
