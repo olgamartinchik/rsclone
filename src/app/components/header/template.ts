@@ -3,7 +3,7 @@ export default function headerTemplate(): string {
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
-                <a href="#/main" class="brand-logo">
+                <a href="#/" class="brand-logo">
                     <img src="./assets/img/logo.png" alt="FitOn" />
                 </a>
             </div>

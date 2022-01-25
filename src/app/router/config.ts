@@ -43,7 +43,7 @@ class Config {
     public getRoutes(): RouteOption[] {
         const currRoutes: RouteOption[] = [
             {
-                path: /main/,
+                path: / /,
                 callback: () => this.mainPageController.createPage(),
             },
             {

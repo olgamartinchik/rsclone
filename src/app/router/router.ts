@@ -4,8 +4,6 @@ import { IRouter, IRouterOptions } from './interfaces';
 export class Router implements IRouter {
     private routes: RouteOption[];
 
-    private mode: string | null;
-
     private root: string;
 
     private current: string | null;
@@ -17,14 +15,9 @@ export class Router implements IRouter {
             this.routes = options.routes;
         }
         this.routes = [];
-        this.mode = null;
         this.root = '/';
-        this.mode = window.history.length ? 'history' : 'hash';
         if (options.root) {
             this.root = options.root;
-        }
-        if (options.mode) {
-            this.mode = options.mode;
         }
         this.current = null;
         this.intervalId = null;
@@ -50,40 +43,20 @@ export class Router implements IRouter {
     }
 
     getPath(path: RegExp | string): string {
-        return path.toString().replace(/^\//, '').replace(/\\/, '').replace(/\/$/, '');
+        const currPath = path.toString().replace(/^\//, '').replace(/\\/, '').replace(/\/$/, '');
+        return currPath ? currPath : this.root;
     }
 
     getRoute(): string {
         let route = '';
-
-        if (this.mode === 'history') {
-            route = this.getPath(decodeURI(window.location.pathname + window.location.search));
-            route = route.replace(/\?(.*)$/, '');
-            route = this.root !== '/main' ? route.replace(this.root, '/main') : route;
-        } else {
-            const match = window.location.href.match(/#(.*)$/);
-            route = match && match[1] ? match[1] : this.root;
-        }
+        const match = window.location.href.match(/#(.*)$/);
+        route = match && match[1] ? match[1] : this.root;
 
         return this.getPath(route);
     }
 
-    findCurrentRoute(route: string): object | void {
-        if (!route) {
-            return {};
-        }
-        const currRoute = this.routes.find((item) => item.path.test(route));
-        if (currRoute) {
-            return currRoute;
-        }
-    }
-
     navigate(path = ''): void {
-        if (this.mode === 'history') {
-            window.history.pushState(null, '', this.root + this.getPath(path));
-        } else {
-            window.location.href = `${window.location.href.replace(/#(.*)$/, '')}#/${this.getPath(path)}`;
-        }
+        window.location.href = `${window.location.href.replace(/#(.*)$/, '')}#/${this.getPath(path)}`;
     }
 
     listen(): void {
@@ -114,9 +87,11 @@ export class Router implements IRouter {
                 this.navigate(this.root);
 
                 return false;
+            } else {
+                this.navigate(this.root);
             }
         });
     }
 }
 
-export default new Router({ root: 'main', mode: 'hash' });
+export default new Router({ root: ' '});
