@@ -1,3 +1,4 @@
+import router from '../../router/router';
 import MainPageView from './mainPageView';
 
 class MainPageController {
@@ -8,7 +9,11 @@ class MainPageController {
     }
 
     public createPage() {
-        this.view.render();
+        this.view.render(this.authHandler.bind(this));
+    }
+
+    private authHandler(): void {
+        router.navigate('/auth');
     }
 }
 
