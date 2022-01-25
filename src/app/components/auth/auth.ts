@@ -12,6 +12,7 @@ export default class Auth {
     }
 
     public getTemplate(isLogin: boolean): HTMLElement {
+        this.form.node.textContent = '';
         if (!isLogin) {
             this.form.node.insertAdjacentHTML('beforeend', authTemplate('nick-name', 'text', 'Name'));
         }
@@ -21,14 +22,14 @@ export default class Auth {
         return this.main.node;
     }
 
-    public addButton(onclick: (e: Event) => void): HTMLElement {
+    public addButton(onclick: (e: Event) => void, signUpHandler: () => void): HTMLElement {
         const button = document.createElement('a');
         button.className = 'waves-effect waves-light btn-large';
-        button.setAttribute('data-auth', 'register');
         button.innerHTML = 'Get Started';
         this.form.node.append(button);
 
         button.onclick = (e: Event) => onclick(e);
+        // button.onclick = () => signUpHandler();
 
         return this.main.node;
     }

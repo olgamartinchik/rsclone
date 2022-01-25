@@ -41,7 +41,6 @@ class ClientManager {
             return data;
         } catch (e: any) {
             this.text = e.message;
-            console.log('error', e.message);
         }
     }
 

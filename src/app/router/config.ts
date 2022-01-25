@@ -1,5 +1,6 @@
 import BrowsePageController from '../pages/browsePage/browsePageController';
 import AuthPageController from '../pages/authPage/authPageController';
+import RegisterPageController from '../pages/registerPage/registerPageController';
 import MainPageController from '../pages/mainPage/mainPageController';
 import MealPageController from '../pages/mealPage/mealPageController';
 import ProfilePageController from '../pages/profilePage/profilePageController';
@@ -17,6 +18,8 @@ class Config {
 
     public authPageController: AuthPageController;
 
+    public registerPageController: RegisterPageController;
+
     public profilePageController: ProfilePageController;
 
     public settingsPageController: SettingsPageController;
@@ -30,6 +33,7 @@ class Config {
         this.mainPageController = new MainPageController();
         this.browsePageController = new BrowsePageController();
         this.authPageController = new AuthPageController();
+        this.registerPageController = new RegisterPageController();
         this.profilePageController = new ProfilePageController();
         this.settingsPageController = new SettingsPageController();
         this.mealPageController = new MealPageController();
@@ -43,8 +47,16 @@ class Config {
                 callback: () => this.mainPageController.createPage(),
             },
             {
-                path: /auth/,
-                callback: () => this.authPageController.createPage(),
+                path: /register/,
+                callback: () => this.authPageController.createPage(false),
+            },
+            {
+                path: /goals/,
+                callback: () => this.registerPageController.createPage(),
+            },
+            {
+                path: /login/,
+                callback: () => this.authPageController.createPage(true),
             },
             {
                 path: /program/,

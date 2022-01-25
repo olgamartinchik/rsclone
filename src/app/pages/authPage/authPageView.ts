@@ -11,7 +11,12 @@ export default class AuthView {
         this.auth = new Auth(this.rootNode);
     }
 
-    public render(onchange: (e: Event) => void, onclick: (e: Event) => void, isLogin: boolean) {
+    public render(
+        onchange: (e: Event) => void,
+        onclick: (e: Event) => void,
+        isLogin: boolean,
+        signUpHandler: () => void
+    ) {
         this.rootNode.textContent = '';
 
         this.rootNode.append(this.auth.getTemplate(isLogin));
@@ -23,9 +28,9 @@ export default class AuthView {
         const form = document.querySelector('.login-content') as HTMLElement;
         if (isLogin) {
             const authLink = new Node(form, 'a', 'auth-link', 'Not Registered yet?');
-            authLink.setAttribute('data-auth', 'register');
+            authLink.setAttribute('href', `#/register`);
         }
 
-        this.rootNode.append(this.auth.addButton(onclick));
+        this.rootNode.append(this.auth.addButton(onclick, signUpHandler));
     }
 }

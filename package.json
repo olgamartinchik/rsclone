@@ -4,6 +4,7 @@
     "private": true,
     "name": "rsclone",
     "scripts": {
+        "start": "rss-scripts start -ts",
         "dev": "concurrently \"npm run start\" \"npm run style\" ",
         "start": "rss-scripts start -ts",
         "lint": "eslint . --ext .ts && prettier --check .",

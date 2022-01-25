@@ -45,3 +45,8 @@ export enum Id {
     menu = 'nav-mobile',
     mobileMenu = 'mobile-demo',
 }
+
+export enum Message {
+    loginError = 'User is not found',
+    registerSuccess = 'User created',
+}

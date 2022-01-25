@@ -9,11 +9,11 @@ class MainPageController {
     }
 
     public createPage() {
-        this.view.render(this.authHandler.bind(this));
+        this.view.render(this.signUpHandler.bind(this));
     }
 
-    private authHandler(): void {
-        router.navigate('/auth');
+    private signUpHandler(): void {
+        router.navigate('/register');
     }
 }
 
