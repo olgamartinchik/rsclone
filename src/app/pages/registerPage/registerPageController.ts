@@ -1,4 +1,3 @@
-import router from '../../router/router';
 import RegisterPageView from './registerPageView';
 
 class RegisterPageController {

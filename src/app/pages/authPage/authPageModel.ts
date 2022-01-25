@@ -24,7 +24,7 @@ export default class AuthModel {
     }
 
     public async authHandler(type: string) {
-        const clientManager = new ClientManager();   
+        const clientManager = new ClientManager();
         await clientManager.postData(`${type}`, this.form);
 
         const message: string = clientManager.text;

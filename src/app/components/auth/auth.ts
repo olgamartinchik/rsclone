@@ -13,8 +13,8 @@ export default class Auth {
 
     public getTemplate(isLogin: boolean): HTMLElement {
         this.form.node.textContent = '';
-        if(!isLogin) { 
-        this.form.node.insertAdjacentHTML('beforeend', authTemplate('nick-name', 'text', 'Name'));
+        if (!isLogin) {
+            this.form.node.insertAdjacentHTML('beforeend', authTemplate('nick-name', 'text', 'Name'));
         }
         this.form.node.insertAdjacentHTML('beforeend', authTemplate('email', 'email', 'Email'));
         this.form.node.insertAdjacentHTML('beforeend', authTemplate('password', 'password', 'Password'));

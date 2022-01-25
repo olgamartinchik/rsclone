@@ -1,5 +1,4 @@
 import Auth from '../../components/auth/auth';
-import Button from '../../components/Button';
 import Node from '../../components/Node';
 
 export default class AuthView {
@@ -12,7 +11,12 @@ export default class AuthView {
         this.auth = new Auth(this.rootNode);
     }
 
-    public render(onchange: (e: Event) => void, onclick: (e: Event) => void, isLogin: boolean, signUpHandler: () => void) {
+    public render(
+        onchange: (e: Event) => void,
+        onclick: (e: Event) => void,
+        isLogin: boolean,
+        signUpHandler: () => void
+    ) {
         this.rootNode.textContent = '';
 
         this.rootNode.append(this.auth.getTemplate(isLogin));

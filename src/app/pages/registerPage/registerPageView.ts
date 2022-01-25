@@ -1,6 +1,4 @@
 import footer from '../../components/footer/footer';
-import header from '../../components/header/header';
-import NavBar from '../../components/header/navbar';
 
 class RegisterPageView {
     private rootNode: HTMLElement;
