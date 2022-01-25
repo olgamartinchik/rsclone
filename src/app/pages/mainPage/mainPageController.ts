@@ -1,24 +1,19 @@
-import MainPageModel from './mainPageModel';
+import router from '../../router/router';
 import MainPageView from './mainPageView';
 
 class MainPageController {
-    private model: MainPageModel;
-
     private view: MainPageView;
 
     constructor() {
-        this.model = new MainPageModel();
         this.view = new MainPageView();
     }
 
     public createPage() {
-        const trainings = this.model.getWeekTrainings();
-        this.view.render(trainings, this.handleCardClick.bind(this), this.model.week);
+        this.view.render(this.signUpHandler.bind(this));
     }
 
-    public handleCardClick(e: Event): void {
-        const currCard = <HTMLElement>e.currentTarget;
-        console.log(currCard.id, 'card clicked');
+    private signUpHandler(): void {
+        router.navigate('/register');
     }
 }
 

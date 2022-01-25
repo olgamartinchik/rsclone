@@ -1,77 +1,72 @@
-import Card from '../../components/card/card';
-import Footer from '../../components/footer/footer';
-import Header from '../../components/header/header';
+import Button from '../../components/Button';
+import footer from '../../components/footer/footer';
+import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
+import cardResult from '../../components/cardResult/cardResult';
 
 class MainPageView {
     private rootNode: HTMLElement;
-    contentBlock!: Node<HTMLElement>;
-    cardsWrapper!: Node<HTMLElement>;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
     }
 
-    render(data: Card[], onclick: (e: Event) => void, week: number): void {
+    render(signUpHandler: () => void): void {
         this.rootNode.textContent = '';
-        this.rootNode.append(Header.getTemplate());
+        this.rootNode.append(header.getTemplate());
 
-        const navWrapper = document.querySelector('.nav-wrapper') as HTMLElement;
-        const navbar = new NavBar(navWrapper, ['For you', 'Browse', 'Meals', 'Settings'], false, ['user', 'browse', 'meal', 'settings']);
+        const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
+        const navbar = new NavBar(navWrapper, ['Team', 'Login'], true);
         navbar.generateMenu();
-        navbar.addProfileLink('O');
+        if (navbar.button) {
+            navbar.button.button.node.onclick = () => signUpHandler();
+        }
 
-        this.setContents(data, onclick, week);
-        this.rootNode.append(Footer.getTemplate());
+        this.createMainLayout(signUpHandler);
+
+        this.rootNode.append(footer.getTemplate());
     }
 
-    setContents(data: Card[], onclick: (e: Event) => void, week: number): void {
-        const main = new Node(this.rootNode, 'main', 'main-page');
-        new Node(main.node, 'div', 'decorative');
-        const contentWrapper = new Node(main.node, 'div', 'main-content');
-        const mainContent = new Node(contentWrapper.node, 'div','left-block');
-        this.contentBlock = new Node(mainContent.node, 'section', 'content-block z-depth-1');
-        new Node(this.contentBlock.node, 'h2', 'hidden', 'Program');
-        
-        this.getContentBlockTitle(week);
-        this.getCards(data, onclick);
-        this.cardsWrapper.node.insertAdjacentHTML('beforeend', this.getAddWorkoutBlock());
+    private createMainLayout(signUpHandler: () => void) {
+        const main = new Node(this.rootNode, 'main', '');
+        const sectionPromo = new Node(main.node, 'section', 'promo');
+        const promoWrapper = new Node(sectionPromo.node, 'section', 'wrapper promo-wrapper');
+        promoWrapper.node.insertAdjacentHTML('afterbegin', this.getPromoSectionTitle());
+        const btnContainer = new Node(promoWrapper.node, 'div', 'btn-container');
+        const btnSignUp = new Button(btnContainer.node, 'Signup for free');
+        btnSignUp.button.node.onclick = () => signUpHandler();
+
+        const sectionResults = new Node(main.node, 'section', 'results');
+        const resultsWrapper = new Node(sectionResults.node, 'div', 'wrapper results-wrapper');
+        resultsWrapper.node.insertAdjacentHTML('afterbegin', this.getResultsSectionTitle());
+        const resultsContent = new Node(resultsWrapper.node, 'div', 'results-content');
+        resultsContent.node.insertAdjacentHTML('beforeend', cardResult.getTemplate());
     }
 
-    getContentBlockTitle(week: number): void {
-        const titleBlock = new Node(this.contentBlock.node, 'div', 'title-block');
-        const titleWrapper = new Node(titleBlock.node, 'div');
-        new Node(titleWrapper.node, 'p', 'title card-title gradient-text', 'Kick start');
-        new Node(titleWrapper.node, 'p', 'subtitle', `Week ${week + 1}`);
-        new Node(titleBlock.node, 'span', '', 'See all');
-    }
-
-    getCards(data: Card[], onclick: (e: Event) => void): void {
-        const cardElems = data.map((card) => card.getTemplate(onclick));
-        
-        this.cardsWrapper = new Node(this.contentBlock.node, 'div', 'workout-list'); 
-        this.cardsWrapper.node.append(...cardElems);
-    }
-
-    getAddWorkoutBlock(): string {
+    private getPromoSectionTitle() {
         return `
-        <div class="program-card z-depth-1">
-            <div class="image-container">
-            <div class="image lighthen"></div>
-            <div class="add-block">
-                <img class="red-plus" src="./assets/img/svg/add.svg" alt="" />
-            </div>
-            </div>
-            <div class="card-info">
-            <div class="title card-title">Add Workout</div>
-            <ol class="subtitle list">
-                <li>Tap on any workout card</li>
-                <li>Tap <span class="bold-text">•••</span> in the top right</li>
-                <li>Select <span class="bold-text">Add to Program</span></li>
-            </ol>
-            </div>
-        </div>
+        <h1 class="title promo-title">
+            #1 Free Fitness App.
+            <br class="mb-hide" />
+            Work Out Anytime. Anywhere.
+          </h1>
+          <h1 class="title promo-title-tablet">
+            #1 Free
+            <br class="mb-hide" />
+            Fitness App.
+          </h1>
+          <p class="subtitle">Unlimited access to the world’s best workouts from celebrity trainers</p>
+        `;
+    }
+
+    private getResultsSectionTitle() {
+        return `
+        <h2 class="title results-title">Get FitOn. Get Results.</h2>
+          <p class="subtitle results-subtitle">
+            Join 10+ million members on the top digital fitness platform and stay toned, lose weight, get
+            strong, reduce stress, and reach your goals.
+          </p>
         `;
     }
 }

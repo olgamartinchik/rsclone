@@ -1,64 +1,20 @@
-import MainPageController from './pages/mainPage/mainPageController';
-import { Router } from './router/router';
-import { RouteOption } from './services/types';
+import router, { Router } from './router/router';
+import Config from './router/config';
 
 class App {
-    private mainPageController: MainPageController;
+    private router: Router;
 
-    private router: Router | null;
+    private config: Config;
 
     constructor() {
-        this.mainPageController = new MainPageController();
-        this.router = null;
+        this.router = router;
+        this.config = new Config();
     }
 
     public start(): void {
-        const routes = this.getRoutes();
+        const routes = this.config.getRoutes();
 
-        this.router = new Router({
-            root: 'main',
-            mode: 'hash',
-            routes,
-        });
-    }
-
-    private getRoutes(): Array<RouteOption> {
-        const currRoutes: Array<RouteOption> = [
-            {
-                path: /main/,
-                callback: () => this.mainPageController.createPage(),
-            },
-            {
-                path: /program/,
-                callback: () => console.log('program page'),
-            },
-            {
-                path: /profile/,
-                callback: () => console.log('profile page'),
-            },
-            {
-                path: /browse\/workout\/(\d{1,2})/,
-                callback: (...args) => console.log('workout page', args),
-            },
-            {
-                path: /browse/,
-                callback: () => console.log('browse page'),
-            },
-            {
-                path: /meal\/(\d{1,2})/,
-                callback: (...args) => console.log('meal page', args),
-            },
-            {
-                path: /meal/,
-                callback: () => console.log('meals page'),
-            },
-            {
-                path: /inprogress\/(\d{1,2})/,
-                callback: (...args) => console.log('progress page', args),
-            },
-        ];
-
-        return currRoutes;
+        this.router.addAllPath(routes);
     }
 }
 
