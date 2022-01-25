@@ -28,7 +28,7 @@ export default class AuthModel {
         await clientManager.postData(`${type}`, this.form);
 
         const message: string = clientManager.text;
-        if (message !== Message.registerSuccess) {
+        if (message && message !== Message.registerSuccess) {
             this.createMessage(message);
         }
 

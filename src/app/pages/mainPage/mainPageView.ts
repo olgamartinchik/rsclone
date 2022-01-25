@@ -17,7 +17,7 @@ class MainPageView {
         this.rootNode.append(header.getTemplate());
 
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
-        const navbar = new NavBar(navWrapper, ['Team', 'Auth'], true);
+        const navbar = new NavBar(navWrapper, ['Team', 'Login'], true);
         navbar.generateMenu();
         if (navbar.button) {
             navbar.button.button.node.onclick = () => signUpHandler();
