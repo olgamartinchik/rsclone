@@ -14413,7 +14413,8 @@ nav .brand-logo {
   .title {
     display: none;
   }
-  .title-tablet {
+
+  .promo-title-tablet {
     display: block;
   }
 
@@ -15147,6 +15148,13 @@ footer {
   -webkit-border-radius: 30px;
   border-radius: 30px;
   background-color: #ff8a80;
+}
+
+.preloader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .btn-large {

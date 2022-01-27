@@ -18,14 +18,16 @@ export default class AuthController {
 
     public createPage(isLogin: boolean): void {
         this.isLogin = isLogin;
+        if(!this.isLogin) {
+            localStorage.removeItem('token');
+        }
         const token: TToken = JSON.parse(localStorage.getItem('token') as string);
         if (token && token.jwtToken.length > 0) this.isLogin = true;
 
         this.view.render(
             this.handleInputChange.bind(this),
             this.handleButtonClick.bind(this),
-            this.isLogin,
-            this.signUpHandler.bind(this)
+            this.isLogin
         );
     }
 
@@ -39,14 +41,12 @@ export default class AuthController {
         this.model.changeHandler(nameInputValue, emailInput.value, passwordInput.value);
     }
 
-    public handleButtonClick(): void {
+    public async handleButtonClick(): Promise<void> {
+        let isLoading = this.model.isLoading;
+        this.view.handlePreloader(isLoading);
         const action = this.isLogin ? 'login' : 'register';
-        this.model.authHandler(`${action}`);
-    }
-
-    private signUpHandler(): void {
-        if (!this.isLogin) {
-            router.navigate('/goals');
-        }
+        await this.model.authHandler(`${action}`);
+        isLoading = this.model.isLoading;
+        this.view.handlePreloader(isLoading);
     }
 }

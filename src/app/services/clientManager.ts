@@ -6,6 +6,7 @@ class ClientManager {
     text: string;
 
     tokenInfo: TToken;
+    isSuccess: boolean;
 
     constructor() {
         if (!ClientManager._instance) {
@@ -16,11 +17,11 @@ class ClientManager {
             userID: '',
             jwtToken: '',
         };
+        this.isSuccess = true;
         return ClientManager._instance;
     }
 
     public async postData(path: string, form: TLoginForm) {
-        // console.log('form', form);
         try {
             const response = await fetch(`https://rsclonebackend.herokuapp.com/api/auth/${path}`, {
                 method: 'POST',
@@ -31,9 +32,11 @@ class ClientManager {
             });
             const data = await response.json();
             if (!response.ok) {
+                this.isSuccess = false;
                 throw new Error(data.message || 'Something went wrong');
             }
 
+            this.isSuccess = true;
             this.text = data.message;
             this.tokenInfo.jwtToken = data.token;
             this.tokenInfo.userID = data.userId;
@@ -42,6 +45,10 @@ class ClientManager {
         } catch (e: any) {
             this.text = e.message;
         }
+    }
+
+    public get result(): boolean {
+        return this.isSuccess;
     }
 
     public get message(): string {

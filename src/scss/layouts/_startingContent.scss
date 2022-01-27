@@ -132,9 +132,10 @@
 @media (max-width: 560px) {
     .title {
         display: none;
-        &-tablet {
-            display: block;
-        }
+    }
+
+    .promo-title-tablet {
+        display: block;
     }
 
     .subtitle {

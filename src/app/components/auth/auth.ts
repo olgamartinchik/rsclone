@@ -22,14 +22,13 @@ export default class Auth {
         return this.main.node;
     }
 
-    public addButton(onclick: (e: Event) => void, signUpHandler: () => void): HTMLElement {
+    public addButton(onclick: (e: Event) => void): HTMLElement {
         const button = document.createElement('a');
         button.className = 'waves-effect waves-light btn-large';
         button.innerHTML = 'Get Started';
         this.form.node.append(button);
 
         button.onclick = (e: Event) => onclick(e);
-        // button.onclick = () => signUpHandler();
 
         return this.main.node;
     }

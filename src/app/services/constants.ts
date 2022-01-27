@@ -47,6 +47,5 @@ export enum Id {
 }
 
 export enum Message {
-    loginError = 'User is not found',
     registerSuccess = 'User created',
 }

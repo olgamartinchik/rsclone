@@ -2,16 +2,27 @@ import { TLoginForm, TToken } from '../../services/types';
 import router from '../../router/router';
 import ClientManager from '../../services/clientManager';
 import { Message } from '../../services/constants';
-export { Message } from '../../services/constants';
+import AuthController from './authPageController';
 
 export default class AuthModel {
     form: TLoginForm;
+    isLoading: boolean;
+    isSuccess: boolean;
+    message: string;
+    tokenInfo: TToken;
 
     constructor() {
+        this.isLoading = true;
         this.form = {
             userName: '',
             email: '',
             password: '',
+        };
+        this.isSuccess = true;
+        this.message = '';
+        this.tokenInfo = {
+            userID: '',
+            jwtToken: '',
         };
     }
 
@@ -23,28 +34,53 @@ export default class AuthModel {
         this.form.password = password;
     }
 
-    public async authHandler(type: string) {
+    public async authHandler(type: string): Promise<void> {
         const clientManager = new ClientManager();
         await clientManager.postData(`${type}`, this.form);
+        console.log('got data');
 
-        const message: string = clientManager.text;
-        if (message && message !== Message.registerSuccess) {
-            this.createMessage(message);
+        this.isLoading = false;
+
+        this.isSuccess = clientManager.result;
+        this.message = clientManager.text;
+        this.tokenInfo = clientManager.token;
+
+        this.createMessage(this.message);
+        
+        if (this.isSuccess) {
+            this.navigate(type);
+            this.setLocalStorage(this.tokenInfo);
         }
-
-        const tokenInfo: TToken = clientManager.token;
-        this.setLocalStorage(tokenInfo);
-
-        if (message !== Message.loginError) {
-            router.navigate('/program');
-        }
+            
+        this.clearLocalStorage('token');
     }
 
     private setLocalStorage(tokenInfo: TToken): void {
         localStorage.setItem('token', JSON.stringify(tokenInfo));
     }
 
+    private clearLocalStorage(key: string): void {
+        localStorage.removeItem(key);
+    }
+
     private createMessage(text: string) {
-        window.M.toast({ html: `${text}` });
+        if (text && text !== Message.registerSuccess) {
+            window.M.toast({ html: `${text}` });   
+        }
+    }
+
+    private navigate(type: string) {
+        switch(type) {
+            case 'register': 
+                router.navigate('/goals');
+                break;
+            case 'login': 
+                router.navigate('/program');
+                break;
+        }
+    }
+
+    public get loadingStatus(): boolean {
+        return this.isLoading;
     }
 }
