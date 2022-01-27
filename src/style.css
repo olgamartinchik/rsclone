@@ -14549,6 +14549,10 @@ nav .brand-logo {
 .icon.settings:before {
   content: "\f085";
 }
+.icon.arrow-left:before {
+  content: "\f060";
+  font-size: 25px;
+}
 
 .icon-container {
   display: flex;
@@ -15179,6 +15183,13 @@ footer {
 .btn-completed {
   padding: 0 10px;
   background: linear-gradient(270deg, #3680e0 -24.77%, #53e9f4 95.41%);
+}
+
+.back-btn {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  color: white;
 }
 
 @media (max-width: 768px) {

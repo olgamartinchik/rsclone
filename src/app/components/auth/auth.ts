@@ -14,6 +14,9 @@ export default class Auth {
     public getTemplate(isLogin: boolean): HTMLElement {
         this.form.node.textContent = '';
         if (!isLogin) {
+            const backButton = new Node(this.main.node, 'a', 'back-btn');
+            backButton.setAttribute('href', '#/main');
+            Node.setChild(backButton.node, 'i', 'icon arrow-left');
             this.form.node.insertAdjacentHTML('beforeend', authTemplate('nick-name', 'text', 'Name'));
         }
         this.form.node.insertAdjacentHTML('beforeend', authTemplate('email', 'email', 'Email'));
