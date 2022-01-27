@@ -41,11 +41,15 @@ export default class AuthController {
         this.model.changeHandler(nameInputValue, emailInput.value, passwordInput.value);
     }
 
-    public async handleButtonClick(): Promise<void> {
+    public async handleButtonClick(e: Event): Promise<void> {
         let isLoading = this.model.isLoading;
         this.view.handlePreloader(isLoading);
+        (e.target as HTMLElement).setAttribute('disabled', 'true');
+
         const action = this.isLogin ? 'login' : 'register';
         await this.model.authHandler(`${action}`);
+
+        (e.target as HTMLElement).removeAttribute('disabled');
         isLoading = this.model.isLoading;
         this.view.handlePreloader(isLoading);
     }
