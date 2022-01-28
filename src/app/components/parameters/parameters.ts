@@ -8,15 +8,13 @@ class Parameters {
         this.rootNode.className = 'input-group';
     }
 
-    public getTemplate(title: string, isSelect: boolean, option1: string, option2: string, min: string, max: string): HTMLElement {
+    public getTemplate(title: string, option1: string, option2: string, min: string, max: string, onselect: (e: Event) => void): HTMLElement {
         this.rootNode.textContent = '';
-        this.rootNode.insertAdjacentHTML('afterbegin', paramsTemplate(title));
-        if(isSelect) this.rootNode.insertAdjacentHTML('beforeend', selectTemplate(option1, option2, min, max));
+        this.rootNode.onclick = (e: Event) => onselect(e);
+        this.rootNode.insertAdjacentHTML('afterbegin', paramsTemplate(title, option1, option2, min, max));
 
         return this.rootNode;
     }
-
-    public
 }
 
 export default new Parameters();

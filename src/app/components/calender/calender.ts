@@ -9,9 +9,11 @@ class Calender {
       this.rootNode.className = 'input-group';
   }
 
-  public getTemplate(): HTMLElement {
+  public getTemplate(onselect: (e: Event) => void): HTMLElement {
     this.rootNode.textContent = '';
+    this.rootNode.onclick = (e: Event) => onselect(e);
     this.rootNode.insertAdjacentHTML('afterbegin', calenderTemplate());
+    
     return this.rootNode;
   }
 }

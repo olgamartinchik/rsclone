@@ -4,7 +4,6 @@ input {
 
 .input-group {
     @include flex;
-    flex-wrap: nowrap;
     width: 100%;
     margin-bottom: 25px;
     position: relative;
@@ -26,6 +25,17 @@ input {
 
 input[type=text].datepicker {
     margin-bottom: 0;
+    color: $color-text-navbar;
+    text-align: center;
+    width: 75%;
+    &::placeholder {
+        text-align: left;
+        width: 100%;
+    }
+}
+
+.datepicker-table td.is-selected {
+    background-color: $color-primary;
 }
 
 .auth-field {
@@ -47,6 +57,10 @@ input[type=text].datepicker {
 .select-block {
     margin-top: 10px;
     width: 100%;
+    display: none;
+    &.active {
+        display: block;
+    }
     & .options {
         width: 70%;
         margin: 0 auto;

@@ -49,3 +49,4 @@ export enum Id {
 export enum Message {
     registerSuccess = 'User created',
 }
+

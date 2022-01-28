@@ -5,11 +5,12 @@ class Gender {
 
   constructor() {
       this.rootNode = document.createElement('div');
-      this.rootNode.className = 'gender-selection z-depth-1 active-1';
+      this.rootNode.className = 'gender-selection z-depth-1';
   }
 
-  public getTemplate(): HTMLElement {
+  public getTemplate(onselect: (e: Event) => void): HTMLElement {
     this.rootNode.textContent = '';
+    this.rootNode.onclick = (e: Event) => onselect(e);
     this.rootNode.insertAdjacentHTML('afterbegin', genderTemplate());
     return this.rootNode;
   }

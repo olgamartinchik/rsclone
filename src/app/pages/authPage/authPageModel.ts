@@ -2,7 +2,6 @@ import { TLoginForm, TToken } from '../../services/types';
 import router from '../../router/router';
 import ClientManager from '../../services/clientManager';
 import { Message } from '../../services/constants';
-import AuthController from './authPageController';
 
 export default class AuthModel {
     form: TLoginForm;
@@ -37,7 +36,6 @@ export default class AuthModel {
     public async authHandler(type: string): Promise<void> {
         const clientManager = new ClientManager();
         await clientManager.postData(`${type}`, this.form);
-        console.log('got data');
 
         this.isLoading = false;
 

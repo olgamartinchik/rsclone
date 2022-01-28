@@ -48,7 +48,12 @@ export type TToken = {
     userID: string;
     jwtToken: string;
 };
+
 export type RouteOption = {
     path: RegExp;
     callback: () => void;
 };
+
+export interface ISetting {
+    [key: string]: any;
+}
