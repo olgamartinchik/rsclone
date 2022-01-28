@@ -14450,6 +14450,7 @@ nav .brand-logo {
 
 .registration-content {
   padding-top: 40px;
+  height: calc(100vh - 230px);
 }
 .registration-content > div {
   display: flex;
@@ -15035,7 +15036,8 @@ input[type=text]:not(.browser-default) {
 .footer {
   background-color: #666;
   min-height: 30px;
-  padding: 15px;
+  padding: 10px;
+  height: 80px;
   color: white;
 }
 .footer-wrapper {
@@ -15216,6 +15218,7 @@ input {
   align-items: center;
   text-align: center;
   justify-content: space-between;
+  flex-wrap: nowrap;
   width: 100%;
   margin-bottom: 25px;
   position: relative;
@@ -15233,6 +15236,10 @@ input {
   font-size: 16px;
   margin-bottom: 0;
   text-align: left;
+}
+
+input[type=text].datepicker {
+  margin-bottom: 0;
 }
 
 .auth-field {

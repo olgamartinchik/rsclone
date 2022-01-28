@@ -72,7 +72,7 @@ export default class AuthModel {
     private navigate(type: string) {
         switch(type) {
             case 'register': 
-                router.navigate('/goals');
+                router.navigate('/onboarding');
                 break;
             case 'login': 
                 router.navigate('/program');
