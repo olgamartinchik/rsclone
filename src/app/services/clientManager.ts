@@ -1,4 +1,5 @@
 import { TLoginForm, TToken } from '../services/types';
+import {API_ID,KEY_API} from '../configs/edamamConfig'
 
 class ClientManager {
     private static _instance: ClientManager | null;
@@ -50,6 +51,18 @@ class ClientManager {
 
     public get token(): TToken {
         return this.tokenInfo;
+    }
+    public async mealExploreData(from='0',to='1',dishType='Salad'){
+        
+        try{
+            const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&dishType=${dishType}`;
+
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.hits
+        }catch(e){
+            console.log(e)
+        }
     }
 }
 
