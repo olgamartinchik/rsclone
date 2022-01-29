@@ -1,9 +1,11 @@
-import footer from '../../components/footer/footer';
+import Footer from '../../components/footer/footer';
 import Gender from '../../components/gender/gender';
 import Calender from '../../components/calender/calender';
 import Parameters from '../../components/parameters/parameters';
 import Node from '../../components/Node';
+import Button from '../../components/Button';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
+import { Height, Weight } from '../../services/constants';
 
 class OnboardingPageView {
     private materializeHandler: MaterializeHandler;
@@ -15,7 +17,7 @@ class OnboardingPageView {
         this.rootNode = <HTMLElement>document.getElementById('app');
     }
 
-    render(onselect: (e: Event) => void): void {
+    render(onselect: (e: Event) => void, oninput: (e: Event) => void): void {
         this.rootNode.textContent = '';
 
         const header = new Node(this.rootNode, 'div', 'registration-header');
@@ -29,9 +31,11 @@ class OnboardingPageView {
         form.append(Gender.getTemplate(onselect));
         form.append(Calender.getTemplate(onselect));
         this.materializeHandler.initDatePicker();
-        form.append(Parameters.getTemplate('Height', 'Feet & Inches', 'Centimeters', '120', '220', onselect));
+        form.append(Parameters.getTemplate(Height.title, Height.units, Height.option1, Height.option2, Height.min, Height.max, onselect, oninput));
+        form.append(Parameters.getTemplate(Weight.title, Weight.units, Weight.option1, Weight.option2, Weight.min, Weight.max, onselect, oninput));
+        new Button(form, 'Next');
 
-        this.rootNode.append(footer.getTemplate());
+        this.rootNode.append(Footer.getTemplate());
     }
 }
 

@@ -1,19 +1,18 @@
-import { paramsTemplate, selectTemplate } from './template';
+import { paramsTemplate } from './template';
 
 class Parameters {
-    private rootNode: HTMLElement;
-
     constructor() {
-        this.rootNode = document.createElement('div');
-        this.rootNode.className = 'input-group';
     }
 
-    public getTemplate(title: string, option1: string, option2: string, min: string, max: string, onselect: (e: Event) => void): HTMLElement {
-        this.rootNode.textContent = '';
-        this.rootNode.onclick = (e: Event) => onselect(e);
-        this.rootNode.insertAdjacentHTML('afterbegin', paramsTemplate(title, option1, option2, min, max));
+    public getTemplate(title: string, units:string, option1: string, option2: string, min: string, max: string, onselect: (e: Event) => void, oninput: (e: Event) => void): HTMLElement {
+        const rootNode = document.createElement('div');
+        rootNode.className = 'input-group';
+        rootNode.id = title.toLowerCase();
+        rootNode.onclick = (e: Event) => onselect(e);
+        rootNode.oninput = (e: Event) => oninput(e);
+        rootNode.insertAdjacentHTML('afterbegin', paramsTemplate(title, units, option1, option2, min, max));
 
-        return this.rootNode;
+        return rootNode;
     }
 }
 

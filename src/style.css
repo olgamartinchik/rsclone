@@ -15270,6 +15270,10 @@ input[type=text].datepicker::placeholder {
   border-bottom: 2px solid #ff8a80;
 }
 
+input[type=range] {
+  border: none;
+}
+
 input[type=range] + .thumb {
   background-color: #ff8a80;
 }
@@ -15317,7 +15321,7 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
 
 input[type=range]::-webkit-slider-runnable-track {
   height: 5px;
-  background: linear-gradient(to right, #ff8a80 0%, #ff8a80 50%, #c2bebe 50%, #c2bebe 100%);
+  background: #c2bebe;
 }
 
 input[type=text]:not(.browser-default).invalid,

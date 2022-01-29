@@ -50,3 +50,29 @@ export enum Message {
     registerSuccess = 'User created',
 }
 
+export enum Height {
+    title = 'Height',
+    units = 'cm',
+    option1 = 'Feet & Inches',
+    option2 = 'Centimeters',
+    min = '120',
+    max = '220',
+} 
+
+export enum Weight {
+    title = 'Weight',
+    units = 'kg',
+    option1 = 'Pounds',
+    option2 = 'Kilograms',
+    min = '40',
+    max = '200',
+}
+
+export enum Colors {
+    primary = '#ff8a80',
+    secondary = '#c2bebe',
+}
+
+export enum Coefficients {
+    percent = 100,
+}
