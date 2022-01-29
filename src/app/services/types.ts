@@ -52,3 +52,8 @@ export type RouteOption = {
     path: RegExp;
     callback: () => void;
 };
+
+export type StoragesHandler = {
+    session: Storage;
+    local: Storage;
+};
