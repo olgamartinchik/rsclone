@@ -26,6 +26,8 @@ export default class OnboardingModel {
       const age = this.calculateAge(setting.age);
       this.form.age = age;
     }
+    if (setting.height) this.form.height = setting.height;
+    if (setting.weight) this.form.weight = setting.weight;
     
     console.log(this.form);
   }
@@ -41,11 +43,11 @@ export default class OnboardingModel {
     const monthOfBirth = this.getMonth(month);
     const yearOfBirth = +dateOfBirth.split(' ')[2];
 
-    let age = currentYear - yearOfBirth;
+    let age = currentYear - yearOfBirth;    
     if(monthOfBirth > currentMonth) {
       age -= 1;
       return age;
-    } else if(dayofBirth < currentDay) {
+    } else if(dayofBirth > currentDay) {
       age -= 1;
     }
 
@@ -93,5 +95,9 @@ export default class OnboardingModel {
         break;      
     }
     return targetMonth;
+  }
+
+  public get height(): number {
+    return this.form.height;
   }
 }

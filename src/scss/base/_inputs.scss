@@ -34,6 +34,12 @@ input[type=text].datepicker {
     }
 }
 
+#nick-name,
+#email,
+#password {
+    color: white;
+}
+
 .datepicker-table td.is-selected {
     background-color: $color-primary;
 }

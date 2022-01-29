@@ -75,4 +75,6 @@ export enum Colors {
 
 export enum Coefficients {
     percent = 100,
+    toFeet = 0.032808398950131,
+    toPounds = 2.20462262185,
 }

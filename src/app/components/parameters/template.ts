@@ -8,12 +8,12 @@ export function paramsTemplate(title: string, units: string, option1: string, op
   </span>
   <div class="select-block" id=${title.toLowerCase()}>
     <div class="options" data-select>
-        <p class="unit">${option1}</p>
-        <p class="unit active">${option2}</p>
+        <p class="unit ${option1.split(' ')[0].toLowerCase()}">${option1}</p>
+        <p class="unit ${option2.toLowerCase()} active">${option2}</p>
     </div>
     <div class="range">
             <p class="range-field">
-                <input type="range" id="play-bar" step="1" value=${min} min=${min} max=${max} />
+                <input type="range" id="play-bar" step="1" value=${min} min=${min} max=${max} data-${title.toLowerCase()}/>
             </p>
     </div>
   </div>
