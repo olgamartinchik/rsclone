@@ -1,6 +1,7 @@
 import { TLoginForm, TToken } from '../../services/types';
 import router from '../../router/router';
 import ClientManager from '../../services/clientManager';
+import StorageManager from '../../services/storageManager';
 import { Message } from '../../services/constants';
 
 export default class AuthModel {
@@ -47,18 +48,10 @@ export default class AuthModel {
         
         if (this.isSuccess) {
             this.navigate(type);
-            this.setLocalStorage(this.tokenInfo);
+            StorageManager.addItem('token', this.tokenInfo, 'local');
+        } else {    
+            StorageManager.deleteItem('token', 'local');
         }
-            
-        this.clearLocalStorage('token');
-    }
-
-    private setLocalStorage(tokenInfo: TToken): void {
-        localStorage.setItem('token', JSON.stringify(tokenInfo));
-    }
-
-    private clearLocalStorage(key: string): void {
-        localStorage.removeItem(key);
     }
 
     private createMessage(text: string) {

@@ -1,6 +1,7 @@
 import router from '../../router/router';
 import AuthModel from './authPageModel';
 import AuthView from './authPageView';
+import StorageManager from '../../services/storageManager';
 import { TToken } from '../../services/types';
 
 export default class AuthController {
@@ -19,9 +20,9 @@ export default class AuthController {
     public createPage(isLogin: boolean): void {
         this.isLogin = isLogin;
         if(!this.isLogin) {
-            localStorage.removeItem('token');
+            StorageManager.deleteItem('token', 'local');
         }
-        const token: TToken = JSON.parse(localStorage.getItem('token') as string);
+        const token: TToken = JSON.parse(StorageManager.getItem('token', 'local') as string);
         if (token && token.jwtToken.length > 0) this.isLogin = true;
 
         this.view.render(

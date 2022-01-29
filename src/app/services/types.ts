@@ -54,6 +54,11 @@ export type RouteOption = {
     callback: () => void;
 };
 
+export type StoragesHandler = {
+    session: Storage;
+    local: Storage;
+};
+
 export interface ISetting {
     [key: string]: any;
 }
