@@ -1,0 +1,88 @@
+.workout {
+    &-header {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        background: center / cover no-repeat url("../../assets/trainings/08.webp");
+        &::before {
+            content: "";
+            height: 260px;
+            width: 100%;
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            background: linear-gradient(180deg,rgba(255, 255, 255, 0),rgba(255, 255, 255, 0.6) 30%,$color-background);
+        }
+        &::after {
+            content: "";
+            height: 10px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(270deg,#e03694,#f47253);
+        }
+    }
+    &-container {
+        margin: 0 auto;
+        width: 755px;
+        min-height: 500px;
+        max-width: 100%;
+        position: relative;
+    }
+    &-info {
+        position: absolute;
+        left: 50%;
+        bottom: 40px;
+        display:  flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        transform: translateX(-50%);
+    }
+    &-title {
+        font-size: 50px;
+        font-weight: 800;
+    }
+    &-type {
+        padding: 3px 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: $color-text-on-dark;
+        border-radius: 50px;
+    }
+    &-details {
+        background-color: $color-background;
+    }
+    &-details .workout-container:first-child {
+        min-height: 75px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background-color: $color-bg-workout-controls;
+    }
+    &-controls {
+        max-width: 100%;
+        width: 755px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+        .btn-large {
+            height: 36px;
+            line-height: 36px;
+            min-width: 120px;
+            border-radius: 9999px;
+        }
+    }
+    &-fav {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        background-color: $color-bg-workout-controls;
+        border: none;
+        cursor: pointer;
+        .far {
+            font-size: 26px;
+        }
+    }
+}
