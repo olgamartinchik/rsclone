@@ -28,6 +28,12 @@ export default class OnboardingModel {
     }
     if (setting.height) this.form.height = setting.height;
     if (setting.weight) this.form.weight = setting.weight;
+    if (setting.goal) this.form.goal = setting.goal;
+    if (setting.desiredWeight) this.form.desiredWeight = setting.desiredWeight;
+    if (setting.workoutsNumber) this.form.workoutsNumber = +setting.workoutsNumber;
+    if (setting.favWorkouts) this.form.favWorkouts = setting.favWorkouts;
+    if (setting.workoutLength) this.form.workoutLength = setting.workoutLength;
+    if (setting.duration) this.form.duration = setting.duration;
     
     console.log(this.form);
   }

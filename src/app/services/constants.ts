@@ -5,6 +5,13 @@ export enum Goal {
     muscle = 'muscle',
 }
 
+export enum GoalTitles {
+    weight = 'Lose weight',
+    toned = 'Stay toned',
+    relax = 'Reduce stress',
+    muscle = 'Build muscle',
+}
+
 export enum WorkoutType {
     dance = 'dance',
     boxing = 'boxing',
@@ -61,6 +68,7 @@ export enum Height {
 
 export enum Weight {
     title = 'Weight',
+    desired = 'Desired',
     units = 'kg',
     option1 = 'Pounds',
     option2 = 'Kilograms',

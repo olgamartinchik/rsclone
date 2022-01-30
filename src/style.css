@@ -14478,28 +14478,121 @@ nav .brand-logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-basis: 48%;
+  padding: 8px;
+  margin-bottom: 10px;
   height: 50px;
   border: 1px solid #c2bebe;
   border-radius: 20px;
   cursor: pointer;
 }
-.registration-content > form .goal.left {
-  margin-right: 10px;
-  margin-bottom: 30px;
+.registration-content > form .goal.column {
+  flex-basis: 47%;
 }
-.registration-content > form .goal.right {
-  margin-left: 10px;
-  margin-bottom: 30px;
+.registration-content > form .goal.option {
+  flex-basis: 100%;
 }
 .registration-content > form .goal.active {
   background-color: #ff8a80;
   color: white;
   border: none;
 }
+.registration-content > form .frequency {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  margin-bottom: 10px;
+  height: 50px;
+  border: 1px solid #c2bebe;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.registration-content > form .frequency.option {
+  flex-basis: 100%;
+}
+.registration-content > form .frequency.tile {
+  flex-basis: 30%;
+}
+.registration-content > form .frequency.active {
+  background-color: #ff8a80;
+  color: white;
+  border: none;
+}
+.registration-content > form .classes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  margin-bottom: 10px;
+  height: 50px;
+  border: 1px solid #c2bebe;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.registration-content > form .classes.option {
+  flex-basis: 100%;
+}
+.registration-content > form .classes.tile {
+  flex-basis: 30%;
+}
+.registration-content > form .classes.active {
+  background-color: #ff8a80;
+  color: white;
+  border: none;
+}
+.registration-content > form .length {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  margin-bottom: 10px;
+  height: 50px;
+  border: 1px solid #c2bebe;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.registration-content > form .length.option {
+  flex-basis: 100%;
+}
+.registration-content > form .length.tile {
+  flex-basis: 30%;
+}
+.registration-content > form .length.active {
+  background-color: #ff8a80;
+  color: white;
+  border: none;
+}
+.registration-content > form .duration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  margin-bottom: 10px;
+  height: 50px;
+  border: 1px solid #c2bebe;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.registration-content > form .duration.option {
+  flex-basis: 100%;
+}
+.registration-content > form .duration.tile {
+  flex-basis: 30%;
+}
+.registration-content > form .duration.active {
+  background-color: #ff8a80;
+  color: white;
+  border: none;
+}
 
-.registration-content > div.goal-options {
-  width: 500px;
+div.parameters-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+div.parameters-options.center {
+  justify-content: center;
 }
 
 .gender-selection {
@@ -15202,6 +15295,9 @@ input {
   padding-bottom: 5px;
   border-bottom: 1px solid #c2bebe;
 }
+.input-group.hidden {
+  display: none;
+}
 .input-group .value {
   display: block;
   margin-right: 50px;
@@ -15265,6 +15361,7 @@ input[type=text].datepicker::placeholder {
 }
 .select-block .options p {
   flex-basis: 40%;
+  margin: 0;
   padding: 5px 0;
   font-size: 14px;
   font-weight: 500;

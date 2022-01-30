@@ -12,9 +12,9 @@ export function paramsTemplate(title: string, units: string, option1: string, op
         <p class="unit ${option2.toLowerCase()} active">${option2}</p>
     </div>
     <div class="range">
-            <p class="range-field">
-                <input type="range" id="play-bar" step="1" value=${min} min=${min} max=${max} data-${title.toLowerCase()}/>
-            </p>
+        <p class="range-field">
+            <input type="range" id="play-bar" step="1" value=${min} min=${min} max=${max} data-${title.toLowerCase()}/>
+        </p>
     </div>
   </div>
   `

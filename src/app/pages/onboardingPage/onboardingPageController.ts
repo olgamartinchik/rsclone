@@ -1,22 +1,28 @@
 import OnboardingPageView from './onboardingPageView';
 import OnboardingModel from './onboardingPageModel';
-import { Height, Weight, Colors, Coefficients } from '../../services/constants';
+import { Height, Weight, Colors, Coefficients, Goal } from '../../services/constants';
 
 class OnboardingPageController {
     private view: OnboardingPageView;
     private model: OnboardingModel;
     private isFeet: boolean;
     private isLbs: boolean;
+    private blocks: Array<string>;
+    private block: number;
+    private classes: Array<string>;
 
     constructor() {
         this.view = new OnboardingPageView();
         this.model = new OnboardingModel();
         this.isFeet = false;
         this.isLbs = false;
+        this.blocks = ['About you', `What's your goal?`, 'How many workouts per week do you want?', 'Select all your favorite type of classes:', 'How much time do you prefer to work out?', 'How many weeks do you want to start with?'];
+        this.block = 0;
+        this.classes = [];
     }
 
     public createPage() {
-        this.view.render(this.handleValueSelect.bind(this), this.handleRangeSliderInput.bind(this));
+        this.view.render(this.blocks[this.block], this.handleValueSelect.bind(this), this.handleRangeSliderInput.bind(this), this.handleButtonClick.bind(this));
     }
 
     public handleValueSelect(e: Event): void {
@@ -33,6 +39,16 @@ class OnboardingPageController {
         this.handleParametersSelect(e);
       } else if (className.includes('unit')) {
         this.handleUnitSelect(e);
+      } else if (className.includes('goal')) {
+        this.handleGoalSelect(e);
+      } else if (className.includes('frequency')) {
+        this.handleFrequencySelect(e);
+      } else if (className.includes('classes')) {
+        this.handleClassesSelect(e);
+      } else if (className.includes('length')) {
+        this.handleLengthSelect(e);
+      } else if (className.includes('duration')) {
+        this.handleDurationSelect(e);
       }
     }
 
@@ -122,10 +138,84 @@ class OnboardingPageController {
                              
           this.model.changeHandler({'weight': rangeSlider.value});
           break;
+        case 'desired': 
+          minValue = +Weight.min;
+          maxValue = +Weight.max;
+          (<HTMLElement>e.currentTarget).children[1].children[0].textContent = 
+              (!this.isLbs) ?  rangeSlider.value
+                             : (Math.round(+rangeSlider.value * Coefficients.toPounds)).toString();
+                             
+          this.model.changeHandler({'desiredWeight': rangeSlider.value});
+          break;
       }
     
       const percent = (+rangeSlider.value - minValue) / (maxValue - minValue) * Coefficients.percent;
       rangeSlider.style.background = `linear-gradient(to right, ${Colors.primary} 0%, ${Colors.primary} ${percent}%, ${Colors.secondary} ${percent}%, ${Colors.secondary} 100%)`;
+    }
+
+    private handleGoalSelect(e: Event): void {
+      Array.from(<HTMLCollection>(<HTMLElement>e.currentTarget).children).forEach(goal => {
+        goal.className = 'goal option z-depth-1';
+      });
+      (<HTMLElement>e.target).classList.add('active');
+
+      const weightChoiceBlock = <HTMLElement>document.querySelector('.input-group');
+      const selectBlock = <HTMLElement>document.querySelector('.select-block');
+      if ((<HTMLElement>e.target).dataset.goal === Goal.weight) {
+        weightChoiceBlock.classList.remove('hidden');
+        selectBlock.classList.add('active');
+      } else {
+        weightChoiceBlock.classList.add('hidden');
+        selectBlock.classList.remove('active');
+      }
+
+      this.model.changeHandler({'goal': (<HTMLElement>e.target).dataset.goal});
+    }
+
+    public handleFrequencySelect(e: Event): void {
+      Array.from(<HTMLCollection>(<HTMLElement>e.currentTarget).children).forEach(frequency => {
+        frequency.className = 'frequency option z-depth-1';
+      });
+      (<HTMLElement>e.target).classList.add('active');
+
+      this.model.changeHandler({'workoutsNumber': (<HTMLElement>e.target).dataset.frequency});
+    }
+
+    public handleClassesSelect(e: Event): void {
+      (<HTMLElement>e.target).classList.add('active');
+      this.classes.push((<HTMLElement>e.target).textContent as string);
+      
+      this.model.changeHandler({'favWorkouts': this.classes});
+    }
+
+    public handleLengthSelect(e: Event): void {
+      Array.from(<HTMLCollection>(<HTMLElement>e.currentTarget).children).forEach(length => {
+        length.className = 'length option z-depth-1';
+      });
+      (<HTMLElement>e.target).classList.add('active');
+
+      const min = (<HTMLElement>e.target).dataset.min;
+      const max = (<HTMLElement>e.target).dataset.max;
+      this.model.changeHandler({'workoutLength': {min: min, max: max}});
+    }
+
+    private handleDurationSelect(e: Event): void {
+      Array.from(<HTMLCollection>(<HTMLElement>e.currentTarget).children).forEach(duration => {
+        duration.className = 'duration option z-depth-1';
+      });
+      (<HTMLElement>e.target).classList.add('active');
+
+      this.model.changeHandler({'goal': (<HTMLElement>e.target).dataset.duration});
+    }
+
+    public handleButtonClick(e: Event): void {
+      e.preventDefault();
+      if(this.block < this.blocks.length - 1) {
+        this.block++;
+        this.createPage();
+      } else {
+        console.log(this.block);
+      }
     }
 }
 
