@@ -14,7 +14,7 @@ input {
     }
     & .value {
         display: block;
-        margin-right: 50px;
+        margin-right: 35px;
         color: $color-placeholder;
         cursor: pointer;
     }
@@ -31,6 +31,7 @@ input[type=text].datepicker {
     color: $color-text-navbar;
     text-align: center;
     width: 75%;
+    height: 30px;
     &::placeholder {
         text-align: left;
         width: 100%;
@@ -57,7 +58,7 @@ input[type=text].datepicker {
     &:before {
         content: fa-content($fa-var-check);
         position: absolute;
-        right: 30px;
+        right: 10px;
         top: 5px;
         color: $color-text-navbar;
     }

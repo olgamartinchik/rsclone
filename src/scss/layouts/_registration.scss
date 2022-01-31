@@ -242,14 +242,14 @@ div.parameters-options {
 //Pop-up calender
 
 .datepicker::placeholder {
-    padding-left: 100px;
+    padding-left: 150px;
     color: $color-placeholder;
 }
 
 .calender::before {
     position: absolute;
-    right: 25px;
-    bottom: 20px;
+    right: 5px;
+    bottom: 12px;
     margin-right: 8px;
     @extend %fa-icon;
     @extend .fas;
@@ -382,8 +382,6 @@ input[type='password']:not(.browser-default),
 input[type='text']:not(.browser-default) {
     width: 100%;
     border-bottom: 1px solid $color-text-on-dark;
-    // color: $color-text-on-dark;
-    padding-left: 12px;
 }
 
 .auth-link {
@@ -410,6 +408,10 @@ input[type='text']:not(.browser-default) {
         font-size: 30px;
     }
 
+    .registration-content > form {
+        width: 300px;
+    }
+
     .registration-content > div {
         width: 315px;
     }
@@ -418,19 +420,11 @@ input[type='text']:not(.browser-default) {
         width: 315px;
     }
 
-    .datepicker::placeholder {
-        padding-left: 55px;
-    }
-
     .registration-content > div .goal {
         flex-basis: 51%;
     }
 
-    .registration-content > div .goal.left {
-        margin-right: 0;
-    }
-
-    .registration-content > div .goal.right {
-        margin-left: 0;
+    .datepicker::placeholder {
+        padding-left: 100px;
     }
 }
