@@ -1,5 +1,5 @@
 import { TLoginForm, TToken } from '../services/types';
-import {API_ID,KEY_API} from '../configs/edamamConfig'
+import { API_ID, KEY_API } from '../configs/edamamConfig';
 
 class ClientManager {
     private static _instance: ClientManager | null;
@@ -52,16 +52,39 @@ class ClientManager {
     public get token(): TToken {
         return this.tokenInfo;
     }
-    public async mealExploreData(from='0',to='1',dishType='Salad'){
-        
-        try{
-            const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&dishType=${dishType}`;
+
+    public async mealExploreData(from = '0', to = '1', dishType = 'Salad') {
+        try {
+            const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&dishType=${dishType}&imageSize=LARGE`;
 
             const response = await fetch(url);
             const data = await response.json();
-            return data.hits
-        }catch(e){
-            console.log(e)
+            return data.hits;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    public async searchingData(from = '0', to = '10', meal = 'Salad') {
+        try {
+            const url = `https://api.edamam.com/search?q=${meal}&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&imageSize=LARGE`;
+
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.hits;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    public async userData(from = '0', to = '1', mealType: string, calories: string) {
+        try {
+            const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&imageSize=LARGE&mealType=${mealType}$calories=${calories}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.hits;
+        } catch (e) {
+            console.log(e);
         }
     }
 }

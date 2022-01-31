@@ -1,26 +1,61 @@
-import ClientManager from '../../services/clientManager'
+import ClientManager from '../../services/clientManager';
+import { IDataExplore } from '../../services/types';
+import Utils from '../../services/utils';
 class MealPageModel {
-    mealExploreData:ClientManager
-    dishTypeArray:string[]
-    // exploreDataArray:object[]
-    constructor(){
-        // this.exploreDataArray=[]
-        this.mealExploreData=new ClientManager()
-        this.dishTypeArray=['Desserts','Main course','Pancake','Salad','Starter','Soup','Preps','Omelet','Biscuits and cookies','Cereals']
+    mealData: ClientManager;
+
+    dishTypeArray: string[];
+
+    numFrom: number | null;
+
+    numTo: number | null;
+
+    mealType: Array<string>;
+
+    // numTo:number
+    constructor() {
+        this.numFrom = this.getNumFrom();
+        this.numTo = this.numFrom + 1;
+        this.mealData = new ClientManager();
+        this.mealType = ['Breakfast', 'Lunch', 'Dinner'];
+        this.dishTypeArray = ['Desserts', 'Main course', 'Pancake', 'Salad', 'Starter', 'Soup'];
+        // 'Starter','Soup','Preps','Omelet','Biscuits and cookies','Cereals'
+
         // ,'Salad','Starter','Soup','Preps','Omelet','Biscuits and cookies','Cereals','Condiments and sauces','Drinks'
     }
-   async getExploreData() {
+
+    async getExploreData() {
         console.log('data is being loaded');
-        let data:Array<any>=[]
-        for(let dishType of  this.dishTypeArray){
-            let recipe=await this.mealExploreData.mealExploreData('0','1',dishType)
-            if(recipe){
-                data.push(...recipe)
+
+        const data: Array<IDataExplore> = [];
+        for (const dishType of this.dishTypeArray) {
+            const recipe = await this.mealData.mealExploreData(
+                this.numFrom!.toString(),
+                this.numTo!.toString(),
+                dishType
+            );
+            if (recipe) {
+                data.push(...recipe);
             }
         }
-        
-        setTimeout(()=>console.log(data),1000)        
-        return  data   
+
+        return data;
+    }
+
+    async getSearchingData(meal = 'Salad') {
+        const numTo = this.numFrom! + 10;
+        const searchingData = await this.mealData.searchingData(this.numFrom!.toString(), numTo.toString(), meal);
+        // console.log('searchingData',searchingData)
+        return searchingData;
+    }
+
+    getUserMealData() {
+        const data: Array<IDataExplore> = [];
+    }
+
+    getNumFrom() {
+        this.numFrom = Utils.randomInteger(0, 100);
+        return this.numFrom;
     }
 }
 

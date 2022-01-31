@@ -125,6 +125,9 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    width: 210px;
+    height: 210px;
+    overflow: hidden;
 }
 .explore-container {
     display: flex;
