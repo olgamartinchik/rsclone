@@ -2,6 +2,9 @@ import { TLoginForm, TToken } from '../services/types';
 import { API_ID, KEY_API } from '../configs/edamamConfig';
 
 class ClientManager {
+    getMealTemplate(arg0: string, arg1: string, mealType: string) {
+        throw new Error('Method not implemented.');
+    }
     private static _instance: ClientManager | null;
 
     text: string;
@@ -79,7 +82,7 @@ class ClientManager {
 
     public async userData(from = '0', to = '1', mealType: string, calories: string) {
         try {
-            const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&imageSize=LARGE&mealType=${mealType}$calories=${calories}`;
+            const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&imageSize=LARGE&mealType=${mealType}&calories=${calories}`;
             const response = await fetch(url);
             const data = await response.json();
             return data.hits;

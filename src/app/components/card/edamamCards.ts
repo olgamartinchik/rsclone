@@ -1,9 +1,10 @@
-import { exploreCardTemplate, mealCardTemplate } from './templateMealCard';
+import { exploreCardTemplate, mealCardTemplate, userMealCardTemplate } from './templateMealCard';
 import { IDataExplore } from '../../services/types';
 class MealCard {
     private rootNodeExplore: HTMLElement;
 
-    private rootNodeMeal: HTMLElement;
+    private rootNodeSearching: HTMLElement;
+    private rootNodeMeal:HTMLElement
     // private rootNodeSearching: HTMLElement;
 
     private data: IDataExplore;
@@ -13,8 +14,11 @@ class MealCard {
         this.rootNodeExplore = document.createElement('div');
         this.rootNodeExplore.className = 'explore-card';
         this.rootNodeExplore.setAttribute('data-edamam', data.recipe.dishType);
-        this.rootNodeMeal = document.createElement('div');
+        this.rootNodeSearching = document.createElement('div');
+        this.rootNodeSearching.className = 'meal-card';
+        this.rootNodeMeal=document.createElement('div');
         this.rootNodeMeal.className = 'meal-card';
+
     }
 
     public getExploreTemplate(onclick: (e: Event) => void): HTMLElement {
@@ -24,13 +28,19 @@ class MealCard {
         return this.rootNodeExplore;
     }
 
-    public getMealTemplate(onclick: (e: Event) => void): HTMLElement {
-        this.rootNodeMeal.onclick = (e: Event) => onclick(e);
-        this.rootNodeMeal.insertAdjacentHTML('afterbegin', mealCardTemplate(this.data));
+    public getSearchingTemplate(onclick: (e: Event) => void): HTMLElement {
+        this.rootNodeSearching.onclick = (e: Event) => onclick(e);
+        this.rootNodeSearching.insertAdjacentHTML('afterbegin', mealCardTemplate(this.data));
         // console.log('this.rootNode',this.rootNodeMeal)
-        return this.rootNodeMeal;
+        return this.rootNodeSearching;
     }
 
-    public getSearchTemplate() {}
+
+    public getMealTemplate(onclick: (e: Event) => void): HTMLElement  {
+        this.rootNodeMeal.onclick = (e: Event) => onclick(e);
+        this.rootNodeMeal.insertAdjacentHTML('afterbegin', userMealCardTemplate(this.data));
+        console.log('this.rootNode',this.rootNodeMeal)
+        return this.rootNodeMeal;
+    }
 }
 export default MealCard;

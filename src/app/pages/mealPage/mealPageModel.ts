@@ -17,7 +17,7 @@ class MealPageModel {
         this.numFrom = this.getNumFrom();
         this.numTo = this.numFrom + 1;
         this.mealData = new ClientManager();
-        this.mealType = ['Breakfast', 'Lunch', 'Dinner'];
+        this.mealType = ['Breakfast', 'Lunch', 'Snack'];
         this.dishTypeArray = ['Desserts', 'Main course', 'Pancake', 'Salad', 'Starter', 'Soup'];
         // 'Starter','Soup','Preps','Omelet','Biscuits and cookies','Cereals'
 
@@ -26,7 +26,6 @@ class MealPageModel {
 
     async getExploreData() {
         console.log('data is being loaded');
-
         const data: Array<IDataExplore> = [];
         for (const dishType of this.dishTypeArray) {
             const recipe = await this.mealData.mealExploreData(
@@ -41,6 +40,17 @@ class MealPageModel {
 
         return data;
     }
+    async getUserMealData() {
+        const userData: Array<IDataExplore> = [];
+        for(let mealType of this.mealType){
+            const userRecipe = await this.mealData.userData('0','1', mealType, '591-722');
+            if(userRecipe){
+                userData.push(...userRecipe)
+            }
+        }
+        return userData
+
+    }
 
     async getSearchingData(meal = 'Salad') {
         const numTo = this.numFrom! + 10;
@@ -49,9 +59,7 @@ class MealPageModel {
         return searchingData;
     }
 
-    getUserMealData() {
-        const data: Array<IDataExplore> = [];
-    }
+   
 
     getNumFrom() {
         this.numFrom = Utils.randomInteger(0, 100);
