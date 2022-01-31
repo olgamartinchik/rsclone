@@ -2,6 +2,7 @@ import Footer from '../../components/footer/footer';
 import Gender from '../../components/gender/gender';
 import Calender from '../../components/calender/calender';
 import Parameters from '../../components/parameters/parameters';
+import Congrats from '../../components/congratulations/congrats'; 
 import Node from '../../components/Node';
 import Button from '../../components/Button';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
@@ -109,7 +110,7 @@ class OnboardingPageView {
                     durationWrapper.onclick = (e: Event) => onselect(e);
                     const durations = [WorkoutsProgramDuration.short, WorkoutsProgramDuration.medium, WorkoutsProgramDuration.long];
                     durations.forEach(duration => {
-                        const workoutProgramDuration = Node.setChild(durationWrapper, 'div', 'frequency option z-depth-1', duration.toString());
+                        const workoutProgramDuration = Node.setChild(durationWrapper, 'div', 'duration option z-depth-1', duration.toString());
                         workoutProgramDuration.setAttribute('data-duration', duration.toString());
                     });
                     
@@ -119,6 +120,12 @@ class OnboardingPageView {
 
         const nextBtn = new Button(form, 'Next');
         nextBtn.onclick(onclick);
+    }
+
+    public renderCongratulations(programDuration: number, onclick: (e: Event) => void): void {
+        this.rootNode.textContent = '';
+
+        this.rootNode.append(Congrats.getTemplate(programDuration, onclick));
     }
 }
 

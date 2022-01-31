@@ -103,7 +103,7 @@ export default class OnboardingModel {
     return targetMonth;
   }
 
-  public get height(): number {
-    return this.form.height;
+  public get programDuration(): number {
+    return this.form.duration;
   }
 }

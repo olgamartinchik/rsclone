@@ -1,5 +1,6 @@
 import OnboardingPageView from './onboardingPageView';
 import OnboardingModel from './onboardingPageModel';
+import router from '../../router/router';
 import { Height, Weight, Colors, Coefficients, Goal } from '../../services/constants';
 
 class OnboardingPageController {
@@ -204,8 +205,8 @@ class OnboardingPageController {
         duration.className = 'duration option z-depth-1';
       });
       (<HTMLElement>e.target).classList.add('active');
-
-      this.model.changeHandler({'goal': (<HTMLElement>e.target).dataset.duration});
+      
+      this.model.changeHandler({'duration': (<HTMLElement>e.target).dataset.duration});
     }
 
     public handleButtonClick(e: Event): void {
@@ -214,7 +215,14 @@ class OnboardingPageController {
         this.block++;
         this.createPage();
       } else {
-        console.log(this.block);
+        const programDuration = this.model.programDuration;
+        this.view.renderCongratulations(programDuration, this.handleFinalButtonClick.bind(this));
+      }
+    }
+
+    public handleFinalButtonClick(e: Event): void {
+      if ((<HTMLElement>e.target).dataset.btn === 'start') {
+        router.navigate('/program');
       }
     }
 }
