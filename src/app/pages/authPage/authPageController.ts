@@ -1,4 +1,3 @@
-import router from '../../router/router';
 import AuthModel from './authPageModel';
 import AuthView from './authPageView';
 import StorageManager from '../../services/storageManager';
@@ -19,17 +18,13 @@ export default class AuthController {
 
     public createPage(isLogin: boolean): void {
         this.isLogin = isLogin;
-        if(!this.isLogin) {
+        if (!this.isLogin) {
             StorageManager.deleteItem('token', 'local');
         }
         const token: TToken = JSON.parse(StorageManager.getItem('token', 'local') as string);
         if (token && token.jwtToken.length > 0) this.isLogin = true;
 
-        this.view.render(
-            this.handleInputChange.bind(this),
-            this.handleButtonClick.bind(this),
-            this.isLogin
-        );
+        this.view.render(this.handleInputChange.bind(this), this.handleButtonClick.bind(this), this.isLogin);
     }
 
     public handleInputChange(): void {
@@ -47,7 +42,7 @@ export default class AuthController {
         this.view.handlePreloader(isLoading);
         (e.target as HTMLElement).setAttribute('disabled', 'true');
 
-        const action = this.isLogin ? 'login' : 'register';
+        const action = this.isLogin ? 'auth/login' : 'auth/register';
         await this.model.authHandler(`${action}`);
 
         (e.target as HTMLElement).removeAttribute('disabled');

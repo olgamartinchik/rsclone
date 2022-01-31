@@ -1,10 +1,16 @@
 import { paramsTemplate } from './template';
 
 class Parameters {
-    constructor() {
-    }
-
-    public getTemplate(title: string, units:string, option1: string, option2: string, min: string, max: string, onselect: (e: Event) => void, oninput: (e: Event) => void): HTMLElement {
+    public getTemplate(
+        title: string,
+        units: string,
+        option1: string,
+        option2: string,
+        min: string,
+        max: string,
+        onselect: (e: Event) => void,
+        oninput: (e: Event) => void
+    ): HTMLElement {
         const rootNode = document.createElement('div');
         rootNode.className = 'input-group';
         rootNode.id = title.toLowerCase();

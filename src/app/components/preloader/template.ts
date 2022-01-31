@@ -1,5 +1,5 @@
 export default function getTemplate() {
-  return `
+    return `
   <div class="preloader-wrapper big active">
     <div class="spinner-layer spinner-blue">
       <div class="circle-clipper left">
@@ -41,5 +41,5 @@ export default function getTemplate() {
       </div>
     </div>
   </div>
-  `
+  `;
 }

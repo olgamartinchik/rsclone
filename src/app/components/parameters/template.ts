@@ -1,5 +1,12 @@
-export function paramsTemplate(title: string, units: string, option1: string, option2: string, min: string, max: string): string {
-  return `
+export function paramsTemplate(
+    title: string,
+    units: string,
+    option1: string,
+    option2: string,
+    min: string,
+    max: string
+): string {
+    return `
   <span class="title title-tablet">${title}</span>
   <span class="value">
       <span>${min}</span> 
@@ -17,5 +24,5 @@ export function paramsTemplate(title: string, units: string, option1: string, op
         </p>
     </div>
   </div>
-  `
+  `;
 }

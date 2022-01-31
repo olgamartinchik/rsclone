@@ -6,9 +6,13 @@ import { Message } from '../../services/constants';
 
 export default class AuthModel {
     form: TLoginForm;
+
     isLoading: boolean;
+
     isSuccess: boolean;
+
     message: string;
+
     tokenInfo: TToken;
 
     constructor() {
@@ -45,27 +49,27 @@ export default class AuthModel {
         this.tokenInfo = clientManager.token;
 
         this.createMessage(this.message);
-        
+
         if (this.isSuccess) {
             this.navigate(type);
             StorageManager.addItem('token', this.tokenInfo, 'local');
-        } else {    
+        } else {
             StorageManager.deleteItem('token', 'local');
         }
     }
 
     private createMessage(text: string) {
         if (text && text !== Message.registerSuccess) {
-            window.M.toast({ html: `${text}` });   
+            window.M.toast({ html: `${text}` });
         }
     }
 
     private navigate(type: string) {
-        switch(type) {
-            case 'register': 
+        switch (type) {
+            case 'auth/register':
                 router.navigate('/onboarding');
                 break;
-            case 'login': 
+            case 'auth/login':
                 router.navigate('/program');
                 break;
         }

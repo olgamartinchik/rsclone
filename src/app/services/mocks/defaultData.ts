@@ -1,6 +1,7 @@
 import { Gender, Goal, WorkoutsNumber, WorkoutsProgramDuration, WorkoutType } from '../constants';
 
 const userSettings = {
+    userId: '61f193ab5d19a2c71b9ee570',
     goal: Goal.toned,
     weight: 70,
     height: 175,

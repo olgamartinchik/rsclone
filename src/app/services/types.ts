@@ -20,6 +20,7 @@ export type TStrategies = {
 };
 
 export type TSettings = {
+    userId: string;
     goal: Goal;
     weight: number;
     height: number;

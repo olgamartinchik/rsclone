@@ -1,5 +1,5 @@
 export default function congratsTemplate(duration: number): string {
-  return `
+    return `
   <div class="congratulations">
     <div class="congratulations-content">
       <p class="congratulations-title">Congratulations!</p>
@@ -9,5 +9,5 @@ export default function congratsTemplate(duration: number): string {
       <a class="waves-effect waves-light btn-large" data-btn = "start">Get started</a>
     </div>
   </div>
-  `
+  `;
 }

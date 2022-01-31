@@ -64,7 +64,7 @@ export enum Height {
     option2 = 'Centimeters',
     min = '120',
     max = '220',
-} 
+}
 
 export enum Weight {
     title = 'Weight',
@@ -85,4 +85,8 @@ export enum Coefficients {
     percent = 100,
     toFeet = 0.032808398950131,
     toPounds = 2.20462262185,
+}
+
+export enum Endpoints {
+    userSettings = 'userSettings',
 }

@@ -1,4 +1,4 @@
-import { TLoginForm, TToken } from '../services/types';
+import { TLoginForm, TToken, TSettings } from '../services/types';
 
 class ClientManager {
     private static _instance: ClientManager | null;
@@ -6,6 +6,7 @@ class ClientManager {
     text: string;
 
     tokenInfo: TToken;
+
     isSuccess: boolean;
 
     constructor() {
@@ -21,9 +22,9 @@ class ClientManager {
         return ClientManager._instance;
     }
 
-    public async postData(path: string, form: TLoginForm) {
+    public async postData(path: string, form: TLoginForm | TSettings) {
         try {
-            const response = await fetch(`https://rsclonebackend.herokuapp.com/api/auth/${path}`, {
+            const response = await fetch(`https://rsclonebackend.herokuapp.com/api/${path}`, {
                 method: 'POST',
                 body: JSON.stringify({ ...form }),
                 headers: {
