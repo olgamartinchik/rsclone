@@ -9,9 +9,10 @@ class MealPageController {
 
     valueData: string;
 
-    searchingData: any;
+    // searchingData: any;
 
     constructor() {
+       
         this.view = new MealPageView();
         this.modal = new MealPageModel();
         this.valueData = '';
@@ -21,47 +22,55 @@ class MealPageController {
     public async createPage() {
         const mealData=await this.modal.getUserMealData()
         const exploreData = await this.modal.getExploreData();
-        this.searchingData = await this.modal.getSearchingData(this.valueData ? this.valueData : 'brownie');
-
-        // this.handlerInput(e)
+        const searchingData = await this.modal.getSearchingData(this.valueData ? this.valueData : 'brownie');
 
         this.view.render(
             mealData,
-            this.handlerMealCard,
+            this.handlerMealCard.bind(this),
             exploreData,
-            this.handlerExploreCard,
-            this.searchingData,
-            this.handlerSearchingCard,
-            this.handlerInput
+            this.handlerExploreCard.bind(this),
+            searchingData,
+            this.handlerSearchingCard.bind(this),
+            this.handlerChange.bind(this)
         );
     }
-   
-    handlerMealCard(e) {
-        console.log('click');
-    }
-
-    handlerExploreCard(e) {
-        console.log('click');
-    }
-
-    handlerSearchingCard(e) {
-        console.log('click');
-    }
-
-    async handlerInput(e: Event) {
+    async handlerChange(e: Event) {     
         const value = (e.target as HTMLInputElement).value;
-        const searchingMeals=document.querySelector('.searching-meals') as HTMLElement
-        searchingMeals!.innerHTML=''
         search=value.toLowerCase().trim()
-        // this.searchingData = await this.modal.getSearchingData(search ? search : 'brownie');
-        // const searchingCards = this.view.getSearchingCards(this.searchingData, this.handlerSearchingCard);
-        // searchingMeals.append(...searchingCards);
-        // this.valueData=value
-
-        //    this.searchingData=await this.modal.getSearchingData(value)
-        console.log('value', value,search);
-        // this.createPage()
+        // console.log('value', value,search);
+      
+        document.onkeyup=async (e:KeyboardEvent)=>{
+            e = e || window.event;
+            if (e.keyCode === 13) {
+              const searchingMeals=document.querySelector('.searching-meals') as HTMLElement
+              searchingMeals!.innerHTML=''    
+              let data=await new MealPageModel().getSearchingData(search);
+              if(data.length===0){
+                searchingMeals!.innerHTML='No matches'
+              }else{
+                const searchingCards = new MealPageView().getSearchingCards(data, this.handlerSearchingCard);
+                //   const searchingCards = new MealPageView().getSearchingCards(data, (e:Event)=>{console.log('click');});
+              searchingMeals.append(...searchingCards)
+              }
+              
+              console.log('data',data)
+           }
+           return false
+        }
     }
+    handlerMealCard(e: Event) {
+        console.log('click');
+    }
+
+    handlerExploreCard(e: Event) {
+        console.log('click');
+    }
+
+    handlerSearchingCard(e: Event) {
+        console.log('click');
+    }
+
+ 
  
 }
 

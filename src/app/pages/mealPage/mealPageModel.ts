@@ -23,7 +23,17 @@ class MealPageModel {
 
         // ,'Salad','Starter','Soup','Preps','Omelet','Biscuits and cookies','Cereals','Condiments and sauces','Drinks'
     }
+    async getUserMealData() {
+        const userData: Array<IDataExplore> = [];
+        for(let mealType of this.mealType){
+            const userRecipe = await this.mealData.userData('0','1', mealType, '591-722');
+            if(userRecipe){
+                userData.push(...userRecipe)
+            }
+        }
+        return userData
 
+    }
     async getExploreData() {
         console.log('data is being loaded');
         const data: Array<IDataExplore> = [];
@@ -40,27 +50,16 @@ class MealPageModel {
 
         return data;
     }
-    async getUserMealData() {
-        const userData: Array<IDataExplore> = [];
-        for(let mealType of this.mealType){
-            const userRecipe = await this.mealData.userData('0','1', mealType, '591-722');
-            if(userRecipe){
-                userData.push(...userRecipe)
-            }
-        }
-        return userData
 
-    }
 
     async getSearchingData(meal = 'Salad') {
         const numTo = this.numFrom! + 10;
         const searchingData = await this.mealData.searchingData(this.numFrom!.toString(), numTo.toString(), meal);
-        // console.log('searchingData',searchingData)
+        
+        console.log('searchingData',searchingData)
         return searchingData;
     }
-
-   
-
+  
     getNumFrom() {
         this.numFrom = Utils.randomInteger(0, 100);
         return this.numFrom;

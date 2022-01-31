@@ -27,7 +27,7 @@ class MealPageView {
         onclick: (e: Event) => void,
         searchingData: Array<IDataExplore>,
         onclickSearching: (e: Event) => void,
-        oninput: (e: Event) => void
+        onchange: (e: Event) => void
     ) {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
@@ -43,7 +43,7 @@ class MealPageView {
         navbar.addProfileLink('O');
         // this.rootNode.insertAdjacentHTML('beforeend', this.getSectionForDayMeals() );
         // `<main class="main-page"><span>This is Meal Page!</span></main>`
-        this.createContentMeal(mealData,onclickMeal,exploreData, onclick, searchingData, onclickSearching, oninput);
+        this.createContentMeal(mealData,onclickMeal,exploreData, onclick, searchingData, onclickSearching, onchange);
 
         this.rootNode.append(footer.getTemplate());
     }
@@ -55,7 +55,7 @@ class MealPageView {
         onclick: (e: Event) => void,
         searchingData: Array<IDataExplore>,
         onclickSearching: (e: Event) => void,
-        oninput: (e: Event) => void
+        onchange: (e: Event) => void
 
     ) {
         const main = new Node(this.rootNode, 'main', 'main-page');
@@ -82,8 +82,8 @@ class MealPageView {
         Node.setChild(searchContainer.node, 'h5', 'title-meal', 'Find the recipe');
         const inputWrapper = new Node(searchContainer.node, 'div', 'input-wrapper');
 
-        inputWrapper.node.append(this.getInputNode(oninput));
-        const btn=new Node(inputWrapper.node, 'button', 'search-button');
+        inputWrapper.node.append(this.getInputNode(onchange));
+        // const btn=new Node(inputWrapper.node, 'button', 'search-button');
 
         const searchingCardsContainer = new Node(searchContainer.node, 'div', 'searching-meals');
 
@@ -91,9 +91,9 @@ class MealPageView {
         searchingCardsContainer.node.append(...searchingCards);
     }
 
-    getInputNode(oninput: (e: Event) => void) {
+    getInputNode(onchange: (e: Event) => void) {
         this.rootNodeInput.setAttribute('placeholder', 'For example: brownie');
-        this.rootNodeInput.oninput = (e: Event) => oninput(e);
+        this.rootNodeInput.onchange = (e: Event) => onchange(e);
         return this.rootNodeInput;
     }
 
