@@ -1,6 +1,6 @@
-import router from '../../router/router';
 import AuthModel from './authPageModel';
 import AuthView from './authPageView';
+import StorageManager from '../../services/storageManager';
 import { TToken } from '../../services/types';
 
 export default class AuthController {
@@ -18,15 +18,13 @@ export default class AuthController {
 
     public createPage(isLogin: boolean): void {
         this.isLogin = isLogin;
-        const token: TToken = JSON.parse(localStorage.getItem('token') as string);
+        if (!this.isLogin) {
+            StorageManager.deleteItem('token', 'local');
+        }
+        const token: TToken = JSON.parse(StorageManager.getItem('token', 'local') as string);
         if (token && token.jwtToken.length > 0) this.isLogin = true;
 
-        this.view.render(
-            this.handleInputChange.bind(this),
-            this.handleButtonClick.bind(this),
-            this.isLogin,
-            this.signUpHandler.bind(this)
-        );
+        this.view.render(this.handleInputChange.bind(this), this.handleButtonClick.bind(this), this.isLogin);
     }
 
     public handleInputChange(): void {
@@ -39,14 +37,16 @@ export default class AuthController {
         this.model.changeHandler(nameInputValue, emailInput.value, passwordInput.value);
     }
 
-    public handleButtonClick(): void {
-        const action = this.isLogin ? 'login' : 'register';
-        this.model.authHandler(`${action}`);
-    }
+    public async handleButtonClick(e: Event): Promise<void> {
+        let isLoading = this.model.isLoading;
+        this.view.handlePreloader(isLoading);
+        (e.target as HTMLElement).setAttribute('disabled', 'true');
 
-    private signUpHandler(): void {
-        if (!this.isLogin) {
-            router.navigate('/goals');
-        }
+        const action = this.isLogin ? 'auth/login' : 'auth/register';
+        await this.model.authHandler(`${action}`);
+
+        (e.target as HTMLElement).removeAttribute('disabled');
+        isLoading = this.model.isLoading;
+        this.view.handlePreloader(isLoading);
     }
 }

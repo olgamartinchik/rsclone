@@ -13,6 +13,7 @@
 
 .registration-content {
     padding-top: 40px;
+    height: calc(100vh - 230px);
     & > div {
         @include flex;
         justify-content: center;
@@ -30,18 +31,105 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-basis: 48%;
+            padding: 8px;
+            margin-bottom: 10px;
             height: 50px;
             border: 1px solid $color-border;
             border-radius: 20px;
             cursor: pointer;
-            &.left {
-                margin-right: 10px;
-                margin-bottom: 30px;
+            &.column {
+                flex-basis: 47%;
             }
-            &.right {
-                margin-left: 10px;
-                margin-bottom: 30px;
+            &.option {
+                flex-basis: 100%;
+            }
+            &.active {
+                background-color: $color-primary;
+                color: $color-text-on-dark;
+                border: none;
+            }
+        }
+        .frequency {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            margin-bottom: 10px;
+            height: 50px;
+            border: 1px solid $color-border;
+            border-radius: 20px;
+            cursor: pointer;
+            &.option {
+                flex-basis: 100%;
+            }
+            &.tile {
+                flex-basis: 30%;
+            }
+            &.active {
+                background-color: $color-primary;
+                color: $color-text-on-dark;
+                border: none;
+            }
+        }
+        .classes {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            margin-bottom: 10px;
+            height: 50px;
+            border: 1px solid $color-border;
+            border-radius: 20px;
+            cursor: pointer;
+            &.option {
+                flex-basis: 100%;
+            }
+            &.tile {
+                flex-basis: 30%;
+            }
+            &.active {
+                background-color: $color-primary;
+                color: $color-text-on-dark;
+                border: none;
+            }
+        }
+        .length {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            margin-bottom: 10px;
+            height: 50px;
+            border: 1px solid $color-border;
+            border-radius: 20px;
+            cursor: pointer;
+            &.option {
+                flex-basis: 100%;
+            }
+            &.tile {
+                flex-basis: 30%;
+            }
+            &.active {
+                background-color: $color-primary;
+                color: $color-text-on-dark;
+                border: none;
+            }
+        }
+        .duration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            margin-bottom: 10px;
+            height: 50px;
+            border: 1px solid $color-border;
+            border-radius: 20px;
+            cursor: pointer;
+            &.option {
+                flex-basis: 100%;
+            }
+            &.tile {
+                flex-basis: 30%;
             }
             &.active {
                 background-color: $color-primary;
@@ -52,8 +140,14 @@
     }
 }
 
-.registration-content > div.goal-options {
-    width: 500px;
+div.parameters-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    &.center {
+        justify-content: center;
+    }
 }
 
 .gender-selection {
@@ -72,11 +166,13 @@
 }
 
 .gender-item {
-    flex-basis: 30%;
+    flex-basis: 33%;
     z-index: 2;
     cursor: pointer;
     &.active {
         color: $color-text-on-dark;
+        border-radius: 20px;
+        background-color: $color-settings-active;
     }
 }
 
@@ -119,6 +215,12 @@
             content: fa-content($fa-var-cogs);
         }
     }
+    &.arrow-left {
+        &:before {
+            content: fa-content($fa-var-arrow-left);
+            font-size: 25px;
+        }
+    }
 }
 
 .icon-container {
@@ -137,40 +239,17 @@
     }
 }
 
-.gender-selection.active-1:after {
-    content: '';
-    position: absolute;
-    width: 114px;
-    height: 100%;
-    top: 0;
-    transition: all 0.3s ease;
-    border-radius: 30px;
-    z-index: 1;
-    left: 0;
-    background: $color-settings-active;
-}
-
-.gender-selection.active-2:after {
-    left: 98px;
-    background: $color-settings-active;
-}
-
-.gender-selection.active-3:after {
-    left: 212px;
-    background: $color-settings-active;
-}
-
 //Pop-up calender
 
 .datepicker::placeholder {
-    padding-left: 100px;
+    padding-left: 150px;
     color: $color-placeholder;
 }
 
 .calender::before {
     position: absolute;
-    right: 25px;
-    bottom: 20px;
+    right: 5px;
+    bottom: 12px;
     margin-right: 8px;
     @extend %fa-icon;
     @extend .fas;
@@ -303,8 +382,6 @@ input[type='password']:not(.browser-default),
 input[type='text']:not(.browser-default) {
     width: 100%;
     border-bottom: 1px solid $color-text-on-dark;
-    color: $color-text-on-dark;
-    padding-left: 12px;
 }
 
 .auth-link {
@@ -331,6 +408,10 @@ input[type='text']:not(.browser-default) {
         font-size: 30px;
     }
 
+    .registration-content > form {
+        width: 300px;
+    }
+
     .registration-content > div {
         width: 315px;
     }
@@ -339,19 +420,11 @@ input[type='text']:not(.browser-default) {
         width: 315px;
     }
 
-    .datepicker::placeholder {
-        padding-left: 55px;
-    }
-
     .registration-content > div .goal {
         flex-basis: 51%;
     }
 
-    .registration-content > div .goal.left {
-        margin-right: 0;
-    }
-
-    .registration-content > div .goal.right {
-        margin-left: 0;
+    .datepicker::placeholder {
+        padding-left: 100px;
     }
 }

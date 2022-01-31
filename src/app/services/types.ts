@@ -20,6 +20,7 @@ export type TStrategies = {
 };
 
 export type TSettings = {
+    userId: string;
     goal: Goal;
     weight: number;
     height: number;
@@ -48,6 +49,7 @@ export type TToken = {
     userID: string;
     jwtToken: string;
 };
+
 export type RouteOption = {
     path: RegExp;
     callback: () => void;
@@ -57,3 +59,7 @@ export type StoragesHandler = {
     session: Storage;
     local: Storage;
 };
+
+export interface ISetting {
+    [key: string]: any;
+}
