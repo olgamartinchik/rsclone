@@ -14761,7 +14761,6 @@ nav .brand-logo {
   border: none;
 }
 
-<<<<<<< HEAD
 div.parameters-options {
   display: flex;
   flex-wrap: wrap;
@@ -14770,10 +14769,6 @@ div.parameters-options {
 }
 div.parameters-options.center {
   justify-content: center;
-=======
-.registration-content > div.goal-options {
-    width: 500px;
->>>>>>> 60a23fa17dc7240eba1d6e31c2e702c198180648
 }
 
 .gender-selection {
@@ -14792,7 +14787,6 @@ div.parameters-options.center {
 }
 
 .gender-item {
-<<<<<<< HEAD
   flex-basis: 33%;
   z-index: 2;
   cursor: pointer;
@@ -14801,14 +14795,6 @@ div.parameters-options.center {
   color: white;
   border-radius: 20px;
   background-color: #816ffe;
-=======
-    flex-basis: 30%;
-    z-index: 2;
-    cursor: pointer;
-}
-.gender-item.active {
-    color: white;
->>>>>>> 60a23fa17dc7240eba1d6e31c2e702c198180648
 }
 
 .icon {
@@ -14856,32 +14842,6 @@ div.parameters-options.center {
     background-color: #816ffe;
 }
 
-<<<<<<< HEAD
-=======
-.gender-selection.active-1:after {
-    content: '';
-    position: absolute;
-    width: 114px;
-    height: 100%;
-    top: 0;
-    transition: all 0.3s ease;
-    border-radius: 30px;
-    z-index: 1;
-    left: 0;
-    background: #816ffe;
-}
-
-.gender-selection.active-2:after {
-    left: 98px;
-    background: #816ffe;
-}
-
-.gender-selection.active-3:after {
-    left: 212px;
-    background: #816ffe;
-}
-
->>>>>>> 60a23fa17dc7240eba1d6e31c2e702c198180648
 .datepicker::placeholder {
     padding-left: 100px;
     color: #b4b4b4;
@@ -15016,22 +14976,12 @@ button:focus {
     color: white;
 }
 
-<<<<<<< HEAD
 input[type=email]:not(.browser-default),
 input[type=password]:not(.browser-default),
 input[type=text]:not(.browser-default) {
   width: 100%;
   border-bottom: 1px solid white;
   padding-left: 12px;
-=======
-input[type='email']:not(.browser-default),
-input[type='password']:not(.browser-default),
-input[type='text']:not(.browser-default) {
-    width: 100%;
-    border-bottom: 1px solid white;
-    color: white;
-    padding-left: 12px;
->>>>>>> 60a23fa17dc7240eba1d6e31c2e702c198180648
 }
 
 .auth-link {
@@ -15332,18 +15282,11 @@ input[type='text']:not(.browser-default) {
     }
 }
 .footer {
-<<<<<<< HEAD
   background-color: #666;
   min-height: 30px;
   padding: 10px;
   height: 80px;
   color: white;
-=======
-    background-color: #666;
-    min-height: 30px;
-    padding: 15px;
-    color: white;
->>>>>>> 60a23fa17dc7240eba1d6e31c2e702c198180648
 }
 .footer-wrapper {
     display: flex;
@@ -15446,13 +15389,8 @@ footer {
 }
 
 *::-webkit-scrollbar {
-<<<<<<< HEAD
   height: 6px;
   width: 0;
-=======
-    height: 4px;
-    width: 0;
->>>>>>> 60a23fa17dc7240eba1d6e31c2e702c198180648
 }
 
 *::-webkit-scrollbar-track {
@@ -15584,17 +15522,12 @@ input[type=text].datepicker::placeholder {
 }
 
 .select-block {
-<<<<<<< HEAD
   margin-top: 10px;
   width: 100%;
   display: none;
 }
 .select-block.active {
   display: block;
-=======
-    margin-top: 10px;
-    width: 100%;
->>>>>>> 60a23fa17dc7240eba1d6e31c2e702c198180648
 }
 .select-block .options {
     width: 70%;
@@ -15604,7 +15537,6 @@ input[type=text].datepicker::placeholder {
     text-align: center;
 }
 .select-block .options p {
-<<<<<<< HEAD
   flex-basis: 40%;
   margin: 0;
   padding: 5px 0;
@@ -15612,31 +15544,18 @@ input[type=text].datepicker::placeholder {
   font-weight: 500;
   color: #b4b4b4;
   cursor: pointer;
-=======
-    flex-basis: 40%;
-    padding: 5px 0;
-    font-size: 14px;
-    font-weight: 500;
-    color: #b4b4b4;
-    cursor: pointer;
->>>>>>> 60a23fa17dc7240eba1d6e31c2e702c198180648
 }
 .select-block .options p.active {
     color: #ff8a80;
     border-bottom: 2px solid #ff8a80;
 }
 
-<<<<<<< HEAD
 input[type=range] {
   border: none;
 }
 
 input[type=range] + .thumb {
   background-color: #ff8a80;
-=======
-input[type='range'] + .thumb {
-    background-color: #ff8a80;
->>>>>>> 60a23fa17dc7240eba1d6e31c2e702c198180648
 }
 
 input[type='range'] + .thumb .value {
@@ -15680,15 +15599,9 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
     color: #ff8a80;
 }
 
-<<<<<<< HEAD
 input[type=range]::-webkit-slider-runnable-track {
   height: 5px;
   background: #c2bebe;
-=======
-input[type='range']::-webkit-slider-runnable-track {
-    height: 5px;
-    background: linear-gradient(to right, #ff8a80 0%, #ff8a80 50%, #c2bebe 50%, #c2bebe 100%);
->>>>>>> 60a23fa17dc7240eba1d6e31c2e702c198180648
 }
 
 input[type='text']:not(.browser-default).invalid,
