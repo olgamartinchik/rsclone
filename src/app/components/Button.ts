@@ -16,4 +16,8 @@ export default class Button {
         this.button.node.innerHTML = 'Signup';
         this.button.node.classList.add('header-tablet');
     }
+
+    onclick(onclick: (e: Event) => void): void {
+        this.button.node.onclick = (e: Event) => onclick(e);
+    }
 }

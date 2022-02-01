@@ -1,4 +1,5 @@
 import Auth from '../../components/auth/auth';
+import Preloader from '../../components/preloader/preloader';
 import Node from '../../components/Node';
 
 export default class AuthView {
@@ -11,15 +12,11 @@ export default class AuthView {
         this.auth = new Auth(this.rootNode);
     }
 
-    public render(
-        onchange: (e: Event) => void,
-        onclick: (e: Event) => void,
-        isLogin: boolean,
-        signUpHandler: () => void
-    ) {
+    public render(onchange: (e: Event) => void, onclick: (e: Event) => void, isLogin: boolean) {
         this.rootNode.textContent = '';
 
         this.rootNode.append(this.auth.getTemplate(isLogin));
+
         const inputs = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
         inputs.forEach((input) => {
             input.onchange = (e: Event) => onchange(e);
@@ -31,6 +28,14 @@ export default class AuthView {
             authLink.setAttribute('href', `#/register`);
         }
 
-        this.rootNode.append(this.auth.addButton(onclick, signUpHandler));
+        this.rootNode.append(this.auth.addButton(onclick));
+    }
+
+    public handlePreloader(isLoading: boolean): void {
+        if (isLoading) {
+            this.rootNode.append(Preloader.getTemplate());
+        } else {
+            Preloader.getTemplate().remove();
+        }
     }
 }

@@ -21,6 +21,13 @@
     background: linear-gradient(270deg, $color-background-linear-5 -24.77%, $color-background-linear-6 95.41%);
 }
 
+.back-btn {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    color: white;
+}
+
 @media (max-width: 768px) {
     .btn-large.header-tablet {
         visibility: visible;

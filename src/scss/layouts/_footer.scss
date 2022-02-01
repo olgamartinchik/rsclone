@@ -1,7 +1,8 @@
 .footer {
     background-color: $color-background-dark;
     min-height: 30px;
-    padding: 15px;
+    padding: 10px;
+    height: 80px;
     color: $color-text-on-dark;
     &-wrapper {
         display: flex;

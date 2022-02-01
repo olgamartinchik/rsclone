@@ -94,4 +94,4 @@ export class Router implements IRouter {
     }
 }
 
-export default new Router({ root: ' '});
+export default new Router({ root: ' ' });
