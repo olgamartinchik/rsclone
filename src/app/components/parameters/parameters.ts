@@ -13,7 +13,7 @@ class Parameters {
     ): HTMLElement {
         const rootNode = document.createElement('div');
         rootNode.className = 'input-group';
-        rootNode.id = title.toLowerCase();
+        rootNode.id = title.split(' ').join('');
         rootNode.onclick = (e: Event) => onselect(e);
         rootNode.oninput = (e: Event) => oninput(e);
         rootNode.insertAdjacentHTML('afterbegin', paramsTemplate(title, units, option1, option2, min, max));
