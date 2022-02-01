@@ -80,6 +80,7 @@ export enum Weight {
 export enum Colors {
     primary = '#ff8a80',
     secondary = '#c2bebe',
+    textOnLight = '#666',
 }
 
 export enum Coefficients {

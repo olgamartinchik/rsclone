@@ -15478,6 +15478,7 @@ input {
     position: relative;
     padding-bottom: 5px;
     border-bottom: 1px solid #c2bebe;
+    cursor: default;
 }
 .input-group.hidden {
     display: none;
@@ -15486,7 +15487,6 @@ input {
     display: block;
     margin-right: 35px;
     color: #b4b4b4;
-    cursor: pointer;
 }
 .input-group > span.title {
     width: 130px;
@@ -15533,6 +15533,7 @@ input[type='text'].datepicker::placeholder {
     right: 10px;
     top: 5px;
     color: #666;
+    cursor: pointer;
 }
 
 .select-block {

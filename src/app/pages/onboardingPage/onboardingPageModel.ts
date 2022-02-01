@@ -13,11 +13,11 @@ export default class OnboardingModel {
             userId: '',
             // startDate: Date.now().toString(),
             goal: Goal.muscle,
-            weight: 40,
-            height: 120,
+            weight: 0,
+            height: 0,
             age: 0,
             gender: Gender.female,
-            desiredWeight: 40,
+            desiredWeight: 0,
             duration: WorkoutsProgramDuration.short,
             workoutsNumber: WorkoutsNumber.small,
             workoutLength: { min: 5, max: 10 },
@@ -48,7 +48,7 @@ export default class OnboardingModel {
         clientManager.postData(Endpoints.userSettings, this.form);
     }
 
-    private calculateAge(dateOfBirth: string): number {
+    public calculateAge(dateOfBirth: string): number {
         const date = new Date();
         const currentDay = date.getDate();
         const currentMonth = date.getMonth();
@@ -70,11 +70,7 @@ export default class OnboardingModel {
         return age;
     }
 
-    public get programDuration(): number {
-        return this.form.duration;
-    }
-
-    public get favWorkouts(): Array<string> {
-        return this.form.favWorkouts;
+    public get settings(): TSettings {
+        return this.form;
     }
 }

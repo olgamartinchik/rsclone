@@ -9,8 +9,8 @@ export function paramsTemplate(
     const dataAttribute = title === 'weight' || title === 'desired Weight' ? 'weight' : 'height';
     return `
   <span class="title title-tablet">${title}</span>
-  <span class="value">
-      <span>${min}</span> 
+  <span class="value" data-${dataAttribute}>
+      <span>0</span> 
       <span>${units}</span>
       <i class="icon-select"></i>
   </span>

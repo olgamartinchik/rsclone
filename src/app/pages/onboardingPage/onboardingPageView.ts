@@ -6,6 +6,7 @@ import Congrats from '../../components/congratulations/congrats';
 import Node from '../../components/Node';
 import Button from '../../components/Button';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
+import { TSettings } from '../../services/types';
 import {
     Height,
     Weight,
@@ -13,6 +14,7 @@ import {
     WorkoutsNumber,
     WorkoutType,
     WorkoutsProgramDuration,
+    Colors,
 } from '../../services/constants';
 
 class OnboardingPageView {
@@ -27,7 +29,8 @@ class OnboardingPageView {
 
     render(
         block: string,
-        favWorkouts: Array<string>,
+        settings: TSettings,
+        birthday: string,
         onselect: (e: Event) => void,
         oninput: (e: Event) => void,
         onclick: (e: Event) => void,
@@ -43,7 +46,7 @@ class OnboardingPageView {
         form.setAttribute('action', '#');
         form.setAttribute('method', 'post');
 
-        this.renderForm(block, form, favWorkouts, onselect, oninput, onclick, onBackClick);
+        this.renderForm(block, form, settings, birthday, onselect, oninput, onclick, onBackClick);
 
         this.rootNode.append(Footer.getTemplate());
     }
@@ -51,7 +54,8 @@ class OnboardingPageView {
     public renderForm(
         block: string,
         form: HTMLElement,
-        favWorkouts: Array<string>,
+        settings: TSettings,
+        birthday: string,
         onselect: (e: Event) => void,
         oninput: (e: Event) => void,
         onclick: (e: Event) => void,
@@ -61,22 +65,22 @@ class OnboardingPageView {
 
         switch (block) {
             case 'About you':
-                this.renderAboutBlock(form, onselect, oninput);
+                this.renderAboutBlock(form, settings, birthday, onselect, oninput);
                 break;
             case `What's your goal?`:
-                this.renderGoalsBlock(form, onselect, oninput);
+                this.renderGoalsBlock(form, settings, onselect, oninput);
                 break;
             case 'How many workouts per week do you want?':
-                this.renderFrequencyBlock(form, onselect);
+                this.renderFrequencyBlock(form, settings, onselect);
                 break;
             case 'Select all your favorite type of classes:':
-                this.renderClassesBlock(form, favWorkouts, onselect);
+                this.renderClassesBlock(form, settings, onselect);
                 break;
             case 'How much time do you prefer to work out?':
-                this.renderWorkoutLengthBlock(form, onselect);
+                this.renderWorkoutLengthBlock(form, settings, onselect);
                 break;
             case 'How many weeks do you want to start with?':
-                this.renderDurationBlock(form, onselect);
+                this.renderDurationBlock(form, settings, onselect);
                 break;
         }
 
@@ -89,10 +93,20 @@ class OnboardingPageView {
         nextBtn.onclick(onclick);
     }
 
-    private renderAboutBlock(form: HTMLElement, onselect: (e: Event) => void, oninput: (e: Event) => void): void {
+    private renderAboutBlock(
+        form: HTMLElement,
+        settings: TSettings,
+        birthday: string,
+        onselect: (e: Event) => void,
+        oninput: (e: Event) => void
+    ): void {
         form.append(Gender.getTemplate(onselect));
+        this.colorSelectedOption(settings, 'gender');
+
         form.append(Calender.getTemplate(onselect));
+        (<HTMLInputElement>document.querySelector('.datepicker')).value = birthday;
         this.materializeHandler.initDatePicker();
+
         form.append(
             Parameters.getTemplate(
                 Height.title,
@@ -105,6 +119,7 @@ class OnboardingPageView {
                 oninput
             )
         );
+
         form.append(
             Parameters.getTemplate(
                 Weight.title,
@@ -117,9 +132,17 @@ class OnboardingPageView {
                 oninput
             )
         );
+
+        if (settings.height > 0) this.saveParameters('height', settings);
+        if (settings.weight > 0) this.saveParameters('weight', settings);
     }
 
-    private renderGoalsBlock(form: HTMLElement, onselect: (e: Event) => void, oninput: (e: Event) => void): void {
+    private renderGoalsBlock(
+        form: HTMLElement,
+        settings: TSettings,
+        onselect: (e: Event) => void,
+        oninput: (e: Event) => void
+    ): void {
         const goalsWrapper = Node.setChild(form, 'div', 'parameters-options');
         goalsWrapper.onclick = (e: Event) => onselect(e);
         const goals = [GoalTitles.muscle, GoalTitles.relax, GoalTitles.toned, GoalTitles.weight];
@@ -155,10 +178,11 @@ class OnboardingPageView {
                 form.append(weightChoiceBlock);
             }
         });
-        goalsWrapper.children[0].classList.add('active');
+
+        this.colorSelectedOption(settings, 'goal');
     }
 
-    private renderFrequencyBlock(form: HTMLElement, onselect: (e: Event) => void): void {
+    private renderFrequencyBlock(form: HTMLElement, settings: TSettings, onselect: (e: Event) => void): void {
         const frequencyWrapper = Node.setChild(form, 'div', 'parameters-options');
         frequencyWrapper.onclick = (e: Event) => onselect(e);
         const variants = [WorkoutsNumber.small, WorkoutsNumber.medium, WorkoutsNumber.large, WorkoutsNumber.huge];
@@ -172,10 +196,10 @@ class OnboardingPageView {
             variantItem.setAttribute('data-title', 'workoutsNumber');
             variantItem.setAttribute('data-value', variant.toString());
         });
-        frequencyWrapper.children[0].classList.add('active');
+        this.colorSelectedOption(settings, 'frequency');
     }
 
-    private renderClassesBlock(form: HTMLElement, favWorkouts: Array<string>, onselect: (e: Event) => void): void {
+    private renderClassesBlock(form: HTMLElement, settings: TSettings, onselect: (e: Event) => void): void {
         const classesWrapper = Node.setChild(form, 'div', 'parameters-options center');
         classesWrapper.onclick = (e: Event) => onselect(e);
         const classes = [
@@ -195,14 +219,14 @@ class OnboardingPageView {
             classItem.setAttribute('data-type', elem);
             classItems.push(classItem);
         });
-        favWorkouts.forEach((type) => {
+        settings.favWorkouts.forEach((type) => {
             classItems.forEach((item) => {
                 if (item.dataset.type === type.toLowerCase()) item.classList.add('active');
             });
         });
     }
 
-    private renderWorkoutLengthBlock(form: HTMLElement, onselect: (e: Event) => void): void {
+    private renderWorkoutLengthBlock(form: HTMLElement, settings: TSettings, onselect: (e: Event) => void): void {
         const lengthWrapper = Node.setChild(form, 'div', 'parameters-options');
         lengthWrapper.onclick = (e: Event) => onselect(e);
         const lengths = [{ min: 5, max: 10 }, { min: 15, max: 20 }, { min: 25, max: 30 }, { min: 30 }];
@@ -212,13 +236,14 @@ class OnboardingPageView {
                 : Node.setChild(lengthWrapper, 'div', 'length option z-depth-1', `${length.min}+`);
             workoutLength.setAttribute('data-title', 'workoutLength');
             workoutLength.setAttribute('data-min', `${length.min}`);
+            workoutLength.setAttribute('data-value', `${length.min}`);
             if (length.max) workoutLength.setAttribute('data-max', `${length.max}`);
         });
 
-        lengthWrapper.children[0].classList.add('active');
+        this.colorSelectedOption(settings, 'length');
     }
 
-    private renderDurationBlock(form: HTMLElement, onselect: (e: Event) => void): void {
+    private renderDurationBlock(form: HTMLElement, settings: TSettings, onselect: (e: Event) => void): void {
         const durationWrapper = Node.setChild(form, 'div', 'parameters-options');
         durationWrapper.onclick = (e: Event) => onselect(e);
         const durations = [WorkoutsProgramDuration.short, WorkoutsProgramDuration.medium, WorkoutsProgramDuration.long];
@@ -233,7 +258,41 @@ class OnboardingPageView {
             workoutProgramDuration.setAttribute('data-value', duration.toString());
         });
 
-        durationWrapper.children[0].classList.add('active');
+        this.colorSelectedOption(settings, 'duration');
+    }
+
+    private colorSelectedOption(settings: TSettings, setting: string): void {
+        const options = document.querySelectorAll('[data-value]');
+        options.forEach((option) => {
+            const selectedOption = (<HTMLElement>option).dataset.value as
+                | string
+                | WorkoutsNumber
+                | WorkoutsProgramDuration;
+            switch (setting) {
+                case 'gender':
+                    if (selectedOption === settings.gender) option.classList.add('active');
+                    break;
+                case 'goal':
+                    if (selectedOption === settings.goal) option.classList.add('active');
+                    break;
+                case 'frequency':
+                    if (selectedOption === settings.workoutsNumber.toString()) option.classList.add('active');
+                    break;
+                case 'duration':
+                    if (selectedOption === settings.duration.toString()) option.classList.add('active');
+                    break;
+                case 'length':
+                    if (selectedOption === settings.workoutLength.min.toString()) option.classList.add('active');
+                    break;
+            }
+        });
+    }
+
+    private saveParameters(type: string, settings: TSettings) {
+        const elementsWrapper = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[0];
+        const value = elementsWrapper.children[0];
+        value.textContent = type === 'height' ? settings.height.toString() : settings.weight.toString();
+        elementsWrapper.style.color = Colors.textOnLight;
     }
 
     public renderCongratulations(programDuration: number, onclick: (e: Event) => void): void {

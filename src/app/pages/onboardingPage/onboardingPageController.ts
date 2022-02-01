@@ -1,7 +1,7 @@
 import OnboardingPageView from './onboardingPageView';
 import OnboardingModel from './onboardingPageModel';
 import router from '../../router/router';
-import { Height, Weight, Colors, Coefficients, Goal, Message } from '../../services/constants';
+import { Height, Weight, Colors, Coefficients, Goal, Message, WorkoutType } from '../../services/constants';
 
 class OnboardingPageController {
     private view: OnboardingPageView;
@@ -16,7 +16,7 @@ class OnboardingPageController {
 
     private block: number;
 
-    private classes: Array<string>;
+    private birthday: string;
 
     constructor() {
         this.view = new OnboardingPageView();
@@ -32,13 +32,14 @@ class OnboardingPageController {
             'How many weeks do you want to start with?',
         ];
         this.block = 0;
-        this.classes = this.model.favWorkouts;
+        this.birthday = '';
     }
 
     public createPage() {
         this.view.render(
             this.blocks[this.block],
-            this.classes,
+            this.model.settings,
+            this.birthday,
             this.handleValueSelect.bind(this),
             this.handleRangeSliderInput.bind(this),
             this.handleButtonClick.bind(this),
@@ -52,8 +53,8 @@ class OnboardingPageController {
 
         if (typeof className === 'object') return;
 
-        if (className.includes('gender-item')) {
-            this.handleGenderSelect(e);
+        if (className.includes('gender-item') || className.includes('frequency') || className.includes('duration')) {
+            this.handleOptionSelect(e);
         } else if (className.includes('datepicker-done')) {
             this.handleDayBirthSelect(e);
         } else if (className.includes('icon-select')) {
@@ -62,18 +63,14 @@ class OnboardingPageController {
             this.handleUnitSelect(e);
         } else if (className.includes('goal')) {
             this.handleGoalSelect(e);
-        } else if (className.includes('frequency')) {
-            this.handleFrequencySelect(e);
         } else if (className.includes('classes')) {
             this.handleClassesSelect(e);
         } else if (className.includes('length')) {
             this.handleLengthSelect(e);
-        } else if (className.includes('duration')) {
-            this.handleDurationSelect(e);
         }
     }
 
-    private handleGenderSelect(e: Event): void {
+    private handleOptionSelect(e: Event): void {
         this.selectValue(e);
         this.registerSelectedValue(e);
     }
@@ -81,7 +78,7 @@ class OnboardingPageController {
     private handleDayBirthSelect(e: Event): void {
         const currentTarget = <HTMLElement>e.currentTarget;
         const calenderInput = <HTMLInputElement>currentTarget.children.namedItem('datepicker');
-
+        this.birthday = calenderInput.value;
         this.model.changeHandler({ age: calenderInput.value });
     }
 
@@ -107,15 +104,15 @@ class OnboardingPageController {
 
     private convertUnits(e: Event): void {
         const className = (<HTMLElement>e.target).className;
-        const heightSlider = <HTMLInputElement>document.querySelector('[data-height]');
-        const weightSlider = <HTMLInputElement>document.querySelector('[data-weight]');
+        const heightSlider = <HTMLInputElement>document.querySelectorAll('[data-height]')[1];
+        const weightSlider = <HTMLInputElement>document.querySelectorAll('[data-weight]')[1];
         let unit = '';
         let value = '';
 
         if (className.includes('feet')) {
             this.isFeet = true;
             unit = 'ft';
-            console.log(unit);
+            console.log(heightSlider);
             value = Math.round(+heightSlider.value * Coefficients.toFeet).toString();
         } else if (className.includes('centimeters')) {
             this.isFeet = false;
@@ -154,8 +151,9 @@ class OnboardingPageController {
             coefficient = Coefficients.toPounds;
             unit = this.isPounds;
         }
-
-        (<HTMLElement>e.currentTarget).children[1].children[0].textContent = !unit
+        const valueGroup = (<HTMLElement>e.currentTarget).children[1] as HTMLElement;
+        valueGroup.style.color = Colors.textOnLight;
+        valueGroup.children[0].textContent = !unit
             ? rangeSlider.value
             : Math.round(+rangeSlider.value * coefficient).toString();
 
@@ -185,16 +183,9 @@ class OnboardingPageController {
         this.registerSelectedValue(e);
     }
 
-    public handleFrequencySelect(e: Event): void {
-        this.selectValue(e);
-        this.registerSelectedValue(e);
-    }
-
     public handleClassesSelect(e: Event): void {
         (<HTMLElement>e.target).classList.add('active');
-        this.classes.push((<HTMLElement>e.target).textContent as string);
-
-        this.model.changeHandler({ favWorkouts: this.classes });
+        this.model.settings.favWorkouts.push((<HTMLElement>e.target).textContent as WorkoutType);
     }
 
     public handleLengthSelect(e: Event): void {
@@ -203,11 +194,6 @@ class OnboardingPageController {
         const min = (<HTMLElement>e.target).dataset.min;
         const max = (<HTMLElement>e.target).dataset.max;
         this.model.changeHandler({ workoutLength: { min: min, max: max } });
-    }
-
-    private handleDurationSelect(e: Event): void {
-        this.selectValue(e);
-        this.registerSelectedValue(e);
     }
 
     private registerSelectedValue(e: Event): void {
@@ -227,8 +213,15 @@ class OnboardingPageController {
     public handleButtonClick(e: Event): void {
         e.preventDefault();
 
+        if (this.blocks[this.block] === 'About you') {
+            if (this.model.settings.height === 0 || this.model.settings.weight === 0 || this.birthday === '') {
+                this.createMessage(Message.valueMissing);
+                return;
+            }
+        }
+
         if (this.blocks[this.block] === 'Select all your favorite type of classes:') {
-            if (this.classes.length === 0) {
+            if (this.model.settings.favWorkouts.length === 0) {
                 this.createMessage(Message.valueMissing);
                 return;
             }
@@ -240,7 +233,7 @@ class OnboardingPageController {
         } else {
             this.block = 0;
             this.model.saveSettings();
-            const programDuration = this.model.programDuration;
+            const programDuration = this.model.settings.duration;
             this.view.renderCongratulations(programDuration, this.handleFinalButtonClick.bind(this));
         }
     }

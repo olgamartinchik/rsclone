@@ -9,6 +9,7 @@ input {
     position: relative;
     padding-bottom: 5px;
     border-bottom: 1px solid $color-border;
+    cursor: default;
     &.hidden {
         display: none;
     }
@@ -16,7 +17,6 @@ input {
         display: block;
         margin-right: 35px;
         color: $color-placeholder;
-        cursor: pointer;
     }
     & > span.title {
         width: 130px;
@@ -67,6 +67,7 @@ input[type='text'].datepicker {
         right: 10px;
         top: 5px;
         color: $color-text-navbar;
+        cursor: pointer;
     }
 }
 
