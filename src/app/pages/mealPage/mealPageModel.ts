@@ -53,7 +53,7 @@ class MealPageModel {
 
 
     async getSearchingData(meal = 'Salad') {
-        const numTo = this.numFrom! + 10;
+        const numTo = this.numFrom! + 6;
         const searchingData = await this.mealData.searchingData(this.numFrom!.toString(), numTo.toString(), meal);
         
         console.log('searchingData',searchingData)

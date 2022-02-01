@@ -44,15 +44,15 @@ class MealPageController {
             if (e.keyCode === 13) {
               const searchingMeals=document.querySelector('.searching-meals') as HTMLElement
               searchingMeals!.innerHTML=''    
-              let data=await new MealPageModel().getSearchingData(search);
-              if(data.length===0){
+              let data=await this.modal.getSearchingData(search);
+              if(data){
+                  if(data.length===0){
                 searchingMeals!.innerHTML='No matches'
               }else{
-                const searchingCards = new MealPageView().getSearchingCards(data, this.handlerSearchingCard);
-                //   const searchingCards = new MealPageView().getSearchingCards(data, (e:Event)=>{console.log('click');});
-              searchingMeals.append(...searchingCards)
+                const searchingCards = this.view.getSearchingCards(data, this.handlerSearchingCard);            
+                searchingMeals.append(...searchingCards)
               }
-              
+              }        
               console.log('data',data)
            }
            return false
