@@ -19,19 +19,25 @@ input {
         cursor: pointer;
     }
     & > span.title {
-        width: 75px;
+        width: 130px;
         font-size: 16px;
         margin-bottom: 0;
         text-align: left;
+        text-transform: capitalize;
+        &.calender {
+            width: 75px;
+        }
     }
 }
 
-input[type=text].datepicker {
+input[type='text'].datepicker {
     margin-bottom: 0;
     color: $color-text-navbar;
-    text-align: center;
+    text-align: right;
     width: 75%;
     height: 30px;
+    padding-right: 30px;
+    box-sizing: border-box;
     &::placeholder {
         text-align: left;
         width: 100%;

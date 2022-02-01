@@ -8,7 +8,7 @@ class MaterializeHandler {
 
     initDatePicker() {
         const elems = document.querySelectorAll('.datepicker');
-        M.Datepicker.init(elems, {});
+        M.Datepicker.init(elems, { yearRange: [1930, 2022], defaultDate: new Date() });
     }
 }
 
