@@ -1,7 +1,7 @@
 import OnboardingPageView from './onboardingPageView';
 import OnboardingModel from './onboardingPageModel';
 import router from '../../router/router';
-import { Height, Weight, Colors, Coefficients, Goal } from '../../services/constants';
+import { Height, Weight, Colors, Coefficients, Goal, Message, WorkoutType } from '../../services/constants';
 
 class OnboardingPageController {
     private view: OnboardingPageView;
@@ -10,19 +10,19 @@ class OnboardingPageController {
 
     private isFeet: boolean;
 
-    private isLbs: boolean;
+    private isPounds: boolean;
 
     private blocks: Array<string>;
 
     private block: number;
 
-    private classes: Array<string>;
+    private birthday: string;
 
     constructor() {
         this.view = new OnboardingPageView();
         this.model = new OnboardingModel();
         this.isFeet = false;
-        this.isLbs = false;
+        this.isPounds = false;
         this.blocks = [
             'About you',
             `What's your goal?`,
@@ -32,15 +32,18 @@ class OnboardingPageController {
             'How many weeks do you want to start with?',
         ];
         this.block = 0;
-        this.classes = [];
+        this.birthday = '';
     }
 
     public createPage() {
         this.view.render(
             this.blocks[this.block],
+            this.model.settings,
+            this.birthday,
             this.handleValueSelect.bind(this),
             this.handleRangeSliderInput.bind(this),
-            this.handleButtonClick.bind(this)
+            this.handleButtonClick.bind(this),
+            this.handleBackBtnClick.bind(this)
         );
     }
 
@@ -50,8 +53,8 @@ class OnboardingPageController {
 
         if (typeof className === 'object') return;
 
-        if (className.includes('gender-item')) {
-            this.handleGenderSelect(e);
+        if (className.includes('gender-item') || className.includes('frequency') || className.includes('duration')) {
+            this.handleOptionSelect(e);
         } else if (className.includes('datepicker-done')) {
             this.handleDayBirthSelect(e);
         } else if (className.includes('icon-select')) {
@@ -60,30 +63,22 @@ class OnboardingPageController {
             this.handleUnitSelect(e);
         } else if (className.includes('goal')) {
             this.handleGoalSelect(e);
-        } else if (className.includes('frequency')) {
-            this.handleFrequencySelect(e);
         } else if (className.includes('classes')) {
             this.handleClassesSelect(e);
         } else if (className.includes('length')) {
             this.handleLengthSelect(e);
-        } else if (className.includes('duration')) {
-            this.handleDurationSelect(e);
         }
     }
 
-    private handleGenderSelect(e: Event): void {
-        Array.from(<HTMLCollection>(<HTMLElement>e.currentTarget).children).forEach((element) => {
-            element.classList.remove('active');
-        });
-        (<HTMLElement>e.target).classList.add('active');
-
-        this.model.changeHandler({ gender: <string>(<HTMLElement>e.target).textContent });
+    private handleOptionSelect(e: Event): void {
+        this.selectValue(e);
+        this.registerSelectedValue(e);
     }
 
     private handleDayBirthSelect(e: Event): void {
         const currentTarget = <HTMLElement>e.currentTarget;
         const calenderInput = <HTMLInputElement>currentTarget.children.namedItem('datepicker');
-
+        this.birthday = calenderInput.value;
         this.model.changeHandler({ age: calenderInput.value });
     }
 
@@ -100,91 +95,84 @@ class OnboardingPageController {
     private handleUnitSelect(e: Event): void {
         const nextElement = (<HTMLElement>e.target).nextElementSibling as HTMLElement;
         const previousElement = (<HTMLElement>e.target).previousElementSibling as HTMLElement;
-
         if (nextElement) nextElement.classList.remove('active');
         if (previousElement) previousElement.classList.remove('active');
-
         (<HTMLElement>e.target).classList.add('active');
 
-        const clickedElement = <HTMLElement>e.target;
-        const className = clickedElement.className;
-        const heightSlider = <HTMLInputElement>document.querySelector('[data-height]');
-        const weightSlider = <HTMLInputElement>document.querySelector('[data-weight]');
+        this.convertUnits(e);
+    }
+
+    private convertUnits(e: Event): void {
+        const className = (<HTMLElement>e.target).className;
+        const heightSlider = <HTMLInputElement>document.querySelectorAll('[data-height]')[1];
+        const weightSlider = <HTMLInputElement>document.querySelectorAll('[data-weight]')[1];
+        let unit = '';
+        let value = '';
 
         if (className.includes('feet')) {
             this.isFeet = true;
-            (<HTMLElement>e.currentTarget).children[1].children[1].textContent = 'ft';
-            (<HTMLElement>e.currentTarget).children[1].children[0].textContent = Math.round(
-                +heightSlider.value * Coefficients.toFeet
-            ).toString();
+            unit = 'ft';
+            console.log(heightSlider);
+            value = Math.round(+heightSlider.value * Coefficients.toFeet).toString();
         } else if (className.includes('centimeters')) {
             this.isFeet = false;
-            (<HTMLElement>e.currentTarget).children[1].children[1].textContent = 'cm';
-            (<HTMLElement>e.currentTarget).children[1].children[0].textContent = heightSlider.value;
+            unit = 'cm';
+            value = heightSlider.value;
         } else if (className.includes('pounds')) {
-            this.isLbs = true;
-            (<HTMLElement>e.currentTarget).children[1].children[1].textContent = 'lbs';
-            (<HTMLElement>e.currentTarget).children[1].children[0].textContent = Math.round(
-                +weightSlider.value * Coefficients.toPounds
-            ).toString();
+            this.isPounds = true;
+            unit = 'lbs';
+            value = Math.round(+weightSlider.value * Coefficients.toPounds).toString();
         } else if (className.includes('kilograms')) {
-            this.isLbs = false;
-            (<HTMLElement>e.currentTarget).children[1].children[1].textContent = 'kg';
-            (<HTMLElement>e.currentTarget).children[1].children[0].textContent = weightSlider.value;
+            this.isPounds = false;
+            unit = 'kg';
+            value = weightSlider.value;
         }
+
+        (<HTMLElement>e.currentTarget).children[1].children[1].textContent = unit;
+        (<HTMLElement>e.currentTarget).children[1].children[0].textContent = value;
     }
 
     public handleRangeSliderInput(e: Event): void {
-        const parametersBlock = <HTMLElement>e.currentTarget;
-        const parametersType = parametersBlock.id;
-
+        const parametersType = (<HTMLElement>e.currentTarget).id;
         const rangeSlider = <HTMLInputElement>e.target;
         let minValue = 0;
         let maxValue = 0;
+        let coefficient = 0;
+        let unit = false;
 
-        switch (parametersType) {
-            case 'height':
-                minValue = +Height.min;
-                maxValue = +Height.max;
-                (<HTMLElement>e.currentTarget).children[1].children[0].textContent = !this.isFeet
-                    ? rangeSlider.value
-                    : Math.round(+rangeSlider.value * Coefficients.toFeet).toString();
-
-                this.model.changeHandler({ height: rangeSlider.value });
-                break;
-            case 'weight':
-                minValue = +Weight.min;
-                maxValue = +Weight.max;
-                (<HTMLElement>e.currentTarget).children[1].children[0].textContent = !this.isLbs
-                    ? rangeSlider.value
-                    : Math.round(+rangeSlider.value * Coefficients.toPounds).toString();
-
-                this.model.changeHandler({ weight: rangeSlider.value });
-                break;
-            case 'desired':
-                minValue = +Weight.min;
-                maxValue = +Weight.max;
-                (<HTMLElement>e.currentTarget).children[1].children[0].textContent = !this.isLbs
-                    ? rangeSlider.value
-                    : Math.round(+rangeSlider.value * Coefficients.toPounds).toString();
-
-                this.model.changeHandler({ desiredWeight: rangeSlider.value });
-                break;
+        if (parametersType === 'height') {
+            minValue = +Height.min;
+            maxValue = +Height.max;
+            coefficient = Coefficients.toFeet;
+            unit = this.isFeet;
+        } else if (parametersType === 'weight' || parametersType === 'desiredWeight') {
+            minValue = +Weight.min;
+            maxValue = +Weight.max;
+            coefficient = Coefficients.toPounds;
+            unit = this.isPounds;
         }
+        const valueGroup = (<HTMLElement>e.currentTarget).children[1] as HTMLElement;
+        valueGroup.style.color = Colors.textOnLight;
+        valueGroup.children[0].textContent = !unit
+            ? rangeSlider.value
+            : Math.round(+rangeSlider.value * coefficient).toString();
 
-        const percent = ((+rangeSlider.value - minValue) / (maxValue - minValue)) * Coefficients.percent;
-        rangeSlider.style.background = `linear-gradient(to right, ${Colors.primary} 0%, ${Colors.primary} ${percent}%, ${Colors.secondary} ${percent}%, ${Colors.secondary} 100%)`;
+        this.model.changeHandler({ [parametersType]: rangeSlider.value });
+        this.colorRangeSlider(rangeSlider, minValue, maxValue);
+    }
+
+    private colorRangeSlider(slider: HTMLInputElement, min: number, max: number): void {
+        const percent = ((+slider.value - min) / (max - min)) * Coefficients.percent;
+        slider.style.background = `linear-gradient(to right, ${Colors.primary} 0%, ${Colors.primary} ${percent}%, ${Colors.secondary} ${percent}%, ${Colors.secondary} 100%)`;
     }
 
     private handleGoalSelect(e: Event): void {
-        Array.from(<HTMLCollection>(<HTMLElement>e.currentTarget).children).forEach((goal) => {
-            goal.className = 'goal option z-depth-1';
-        });
-        (<HTMLElement>e.target).classList.add('active');
+        this.selectValue(e);
 
         const weightChoiceBlock = <HTMLElement>document.querySelector('.input-group');
         const selectBlock = <HTMLElement>document.querySelector('.select-block');
-        if ((<HTMLElement>e.target).dataset.goal === Goal.weight) {
+
+        if ((<HTMLElement>e.target).dataset.value === Goal.weight) {
             weightChoiceBlock.classList.remove('hidden');
             selectBlock.classList.add('active');
         } else {
@@ -192,54 +180,73 @@ class OnboardingPageController {
             selectBlock.classList.remove('active');
         }
 
-        this.model.changeHandler({ goal: (<HTMLElement>e.target).dataset.goal });
-    }
-
-    public handleFrequencySelect(e: Event): void {
-        Array.from(<HTMLCollection>(<HTMLElement>e.currentTarget).children).forEach((frequency) => {
-            frequency.className = 'frequency option z-depth-1';
-        });
-        (<HTMLElement>e.target).classList.add('active');
-
-        this.model.changeHandler({ workoutsNumber: (<HTMLElement>e.target).dataset.frequency });
+        this.registerSelectedValue(e);
     }
 
     public handleClassesSelect(e: Event): void {
         (<HTMLElement>e.target).classList.add('active');
-        this.classes.push((<HTMLElement>e.target).textContent as string);
-
-        this.model.changeHandler({ favWorkouts: this.classes });
+        this.model.settings.favWorkouts.push((<HTMLElement>e.target).textContent as WorkoutType);
     }
 
     public handleLengthSelect(e: Event): void {
-        Array.from(<HTMLCollection>(<HTMLElement>e.currentTarget).children).forEach((length) => {
-            length.className = 'length option z-depth-1';
-        });
-        (<HTMLElement>e.target).classList.add('active');
+        this.selectValue(e);
 
         const min = (<HTMLElement>e.target).dataset.min;
         const max = (<HTMLElement>e.target).dataset.max;
         this.model.changeHandler({ workoutLength: { min: min, max: max } });
     }
 
-    private handleDurationSelect(e: Event): void {
-        Array.from(<HTMLCollection>(<HTMLElement>e.currentTarget).children).forEach((duration) => {
-            duration.className = 'duration option z-depth-1';
+    private registerSelectedValue(e: Event): void {
+        const key = <string>(<HTMLElement>e.target).dataset.title;
+        const value = <string>(<HTMLElement>e.target).dataset.value;
+
+        this.model.changeHandler({ [key]: value });
+    }
+
+    private selectValue(e: Event): void {
+        Array.from(<HTMLCollection>(<HTMLElement>e.currentTarget).children).forEach((element) => {
+            element.classList.remove('active');
         });
         (<HTMLElement>e.target).classList.add('active');
-
-        this.model.changeHandler({ duration: (<HTMLElement>e.target).dataset.duration });
     }
 
     public handleButtonClick(e: Event): void {
         e.preventDefault();
+
+        if (this.blocks[this.block] === 'About you') {
+            if (this.model.settings.height === 0 || this.model.settings.weight === 0 || this.birthday === '') {
+                this.createMessage(Message.valueMissing);
+                return;
+            }
+        }
+
+        if (this.blocks[this.block] === 'Select all your favorite type of classes:') {
+            if (this.model.settings.favWorkouts.length === 0) {
+                this.createMessage(Message.valueMissing);
+                return;
+            }
+        }
+
         if (this.block < this.blocks.length - 1) {
             this.block++;
             this.createPage();
         } else {
-            this.model.goalsHandler();
-            const programDuration = this.model.programDuration;
+            this.block = 0;
+            this.model.saveSettings();
+            const programDuration = this.model.settings.duration;
             this.view.renderCongratulations(programDuration, this.handleFinalButtonClick.bind(this));
+        }
+    }
+
+    private handleBackBtnClick(e: Event): void {
+        e.preventDefault();
+        this.block--;
+        this.createPage();
+    }
+
+    private createMessage(text: string) {
+        if (text) {
+            window.M.toast({ html: `${text}` });
         }
     }
 

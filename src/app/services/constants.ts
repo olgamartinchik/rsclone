@@ -55,10 +55,11 @@ export enum Id {
 
 export enum Message {
     registerSuccess = 'User created',
+    valueMissing = 'Please, choose a value',
 }
 
 export enum Height {
-    title = 'Height',
+    title = 'height',
     units = 'cm',
     option1 = 'Feet & Inches',
     option2 = 'Centimeters',
@@ -67,8 +68,8 @@ export enum Height {
 }
 
 export enum Weight {
-    title = 'Weight',
-    desired = 'Desired',
+    title = 'weight',
+    desired = 'desired Weight',
     units = 'kg',
     option1 = 'Pounds',
     option2 = 'Kilograms',
@@ -79,6 +80,7 @@ export enum Weight {
 export enum Colors {
     primary = '#ff8a80',
     secondary = '#c2bebe',
+    textOnLight = '#666',
 }
 
 export enum Coefficients {

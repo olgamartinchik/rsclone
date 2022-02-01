@@ -9,6 +9,7 @@ input {
     position: relative;
     padding-bottom: 5px;
     border-bottom: 1px solid $color-border;
+    cursor: default;
     &.hidden {
         display: none;
     }
@@ -16,22 +17,27 @@ input {
         display: block;
         margin-right: 35px;
         color: $color-placeholder;
-        cursor: pointer;
     }
     & > span.title {
-        width: 75px;
+        width: 130px;
         font-size: 16px;
         margin-bottom: 0;
         text-align: left;
+        text-transform: capitalize;
+        &.calender {
+            width: 75px;
+        }
     }
 }
 
-input[type=text].datepicker {
+input[type='text'].datepicker {
     margin-bottom: 0;
     color: $color-text-navbar;
-    text-align: center;
+    text-align: right;
     width: 75%;
     height: 30px;
+    padding-right: 30px;
+    box-sizing: border-box;
     &::placeholder {
         text-align: left;
         width: 100%;
@@ -61,6 +67,7 @@ input[type=text].datepicker {
         right: 10px;
         top: 5px;
         color: $color-text-navbar;
+        cursor: pointer;
     }
 }
 
