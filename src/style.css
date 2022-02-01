@@ -15441,6 +15441,14 @@ footer {
     color: white;
 }
 
+.btn-wrapper {
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+    padding: 0 50px;
+    justify-content: space-around;
+}
+
 @media (max-width: 768px) {
     .btn-large.header-tablet {
         visibility: visible;

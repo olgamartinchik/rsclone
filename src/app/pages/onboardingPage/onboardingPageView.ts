@@ -27,9 +27,11 @@ class OnboardingPageView {
 
     render(
         block: string,
+        favWorkouts: Array<string>,
         onselect: (e: Event) => void,
         oninput: (e: Event) => void,
-        onclick: (e: Event) => void
+        onclick: (e: Event) => void,
+        onBackClick: (e: Event) => void
     ): void {
         this.rootNode.textContent = '';
 
@@ -41,7 +43,7 @@ class OnboardingPageView {
         form.setAttribute('action', '#');
         form.setAttribute('method', 'post');
 
-        this.renderForm(block, form, onselect, oninput, onclick);
+        this.renderForm(block, form, favWorkouts, onselect, oninput, onclick, onBackClick);
 
         this.rootNode.append(Footer.getTemplate());
     }
@@ -49,9 +51,11 @@ class OnboardingPageView {
     public renderForm(
         block: string,
         form: HTMLElement,
+        favWorkouts: Array<string>,
         onselect: (e: Event) => void,
         oninput: (e: Event) => void,
-        onclick: (e: Event) => void
+        onclick: (e: Event) => void,
+        onBackClick: (e: Event) => void
     ): void {
         form.textContent = '';
 
@@ -66,7 +70,7 @@ class OnboardingPageView {
                 this.renderFrequencyBlock(form, onselect);
                 break;
             case 'Select all your favorite type of classes:':
-                this.renderClassesBlock(form, onselect);
+                this.renderClassesBlock(form, favWorkouts, onselect);
                 break;
             case 'How much time do you prefer to work out?':
                 this.renderWorkoutLengthBlock(form, onselect);
@@ -76,7 +80,12 @@ class OnboardingPageView {
                 break;
         }
 
-        const nextBtn = new Button(form, 'Next');
+        const btnWrapper = Node.setChild(form, 'div', 'btn-wrapper');
+        if (block !== 'About you') {
+            const backBtn = new Button(btnWrapper, 'Back');
+            backBtn.onclick(onBackClick);
+        }
+        const nextBtn = new Button(btnWrapper, 'Next');
         nextBtn.onclick(onclick);
     }
 
@@ -166,7 +175,7 @@ class OnboardingPageView {
         frequencyWrapper.children[0].classList.add('active');
     }
 
-    private renderClassesBlock(form: HTMLElement, onselect: (e: Event) => void): void {
+    private renderClassesBlock(form: HTMLElement, favWorkouts: Array<string>, onselect: (e: Event) => void): void {
         const classesWrapper = Node.setChild(form, 'div', 'parameters-options center');
         classesWrapper.onclick = (e: Event) => onselect(e);
         const classes = [
@@ -180,9 +189,16 @@ class OnboardingPageView {
             WorkoutType.boxing,
             WorkoutType.HIIT,
         ];
+        const classItems: Array<HTMLElement> = [];
         classes.forEach((elem) => {
             const classItem = Node.setChild(classesWrapper, 'div', 'classes tile z-depth-1', elem.toUpperCase());
-            classItem.setAttribute('data-frequency', elem);
+            classItem.setAttribute('data-type', elem);
+            classItems.push(classItem);
+        });
+        favWorkouts.forEach((type) => {
+            classItems.forEach((item) => {
+                if (item.dataset.type === type.toLowerCase()) item.classList.add('active');
+            });
         });
     }
 

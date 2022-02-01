@@ -32,15 +32,17 @@ class OnboardingPageController {
             'How many weeks do you want to start with?',
         ];
         this.block = 0;
-        this.classes = [];
+        this.classes = this.model.favWorkouts;
     }
 
     public createPage() {
         this.view.render(
             this.blocks[this.block],
+            this.classes,
             this.handleValueSelect.bind(this),
             this.handleRangeSliderInput.bind(this),
-            this.handleButtonClick.bind(this)
+            this.handleButtonClick.bind(this),
+            this.handleBackBtnClick.bind(this)
         );
     }
 
@@ -226,8 +228,7 @@ class OnboardingPageController {
         e.preventDefault();
 
         if (this.blocks[this.block] === 'Select all your favorite type of classes:') {
-            const favWorkouts = this.model.favWorkouts;
-            if (favWorkouts.length === 0) {
+            if (this.classes.length === 0) {
                 this.createMessage(Message.valueMissing);
                 return;
             }
@@ -242,6 +243,12 @@ class OnboardingPageController {
             const programDuration = this.model.programDuration;
             this.view.renderCongratulations(programDuration, this.handleFinalButtonClick.bind(this));
         }
+    }
+
+    private handleBackBtnClick(e: Event): void {
+        e.preventDefault();
+        this.block--;
+        this.createPage();
     }
 
     private createMessage(text: string) {
