@@ -1,62 +1,63 @@
+import { IDataExplore } from '../../services/types';
 import MealPageModel from './mealPageModel';
 import MealPageView from './mealPageView';
 
-let search=''
 class MealPageController {
     private view: MealPageView;
-
     private modal: MealPageModel;
+    inputValue: string;
+    mealData:IDataExplore[]|null;
+    exploreData:IDataExplore[]|null;
+    searchingData:IDataExplore[]|null;
 
-    valueData: string;
 
-    // searchingData: any;
-
-    constructor() {
-       
+    constructor() {       
         this.view = new MealPageView();
         this.modal = new MealPageModel();
-        this.valueData = '';
+        this.inputValue = '';
+        this.mealData=null;
+        this.exploreData=null;
+        this.searchingData=null;
+        if (localStorage.getItem('mealData')){
+            this.mealData=JSON.parse(localStorage.getItem('mealData')!)
+        }
+        if (localStorage.getItem('exploreData')){
+            this.exploreData=JSON.parse(localStorage.getItem('exploreData')!)
+        }
+        if (localStorage.getItem('searchingData')){
+            this.searchingData=JSON.parse(localStorage.getItem('searchingData')!)
+        }
        
     }
 
     public async createPage() {
-        const mealData=await this.modal.getUserMealData()
-        const exploreData = await this.modal.getExploreData();
-        const searchingData = await this.modal.getSearchingData(this.valueData ? this.valueData : 'brownie');
-
+        if(!this.mealData||this.mealData.length===0){
+             this.mealData=await this.modal.getUserMealData()
+             localStorage.setItem('mealData', JSON.stringify(this.mealData))
+        }
+       if(!this.exploreData||this.exploreData.length===0){
+            this.exploreData = await this.modal.getExploreData();
+            localStorage.setItem('exploreData', JSON.stringify(this.exploreData))
+       }
+       if(!this.searchingData||this.searchingData.length===0){
+        this.searchingData = await this.modal.getSearchingData( 'brownie');
+        localStorage.setItem('searchingData', JSON.stringify(this.searchingData))
+       }
+       
         this.view.render(
-            mealData,
+            this.mealData!,
             this.handlerMealCard.bind(this),
-            exploreData,
+            this.exploreData!,
             this.handlerExploreCard.bind(this),
-            searchingData,
+            this.searchingData!,
             this.handlerSearchingCard.bind(this),
-            this.handlerChange.bind(this)
+            this.handlerChange.bind(this),
+            this.handlerBtn.bind(this)
         );
     }
     async handlerChange(e: Event) {     
         const value = (e.target as HTMLInputElement).value;
-        search=value.toLowerCase().trim()
-        // console.log('value', value,search);
-      
-        document.onkeyup=async (e:KeyboardEvent)=>{
-            e = e || window.event;
-            if (e.keyCode === 13) {
-              const searchingMeals=document.querySelector('.searching-meals') as HTMLElement
-              searchingMeals!.innerHTML=''    
-              let data=await this.modal.getSearchingData(search);
-              if(data){
-                  if(data.length===0){
-                searchingMeals!.innerHTML='No matches'
-              }else{
-                const searchingCards = this.view.getSearchingCards(data, this.handlerSearchingCard);            
-                searchingMeals.append(...searchingCards)
-              }
-              }        
-              console.log('data',data)
-           }
-           return false
-        }
+        this.inputValue=value.toLowerCase().trim()     
     }
     handlerMealCard(e: Event) {
         console.log('click');
@@ -70,8 +71,23 @@ class MealPageController {
         console.log('click');
     }
 
- 
- 
+    async handlerBtn(){
+        console.log('click')        
+        if(this.inputValue){
+            const searchingMeals=document.querySelector('.searching-meals') as HTMLElement
+            searchingMeals!.innerHTML=''
+            this.searchingData=await this.modal.getSearchingData(this.inputValue);
+            localStorage.setItem('searchingData', JSON.stringify(this.searchingData))
+            if(this.searchingData){
+                if(this.searchingData.length===0){
+                    searchingMeals!.innerHTML='No matches'
+                }else{
+                    const searchingCards = this.view.getSearchingCards(this.searchingData, this.handlerSearchingCard);            
+                    searchingMeals.append(...searchingCards)
+                }
+            }
+        }      
+    } 
 }
 
 export default MealPageController;

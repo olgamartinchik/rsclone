@@ -9,6 +9,7 @@ class MealPageView {
     private rootNode: HTMLElement;
 
     private rootNodeInput: HTMLElement;
+    private rootNodeBtn:HTMLElement;
 
     cardsWrapper!: Node<HTMLElement>;
 
@@ -18,6 +19,8 @@ class MealPageView {
         this.rootNode = <HTMLElement>document.getElementById('app');
         this.rootNodeInput = <HTMLElement>document.createElement('input');
         this.rootNodeInput.className = 'search-meals';
+        this.rootNodeBtn=<HTMLElement>document.createElement('button');
+        
     }
 
     render(
@@ -27,7 +30,8 @@ class MealPageView {
         onclick: (e: Event) => void,
         searchingData: Array<IDataExplore>,
         onclickSearching: (e: Event) => void,
-        onchange: (e: Event) => void
+        onchange: (e: Event) => void,
+        onclickBtn:(e: Event) => void
     ) {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
@@ -43,7 +47,7 @@ class MealPageView {
         navbar.addProfileLink('O');
         // this.rootNode.insertAdjacentHTML('beforeend', this.getSectionForDayMeals() );
         // `<main class="main-page"><span>This is Meal Page!</span></main>`
-        this.createContentMeal(mealData,onclickMeal,exploreData, onclick, searchingData, onclickSearching, onchange);
+        this.createContentMeal(mealData,onclickMeal,exploreData, onclick, searchingData, onclickSearching, onchange,onclickBtn);
 
         this.rootNode.append(footer.getTemplate());
     }
@@ -55,7 +59,8 @@ class MealPageView {
         onclick: (e: Event) => void,
         searchingData: Array<IDataExplore>,
         onclickSearching: (e: Event) => void,
-        onchange: (e: Event) => void
+        onchange: (e: Event) => void,
+        onclickBtn:(e: Event) => void
 
     ) {
         const main = new Node(this.rootNode, 'main', 'main-page');
@@ -83,6 +88,7 @@ class MealPageView {
         const inputWrapper = new Node(searchContainer.node, 'div', 'input-wrapper');
 
         inputWrapper.node.append(this.getInputNode(onchange));
+        inputWrapper.node.append(this.getSearchingBtn(onclickBtn))
         // const btn=new Node(inputWrapper.node, 'button', 'search-button');
 
         const searchingCardsContainer = new Node(searchContainer.node, 'div', 'searching-meals');
@@ -115,6 +121,12 @@ class MealPageView {
         // console.log('searchingData',searchingData)
         const cards = searchingData.map((data) => new MealCard(data).getSearchingTemplate(onclick));
         return cards;
+    }
+    getSearchingBtn(onclick: (e: Event) => void){
+        this.rootNodeBtn.onclick = (e: Event) => onclick(e);
+        this.rootNodeBtn.className = 'search-btn';
+        this.rootNodeBtn.textContent='search';
+        return this.rootNodeBtn
     }
 }
 
