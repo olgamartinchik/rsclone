@@ -1,4 +1,4 @@
-import { TLoginForm, TToken, TSettings } from '../services/types';
+import { TLoginForm, TToken, TSettings, TWorkout } from '../services/types';
 
 class ClientManager {
     private static _instance: ClientManager | null;
@@ -45,6 +45,20 @@ class ClientManager {
             return data;
         } catch (e: any) {
             this.text = e.message;
+        }
+    }
+
+    public async getWorkouts(): Promise<void | TWorkout[]> {
+        try {
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/workouts`);
+
+            return (await res.json()) as TWorkout[];
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                this.text = e.message;
+            } else {
+                this.text = String(e);
+            }
         }
     }
 

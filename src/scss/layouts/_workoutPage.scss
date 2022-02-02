@@ -3,24 +3,29 @@
         display: flex;
         justify-content: center;
         position: relative;
-        background: center / cover no-repeat url("../../assets/trainings/08.webp");
+        background: top / cover no-repeat url('../../assets/trainings/08.webp');
         &::before {
-            content: "";
+            content: '';
             height: 260px;
             width: 100%;
             position: absolute;
             bottom: 8px;
             left: 0;
-            background: linear-gradient(180deg,rgba(255, 255, 255, 0),rgba(255, 255, 255, 0.6) 30%,$color-background);
+            background: linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0.6) 30%,
+                $color-background
+            );
         }
         &::after {
-            content: "";
+            content: '';
             height: 10px;
             width: 100%;
             position: absolute;
             bottom: 0;
             left: 0;
-            background: linear-gradient(270deg,#e03694,#f47253);
+            background: linear-gradient(270deg, #e03694, #f47253);
         }
     }
     &-container {
@@ -38,7 +43,7 @@
         position: absolute;
         left: 50%;
         bottom: 40px;
-        display:  flex;
+        display: flex;
         justify-content: center;
         flex-direction: column;
         width: calc(100% - 40px);
@@ -102,7 +107,7 @@
         margin: 0;
         padding: 30px 0;
         &::after {
-            content: "";
+            content: '';
             width: 100%;
             display: block;
             position: absolute;
@@ -124,6 +129,38 @@
         display: inline-block;
         font-size: 22px;
         font-weight: 600;
+    }
+}
+
+.video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 998;
+    display: block;
+    min-width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    overflow: hidden;
+    border: none;
+}
+
+.btn-back {
+    position: fixed;
+    top: 40px;
+    left: 40px;
+    z-index: 999;
+    background-color: transparent;
+    border: none;
+    color: white;
+    transition: 0.5s;
+    cursor: pointer;
+    &:hover {
+        color: #f47253;
+        background-color: transparent;
+    }
+    &:focus {
+        background-color: transparent;
     }
 }
 

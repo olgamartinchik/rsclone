@@ -2,7 +2,7 @@ import { Gender, Goal, WorkoutsNumber, WorkoutsProgramDuration, WorkoutType } fr
 
 const userSettings = {
     userId: '61f193ab5d19a2c71b9ee570',
-    // startDate: Date.now().toString(),
+    startDate: Date.now().toString(),
     goal: Goal.toned,
     weight: 70,
     height: 175,

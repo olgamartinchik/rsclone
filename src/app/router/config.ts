@@ -71,7 +71,7 @@ class Config {
                 callback: () => this.settingsPageController.createPage(),
             },
             {
-                path: /workout\/(\d{1,2})/,
+                path: /workout\/([\deabcdf]{24})/,
                 callback: (...args) => this.workoutPageController.createPage(args),
             },
             {

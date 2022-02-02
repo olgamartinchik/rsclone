@@ -4,16 +4,16 @@ import cardTemplate from './template';
 class Card {
     private rootNode: HTMLElement;
 
-    private data: TWorkout;
+    public readonly data: TWorkout;
 
-    public id: string;
+    public id: string | void;
 
     constructor(data: TWorkout) {
         this.data = data;
-        this.id = data.img;
+        this.id = data._id;
         this.rootNode = document.createElement('div');
         this.rootNode.className = 'program-card z-depth-1';
-        this.rootNode.id = data.img;
+        this.rootNode.id = data._id!;
     }
 
     public getTemplate(onclick: (e: Event) => void): HTMLElement {

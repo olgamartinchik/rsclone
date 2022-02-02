@@ -11,7 +11,7 @@ export default class OnboardingModel {
     constructor() {
         this.form = {
             userId: '',
-            // startDate: Date.now().toString(),
+            startDate: Date.now().toString(),
             goal: Goal.muscle,
             weight: 0,
             height: 0,
@@ -45,6 +45,7 @@ export default class OnboardingModel {
 
     public saveSettings() {
         const clientManager = new ClientManager();
+        StorageManager.addItem('userSettings', this.form, 'local');
         clientManager.postData(Endpoints.userSettings, this.form);
     }
 
