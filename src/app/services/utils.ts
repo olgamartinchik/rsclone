@@ -26,6 +26,7 @@ export default class Utils {
         const rand = min + Math.random() * (max + 1 - min);
         return Math.floor(rand);
     }
+
     static getMonth(month: string): number {
         let targetMonth = 0;
         switch (month) {

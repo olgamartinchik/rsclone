@@ -74,5 +74,4 @@ export type StoragesHandler = {
 
 export interface ISetting {
     [key: string]: any;
-
 }

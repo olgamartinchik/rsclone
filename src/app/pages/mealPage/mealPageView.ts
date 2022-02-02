@@ -9,7 +9,8 @@ class MealPageView {
     private rootNode: HTMLElement;
 
     private rootNodeInput: HTMLElement;
-    private rootNodeBtn:HTMLElement;
+
+    private rootNodeBtn: HTMLElement;
 
     cardsWrapper!: Node<HTMLElement>;
 
@@ -19,8 +20,7 @@ class MealPageView {
         this.rootNode = <HTMLElement>document.getElementById('app');
         this.rootNodeInput = <HTMLElement>document.createElement('input');
         this.rootNodeInput.className = 'search-meals';
-        this.rootNodeBtn=<HTMLElement>document.createElement('button');
-        
+        this.rootNodeBtn = <HTMLElement>document.createElement('button');
     }
 
     render(
@@ -31,7 +31,7 @@ class MealPageView {
         searchingData: Array<IDataExplore>,
         onclickSearching: (e: Event) => void,
         onchange: (e: Event) => void,
-        onclickBtn:(e: Event) => void
+        onclickBtn: (e: Event) => void
     ) {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
@@ -45,9 +45,16 @@ class MealPageView {
         ]);
         navbar.generateMenu();
         navbar.addProfileLink('O');
-        // this.rootNode.insertAdjacentHTML('beforeend', this.getSectionForDayMeals() );
-        // `<main class="main-page"><span>This is Meal Page!</span></main>`
-        this.createContentMeal(mealData,onclickMeal,exploreData, onclick, searchingData, onclickSearching, onchange,onclickBtn);
+        this.createContentMeal(
+            mealData,
+            onclickMeal,
+            exploreData,
+            onclick,
+            searchingData,
+            onclickSearching,
+            onchange,
+            onclickBtn
+        );
 
         this.rootNode.append(footer.getTemplate());
     }
@@ -60,18 +67,17 @@ class MealPageView {
         searchingData: Array<IDataExplore>,
         onclickSearching: (e: Event) => void,
         onchange: (e: Event) => void,
-        onclickBtn:(e: Event) => void
-
+        onclickBtn: (e: Event) => void
     ) {
         const main = new Node(this.rootNode, 'main', 'main-page');
         const sectionUserMeal = new Node(main.node, 'section', 'section meal-section');
         const cardsUserMealContainer = new Node(sectionUserMeal.node, 'div', 'meal-card-container');
         Node.setChild(cardsUserMealContainer.node, 'h5', 'title-meal', 'YOUR MEALS');
         Node.setChild(cardsUserMealContainer.node, 'div', 'divider', '');
-        
+
         const dayMealContainer = new Node(cardsUserMealContainer.node, 'div', 'day-meals');
-        const mealCards=this.getMealCards(mealData, onclickMeal)
-        dayMealContainer.node.append(...mealCards)
+        const mealCards = this.getMealCards(mealData, onclickMeal);
+        dayMealContainer.node.append(...mealCards);
 
         const sectionExplore = new Node(main.node, 'section', 'section meal-section');
         const mealExploreContainer = new Node(sectionExplore.node, 'div', 'meal-explore-container');
@@ -88,7 +94,7 @@ class MealPageView {
         const inputWrapper = new Node(searchContainer.node, 'div', 'input-wrapper');
 
         inputWrapper.node.append(this.getInputNode(onchange));
-        inputWrapper.node.append(this.getSearchingBtn(onclickBtn))
+        inputWrapper.node.append(this.getSearchingBtn(onclickBtn));
         // const btn=new Node(inputWrapper.node, 'button', 'search-button');
 
         const searchingCardsContainer = new Node(searchContainer.node, 'div', 'searching-meals');
@@ -104,29 +110,26 @@ class MealPageView {
     }
 
     getExploreCards(exploreData: Array<IDataExplore>, onclick: (e: Event) => void) {
-        console.log('exploreData', exploreData);
         const cards = exploreData.map((data) => new MealCard(data).getExploreTemplate(onclick));
-        console.log('cards', cards);
 
         return cards;
     }
 
     getMealCards(mealData: Array<IDataExplore>, onclick: (e: Event) => void) {
-        console.log('mealData', mealData);
-        const cards = mealData.map(data=>new MealCard(data).getMealTemplate(onclick))
-        return cards
+        const cards = mealData.map((data) => new MealCard(data).getMealTemplate(onclick));
+        return cards;
     }
 
     getSearchingCards(searchingData: Array<IDataExplore>, onclick: (e: Event) => void) {
-        // console.log('searchingData',searchingData)
         const cards = searchingData.map((data) => new MealCard(data).getSearchingTemplate(onclick));
         return cards;
     }
-    getSearchingBtn(onclick: (e: Event) => void){
+
+    getSearchingBtn(onclick: (e: Event) => void) {
         this.rootNodeBtn.onclick = (e: Event) => onclick(e);
         this.rootNodeBtn.className = 'search-btn';
-        this.rootNodeBtn.textContent='search';
-        return this.rootNodeBtn
+        this.rootNodeBtn.textContent = 'search';
+        return this.rootNodeBtn;
     }
 }
 

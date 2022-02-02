@@ -18,7 +18,7 @@ export default class AuthController {
 
     public createPage(isLogin: boolean): void {
         this.isLogin = isLogin;
-        
+
         if (!this.isLogin) {
             StorageManager.deleteItem('token', 'local');
         }
