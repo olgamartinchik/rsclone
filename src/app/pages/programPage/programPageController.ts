@@ -12,8 +12,8 @@ class ProgramPageController {
         this.view = new ProgramPageView();
     }
 
-    public createPage() {
-        const trainings = this.model.getWeekTrainings();
+    public async createPage() {
+        const trainings = await this.model.getWeekTrainings();
         this.view.render(trainings, this.handleCardClick.bind(this), this.model.week);
     }
 
@@ -23,7 +23,6 @@ class ProgramPageController {
         if (workout) {
             router.navigate(`workout/${workout.id}`);
         }
-        console.log(currCard.id, 'card clicked');
     }
 }
 

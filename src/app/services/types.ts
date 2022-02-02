@@ -10,6 +10,7 @@ export type TWorkout = {
     caloriesPerMinute: number;
     link: string;
     img: string;
+    _id?: string;
 };
 
 export type TStrategies = {
@@ -37,7 +38,7 @@ export type TSettings = {
 export type TWorkoutProgram = Array<TWorkout[]>;
 
 export interface IWorkoutManager {
-    getProgram: (data: TSettings) => TWorkoutProgram;
+    getProgram: (data: TSettings) => Promise<TWorkoutProgram>;
 }
 
 export type TLoginForm = {

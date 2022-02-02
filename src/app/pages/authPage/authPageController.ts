@@ -26,6 +26,9 @@ export default class AuthController {
         if (token && token.jwtToken.length > 0) this.isLogin = true;
 
         this.view.render(this.handleInputChange.bind(this), this.handleButtonClick.bind(this), this.isLogin);
+        StorageManager.deleteItem('userSettings', 'local');
+        StorageManager.deleteItem('workout-program', 'local');
+        StorageManager.deleteItem('workout-cards', 'local');
     }
 
     public handleInputChange(): void {

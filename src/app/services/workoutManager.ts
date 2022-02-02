@@ -2,14 +2,18 @@ import { IWorkoutManager, TStrategies, TSettings, TWorkoutProgram, TWorkout } fr
 import { IntensityType, WorkoutType } from './constants';
 import trainingsData from './mocks/trainings.json';
 import Utils from './utils';
+import ClientManager from './clientManager';
 
 class WorkoutManager implements IWorkoutManager {
     private strategies: TStrategies;
 
-    private trainings: Array<TWorkout>;
+    private trainings: TWorkout[];
+
+    private clientManager: ClientManager;
 
     constructor() {
-        this.trainings = trainingsData as Array<TWorkout>;
+        this.trainings = [];
+        this.clientManager = new ClientManager();
         this.strategies = {
             weight: [IntensityType.medium],
             toned: [IntensityType.medium, IntensityType.low],
@@ -18,9 +22,20 @@ class WorkoutManager implements IWorkoutManager {
         };
     }
 
-    public getProgram(data: TSettings): TWorkoutProgram {
+    private async getTrainings(): Promise<void> {
+        if (!this.trainings.length) {
+            const data = await this.clientManager.getWorkouts();
+            if (data) {
+                this.trainings = data;
+            } else {
+                this.trainings = <TWorkout[]>trainingsData;
+            }
+        }
+    }
+
+    public async getProgram(data: TSettings): Promise<TWorkoutProgram> {
         const result: TWorkoutProgram = [];
-        let filteredTrainings = this.getFilteredTrainings(data);
+        let filteredTrainings = await this.getFilteredTrainings(data);
         const chunk = data.workoutsNumber;
         const maxTrainingsPerChunks = Math.floor(filteredTrainings.length / chunk) * chunk;
 
@@ -37,7 +52,8 @@ class WorkoutManager implements IWorkoutManager {
         return result;
     }
 
-    private getFilteredTrainings(data: TSettings): TWorkout[] {
+    private async getFilteredTrainings(data: TSettings): Promise<TWorkout[]> {
+        await this.getTrainings();
         this.trainings = Utils.shuffleArr<TWorkout>(this.trainings);
         const filterArr = this.strategies[data.goal];
 
