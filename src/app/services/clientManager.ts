@@ -62,6 +62,19 @@ class ClientManager {
         }
     }
 
+    public async getUserSettings(id: string): Promise<TSettings | void> {
+        try {
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/userSettings/${id}`);
+            return (await res.json()) as TSettings;
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                this.text = e.message;
+            } else {
+                this.text = String(e);
+            }
+        }
+    }
+
     public get result(): boolean {
         return this.isSuccess;
     }
