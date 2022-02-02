@@ -65,7 +65,7 @@ class ClientManager {
         return this.tokenInfo;
     }
 
-    public async mealExploreData(dishType = 'Salad', from = '0', to = '1') {
+    public async mealExploreData(from:string, to:string ,dishType = 'Salad', ) {
         try {
             const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&dishType=${dishType}&imageSize=LARGE`;
 
@@ -77,7 +77,7 @@ class ClientManager {
         }
     }
 
-    public async searchingData(meal = 'Salad', from = '0', to = '10') {
+    public async searchingData(from:string, to:string,meal = 'Salad' ) {
         try {
             const url = `https://api.edamam.com/search?q=${meal}&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&imageSize=LARGE`;
 
@@ -89,7 +89,7 @@ class ClientManager {
         }
     }
 
-    public async userData(mealType: string, calories: string, from = '0', to = '1') {
+    public async userData(from:string, to:string,mealType: string, calories: string ) {
         try {
             const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&imageSize=LARGE&mealType=${mealType}&calories=${calories}`;
             const response = await fetch(url);
