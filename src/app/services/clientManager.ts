@@ -1,5 +1,7 @@
-import { TLoginForm, TToken, TSettings } from '../services/types';
+
+import { TLoginForm, TToken, TSettings, TWorkout } from '../services/types';
 import { API_ID, KEY_API } from '../configs/edamamConfig';
+
 
 class ClientManager {
     getMealTemplate(arg0: string, arg1: string, mealType: string) {
@@ -50,6 +52,33 @@ class ClientManager {
             return data;
         } catch (e: any) {
             this.text = e.message;
+        }
+    }
+
+    public async getWorkouts(): Promise<void | TWorkout[]> {
+        try {
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/workouts`);
+
+            return (await res.json()) as TWorkout[];
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                this.text = e.message;
+            } else {
+                this.text = String(e);
+            }
+        }
+    }
+
+    public async getUserSettings(id: string): Promise<TSettings | void> {
+        try {
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/userSettings/${id}`);
+            return (await res.json()) as TSettings;
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                this.text = e.message;
+            } else {
+                this.text = String(e);
+            }
         }
     }
 

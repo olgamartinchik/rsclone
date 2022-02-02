@@ -133,8 +133,8 @@ class OnboardingPageView {
             )
         );
 
-        if (settings.height > 0) this.saveParameters('height', settings);
-        if (settings.weight > 0) this.saveParameters('weight', settings);
+        if (settings.height > 0) this.getParameters('height', settings);
+        if (settings.weight > 0) this.getParameters('weight', settings);
     }
 
     private renderGoalsBlock(
@@ -174,11 +174,13 @@ class OnboardingPageView {
                     onselect,
                     oninput
                 );
-                weightChoiceBlock.classList.add('hidden');
+                weightChoiceBlock.classList.add('hidden')
+                
                 form.append(weightChoiceBlock);
             }
         });
 
+        if (settings.desiredWeight > 0) this.getParameters('desiredweight', settings);
         this.colorSelectedOption(settings, 'goal');
     }
 
@@ -288,10 +290,21 @@ class OnboardingPageView {
         });
     }
 
-    private saveParameters(type: string, settings: TSettings) {
+    private getParameters(type: string, settings: TSettings) {
         const elementsWrapper = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[0];
-        const value = elementsWrapper.children[0];
-        value.textContent = type === 'height' ? settings.height.toString() : settings.weight.toString();
+        let value = <HTMLElement>elementsWrapper.children[0];
+        
+        switch(type) {
+            case 'height':
+                value.textContent = settings.height.toString();
+                break;
+            case 'weight':
+                value.textContent = settings.weight.toString();
+                break;
+            case 'desiredweight':
+                value.textContent = settings.desiredWeight.toString();
+                break;         
+        }
         elementsWrapper.style.color = Colors.textOnLight;
     }
 

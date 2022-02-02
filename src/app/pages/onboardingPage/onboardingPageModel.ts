@@ -45,6 +45,7 @@ export default class OnboardingModel {
 
     public saveSettings() {
         const clientManager = new ClientManager();
+        StorageManager.addItem('userSettings', this.form, 'local');
         clientManager.postData(Endpoints.userSettings, this.form);
     }
 
