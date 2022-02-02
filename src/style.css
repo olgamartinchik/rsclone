@@ -15217,6 +15217,7 @@ input[type=text]:not(.browser-default) {
   padding: 10px 15px;
   font-family: "Poppins";
   height: 93px;
+  overflow: hidden;
 }
 
 .title-meal-card {

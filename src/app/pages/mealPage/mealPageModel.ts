@@ -3,17 +3,15 @@ import { IDataExplore } from '../../services/types';
 import Utils from '../../services/utils';
 class MealPageModel {
     mealData: ClientManager;
-
     dishTypeArray: string[];
-
     numFrom: number | null;
-
     numTo: number | null;
-
     mealType: Array<string>;
+    today:string
 
     // numTo:number
     constructor() {
+        this.today=''
         this.numFrom = this.getNumFrom();
         this.numTo = this.numFrom + 1;
         this.mealData = new ClientManager();
@@ -23,10 +21,11 @@ class MealPageModel {
 
         // ,'Salad','Starter','Soup','Preps','Omelet','Biscuits and cookies','Cereals','Condiments and sauces','Drinks'
     }
-    async getUserMealData() {
+    async getUserMealData(from='0',to='1') {
+     
         const userData: Array<IDataExplore> = [];
         for(let mealType of this.mealType){
-            const userRecipe = await this.mealData.userData('0','1', mealType, '591-722');
+            const userRecipe = await this.mealData.userData(from,to, mealType, '591-722');
             if(userRecipe){
                 userData.push(...userRecipe)
             }
@@ -47,7 +46,6 @@ class MealPageModel {
                 data.push(...recipe);
             }
         }
-
         return data;
     }
 
@@ -63,6 +61,16 @@ class MealPageModel {
     getNumFrom() {
         this.numFrom = Utils.randomInteger(0, 100);
         return this.numFrom;
+    }
+    rememberDateToday(){
+        let day=new Date()
+        let dd = String(day.getDate()).padStart(2, '0');
+        let mm = String(day.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let yyyy = day.getFullYear();
+        this.today = mm + '/' + dd + '/' + yyyy;
+        localStorage.setItem('today', JSON.stringify(this.today))
+        console.log('day',this.today)
+        return this.today
     }
 }
 

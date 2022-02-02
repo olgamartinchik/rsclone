@@ -1,4 +1,5 @@
 import { IDataExplore } from '../../services/types';
+import Utils from '../../services/utils';
 import MealPageModel from './mealPageModel';
 import MealPageView from './mealPageView';
 
@@ -9,11 +10,13 @@ class MealPageController {
     mealData:IDataExplore[]|null;
     exploreData:IDataExplore[]|null;
     searchingData:IDataExplore[]|null;
+    numFrom:number
 
 
     constructor() {       
         this.view = new MealPageView();
         this.modal = new MealPageModel();
+        this.numFrom=0
         this.inputValue = '';
         this.mealData=null;
         this.exploreData=null;
@@ -31,8 +34,10 @@ class MealPageController {
     }
 
     public async createPage() {
+        await this.getMealDataWithDay()
+
         if(!this.mealData||this.mealData.length===0){
-             this.mealData=await this.modal.getUserMealData()
+             this.mealData=await this.modal.getUserMealData(this.numFrom.toString(),(this.numFrom+1).toString())
              localStorage.setItem('mealData', JSON.stringify(this.mealData))
         }
        if(!this.exploreData||this.exploreData.length===0){
@@ -54,6 +59,7 @@ class MealPageController {
             this.handlerChange.bind(this),
             this.handlerBtn.bind(this)
         );
+
     }
     async handlerChange(e: Event) {     
         const value = (e.target as HTMLInputElement).value;
@@ -88,6 +94,23 @@ class MealPageController {
             }
         }      
     } 
+    async getMealDataWithDay(){
+        let day=JSON.stringify(this.modal.rememberDateToday())
+        // let day='02/03/2022'
+        if(localStorage.getItem('today')){    
+            if(day!== localStorage.getItem('today')){
+                console.log('false')
+                this.numFrom=(Utils.randomInteger(0, 100));
+                this.mealData=await this.modal.getUserMealData(this.numFrom.toString(),(this.numFrom+1).toString())
+                localStorage.setItem('mealData', JSON.stringify(this.mealData))
+                localStorage.setItem('today', JSON.stringify(day))
+                console.log('this.numFrom',this.numFrom)
+            }else{
+                console.log('true')
+            }
+        }
+        console.log('this.numFrom',this.numFrom)
+    }
 }
 
 export default MealPageController;
