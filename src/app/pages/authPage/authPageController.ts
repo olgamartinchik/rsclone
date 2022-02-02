@@ -18,10 +18,11 @@ export default class AuthController {
 
     public createPage(isLogin: boolean): void {
         this.isLogin = isLogin;
+        
         if (!this.isLogin) {
             StorageManager.deleteItem('token', 'local');
         }
-        const token: TToken = JSON.parse(StorageManager.getItem('token', 'local') as string);
+        const token = StorageManager.getItem('token', 'local') as TToken;
         if (token && token.jwtToken.length > 0) this.isLogin = true;
 
         this.view.render(this.handleInputChange.bind(this), this.handleButtonClick.bind(this), this.isLogin);
