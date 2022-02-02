@@ -184,8 +184,16 @@ class OnboardingPageController {
     }
 
     public handleClassesSelect(e: Event): void {
-        (<HTMLElement>e.target).classList.add('active');
-        this.model.settings.favWorkouts.push((<HTMLElement>e.target).textContent as WorkoutType);
+        const clickedElement = <HTMLElement>e.target;
+        clickedElement.classList.toggle('active');
+        
+        if(!clickedElement.className.includes('active')) {
+            const index = this.model.settings.favWorkouts.indexOf(clickedElement.textContent as WorkoutType);
+            this.model.settings.favWorkouts.splice(index, 1);
+            console.log(this.model.settings.favWorkouts);
+        } else {
+            this.model.settings.favWorkouts.push(clickedElement.textContent as WorkoutType);
+        };
     }
 
     public handleLengthSelect(e: Event): void {
