@@ -26,4 +26,46 @@ export default class Utils {
         const rand = min + Math.random() * (max + 1 - min);
         return Math.floor(rand);
     }
+    static getMonth(month: string): number {
+        let targetMonth = 0;
+        switch (month) {
+            case 'Jan':
+                targetMonth = 0;
+                break;
+            case 'Feb':
+                targetMonth = 1;
+                break;
+            case 'Mar':
+                targetMonth = 2;
+                break;
+            case 'Apr':
+                targetMonth = 3;
+                break;
+            case 'May':
+                targetMonth = 4;
+                break;
+            case 'Jun':
+                targetMonth = 5;
+                break;
+            case 'Jul':
+                targetMonth = 6;
+                break;
+            case 'Aug':
+                targetMonth = 7;
+                break;
+            case 'Sep':
+                targetMonth = 8;
+                break;
+            case 'Oct':
+                targetMonth = 9;
+                break;
+            case 'Nov':
+                targetMonth = 10;
+                break;
+            case 'Dec':
+                targetMonth = 11;
+                break;
+        }
+        return targetMonth;
+    }
 }

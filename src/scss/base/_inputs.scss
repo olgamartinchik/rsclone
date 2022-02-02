@@ -9,18 +9,49 @@ input {
     position: relative;
     padding-bottom: 5px;
     border-bottom: 1px solid $color-border;
+    cursor: default;
+    &.hidden {
+        display: none;
+    }
     & .value {
         display: block;
-        margin-right: 50px;
+        margin-right: 35px;
         color: $color-placeholder;
-        cursor: pointer;
     }
     & > span.title {
-        width: 75px;
+        width: 130px;
         font-size: 16px;
         margin-bottom: 0;
         text-align: left;
+        text-transform: capitalize;
+        &.calender {
+            width: 75px;
+        }
     }
+}
+
+input[type='text'].datepicker {
+    margin-bottom: 0;
+    color: $color-text-navbar;
+    text-align: right;
+    width: 75%;
+    height: 30px;
+    padding-right: 30px;
+    box-sizing: border-box;
+    &::placeholder {
+        text-align: left;
+        width: 100%;
+    }
+}
+
+#nick-name,
+#email,
+#password {
+    color: white;
+}
+
+.datepicker-table td.is-selected {
+    background-color: $color-primary;
 }
 
 .auth-field {
@@ -33,15 +64,20 @@ input {
     &:before {
         content: fa-content($fa-var-check);
         position: absolute;
-        right: 30px;
+        right: 10px;
         top: 5px;
         color: $color-text-navbar;
+        cursor: pointer;
     }
 }
 
 .select-block {
     margin-top: 10px;
     width: 100%;
+    display: none;
+    &.active {
+        display: block;
+    }
     & .options {
         width: 70%;
         margin: 0 auto;
@@ -50,6 +86,7 @@ input {
         text-align: center;
         & p {
             flex-basis: 40%;
+            margin: 0;
             padding: 5px 0;
             font-size: 14px;
             font-weight: 500;
@@ -61,6 +98,10 @@ input {
             }
         }
     }
+}
+
+input[type='range'] {
+    border: none;
 }
 
 input[type='range'] + .thumb {
@@ -110,7 +151,7 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
 
 input[type='range']::-webkit-slider-runnable-track {
     height: 5px;
-    background: linear-gradient(to right, $color-primary 0%, $color-primary 50%, $color-border 50%, $color-border 100%);
+    background: $color-border;
 }
 
 input[type='text']:not(.browser-default).invalid,

@@ -5,6 +5,13 @@ export enum Goal {
     muscle = 'muscle',
 }
 
+export enum GoalTitles {
+    weight = 'Lose weight',
+    toned = 'Stay toned',
+    relax = 'Reduce stress',
+    muscle = 'Build muscle',
+}
+
 export enum WorkoutType {
     dance = 'dance',
     boxing = 'boxing',
@@ -47,6 +54,41 @@ export enum Id {
 }
 
 export enum Message {
-    loginError = 'User is not found',
     registerSuccess = 'User created',
+    valueMissing = 'Please, choose a value',
+}
+
+export enum Height {
+    title = 'height',
+    units = 'cm',
+    option1 = 'Feet & Inches',
+    option2 = 'Centimeters',
+    min = '120',
+    max = '220',
+}
+
+export enum Weight {
+    title = 'weight',
+    desired = 'desired Weight',
+    units = 'kg',
+    option1 = 'Pounds',
+    option2 = 'Kilograms',
+    min = '40',
+    max = '200',
+}
+
+export enum Colors {
+    primary = '#ff8a80',
+    secondary = '#c2bebe',
+    textOnLight = '#666',
+}
+
+export enum Coefficients {
+    percent = 100,
+    toFeet = 0.032808398950131,
+    toPounds = 2.20462262185,
+}
+
+export enum Endpoints {
+    userSettings = 'userSettings',
 }

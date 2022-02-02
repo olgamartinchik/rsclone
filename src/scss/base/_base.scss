@@ -33,7 +33,7 @@ footer {
 //Scroll for Chrome
 
 *::-webkit-scrollbar {
-    height: 4px;
+    height: 6px;
     width: 0;
 }
 
@@ -46,4 +46,12 @@ footer {
     -webkit-border-radius: 30px;
     border-radius: 30px;
     background-color: $color-primary;
+}
+
+.preloader {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
