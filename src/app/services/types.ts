@@ -57,6 +57,17 @@ export type RouteOption = {
     callback: () => void;
 };
 
+export interface IDataExplore {
+    recipe: {
+        image: string;
+        dishType: string;
+        mealType: object;
+        label: string;
+        calories: string;
+        yield: number;
+    };
+}
+
 export type StoragesHandler = {
     session: Storage;
     local: Storage;
