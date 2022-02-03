@@ -42,6 +42,7 @@ class OnboardingPageController {
             this.birthday,
             this.handleValueSelect.bind(this),
             this.handleRangeSliderInput.bind(this),
+            this.handleInputChange.bind(this),
             this.handleButtonClick.bind(this),
             this.handleBackBtnClick.bind(this)
         );
@@ -53,11 +54,14 @@ class OnboardingPageController {
 
         if (typeof className === 'object') return;
 
-        if (className.includes('gender-item') || className.includes('frequency') || className.includes('duration')) {
+        if (className.includes('gender-item') 
+            || className.includes('frequency') 
+            || className.includes('duration')) {
             this.handleOptionSelect(e);
         } else if (className.includes('datepicker-done')) {
             this.handleDayBirthSelect(e);
-        } else if (className.includes('icon-select')) {
+        } else if (className.includes('icon-select')
+                  || className.includes('value-select')) {
             this.handleParametersSelect(e);
         } else if (className.includes('unit')) {
             this.handleUnitSelect(e);
@@ -90,7 +94,17 @@ class OnboardingPageController {
         selectBlocks.forEach((block) => {
             if (block.id !== select.id) block.className = 'select-block';
         });
-        select.classList.toggle('active');
+        this.activateParametersBlock(e);
+    }
+
+    private activateParametersBlock(e: Event): void {
+        const clickedElement = <HTMLElement>e.target;
+        const select = (<HTMLElement>e.currentTarget).children[2];
+        if (clickedElement.className.includes('icon-select')) {
+            select.classList.toggle('active');
+        } else {
+            select.classList.add('active');
+        }
     }
 
     private handleUnitSelect(e: Event): void {
@@ -105,15 +119,14 @@ class OnboardingPageController {
 
     private convertUnits(e: Event): void {
         const className = (<HTMLElement>e.target).className;
-        const heightSlider = <HTMLInputElement>document.querySelectorAll('[data-height]')[1];
-        const weightSlider = <HTMLInputElement>document.querySelectorAll('[data-weight]')[1];
+        const heightSlider = <HTMLInputElement>document.querySelectorAll('[data-height]')[2];
+        const weightSlider = <HTMLInputElement>document.querySelectorAll('[data-weight]')[2];
         let unit = '';
         let value = '';
 
         if (className.includes('feet')) {
             this.isFeet = true;
             unit = 'ft';
-            console.log(heightSlider);
             value = Math.round(+heightSlider.value * Coefficients.toFeet).toString();
         } else if (className.includes('centimeters')) {
             this.isFeet = false;
@@ -131,6 +144,25 @@ class OnboardingPageController {
 
         (<HTMLElement>e.currentTarget).children[1].children[1].textContent = unit;
         (<HTMLElement>e.currentTarget).children[1].children[0].textContent = value;
+    }
+
+    public handleInputChange(e: Event): void {
+        const clickedElement = (<HTMLInputElement>e.target);
+        const heightSlider = <HTMLInputElement>document.querySelectorAll('[data-height]')[2];
+        const weightSlider = <HTMLInputElement>document.querySelectorAll('[data-weight]')[2];
+        const desiredWeightSlider = <HTMLInputElement>document.querySelectorAll('[data-desiredweight]')[2];
+        if(+clickedElement.value < +clickedElement.min || +clickedElement.value > +clickedElement.max) {
+            clickedElement.value = '0';
+            this.createMessage(`Please enter the value between ${clickedElement.min} and ${clickedElement.max}`)
+        } else {
+           if((<HTMLElement>e.target).dataset.hasOwnProperty('height')) {
+               heightSlider.value = clickedElement.value;
+           } else if ((<HTMLElement>e.target).dataset.hasOwnProperty('weight')) {
+               weightSlider.value = clickedElement.value;
+           } else {
+               desiredWeightSlider.value = clickedElement.value;
+           }; 
+        };
     }
 
     public handleRangeSliderInput(e: Event): void {
@@ -154,7 +186,8 @@ class OnboardingPageController {
         }
         const valueGroup = (<HTMLElement>e.currentTarget).children[1] as HTMLElement;
         valueGroup.style.color = Colors.textOnLight;
-        valueGroup.children[0].textContent = !unit
+        (<HTMLInputElement>valueGroup.children[0]).style.color = Colors.textOnLight;
+        (<HTMLInputElement>valueGroup.children[0]).value = !unit
             ? rangeSlider.value
             : Math.round(+rangeSlider.value * coefficient).toString();
 
@@ -164,7 +197,7 @@ class OnboardingPageController {
 
     private colorRangeSlider(slider: HTMLInputElement, min: number, max: number): void {
         const percent = ((+slider.value - min) / (max - min)) * Coefficients.percent;
-        slider.style.background = `linear-gradient(to right, ${Colors.primary} 0%, ${Colors.primary} ${percent}%, ${Colors.secondary} ${percent}%, ${Colors.secondary} 100%)`;
+        slider.style.backgroundImage = `linear-gradient(to right, ${Colors.primary} 0%, ${Colors.primary} ${percent}%, ${Colors.secondary} ${percent}%, ${Colors.secondary} 100%)`;
     }
 
     private handleGoalSelect(e: Event): void {
@@ -191,7 +224,6 @@ class OnboardingPageController {
         if (!clickedElement.className.includes('active')) {
             const index = this.model.settings.favWorkouts.indexOf(clickedElement.textContent as WorkoutType);
             this.model.settings.favWorkouts.splice(index, 1);
-            console.log(this.model.settings.favWorkouts);
         } else {
             this.model.settings.favWorkouts.push(clickedElement.textContent as WorkoutType);
         }

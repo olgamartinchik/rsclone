@@ -1,4 +1,5 @@
 input {
+    color: $color-placeholder;
     cursor: pointer;
 }
 
@@ -14,8 +15,10 @@ input {
         display: none;
     }
     & .value {
-        display: block;
+        display: flex;
+        justify-content: space-between;
         margin-right: 35px;
+        width: 71px;
         color: $color-placeholder;
     }
     & > span.title {
@@ -52,6 +55,22 @@ input[type='text'].datepicker {
 
 .datepicker-table td.is-selected {
     background-color: $color-primary;
+}
+
+.value>input[data-type='parameter'] {
+    height: 19px;
+    width: 30px;
+    margin: 0px;
+    padding: 2px;
+    text-align: center;
+    border: none;
+    background: transparent !important;
+    &:focus {
+        background: transparent;
+        &::placeholder {
+            opacity: 0;
+        }
+    }
 }
 
 .auth-field {
@@ -102,6 +121,7 @@ input[type='text'].datepicker {
 
 input[type='range'] {
     border: none;
+    background: $color-border;
 }
 
 input[type='range'] + .thumb {
@@ -151,7 +171,9 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
 
 input[type='range']::-webkit-slider-runnable-track {
     height: 5px;
-    background: $color-border;
+    background: transparent; 
+    border-color: transparent;
+    color: transparent;
 }
 
 input[type='text']:not(.browser-default).invalid,

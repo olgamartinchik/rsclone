@@ -4,13 +4,14 @@ export function paramsTemplate(
     option1: string,
     option2: string,
     min: string,
-    max: string
+    max: string,
+    onchange: (e: Event) => void
 ): string {
     const dataAttribute = title === 'desired Weight' ? 'desiredWeight' : title;
     return `
   <span class="title title-tablet">${title}</span>
   <span class="value" data-${dataAttribute}>
-      <span>0</span> 
+      <input type="text" class="value-select" placeholder="0" data-type='parameter' data-${dataAttribute} min=${min} max=${max}> 
       <span>${units}</span>
       <i class="icon-select"></i>
   </span>
