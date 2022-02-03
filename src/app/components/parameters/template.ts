@@ -4,7 +4,7 @@ export function paramsTemplate(
     option1: string,
     option2: string,
     min: string,
-    max: string,
+    max: string
 ): string {
     const dataAttribute = title === 'desired Weight' ? 'desiredWeight' : title;
     return `
