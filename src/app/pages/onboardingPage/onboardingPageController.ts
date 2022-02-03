@@ -79,7 +79,8 @@ class OnboardingPageController {
         const currentTarget = <HTMLElement>e.currentTarget;
         const calenderInput = <HTMLInputElement>currentTarget.children.namedItem('datepicker');
         this.birthday = calenderInput.value;
-        this.model.changeHandler({ age: calenderInput.value });
+        const age = this.model.calculateAge(calenderInput.value)
+        this.model.changeHandler({ age: age });
     }
 
     private handleParametersSelect(e: Event): void {
@@ -186,21 +187,21 @@ class OnboardingPageController {
     public handleClassesSelect(e: Event): void {
         const clickedElement = <HTMLElement>e.target;
         clickedElement.classList.toggle('active');
-        
-        if(!clickedElement.className.includes('active')) {
+
+        if (!clickedElement.className.includes('active')) {
             const index = this.model.settings.favWorkouts.indexOf(clickedElement.textContent as WorkoutType);
             this.model.settings.favWorkouts.splice(index, 1);
             console.log(this.model.settings.favWorkouts);
         } else {
             this.model.settings.favWorkouts.push(clickedElement.textContent as WorkoutType);
-        };
+        }
     }
 
     public handleLengthSelect(e: Event): void {
         this.selectValue(e);
 
-        const min = (<HTMLElement>e.target).dataset.min;
-        const max = (<HTMLElement>e.target).dataset.max;
+        const min = +(<string>(<HTMLElement>e.target).dataset.min);
+        const max = +(<string>(<HTMLElement>e.target).dataset.max);
         this.model.changeHandler({ workoutLength: { min: min, max: max } });
     }
 

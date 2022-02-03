@@ -1,5 +1,4 @@
 import WorkoutManager from '../../services/workoutManager';
-import userSettings from '../../services/mocks/defaultData';
 import { TSettings, TToken, TWorkoutProgram } from '../../services/types';
 import Card from '../../components/card/card';
 import storageManager from '../../services/storageManager';
@@ -13,7 +12,7 @@ class ProgramPageModel {
     private program: TWorkoutProgram;
 
     private cards: Array<Card[]>;
-    
+
     private client: ClientManager;
 
     constructor() {
@@ -30,7 +29,7 @@ class ProgramPageModel {
 
         if (!program && data) {
             this.program = await this.wrManager.getProgram(data);
-        } else if(program) {
+        } else if (program) {
             this.program = program;
         }
         this.cards = this.program.map((workoutPerWeek) => {

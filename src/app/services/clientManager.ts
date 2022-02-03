@@ -1,7 +1,5 @@
-
-import { TLoginForm, TToken, TSettings, TWorkout } from '../services/types';
+import { TLoginForm, TToken, TSettings, TWorkout, TAuthResult } from '../services/types';
 import { API_ID, KEY_API } from '../configs/edamamConfig';
-
 
 class ClientManager {
     getMealTemplate(arg0: string, arg1: string, mealType: string) {
@@ -29,7 +27,7 @@ class ClientManager {
         return ClientManager._instance;
     }
 
-    public async postData(path: string, form: TLoginForm | TSettings) {
+    public async postData(path: string, form: TLoginForm | TSettings): Promise<void | TAuthResult> {
         try {
             const response = await fetch(`https://rsclonebackend.herokuapp.com/api/${path}`, {
                 method: 'POST',
@@ -39,6 +37,7 @@ class ClientManager {
                 },
             });
             const data = await response.json();
+            console.log(data);
             if (!response.ok) {
                 this.isSuccess = false;
                 throw new Error(data.message || 'Something went wrong');
@@ -50,8 +49,12 @@ class ClientManager {
             this.tokenInfo.userID = data.userId;
 
             return data;
-        } catch (e: any) {
-            this.text = e.message;
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                this.text = e.message;
+            } else {
+                this.text = String(e);
+            }
         }
     }
 
@@ -94,7 +97,7 @@ class ClientManager {
         return this.tokenInfo;
     }
 
-    public async mealExploreData(from:string, to:string ,dishType = 'Salad', ) {
+    public async mealExploreData(from: string, to: string, dishType = 'Salad') {
         try {
             const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&dishType=${dishType}&imageSize=LARGE`;
 
@@ -106,7 +109,7 @@ class ClientManager {
         }
     }
 
-    public async searchingData(from:string, to:string,meal = 'Salad' ) {
+    public async searchingData(from: string, to: string, meal = 'Salad') {
         try {
             const url = `https://api.edamam.com/search?q=${meal}&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&imageSize=LARGE`;
 
@@ -118,7 +121,7 @@ class ClientManager {
         }
     }
 
-    public async userData(from:string, to:string,mealType: string, calories: string ) {
+    public async userData(from: string, to: string, mealType: string, calories: string) {
         try {
             const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&imageSize=LARGE&mealType=${mealType}&calories=${calories}`;
             const response = await fetch(url);

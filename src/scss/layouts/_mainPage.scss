@@ -90,7 +90,7 @@
     text-align: left;
     position: relative;
     cursor: pointer;
-    &:nth-last-child(-n+1){
+    &:nth-last-child(-n + 1) {
         margin-right: 0;
     }
     .title {
