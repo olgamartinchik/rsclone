@@ -1,4 +1,4 @@
-import { TSettings} from '../../services/types';
+import { TSettings } from '../../services/types';
 import StorageManager from '../../services/storageManager';
 import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';

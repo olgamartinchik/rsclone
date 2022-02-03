@@ -18,7 +18,7 @@ class Parameters {
         rootNode.onclick = (e: Event) => onselect(e);
         rootNode.oninput = (e: Event) => oninput(e);
         rootNode.onchange = (e: Event) => onchange(e);
-        rootNode.insertAdjacentHTML('afterbegin', paramsTemplate(title, units, option1, option2, min, max, onchange));
+        rootNode.insertAdjacentHTML('afterbegin', paramsTemplate(title, units, option1, option2, min, max));
 
         return rootNode;
     }
