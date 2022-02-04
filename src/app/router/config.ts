@@ -7,6 +7,8 @@ import ProfilePageController from '../pages/profilePage/profilePageController';
 import ProgramPageController from '../pages/programPage/programPageController';
 import SettingsPageController from '../pages/settingsPage/settingsPageController';
 import WorkoutPageController from '../pages/workoutPage/workoutPageController';
+import EditPlanPageController from '../pages/editPlanPage/editPlanPageController';
+import EditProfilePageController from '../pages/editProfilePage/editProfilePageController';
 import { RouteOption } from '../services/types';
 
 class Config {
@@ -27,6 +29,10 @@ class Config {
     public mealPageController: MealPageController;
 
     public workoutPageController: WorkoutPageController;
+    
+    public editPlanPageController: EditPlanPageController;
+
+    public editProfilePageController: EditProfilePageController;
 
     constructor() {
         this.programPageController = new ProgramPageController();
@@ -38,6 +44,8 @@ class Config {
         this.settingsPageController = new SettingsPageController();
         this.mealPageController = new MealPageController();
         this.workoutPageController = new WorkoutPageController();
+        this.editPlanPageController = new EditPlanPageController();
+        this.editProfilePageController = new EditProfilePageController();
     }
 
     public getRoutes(): RouteOption[] {
@@ -63,6 +71,10 @@ class Config {
                 callback: async () => this.programPageController.createPage(),
             },
             {
+                path: /editprofile/,
+                callback: () => this.editProfilePageController.createPage(),
+            },
+            {
                 path: /profile/,
                 callback: () => this.profilePageController.createPage(),
             },
@@ -85,6 +97,10 @@ class Config {
             {
                 path: /meal/,
                 callback: () => this.mealPageController.createPage(),
+            },
+            {
+                path: /editplan/,
+                callback: () => this.editPlanPageController.createPage(),
             },
             {
                 path: /inprogress\/(\d{1,2})/,

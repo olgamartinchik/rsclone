@@ -2,7 +2,7 @@ import footer from '../../components/footer/footer';
 import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 
-class ProfilePageView {
+class EditPlanPageView {
     private rootNode: HTMLElement;
 
     constructor() {
@@ -24,11 +24,11 @@ class ProfilePageView {
         navbar.addProfileLink('O');
         this.rootNode.insertAdjacentHTML(
             'beforeend',
-            `<main class="main-layout"><span>This is Profile Page!</span></main>`
+            `<main class="main-layout"><span>This is Edit Plan Page!</span></main>`
         );
 
         this.rootNode.append(footer.getTemplate());
     }
 }
 
-export default ProfilePageView;
+export default EditPlanPageView;

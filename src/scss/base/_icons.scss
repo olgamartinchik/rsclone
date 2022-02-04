@@ -1,0 +1,90 @@
+.icon-container {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  .profile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $color-text-on-dark;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: $color-settings-active;
+  }
+}
+
+.icon {
+  margin-right: 8px;
+  color: $color-text-navbar;
+  @extend %fa-icon;
+  @extend .fas;
+  &.female {
+      &:before {
+          content: fa-content($fa-var-venus);
+      }
+  }
+  &.male {
+      &:before {
+          content: fa-content($fa-var-mars);
+      }
+  }
+  &.other_gender {
+      &:before {
+          content: fa-content($fa-var-mars-stroke-v);
+      }
+  }
+  &.user {
+      &:before {
+          content: fa-content($fa-var-user);
+      }
+  }
+  &.browse {
+      &:before {
+          content: fa-content($fa-var-search);
+      }
+  }
+  &.meal {
+      &:before {
+          content: fa-content($fa-var-utensils);
+      }
+  }
+  &.settings {
+      &:before {
+          content: fa-content($fa-var-cogs);
+      }
+  }
+  &.arrow-left {
+      &:before {
+          content: fa-content($fa-var-arrow-left);
+          font-size: 25px;
+      }
+  }
+  &.arrow-right {
+    &:before {
+        content: fa-content($fa-var-arrow-right);
+        font-size: 20px;
+        cursor: pointer;
+    }
+  }
+  &.weight {
+    &:before {
+        content: fa-content($fa-var-weight);
+    }
+  }
+  &.height {
+    &:before {
+        content: fa-content($fa-var-ruler-vertical);
+    }
+  }
+  &.profile {
+    &:before {
+        content: fa-content($fa-var-user);
+    }
+  }
+  &.plan {
+    &:before {
+        content: fa-content($fa-var-clipboard);
+    }
+  }
+}
