@@ -3,6 +3,7 @@ import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import settings from '../../components/settings/settings';
 import Node from '../../components/Node';
+import Button from '../../components/Button';
 
 class SettingsPageView {
     private rootNode: HTMLElement;
@@ -22,7 +23,7 @@ class SettingsPageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu();
+        navbar.generateMenu('Settings');
         navbar.addProfileLink('O');
         
         this.createMainLayout(onclick);
@@ -37,6 +38,9 @@ class SettingsPageView {
 
         this.createSettingsBlockWrapper(settingsWrapper, 'Account', ['Edit Profile', 'Edit Plan'], false, onclick);
         this.createSettingsBlockWrapper(settingsWrapper, 'Unit', ['Weight', 'Height'], true, onclick);
+        
+        const buttonWrapper = Node.setChild(settingsWrapper, 'div', 'btn-wrapper settings');
+        new Button(buttonWrapper, 'Log out');
     }
 
     private createSettingsBlockWrapper(parentNode: HTMLElement, title: string, subtitles: Array<string>, hasChips: boolean, onclick: (e: Event) => void): void {

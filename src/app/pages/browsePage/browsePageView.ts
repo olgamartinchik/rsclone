@@ -20,7 +20,7 @@ class BrowsePageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu();
+        navbar.generateMenu('Browse');
         navbar.addProfileLink('O');
         this.rootNode.insertAdjacentHTML(
             'beforeend',

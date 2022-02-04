@@ -14369,6 +14369,9 @@ footer {
   padding: 0 50px;
   justify-content: space-around;
 }
+.btn-wrapper.settings {
+  margin-top: 35px;
+}
 
 @media (max-width: 768px) {
   .btn-large.header-tablet {
@@ -15975,7 +15978,7 @@ input[type=text]:not(.browser-default) {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 40px;
   width: 100%;
   text-align: left;
 }

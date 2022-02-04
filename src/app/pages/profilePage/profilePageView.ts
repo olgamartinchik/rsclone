@@ -21,7 +21,7 @@ class ProfilePageView {
             'settings',
         ]);
         navbar.generateMenu();
-        navbar.addProfileLink('O');
+        navbar.addProfileLink('O', true);
         this.rootNode.insertAdjacentHTML(
             'beforeend',
             `<main class="main-layout"><span>This is Profile Page!</span></main>`
