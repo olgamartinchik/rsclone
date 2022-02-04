@@ -132,38 +132,6 @@
     }
 }
 
-.video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 998;
-    display: block;
-    min-width: 100vw;
-    height: 100vh;
-    background-color: transparent;
-    overflow: hidden;
-    border: none;
-}
-
-.btn-back {
-    position: fixed;
-    top: 40px;
-    left: 40px;
-    z-index: 999;
-    background-color: transparent;
-    border: none;
-    color: white;
-    transition: 0.5s;
-    cursor: pointer;
-    &:hover {
-        color: #f47253;
-        background-color: transparent;
-    }
-    &:focus {
-        background-color: transparent;
-    }
-}
-
 @media screen and (max-width: 590px) {
     .workout {
         &-title {
@@ -176,3 +144,5 @@
         }
     }
 }
+
+

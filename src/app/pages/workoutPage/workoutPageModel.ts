@@ -1,11 +1,15 @@
 import Card from '../../components/card/card';
 import storageManager from '../../services/storageManager';
+import CloudinaryManager from '../../services/cloudinarySDK';
 
 class WorkoutPageModel {
     private cards: Array<Card[]>;
 
+    private sdk: CloudinaryManager;
+
     constructor() {
         this.cards = [];
+        this.sdk = new CloudinaryManager();
     }
 
     public getData() {
@@ -26,6 +30,16 @@ class WorkoutPageModel {
         });
 
         return currCard;
+    }
+
+    public getVideoLink(id: string): string {
+        const card = this.getCardById(id);
+        let url = '';
+        if(card) {
+            url = this.sdk.getVideoUrl(card.data.title);
+        }
+
+        return url;
     }
 }
 
