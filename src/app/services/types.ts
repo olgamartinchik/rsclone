@@ -11,6 +11,7 @@ export type TWorkout = {
     link: string;
     img: string;
     _id?: string;
+    completed?: boolean;
 };
 
 export type TStrategies = {

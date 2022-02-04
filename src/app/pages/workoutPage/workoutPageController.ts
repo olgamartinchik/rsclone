@@ -1,14 +1,18 @@
 import WorkoutPageModel from './workoutPageModel';
 import WorkoutPageView from './workoutPageView';
 import youTubeApiManager from '../../services/youTubeApiManager';
+import WorkoutTimer from './timer/workoutTimer';
 class WorkoutPageController {
     private view: WorkoutPageView;
 
     private model: WorkoutPageModel;
 
+    private workoutTimer: WorkoutTimer;
+
     constructor() {
         this.model = new WorkoutPageModel();
         this.view = new WorkoutPageView();
+        this.workoutTimer = new WorkoutTimer();
     }
 
     public createPage(idArr: string[]): void {
@@ -26,6 +30,7 @@ class WorkoutPageController {
         if (card) {
             const iframe = youTubeApiManager.createIFrame(card.data.link);
             this.view.renderVideo(iframe);
+            this.workoutTimer.createTimer(this.view.rootNode, card.data.duration);
         }
     }
 }

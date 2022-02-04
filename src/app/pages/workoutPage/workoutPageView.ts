@@ -8,7 +8,7 @@ import workoutHeaderTemplate from '../../components/workout/template';
 import workoutDesc from '../../components/workout/workoutDescription';
 
 class WorkoutPageView {
-    private rootNode: HTMLElement;
+    public readonly rootNode: HTMLElement;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');

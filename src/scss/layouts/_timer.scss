@@ -1,0 +1,16 @@
+.count-down-timer,
+.time {
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+    left: 40px;
+}
+
+.time {
+    bottom: 35px;
+    left: 108px;
+    font-size: 22px;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 1px;
+}

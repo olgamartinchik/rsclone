@@ -1,6 +1,6 @@
 class YouTubeApiManager {
     createIFrame(link: string): HTMLIFrameElement {
-        const currLink = `${link}?rel=0&showinfo=0&autoplay=1&controls=0`;
+        const currLink = `${link}?rel=0&showinfo=0&autoplay=0&iv_load_policy=3`;
         const iframe = document.createElement('iframe');
         iframe.setAttribute('allowfullscreen', '');
         iframe.setAttribute('controls', '0');
