@@ -1,4 +1,4 @@
-import { TSettings, ISetting } from '../../services/types';
+import { TSettings } from '../../services/types';
 import StorageManager from '../../services/storageManager';
 import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';
@@ -25,14 +25,11 @@ export default class OnboardingModel {
         };
     }
 
-    public changeHandler(...args: Array<ISetting>) {
+    public changeHandler(...args: Array<Partial<TSettings>>) {
         const setting = Array.from(args)[0];
         this.form.userId = (StorageManager.getItem('token', 'local') as TToken).userID;
         if (setting.gender) this.form.gender = setting.gender;
-        if (setting.age) {
-            const age = this.calculateAge(setting.age);
-            this.form.age = age;
-        }
+        if (setting.age) this.form.age = setting.age;
         if (setting.height) this.form.height = setting.height;
         if (setting.weight) this.form.weight = setting.weight;
         if (setting.goal) this.form.goal = setting.goal;
