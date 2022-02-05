@@ -13,7 +13,7 @@ class ProgramPageModel {
     private program: TWorkoutProgram;
 
     private cards: Array<Card[]>;
-    
+
     private client: ClientManager;
 
     constructor() {
@@ -30,7 +30,7 @@ class ProgramPageModel {
 
         if (!program && data) {
             this.program = await this.wrManager.getProgram(data);
-        } else if(program) {
+        } else if (program) {
             this.program = program;
         }
         this.cards = this.program.map((workoutPerWeek) => {

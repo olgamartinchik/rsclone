@@ -174,8 +174,8 @@ class OnboardingPageView {
                     onselect,
                     oninput
                 );
-                weightChoiceBlock.classList.add('hidden')
-                
+                weightChoiceBlock.classList.add('hidden');
+
                 form.append(weightChoiceBlock);
             }
         });
@@ -292,9 +292,9 @@ class OnboardingPageView {
 
     private getParameters(type: string, settings: TSettings) {
         const elementsWrapper = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[0];
-        let value = <HTMLElement>elementsWrapper.children[0];
-        
-        switch(type) {
+        const value = <HTMLElement>elementsWrapper.children[0];
+
+        switch (type) {
             case 'height':
                 value.textContent = settings.height.toString();
                 break;
@@ -303,7 +303,7 @@ class OnboardingPageView {
                 break;
             case 'desiredweight':
                 value.textContent = settings.desiredWeight.toString();
-                break;         
+                break;
         }
         elementsWrapper.style.color = Colors.textOnLight;
     }

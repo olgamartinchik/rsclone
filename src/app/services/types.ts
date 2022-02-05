@@ -59,12 +59,12 @@ export type RouteOption = {
 
 export interface IDataExplore {
     recipe: {
-        image: string;
-        dishType: string;
-        mealType: object;
-        label: string;
-        calories: string;
-        yield: number;
+        image?: string;
+        dishType?: string;
+        mealType?: object;
+        label?: string;
+        calories?: string;
+        yield?: number;
     };
 }
 

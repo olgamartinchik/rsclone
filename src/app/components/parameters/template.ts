@@ -6,7 +6,7 @@ export function paramsTemplate(
     min: string,
     max: string
 ): string {
-    const dataAttribute = (title === 'desired Weight') ? 'desiredWeight' : title;
+    const dataAttribute = title === 'desired Weight' ? 'desiredWeight' : title;
     return `
   <span class="title title-tablet">${title}</span>
   <span class="value" data-${dataAttribute}>
