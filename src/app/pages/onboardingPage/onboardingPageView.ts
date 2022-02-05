@@ -299,14 +299,10 @@ class OnboardingPageView {
 
     private getParameters(type: string, settings: TSettings) {
         const elementsWrapper = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[0];
-<<<<<<< HEAD
-        const value = <HTMLElement>elementsWrapper.children[0];
 
-=======
         const input = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[1];
         console.log(document.querySelectorAll(`[data-${type}]`));
         const value = <HTMLInputElement>elementsWrapper.children[0];
->>>>>>> 4d7a5aa0f888f58616d059275dc6871bda92c9ef
         switch (type) {
             case 'height':
                 value.value = settings.height.toString();
@@ -315,11 +311,8 @@ class OnboardingPageView {
                 value.value = settings.weight.toString();
                 break;
             case 'desiredweight':
-<<<<<<< HEAD
                 value.textContent = settings.desiredWeight.toString();
-=======
                 value.value = settings.desiredWeight.toString();
->>>>>>> 4d7a5aa0f888f58616d059275dc6871bda92c9ef
                 break;
         }
         elementsWrapper.style.color = Colors.textOnLight;
