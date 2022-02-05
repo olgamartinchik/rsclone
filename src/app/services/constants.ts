@@ -62,6 +62,7 @@ export enum Message {
 export enum Height {
     title = 'height',
     units = 'cm',
+    units2 = 'ft & in',
     option1 = 'Feet & Inches',
     option2 = 'Centimeters',
     min = '120',
@@ -72,6 +73,7 @@ export enum Weight {
     title = 'weight',
     desired = 'desired Weight',
     units = 'kg',
+    units2 = 'pounds',
     option1 = 'Pounds',
     option2 = 'Kilograms',
     min = '40',

@@ -1,7 +1,7 @@
-class EditPlanPageModel {
+class EditProfilePageModel {
     getData() {
         console.log('data is being loaded');
     }
 }
 
-export default EditPlanPageModel;
+export default EditProfilePageModel;

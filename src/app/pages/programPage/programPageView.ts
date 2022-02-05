@@ -26,7 +26,7 @@ class ProgramPageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu();
+        navbar.generateMenu('Program');
         navbar.addProfileLink('O');
 
         this.setContents(data, onclick, week);
@@ -34,7 +34,7 @@ class ProgramPageView {
     }
 
     setContents(data: Card[], onclick: (e: Event) => void, week: number): void {
-        const Program = new Node(this.rootNode, 'main', 'main-page');
+        const Program = new Node(this.rootNode, 'main', 'main-layout');
         Node.setChild(Program.node, 'div', 'decorative');
         const contentWrapper = new Node(Program.node, 'div', 'main-content');
         const ProgramContent = new Node(contentWrapper.node, 'div', 'left-block');

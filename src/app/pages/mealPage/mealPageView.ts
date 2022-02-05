@@ -43,7 +43,7 @@ class MealPageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu();
+        navbar.generateMenu('Meal');
         navbar.addProfileLink('O');
         this.createContentMeal(
             mealData,
