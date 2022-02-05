@@ -29,17 +29,23 @@ export default class NavBar {
         Node.setChild(menuMobile.node, 'i', 'material-icons', 'menu');
     }
 
-    generateMenu(attributeName = Id.menu): void {
+    generateMenu(activeLink?: string | undefined, attributeName = Id.menu): void {
         this.menu.node.textContent = '';
         this.menu.setAttribute('id', attributeName);
-        this.generateLinks(this.menu.node, this.needsButton, this.icons);
+        this.generateLinks(this.menu.node, this.needsButton, this.icons, activeLink);
         this.generateMobileMenu();
         this.materializeHandler.initSidenav();
     }
 
-    generateLinks(parentNode: HTMLElement, needsButton: boolean, icons?: Array<string> | undefined): void {
+    generateLinks(
+        parentNode: HTMLElement,
+        needsButton: boolean,
+        icons?: Array<string> | undefined,
+        activeLink?: string | undefined
+    ): void {
         this.links.forEach((link, index) => {
             const menuItem = new Node(parentNode, 'li');
+            if (activeLink && link === activeLink) menuItem.node.classList.add('active');
             const menuLink = new Node(menuItem.node, 'a');
             menuLink.setAttribute('href', `#/${link.toLowerCase()}`);
             if (icons) {
@@ -60,8 +66,9 @@ export default class NavBar {
         this.generateLinks(mobileMenu.node, false, this.icons);
     }
 
-    addProfileLink(user: string): void {
+    addProfileLink(user: string, isActive?: boolean | undefined): void {
         const menuItem = new Node(this.menu.node, 'li');
+        if (isActive) menuItem.node.classList.add('active');
         const menuLink = new Node(menuItem.node, 'a');
         menuLink.setAttribute('href', `#/profile`);
         const iconContainer = new Node(menuLink.node, 'div', 'icon-container');

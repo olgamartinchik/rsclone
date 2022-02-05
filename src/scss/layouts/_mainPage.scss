@@ -1,8 +1,3 @@
-.main-page {
-    min-height: calc(100vh - 144px);
-    background: $color-background-light;
-}
-
 .decorative {
     width: 100%;
     height: 154px;
@@ -69,7 +64,6 @@
     margin-right: auto;
     padding: 0 8px 20px;
     min-height: 320px;
-    // width: calc(100% - 30px);
     overflow-x: auto;
     overflow-y: auto;
     transition: all 0.3s ease;
@@ -85,7 +79,6 @@
     width: 350px;
     height: 300px;
     margin-right: 25px;
-    // padding: 15px;
     border-radius: 12px;
     text-align: left;
     position: relative;

@@ -8258,9 +8258,9 @@ input[type='range']::-ms-thumb {
  */
 .fa,
 .fas,
+.icon,
 .icon-select,
 .calender::before,
-.icon,
 .far,
 .fal,
 .fad,
@@ -8274,9 +8274,9 @@ input[type='range']::-ms-thumb {
     line-height: 1;
 }
 
+.icon,
 .icon-select,
-.calender::before,
-.icon {
+.calender::before {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     display: inline-block;
@@ -8378,9 +8378,9 @@ input[type='range']::-ms-thumb {
 
 .fa.fa-pull-left,
 .fas.fa-pull-left,
+.fa-pull-left.icon,
 .fa-pull-left.icon-select,
 .fa-pull-left.calender::before,
-.fa-pull-left.icon,
 .far.fa-pull-left,
 .fal.fa-pull-left,
 .fab.fa-pull-left {
@@ -8388,9 +8388,9 @@ input[type='range']::-ms-thumb {
 }
 .fa.fa-pull-right,
 .fas.fa-pull-right,
+.fa-pull-right.icon,
 .fa-pull-right.icon-select,
 .fa-pull-right.calender::before,
-.fa-pull-right.icon,
 .far.fa-pull-right,
 .fal.fa-pull-right,
 .fab.fa-pull-right {
@@ -14355,9 +14355,9 @@ readers do not read off random characters that represent icons */
 }
 .fa,
 .fas,
+.icon,
 .icon-select,
-.calender::before,
-.icon {
+.calender::before {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
 }
@@ -14611,6 +14611,11 @@ nav .brand-logo {
         flex-basis: 100%;
     }
 }
+.main-layout {
+    min-height: calc(100% - 144px);
+    background: rgba(144, 150, 159, 0.1);
+}
+
 .registration-header {
     display: flex;
     flex-wrap: wrap;
@@ -14801,51 +14806,6 @@ div.parameters-options.center {
     background-color: #816ffe;
 }
 
-.icon {
-    margin-right: 8px;
-}
-.icon.female:before {
-    content: '\f221';
-}
-.icon.male:before {
-    content: '\f222';
-}
-.icon.other_gender:before {
-    content: '\f22a';
-}
-.icon.user:before {
-    content: '\f007';
-}
-.icon.browse:before {
-    content: '\f002';
-}
-.icon.meal:before {
-    content: '\f2e7';
-}
-.icon.settings:before {
-    content: '\f085';
-}
-.icon.arrow-left:before {
-    content: '\f060';
-    font-size: 25px;
-}
-
-.icon-container {
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-}
-.icon-container .profile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #816ffe;
-}
-
 .datepicker::placeholder {
     padding-left: 150px;
     color: #b4b4b4;
@@ -15030,11 +14990,6 @@ input[type='text']:not(.browser-default) {
         padding-left: 100px;
     }
 }
-.main-page {
-    min-height: calc(100vh - 144px);
-    background: rgba(144, 150, 159, 0.1);
-}
-
 .decorative {
     width: 100%;
     height: 154px;
@@ -15777,6 +15732,94 @@ input[type='text']:not(.browser-default) {
         width: 265px;
     }
 }
+.settings-wrapper {
+    width: 400px;
+    padding-top: 40px;
+    margin: 0 auto;
+}
+.settings-title {
+    display: block;
+    text-align: center;
+    margin: 0;
+    color: rgba(28, 28, 29, 0.8);
+    font-size: 18px;
+}
+.settings-block {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 40px;
+    width: 100%;
+    text-align: left;
+}
+.settings-subtitle {
+    display: block;
+    width: 100%;
+    margin: 0;
+    margin-bottom: 20px;
+    color: rgba(28, 28, 29, 0.8);
+    font-size: 25px;
+}
+.settings-item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    position: relative;
+}
+.settings-item .icon-select::before {
+    top: 15px;
+}
+.settings-item.wrapper {
+    height: 100%;
+}
+.settings-link {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    color: #666;
+    font-size: 18px;
+    font-weight: 500;
+}
+.settings-link .icon {
+    width: 25px;
+    margin-right: 20px;
+    font-size: 25px;
+}
+
+p.settings-link {
+    cursor: default;
+}
+
+.unit-selection {
+    display: inline-flex;
+    justify-content: space-around;
+    box-sizing: border-box;
+    height: 40px;
+    width: 150px;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 40px;
+    cursor: pointer;
+}
+.unit-item {
+    flex-basis: 50%;
+}
+.unit-item.active {
+    color: white;
+    border-radius: 25px;
+    background-color: #816ffe;
+}
+
+html,
+body,
+#app {
+    height: 100%;
+}
+
 body {
     font-family: 'Montserrat', Helvetica, Arial, sans-serif;
     font-weight: 400;
@@ -15869,6 +15912,9 @@ footer {
     margin-top: 10px;
     padding: 0 50px;
     justify-content: space-around;
+}
+.btn-wrapper.settings {
+    margin-top: 35px;
 }
 
 @media (max-width: 768px) {
@@ -16073,6 +16119,69 @@ input[type='password']:not(.browser-default).invalid {
     .select-block .options p {
         flex-basis: 45%;
     }
+}
+.icon-container {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.icon-container .profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #816ffe;
+}
+
+.icon {
+    margin-right: 8px;
+    color: #666;
+}
+.icon.female:before {
+    content: '\f221';
+}
+.icon.male:before {
+    content: '\f222';
+}
+.icon.other_gender:before {
+    content: '\f22a';
+}
+.icon.user:before {
+    content: '\f007';
+}
+.icon.browse:before {
+    content: '\f002';
+}
+.icon.meal:before {
+    content: '\f2e7';
+}
+.icon.settings:before {
+    content: '\f085';
+}
+.icon.arrow-left:before {
+    content: '\f060';
+    font-size: 25px;
+    color: white;
+}
+.icon.arrow-right:before {
+    content: '\f061';
+    font-size: 20px;
+    cursor: pointer;
+}
+.icon.weight:before {
+    content: '\f496';
+}
+.icon.height:before {
+    content: '\f548';
+}
+.icon.profile:before {
+    content: '\f007';
+}
+.icon.plan:before {
+    content: '\f328';
 }
 
 /*# sourceMappingURL=style.css.map */
