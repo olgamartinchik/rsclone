@@ -24,7 +24,7 @@ export class Router implements IRouter {
         this.listen();
     }
 
-    addPath(path: RegExp, callback: () => void, isAuth?: boolean | null): void {
+    addPath(path: RegExp, callback: () => void, isAuth: boolean | null): void {
         this.routes.push({
             path,
             callback,
