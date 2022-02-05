@@ -4,7 +4,7 @@ export const mealCardTemplate = function mealCardTemplate(data: IDataExplore): s
             <div class="col s12 m6">
                 <div class="card">
                     <div class="card-image">
-                        <img src="${data.recipe.image}" />
+                        <img src="${data.recipe.image}" alt="meal"/>
                     </div>
                     <div class="card-content">
                         <h6 class="title-meal-card">${data.recipe.label}</h6>
@@ -21,7 +21,7 @@ export const userMealCardTemplate = function (data: IDataExplore): string {
     <div class="col s12 m6">
     <div class="card">
         <div class="card-image">
-            <img src="${data.recipe.image}" />
+            <img src="${data.recipe.image}" alt="meal" />
         </div>
         <div class="card-content">
             <h6 class="title-meal-card">${data.recipe.mealType![0].toString()}</h6>
@@ -37,6 +37,7 @@ export const exploreCardTemplate = function (data: IDataExplore): string {
             <img
                 class="explore-img"
                 src="./assets/exploreMeal/${data.recipe.image}.jpg"
+                alt="meal"
             />
         </div>
         <p class="subtitle-meal">${data.recipe.dishType}</p>   

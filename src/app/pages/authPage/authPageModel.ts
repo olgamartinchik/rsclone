@@ -1,5 +1,5 @@
 import { TLoginForm, TToken } from '../../services/types';
-import router from '../../router/router';
+import authManager from '../../services/authManager';
 import ClientManager from '../../services/clientManager';
 import StorageManager from '../../services/storageManager';
 import { Message } from '../../services/constants';
@@ -51,8 +51,8 @@ export default class AuthModel {
         this.createMessage(this.message);
 
         if (this.isSuccess) {
-            this.navigate(type);
             StorageManager.addItem('token', this.tokenInfo, 'local');
+            this.navigate(type);
         } else {
             StorageManager.deleteItem('token', 'local');
         }
@@ -67,10 +67,10 @@ export default class AuthModel {
     private navigate(type: string) {
         switch (type) {
             case 'auth/register':
-                router.navigate('/onboarding');
+                authManager.navigate('/onboarding');
                 break;
             case 'auth/login':
-                router.navigate('/program');
+                authManager.navigate('/program');
                 break;
         }
     }

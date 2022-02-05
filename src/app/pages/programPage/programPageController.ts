@@ -1,4 +1,4 @@
-import router from '../../router/router';
+import authManager from '../../services/authManager';
 import ProgramPageModel from './programPageModel';
 import ProgramPageView from './programPageView';
 
@@ -21,7 +21,7 @@ class ProgramPageController {
         const currCard = <HTMLElement>e.currentTarget;
         const workout = this.model.getCardById(currCard.id);
         if (workout) {
-            router.navigate(`workout/${workout.id}`);
+            authManager.navigate(`workout/${workout.id}`);
         }
     }
 }

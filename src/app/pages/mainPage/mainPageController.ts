@@ -1,5 +1,6 @@
-import router from '../../router/router';
+// import router from '../../router/router';
 import MainPageView from './mainPageView';
+import authManager from '../../services/authManager';
 
 class MainPageController {
     private view: MainPageView;
@@ -13,7 +14,7 @@ class MainPageController {
     }
 
     private signUpHandler(): void {
-        router.navigate('/register');
+        authManager.navigate('/register');
     }
 }
 
