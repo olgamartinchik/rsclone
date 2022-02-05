@@ -7,6 +7,7 @@ import ProfilePageController from '../pages/profilePage/profilePageController';
 import ProgramPageController from '../pages/programPage/programPageController';
 import SettingsPageController from '../pages/settingsPage/settingsPageController';
 import WorkoutPageController from '../pages/workoutPage/workoutPageController';
+import EditPlanPageController from '../pages/editPlanPage/editPlanPageController';
 import { RouteOption } from '../services/types';
 
 class Config {
@@ -28,6 +29,8 @@ class Config {
 
     public workoutPageController: WorkoutPageController;
 
+    public editPlanPageController: EditPlanPageController;
+
     constructor() {
         this.programPageController = new ProgramPageController();
         this.mainPageController = new MainPageController();
@@ -38,6 +41,7 @@ class Config {
         this.settingsPageController = new SettingsPageController();
         this.mealPageController = new MealPageController();
         this.workoutPageController = new WorkoutPageController();
+        this.editPlanPageController = new EditPlanPageController();
     }
 
     public getRoutes(): RouteOption[] {
@@ -85,6 +89,10 @@ class Config {
             {
                 path: /meal/,
                 callback: () => this.mealPageController.createPage(),
+            },
+            {
+                path: /editplan/,
+                callback: () => this.editPlanPageController.createPage(),
             },
             {
                 path: /inprogress\/(\d{1,2})/,
