@@ -18,10 +18,7 @@ export class AuthManager {
 
     public navigate(path?: string | undefined): void {
         this.checkAuth();
-        //    const router = (this.isLogin) ? this.setAuthRouter() : this.setNewUserRouter();
 
-        // console.log(this.isLogin);
-        // console.log(this.router);
         if (path) this.router.navigate(path);
     }
 
