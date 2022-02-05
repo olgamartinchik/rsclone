@@ -48,53 +48,6 @@ class Config {
         this.editProfilePageController = new EditProfilePageController();
     }
 
-    // public getAuthRoutes(): RouteOption[] {
-    //     const currRoutes: RouteOption[] = [
-    //         {
-    //             path: /program/,
-    //             callback: async () => this.programPageController.createPage(),
-    //         },
-    //         {
-    //             path: /editprofile/,
-    //             callback: () => this.editProfilePageController.createPage(),
-    //         },
-    //         {
-    //             path: /profile/,
-    //             callback: () => this.profilePageController.createPage(),
-    //         },
-    //         {
-    //             path: /settings/,
-    //             callback: () => this.settingsPageController.createPage(),
-    //         },
-    //         {
-    //             path: /workout\/([\deabcdf]{24})/,
-    //             callback: (...args) => this.workoutPageController.createPage(args),
-    //         },
-    //         {
-    //             path: /browse/,
-    //             callback: () => this.browsePageController.createPage(),
-    //         },
-    //         {
-    //             path: /meal\/(\d{1,2})/,
-    //             callback: (...args) => console.log('meal page', args),
-    //         },
-    //         {
-    //             path: /meal/,
-    //             callback: () => this.mealPageController.createPage(),
-    //         },
-    //         {
-    //             path: /editplan/,
-    //             callback: () => this.editPlanPageController.createPage(),
-    //         },
-    //         {
-    //             path: /inprogress\/(\d{1,2})/,
-    //             callback: (...args) => console.log('progress page', args),
-    //         },
-    //     ];
-
-    //     return currRoutes;
-    // }
-
     public getRoutes(): RouteOption[] {
         const currRoutes: RouteOption[] = [
             {
