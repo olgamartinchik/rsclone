@@ -1,4 +1,4 @@
-import EditPlanPageView from './editPlanPageVew';
+import EditPlanPageView from './editPlanPageView';
 
 class EditPlanPageController {
     private view: EditPlanPageView;
