@@ -1,5 +1,4 @@
 import WorkoutManager from '../../services/workoutManager';
-import userSettings from '../../services/mocks/defaultData';
 import { TSettings, TToken, TWorkoutProgram } from '../../services/types';
 import Card from '../../components/card/card';
 import storageManager from '../../services/storageManager';

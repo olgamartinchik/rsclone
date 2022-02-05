@@ -33,6 +33,7 @@ class OnboardingPageView {
         birthday: string,
         onselect: (e: Event) => void,
         oninput: (e: Event) => void,
+        onchange: (e: Event) => void,
         onclick: (e: Event) => void,
         onBackClick: (e: Event) => void
     ): void {
@@ -46,7 +47,7 @@ class OnboardingPageView {
         form.setAttribute('action', '#');
         form.setAttribute('method', 'post');
 
-        this.renderForm(block, form, settings, birthday, onselect, oninput, onclick, onBackClick);
+        this.renderForm(block, form, settings, birthday, onselect, oninput, onchange, onclick, onBackClick);
 
         this.rootNode.append(Footer.getTemplate());
     }
@@ -58,6 +59,7 @@ class OnboardingPageView {
         birthday: string,
         onselect: (e: Event) => void,
         oninput: (e: Event) => void,
+        onchange: (e: Event) => void,
         onclick: (e: Event) => void,
         onBackClick: (e: Event) => void
     ): void {
@@ -65,10 +67,10 @@ class OnboardingPageView {
 
         switch (block) {
             case 'About you':
-                this.renderAboutBlock(form, settings, birthday, onselect, oninput);
+                this.renderAboutBlock(form, settings, birthday, onselect, oninput, onchange);
                 break;
             case `What's your goal?`:
-                this.renderGoalsBlock(form, settings, onselect, oninput);
+                this.renderGoalsBlock(form, settings, onselect, oninput, onchange);
                 break;
             case 'How many workouts per week do you want?':
                 this.renderFrequencyBlock(form, settings, onselect);
@@ -98,7 +100,8 @@ class OnboardingPageView {
         settings: TSettings,
         birthday: string,
         onselect: (e: Event) => void,
-        oninput: (e: Event) => void
+        oninput: (e: Event) => void,
+        onchange: (e: Event) => void
     ): void {
         form.append(Gender.getTemplate(onselect));
         this.colorSelectedOption(settings, 'gender');
@@ -116,7 +119,8 @@ class OnboardingPageView {
                 Height.min,
                 Height.max,
                 onselect,
-                oninput
+                oninput,
+                onchange
             )
         );
 
@@ -129,7 +133,8 @@ class OnboardingPageView {
                 Weight.min,
                 Weight.max,
                 onselect,
-                oninput
+                oninput,
+                onchange
             )
         );
 
@@ -141,7 +146,8 @@ class OnboardingPageView {
         form: HTMLElement,
         settings: TSettings,
         onselect: (e: Event) => void,
-        oninput: (e: Event) => void
+        oninput: (e: Event) => void,
+        onchange: (e: Event) => void
     ): void {
         const goalsWrapper = Node.setChild(form, 'div', 'parameters-options');
         goalsWrapper.onclick = (e: Event) => onselect(e);
@@ -172,7 +178,8 @@ class OnboardingPageView {
                     Weight.min,
                     Weight.max,
                     onselect,
-                    oninput
+                    oninput,
+                    onchange
                 );
                 weightChoiceBlock.classList.add('hidden');
 
@@ -292,20 +299,31 @@ class OnboardingPageView {
 
     private getParameters(type: string, settings: TSettings) {
         const elementsWrapper = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[0];
+<<<<<<< HEAD
         const value = <HTMLElement>elementsWrapper.children[0];
 
+=======
+        const input = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[1];
+        console.log(document.querySelectorAll(`[data-${type}]`));
+        const value = <HTMLInputElement>elementsWrapper.children[0];
+>>>>>>> 4d7a5aa0f888f58616d059275dc6871bda92c9ef
         switch (type) {
             case 'height':
-                value.textContent = settings.height.toString();
+                value.value = settings.height.toString();
                 break;
             case 'weight':
-                value.textContent = settings.weight.toString();
+                value.value = settings.weight.toString();
                 break;
             case 'desiredweight':
+<<<<<<< HEAD
                 value.textContent = settings.desiredWeight.toString();
+=======
+                value.value = settings.desiredWeight.toString();
+>>>>>>> 4d7a5aa0f888f58616d059275dc6871bda92c9ef
                 break;
         }
         elementsWrapper.style.color = Colors.textOnLight;
+        input.style.color = Colors.textOnLight;
     }
 
     public renderCongratulations(programDuration: number, onclick: (e: Event) => void): void {

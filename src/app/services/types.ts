@@ -73,6 +73,8 @@ export type StoragesHandler = {
     local: Storage;
 };
 
-export interface ISetting {
-    [key: string]: any;
-}
+export type TAuthResult = {
+    message: string;
+    token: string;
+    userId: string;
+};

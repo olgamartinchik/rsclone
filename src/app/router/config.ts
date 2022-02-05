@@ -60,7 +60,7 @@ class Config {
             },
             {
                 path: /program/,
-                callback: () => this.programPageController.createPage(),
+                callback: async () => this.programPageController.createPage(),
             },
             {
                 path: /profile/,

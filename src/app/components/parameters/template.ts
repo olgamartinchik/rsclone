@@ -10,7 +10,7 @@ export function paramsTemplate(
     return `
   <span class="title title-tablet">${title}</span>
   <span class="value" data-${dataAttribute}>
-      <span>0</span> 
+      <input type="text" class="value-select" placeholder="0" data-type='parameter' data-${dataAttribute} data-value=${dataAttribute} min=${min} max=${max}> 
       <span>${units}</span>
       <i class="icon-select"></i>
   </span>

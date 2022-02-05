@@ -1,4 +1,4 @@
-import { TLoginForm, TToken, TSettings, TWorkout } from '../services/types';
+import { TLoginForm, TToken, TSettings, TWorkout, TAuthResult } from '../services/types';
 import { API_ID, KEY_API } from '../configs/edamamConfig';
 
 class ClientManager {
@@ -27,7 +27,7 @@ class ClientManager {
         return ClientManager._instance;
     }
 
-    public async postData(path: string, form: TLoginForm | TSettings) {
+    public async postData(path: string, form: TLoginForm | TSettings): Promise<void | TAuthResult> {
         try {
             const response = await fetch(`https://rsclonebackend.herokuapp.com/api/${path}`, {
                 method: 'POST',
@@ -37,6 +37,7 @@ class ClientManager {
                 },
             });
             const data = await response.json();
+            console.log(data);
             if (!response.ok) {
                 this.isSuccess = false;
                 throw new Error(data.message || 'Something went wrong');
@@ -48,8 +49,12 @@ class ClientManager {
             this.tokenInfo.userID = data.userId;
 
             return data;
-        } catch (e: any) {
-            this.text = e.message;
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                this.text = e.message;
+            } else {
+                this.text = String(e);
+            }
         }
     }
 
