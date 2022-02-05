@@ -1,5 +1,5 @@
 export function settingsTemplate(text: string): string {
-  return `
+    return `
   <div class="settings-item">
       <a href="#/${text.toLowerCase().split(' ').join('')}" class="settings-link">
           <i class="icon ${text.toLowerCase().split(' ')[1]}"></i>
@@ -7,11 +7,11 @@ export function settingsTemplate(text: string): string {
       </a>
       <i class="icon arrow-right"></i>
   </div>
-  `
+  `;
 }
 
 export function settingsWithChipsTemplate(text: string, unit1?: string, unit2?: string): string {
-  return `
+    return `
   <div class="settings-item">
       <p class="settings-link">
           <i class="icon ${text.toLowerCase()}"></i>
@@ -22,5 +22,5 @@ export function settingsWithChipsTemplate(text: string, unit1?: string, unit2?: 
          <div class="unit-item">${unit2}</div>
       </div>
   </div>
-  `
+  `;
 }

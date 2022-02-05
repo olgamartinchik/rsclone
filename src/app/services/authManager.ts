@@ -4,11 +4,10 @@ import router, { Router } from '../router/router';
 import { RouteOption, TToken } from './types';
 
 export class AuthManager {
-
     private config: Config;
 
     private isLogin: boolean;
-    
+
     private router: Router;
 
     constructor(isLogin: boolean) {
@@ -19,11 +18,11 @@ export class AuthManager {
 
     public navigate(path?: string | undefined): void {
         this.checkAuth();
-    //    const router = (this.isLogin) ? this.setAuthRouter() : this.setNewUserRouter();
-        
+        //    const router = (this.isLogin) ? this.setAuthRouter() : this.setNewUserRouter();
+
         // console.log(this.isLogin);
         // console.log(this.router);
-        if(path) this.router.navigate(path);
+        if (path) this.router.navigate(path);
     }
 
     private checkAuth(): void {
@@ -37,23 +36,23 @@ export class AuthManager {
     private setRouter(): void {
         this.definePaths();
         this.setRootPath();
-        console.log(this.router);
     }
 
     private definePaths(): void {
         const allRoutes = this.config.getRoutes();
         const routes = [] as RouteOption[];
-        allRoutes.forEach(route =>{
-            if(route.isAuth === this.isLogin || route.isAuth === null) {
+        allRoutes.forEach((route) => {
+            if (route.isAuth === this.isLogin || route.isAuth === null) {
                 routes.push(route);
-            };
+            }
         });
-        
+
         this.router.addAllPath(routes);
     }
 
     private setRootPath(): void {
-        (this.isLogin) ? this.router.setRoot('/program') : this.router.setRoot(' ');
+        const rootPath = this.isLogin ? '/program' : ' ';
+        this.router.setRoot(rootPath);
     }
 }
 

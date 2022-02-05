@@ -9,7 +9,6 @@ class App {
 
     public start(): void {
         this.authManager.navigate();
-        console.log('start authcheck');
     }
 }
 

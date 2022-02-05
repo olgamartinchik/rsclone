@@ -25,7 +25,7 @@ class SettingsPageView {
         ]);
         navbar.generateMenu('Settings');
         navbar.addProfileLink('O');
-        
+
         this.createMainLayout(onclick, onclickButton);
 
         this.rootNode.append(footer.getTemplate());
@@ -38,17 +38,23 @@ class SettingsPageView {
 
         this.createSettingsBlockWrapper(settingsWrapper, 'Account', ['Edit Profile', 'Edit Plan'], false, onclick);
         this.createSettingsBlockWrapper(settingsWrapper, 'Unit', ['Weight', 'Height'], true, onclick);
-        
+
         const buttonWrapper = Node.setChild(settingsWrapper, 'div', 'btn-wrapper settings');
         const logoutButton = new Button(buttonWrapper, 'Log out');
         logoutButton.onclick(onclickButton);
     }
 
-    private createSettingsBlockWrapper(parentNode: HTMLElement, title: string, subtitles: Array<string>, hasChips: boolean, onclick: (e: Event) => void): void {
+    private createSettingsBlockWrapper(
+        parentNode: HTMLElement,
+        title: string,
+        subtitles: Array<string>,
+        hasChips: boolean,
+        onclick: (e: Event) => void
+    ): void {
         const settingsBlockWrapper = Node.setChild(parentNode, 'div', 'settings-block');
         Node.setChild(settingsBlockWrapper, 'h3', 'title settings-subtitle', `${title}`);
 
-        settingsBlockWrapper.append(settings.getTemplate(subtitles, hasChips, onclick))
+        settingsBlockWrapper.append(settings.getTemplate(subtitles, hasChips, onclick));
     }
 }
 

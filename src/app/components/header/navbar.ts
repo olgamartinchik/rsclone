@@ -37,7 +37,12 @@ export default class NavBar {
         this.materializeHandler.initSidenav();
     }
 
-    generateLinks(parentNode: HTMLElement, needsButton: boolean, icons?: Array<string> | undefined, activeLink?: string | undefined): void {
+    generateLinks(
+        parentNode: HTMLElement,
+        needsButton: boolean,
+        icons?: Array<string> | undefined,
+        activeLink?: string | undefined
+    ): void {
         this.links.forEach((link, index) => {
             const menuItem = new Node(parentNode, 'li');
             if (activeLink && link === activeLink) menuItem.node.classList.add('active');

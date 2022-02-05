@@ -41,7 +41,6 @@ class SettingsPageController {
 
     private handleButtonClick(): void {
         localStorage.clear();
-        console.log(localStorage.length);
         authManager.navigate('/');
     }
 }

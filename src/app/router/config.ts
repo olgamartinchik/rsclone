@@ -29,7 +29,7 @@ class Config {
     public mealPageController: MealPageController;
 
     public workoutPageController: WorkoutPageController;
-    
+
     public editPlanPageController: EditPlanPageController;
 
     public editProfilePageController: EditProfilePageController;
