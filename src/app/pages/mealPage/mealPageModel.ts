@@ -4,7 +4,7 @@ import Utils from '../../services/utils';
 class MealPageModel {
     mealData: ClientManager;
 
-    dishTypeArray: string[];
+    dishType: IDataExplore[];
 
     numFrom: number | null;
 
@@ -20,7 +20,14 @@ class MealPageModel {
         this.numTo = this.numFrom + 1;
         this.mealData = new ClientManager();
         this.mealType = ['Breakfast', 'Lunch', 'Snack'];
-        this.dishTypeArray = ['Desserts', 'Main course', 'Pancake', 'Salad', 'Starter', 'Soup'];
+        this.dishType = [
+            { recipe: { dishType: 'Desserts', image: '1' } },
+            { recipe: { dishType: 'Main course', image: '2' } },
+            { recipe: { dishType: 'Pancake', image: '3' } },
+            { recipe: { dishType: 'Salad', image: '4' } },
+            { recipe: { dishType: 'Starter', image: '5' } },
+            { recipe: { dishType: 'Soup', image: '6' } },
+        ];
     }
 
     async getUserMealData(from = '0', to = '1') {
@@ -31,22 +38,8 @@ class MealPageModel {
                 userData.push(...userRecipe);
             }
         }
-        return userData;
-    }
 
-    async getExploreData() {
-        const data: Array<IDataExplore> = [];
-        for (const dishType of this.dishTypeArray) {
-            const recipe = await this.mealData.mealExploreData(
-                this.numFrom!.toString(),
-                this.numTo!.toString(),
-                dishType
-            );
-            if (recipe) {
-                data.push(...recipe);
-            }
-        }
-        return data;
+        return userData;
     }
 
     async getSearchingData(meal = 'Salad') {

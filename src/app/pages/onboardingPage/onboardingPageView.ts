@@ -299,6 +299,7 @@ class OnboardingPageView {
 
     private getParameters(type: string, settings: TSettings) {
         const elementsWrapper = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[0];
+
         const input = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[1];
         console.log(document.querySelectorAll(`[data-${type}]`));
         const value = <HTMLInputElement>elementsWrapper.children[0];
@@ -310,6 +311,7 @@ class OnboardingPageView {
                 value.value = settings.weight.toString();
                 break;
             case 'desiredweight':
+                value.textContent = settings.desiredWeight.toString();
                 value.value = settings.desiredWeight.toString();
                 break;
         }

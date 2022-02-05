@@ -12,8 +12,6 @@ class MealPageController {
 
     mealData: IDataExplore[] | null;
 
-    exploreData: IDataExplore[] | null;
-
     searchingData: IDataExplore[] | null;
 
     numFrom: number;
@@ -24,16 +22,19 @@ class MealPageController {
         this.numFrom = 0;
         this.inputValue = '';
         this.mealData = null;
-        this.exploreData = null;
         this.searchingData = null;
         if (localStorage.getItem('mealData')) {
-            this.mealData = JSON.parse(localStorage.getItem('mealData')!);
+            const mealData = JSON.parse(localStorage.getItem('mealData')!);
+            if (mealData !== undefined || mealData.length !== 0) {
+                this.mealData = mealData;
+            }
         }
-        if (localStorage.getItem('exploreData')) {
-            this.exploreData = JSON.parse(localStorage.getItem('exploreData')!);
-        }
+
         if (localStorage.getItem('searchingData')) {
-            this.searchingData = JSON.parse(localStorage.getItem('searchingData')!);
+            const searchingData = JSON.parse(localStorage.getItem('searchingData')!);
+            if (searchingData !== undefined || searchingData.length !== 0) {
+                this.searchingData = searchingData;
+            }
         }
     }
 
@@ -42,21 +43,23 @@ class MealPageController {
 
         if (!this.mealData || this.mealData.length === 0) {
             this.mealData = await this.model.getUserMealData(this.numFrom.toString(), (this.numFrom + 1).toString());
-            localStorage.setItem('mealData', JSON.stringify(this.mealData));
+            if (this.mealData) {
+                localStorage.setItem('mealData', JSON.stringify(this.mealData));
+            }
+            console.log('this.mealData', this.mealData);
         }
-        if (!this.exploreData || this.exploreData.length === 0) {
-            this.exploreData = await this.model.getExploreData();
-            localStorage.setItem('exploreData', JSON.stringify(this.exploreData));
-        }
+
         if (!this.searchingData || this.searchingData.length === 0) {
             this.searchingData = await this.model.getSearchingData('brownie');
-            localStorage.setItem('searchingData', JSON.stringify(this.searchingData));
+            if (this.searchingData) {
+                localStorage.setItem('searchingData', JSON.stringify(this.searchingData));
+            }
         }
 
         this.view.render(
             this.mealData!,
             this.handlerMealCard.bind(this),
-            this.exploreData!,
+            this.model.dishType,
             this.handlerExploreCard.bind(this),
             this.searchingData!,
             this.handlerSearchingCard.bind(this),
@@ -81,13 +84,14 @@ class MealPageController {
             const searchingMeals = document.querySelector('.searching-meals') as HTMLElement;
             searchingMeals!.innerHTML = '';
             this.searchingData = await this.model.getSearchingData(this.inputValue);
-            localStorage.setItem('searchingData', JSON.stringify(this.searchingData));
+
             if (this.searchingData) {
                 if (this.searchingData.length === 0) {
                     searchingMeals!.innerHTML = 'No matches';
                 } else {
                     const searchingCards = this.view.getSearchingCards(this.searchingData, this.handlerSearchingCard);
                     searchingMeals.append(...searchingCards);
+                    localStorage.setItem('searchingData', JSON.stringify(this.searchingData));
                 }
             }
         }
