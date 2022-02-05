@@ -48,63 +48,124 @@ class Config {
         this.editProfilePageController = new EditProfilePageController();
     }
 
+    // public getAuthRoutes(): RouteOption[] {
+    //     const currRoutes: RouteOption[] = [
+    //         {
+    //             path: /program/,
+    //             callback: async () => this.programPageController.createPage(),
+    //         },
+    //         {
+    //             path: /editprofile/,
+    //             callback: () => this.editProfilePageController.createPage(),
+    //         },
+    //         {
+    //             path: /profile/,
+    //             callback: () => this.profilePageController.createPage(),
+    //         },
+    //         {
+    //             path: /settings/,
+    //             callback: () => this.settingsPageController.createPage(),
+    //         },
+    //         {
+    //             path: /workout\/([\deabcdf]{24})/,
+    //             callback: (...args) => this.workoutPageController.createPage(args),
+    //         },
+    //         {
+    //             path: /browse/,
+    //             callback: () => this.browsePageController.createPage(),
+    //         },
+    //         {
+    //             path: /meal\/(\d{1,2})/,
+    //             callback: (...args) => console.log('meal page', args),
+    //         },
+    //         {
+    //             path: /meal/,
+    //             callback: () => this.mealPageController.createPage(),
+    //         },
+    //         {
+    //             path: /editplan/,
+    //             callback: () => this.editPlanPageController.createPage(),
+    //         },
+    //         {
+    //             path: /inprogress\/(\d{1,2})/,
+    //             callback: (...args) => console.log('progress page', args),
+    //         },
+    //     ];
+
+    //     return currRoutes;
+    // }
+
     public getRoutes(): RouteOption[] {
         const currRoutes: RouteOption[] = [
             {
                 path: / /,
                 callback: () => this.mainPageController.createPage(),
+                isAuth: false,
             },
             {
                 path: /register/,
                 callback: () => this.authPageController.createPage(false),
+                isAuth: false,
             },
             {
                 path: /onboarding/,
                 callback: () => this.onboardingPageController.createPage(),
+                isAuth: true,
             },
             {
                 path: /login/,
                 callback: () => this.authPageController.createPage(true),
+                isAuth: false,
             },
             {
                 path: /program/,
                 callback: async () => this.programPageController.createPage(),
+                isAuth: true,
             },
             {
                 path: /editprofile/,
                 callback: () => this.editProfilePageController.createPage(),
+                isAuth: true,
             },
             {
                 path: /profile/,
                 callback: () => this.profilePageController.createPage(),
+                isAuth: true,
             },
             {
                 path: /settings/,
                 callback: () => this.settingsPageController.createPage(),
+                isAuth: true,
             },
             {
                 path: /workout\/([\deabcdf]{24})/,
                 callback: (...args) => this.workoutPageController.createPage(args),
+                isAuth: true,
             },
             {
                 path: /browse/,
                 callback: () => this.browsePageController.createPage(),
+                isAuth: null,
             },
             {
                 path: /meal\/(\d{1,2})/,
                 callback: (...args) => console.log('meal page', args),
+                isAuth: true,
             },
             {
                 path: /meal/,
                 callback: () => this.mealPageController.createPage(),
+                isAuth: true,
             },
             {
                 path: /editplan/,
                 callback: () => this.editPlanPageController.createPage(),
+                isAuth: true,
             },
             {
                 path: /inprogress\/(\d{1,2})/,
                 callback: (...args) => console.log('progress page', args),
+                isAuth: true,
             },
         ];
 

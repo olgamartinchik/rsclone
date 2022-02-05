@@ -1,6 +1,6 @@
 import OnboardingPageView from './onboardingPageView';
 import OnboardingModel from './onboardingPageModel';
-import router from '../../router/router';
+import authManager from '../../services/authManager';
 import { Height, Weight, Colors, Coefficients, Goal, Message, WorkoutType } from '../../services/constants';
 
 class OnboardingPageController {
@@ -321,7 +321,7 @@ class OnboardingPageController {
 
     public handleFinalButtonClick(e: Event): void {
         if ((<HTMLElement>e.target).dataset.btn === 'start') {
-            router.navigate('/program');
+            authManager.navigate('/program');
         }
     }
 }

@@ -12,7 +12,7 @@ class SettingsPageView {
         this.rootNode = <HTMLElement>document.getElementById('app');
     }
 
-    render(onclick: (e: Event) => void): void {
+    render(onclick: (e: Event) => void, onclickButton: (e: Event) => void): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
 
@@ -26,12 +26,12 @@ class SettingsPageView {
         navbar.generateMenu('Settings');
         navbar.addProfileLink('O');
         
-        this.createMainLayout(onclick);
+        this.createMainLayout(onclick, onclickButton);
 
         this.rootNode.append(footer.getTemplate());
     }
 
-    private createMainLayout(onclick: (e: Event) => void): void {
+    private createMainLayout(onclick: (e: Event) => void, onclickButton: (e: Event) => void): void {
         const main = new Node(this.rootNode, 'main', 'main-layout');
         const settingsWrapper = Node.setChild(main.node, 'div', 'settings-wrapper');
         Node.setChild(settingsWrapper, 'h2', 'title settings-title', 'Settings');
@@ -40,7 +40,8 @@ class SettingsPageView {
         this.createSettingsBlockWrapper(settingsWrapper, 'Unit', ['Weight', 'Height'], true, onclick);
         
         const buttonWrapper = Node.setChild(settingsWrapper, 'div', 'btn-wrapper settings');
-        new Button(buttonWrapper, 'Log out');
+        const logoutButton = new Button(buttonWrapper, 'Log out');
+        logoutButton.onclick(onclickButton);
     }
 
     private createSettingsBlockWrapper(parentNode: HTMLElement, title: string, subtitles: Array<string>, hasChips: boolean, onclick: (e: Event) => void): void {

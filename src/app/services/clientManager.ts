@@ -37,7 +37,7 @@ class ClientManager {
                 },
             });
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
             if (!response.ok) {
                 this.isSuccess = false;
                 throw new Error(data.message || 'Something went wrong');

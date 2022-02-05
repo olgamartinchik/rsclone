@@ -58,6 +58,7 @@
       &:before {
           content: fa-content($fa-var-arrow-left);
           font-size: 25px;
+          color: $color-text-on-dark;
       }
   }
   &.arrow-right {

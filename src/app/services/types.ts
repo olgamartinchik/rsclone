@@ -55,6 +55,7 @@ export type TToken = {
 export type RouteOption = {
     path: RegExp;
     callback: () => void;
+    isAuth?: boolean | null;
 };
 
 export interface IDataExplore {

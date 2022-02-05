@@ -11,10 +11,10 @@ export class Router implements IRouter {
     private intervalId: ReturnType<typeof setInterval> | null;
 
     constructor(options: IRouterOptions) {
+        this.routes = [];
         if (options.routes) {
             this.routes = options.routes;
         }
-        this.routes = [];
         this.root = '/';
         if (options.root) {
             this.root = options.root;
@@ -24,11 +24,16 @@ export class Router implements IRouter {
         this.listen();
     }
 
-    addPath(path: RegExp, callback: () => void): void {
+    addPath(path: RegExp, callback: () => void, isAuth?: boolean | null): void {
         this.routes.push({
             path,
             callback,
+            isAuth,
         });
+    }
+
+    setRoot(path: string): void {
+        this.root = path;
     }
 
     addAllPath(routes: RouteOption[]): void {

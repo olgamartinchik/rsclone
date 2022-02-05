@@ -1,5 +1,5 @@
 import SettingsPageView from './settingsPageView';
-import router from '../../router/router';
+import authManager from '../../services/authManager';
 
 class SettingsPageController {
     private view: SettingsPageView;
@@ -9,7 +9,7 @@ class SettingsPageController {
     }
 
     public createPage() {
-        this.view.render(this.handleClick.bind(this));
+        this.view.render(this.handleClick.bind(this), this.handleButtonClick.bind(this));
     }
 
     private handleClick(e: Event): void {
@@ -36,8 +36,13 @@ class SettingsPageController {
     private navigate(e: Event): void {
         const settingsBlock = <HTMLElement>(<HTMLElement>e.target).parentElement;
         const settingsTitle = <string>settingsBlock.children[0].textContent;
-        console.log(settingsTitle); 
-        router.navigate(`#/${settingsTitle.toLowerCase().split(' ').join('')}`)
+        authManager.navigate(`#/${settingsTitle.toLowerCase().split(' ').join('')}`);
+    }
+
+    private handleButtonClick(): void {
+        localStorage.clear();
+        console.log(localStorage.length);
+        authManager.navigate('/');
     }
 }
 

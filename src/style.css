@@ -8135,9 +8135,9 @@ input[type=range]::-ms-thumb {
  */
 .fa,
 .fas,
-.calender::before,
 .icon,
 .icon-select,
+.calender::before,
 .far,
 .fal,
 .fad,
@@ -8151,7 +8151,7 @@ input[type=range]::-ms-thumb {
   line-height: 1;
 }
 
-.calender::before, .icon, .icon-select {
+.icon, .icon-select, .calender::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -8253,9 +8253,9 @@ input[type=range]::-ms-thumb {
 
 .fa.fa-pull-left,
 .fas.fa-pull-left,
-.fa-pull-left.calender::before,
 .fa-pull-left.icon,
 .fa-pull-left.icon-select,
+.fa-pull-left.calender::before,
 .far.fa-pull-left,
 .fal.fa-pull-left,
 .fab.fa-pull-left {
@@ -8263,9 +8263,9 @@ input[type=range]::-ms-thumb {
 }
 .fa.fa-pull-right,
 .fas.fa-pull-right,
-.fa-pull-right.calender::before,
 .fa-pull-right.icon,
 .fa-pull-right.icon-select,
+.fa-pull-right.calender::before,
 .far.fa-pull-right,
 .fal.fa-pull-right,
 .fab.fa-pull-right {
@@ -14225,9 +14225,9 @@ readers do not read off random characters that represent icons */
 }
 .fa,
 .fas,
-.calender::before,
 .icon,
-.icon-select {
+.icon-select,
+.calender::before {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
 }
@@ -14268,375 +14268,6 @@ readers do not read off random characters that represent icons */
 
 nav .brand-logo img {
   transition: all 0.5s ease-out;
-}
-
-html,
-body,
-#app {
-  height: 100%;
-}
-
-body {
-  font-family: "Montserrat", Helvetica, Arial, sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-}
-
-header {
-  min-height: 64px;
-}
-
-footer {
-  min-height: 80px;
-}
-
-.hidden {
-  display: none;
-}
-
-.wrapper {
-  margin: 0 auto;
-}
-
-.title {
-  font-family: "Poppins", Helvetica, Arial, sans-serif;
-  font-weight: 800;
-}
-
-.subtitle {
-  font-family: "Montserrat", Helvetica, Arial, sans-serif;
-  font-weight: 400;
-}
-
-*::-webkit-scrollbar {
-  height: 6px;
-  width: 0;
-}
-
-*::-webkit-scrollbar-track {
-  background: white;
-  border-radius: 5px;
-}
-
-*::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 30px;
-  border-radius: 30px;
-  background-color: #ff8a80;
-}
-
-.preloader {
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-}
-
-.btn-large {
-  background: linear-gradient(270deg, #e03694 -24.77%, #f47253 95.41%);
-  border-radius: 10px;
-  font-family: "Poppins", Helvetica, Arial, sans-serif;
-  font-weight: 700;
-}
-.btn-large.header-tablet {
-  visibility: hidden;
-}
-.btn-large :hover {
-  color: white;
-  opacity: 0.9;
-}
-
-.sidenav .btn-large {
-  margin-left: 100px;
-}
-
-.btn-completed {
-  padding: 0 10px;
-  background: linear-gradient(270deg, #3680e0 -24.77%, #53e9f4 95.41%);
-}
-
-.back-btn {
-  position: absolute;
-  top: 50px;
-  left: 5%;
-  color: white;
-}
-
-.btn-wrapper {
-  width: 100%;
-  display: flex;
-  margin-top: 10px;
-  padding: 0 50px;
-  justify-content: space-around;
-}
-.btn-wrapper.settings {
-  margin-top: 35px;
-}
-
-@media (max-width: 768px) {
-  .btn-large.header-tablet {
-    visibility: visible;
-    float: right;
-    margin-top: 12px;
-    height: 40px;
-    line-height: 40px;
-  }
-}
-@media (max-width: 600px) {
-  .btn-large.header-tablet {
-    margin-top: 8px;
-  }
-}
-input {
-  color: #b4b4b4;
-  cursor: pointer;
-}
-
-.input-group {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  text-align: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 15px;
-  position: relative;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #c2bebe;
-  cursor: default;
-}
-.input-group.hidden {
-  display: none;
-}
-.input-group .value {
-  display: flex;
-  justify-content: space-between;
-  margin-right: 35px;
-  width: 71px;
-  color: #b4b4b4;
-}
-.input-group > span.title {
-  width: 130px;
-  font-size: 16px;
-  margin-bottom: 0;
-  text-align: left;
-  text-transform: capitalize;
-}
-.input-group > span.title.calender {
-  width: 75px;
-}
-
-input[type=text].datepicker {
-  margin-bottom: 0;
-  color: #666;
-  text-align: right;
-  width: 75%;
-  height: 30px;
-  padding-right: 30px;
-  box-sizing: border-box;
-}
-input[type=text].datepicker::placeholder {
-  text-align: left;
-  width: 100%;
-}
-
-#nick-name,
-#email,
-#password {
-  color: white;
-}
-
-.datepicker-table td.is-selected {
-  background-color: #ff8a80;
-}
-
-.value > input[data-type=parameter] {
-  height: 19px;
-  width: 30px;
-  margin: 0px;
-  padding: 2px;
-  text-align: center;
-  border: none;
-  background: transparent !important;
-}
-.value > input[data-type=parameter]:focus {
-  background: transparent;
-}
-.value > input[data-type=parameter]:focus::placeholder {
-  opacity: 0;
-}
-
-.auth-field {
-  width: 100%;
-}
-
-.icon-select:before {
-  content: "\f00c";
-  position: absolute;
-  right: 10px;
-  top: 5px;
-  color: #666;
-  cursor: pointer;
-}
-
-.select-block {
-  margin-top: 10px;
-  width: 100%;
-  display: none;
-}
-.select-block.active {
-  display: block;
-}
-.select-block .options {
-  width: 70%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
-}
-.select-block .options p {
-  flex-basis: 40%;
-  margin: 0;
-  padding: 5px 0;
-  font-size: 14px;
-  font-weight: 500;
-  color: #b4b4b4;
-  cursor: pointer;
-}
-.select-block .options p.active {
-  color: #ff8a80;
-  border-bottom: 2px solid #ff8a80;
-}
-
-input[type=range] {
-  border: none;
-  background: #c2bebe;
-}
-
-input[type=range] + .thumb {
-  background-color: #ff8a80;
-}
-
-input[type=range] + .thumb .value {
-  color: #ff8a80;
-}
-
-input[type=range]::-webkit-slider-thumb {
-  background-color: #ff8a80;
-}
-
-input:not([type]):focus:not([readonly]),
-input[type=text]:not(.browser-default):focus:not([readonly]),
-input[type=password]:not(.browser-default):focus:not([readonly]),
-input[type=email]:not(.browser-default):focus:not([readonly]),
-input[type=url]:not(.browser-default):focus:not([readonly]),
-input[type=time]:not(.browser-default):focus:not([readonly]),
-input[type=date]:not(.browser-default):focus:not([readonly]),
-input[type=datetime]:not(.browser-default):focus:not([readonly]),
-input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
-input[type=tel]:not(.browser-default):focus:not([readonly]),
-input[type=number]:not(.browser-default):focus:not([readonly]),
-input[type=search]:not(.browser-default):focus:not([readonly]),
-textarea.materialize-textarea:focus:not([readonly]) {
-  border-bottom: 1px solid #ff8a80;
-  box-shadow: 0 1px 0 0 #ff8a80;
-}
-
-input:not([type]):focus:not([readonly]) + label,
-input[type=text]:not(.browser-default):focus:not([readonly]) + label,
-input[type=password]:not(.browser-default):focus:not([readonly]) + label,
-input[type=email]:not(.browser-default):focus:not([readonly]) + label,
-input[type=url]:not(.browser-default):focus:not([readonly]) + label,
-input[type=time]:not(.browser-default):focus:not([readonly]) + label,
-input[type=date]:not(.browser-default):focus:not([readonly]) + label,
-input[type=datetime]:not(.browser-default):focus:not([readonly]) + label,
-input[type=datetime-local]:not(.browser-default):focus:not([readonly]) + label,
-input[type=tel]:not(.browser-default):focus:not([readonly]) + label,
-input[type=number]:not(.browser-default):focus:not([readonly]) + label,
-input[type=search]:not(.browser-default):focus:not([readonly]) + label,
-textarea.materialize-textarea:focus:not([readonly]) + label {
-  color: #ff8a80;
-}
-
-input[type=range]::-webkit-slider-runnable-track {
-  height: 5px;
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
-}
-
-input[type=text]:not(.browser-default).invalid,
-input[type=email]:not(.browser-default).invalid,
-input[type=password]:not(.browser-default).invalid {
-  color: #f44336;
-}
-
-@media (max-width: 400px) {
-  .select-block .options p {
-    flex-basis: 45%;
-  }
-}
-.icon-container {
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-}
-.icon-container .profile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: #816ffe;
-}
-
-.icon {
-  margin-right: 8px;
-  color: #666;
-}
-.icon.female:before {
-  content: "\f221";
-}
-.icon.male:before {
-  content: "\f222";
-}
-.icon.other_gender:before {
-  content: "\f22a";
-}
-.icon.user:before {
-  content: "\f007";
-}
-.icon.browse:before {
-  content: "\f002";
-}
-.icon.meal:before {
-  content: "\f2e7";
-}
-.icon.settings:before {
-  content: "\f085";
-}
-.icon.arrow-left:before {
-  content: "\f060";
-  font-size: 25px;
-}
-.icon.arrow-right:before {
-  content: "\f061";
-  font-size: 20px;
-  cursor: pointer;
-}
-.icon.weight:before {
-  content: "\f496";
-}
-.icon.height:before {
-  content: "\f548";
-}
-.icon.profile:before {
-  content: "\f007";
-}
-.icon.plan:before {
-  content: "\f328";
 }
 
 nav {
@@ -16042,6 +15673,376 @@ p.settings-link {
   color: white;
   border-radius: 25px;
   background-color: #816ffe;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+header {
+  min-height: 64px;
+}
+
+footer {
+  min-height: 80px;
+}
+
+.hidden {
+  display: none;
+}
+
+.wrapper {
+  margin: 0 auto;
+}
+
+.title {
+  font-family: "Poppins", Helvetica, Arial, sans-serif;
+  font-weight: 800;
+}
+
+.subtitle {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
+
+*::-webkit-scrollbar {
+  height: 6px;
+  width: 0;
+}
+
+*::-webkit-scrollbar-track {
+  background: white;
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 30px;
+  border-radius: 30px;
+  background-color: #ff8a80;
+}
+
+.preloader {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.btn-large {
+  background: linear-gradient(270deg, #e03694 -24.77%, #f47253 95.41%);
+  border-radius: 10px;
+  font-family: "Poppins", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+.btn-large.header-tablet {
+  visibility: hidden;
+}
+.btn-large :hover {
+  color: white;
+  opacity: 0.9;
+}
+
+.sidenav .btn-large {
+  margin-left: 100px;
+}
+
+.btn-completed {
+  padding: 0 10px;
+  background: linear-gradient(270deg, #3680e0 -24.77%, #53e9f4 95.41%);
+}
+
+.back-btn {
+  position: absolute;
+  top: 50px;
+  left: 5%;
+  color: white;
+}
+
+.btn-wrapper {
+  width: 100%;
+  display: flex;
+  margin-top: 10px;
+  padding: 0 50px;
+  justify-content: space-around;
+}
+.btn-wrapper.settings {
+  margin-top: 35px;
+}
+
+@media (max-width: 768px) {
+  .btn-large.header-tablet {
+    visibility: visible;
+    float: right;
+    margin-top: 12px;
+    height: 40px;
+    line-height: 40px;
+  }
+}
+@media (max-width: 600px) {
+  .btn-large.header-tablet {
+    margin-top: 8px;
+  }
+}
+input {
+  color: #b4b4b4;
+  cursor: pointer;
+}
+
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 15px;
+  position: relative;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #c2bebe;
+  cursor: default;
+}
+.input-group.hidden {
+  display: none;
+}
+.input-group .value {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 35px;
+  width: 71px;
+  color: #b4b4b4;
+}
+.input-group > span.title {
+  width: 130px;
+  font-size: 16px;
+  margin-bottom: 0;
+  text-align: left;
+  text-transform: capitalize;
+}
+.input-group > span.title.calender {
+  width: 75px;
+}
+
+input[type=text].datepicker {
+  margin-bottom: 0;
+  color: #666;
+  text-align: right;
+  width: 75%;
+  height: 30px;
+  padding-right: 30px;
+  box-sizing: border-box;
+}
+input[type=text].datepicker::placeholder {
+  text-align: left;
+  width: 100%;
+}
+
+#nick-name,
+#email,
+#password {
+  color: white;
+}
+
+.datepicker-table td.is-selected {
+  background-color: #ff8a80;
+}
+
+.value > input[data-type=parameter] {
+  height: 19px;
+  width: 30px;
+  margin: 0px;
+  padding: 2px;
+  text-align: center;
+  border: none;
+  background: transparent !important;
+}
+.value > input[data-type=parameter]:focus {
+  background: transparent;
+}
+.value > input[data-type=parameter]:focus::placeholder {
+  opacity: 0;
+}
+
+.auth-field {
+  width: 100%;
+}
+
+.icon-select:before {
+  content: "\f00c";
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  color: #666;
+  cursor: pointer;
+}
+
+.select-block {
+  margin-top: 10px;
+  width: 100%;
+  display: none;
+}
+.select-block.active {
+  display: block;
+}
+.select-block .options {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+.select-block .options p {
+  flex-basis: 40%;
+  margin: 0;
+  padding: 5px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #b4b4b4;
+  cursor: pointer;
+}
+.select-block .options p.active {
+  color: #ff8a80;
+  border-bottom: 2px solid #ff8a80;
+}
+
+input[type=range] {
+  border: none;
+  background: #c2bebe;
+}
+
+input[type=range] + .thumb {
+  background-color: #ff8a80;
+}
+
+input[type=range] + .thumb .value {
+  color: #ff8a80;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  background-color: #ff8a80;
+}
+
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #ff8a80;
+  box-shadow: 0 1px 0 0 #ff8a80;
+}
+
+input:not([type]):focus:not([readonly]) + label,
+input[type=text]:not(.browser-default):focus:not([readonly]) + label,
+input[type=password]:not(.browser-default):focus:not([readonly]) + label,
+input[type=email]:not(.browser-default):focus:not([readonly]) + label,
+input[type=url]:not(.browser-default):focus:not([readonly]) + label,
+input[type=time]:not(.browser-default):focus:not([readonly]) + label,
+input[type=date]:not(.browser-default):focus:not([readonly]) + label,
+input[type=datetime]:not(.browser-default):focus:not([readonly]) + label,
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]) + label,
+input[type=tel]:not(.browser-default):focus:not([readonly]) + label,
+input[type=number]:not(.browser-default):focus:not([readonly]) + label,
+input[type=search]:not(.browser-default):focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label {
+  color: #ff8a80;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  height: 5px;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+input[type=text]:not(.browser-default).invalid,
+input[type=email]:not(.browser-default).invalid,
+input[type=password]:not(.browser-default).invalid {
+  color: #f44336;
+}
+
+@media (max-width: 400px) {
+  .select-block .options p {
+    flex-basis: 45%;
+  }
+}
+.icon-container {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+.icon-container .profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #816ffe;
+}
+
+.icon {
+  margin-right: 8px;
+  color: #666;
+}
+.icon.female:before {
+  content: "\f221";
+}
+.icon.male:before {
+  content: "\f222";
+}
+.icon.other_gender:before {
+  content: "\f22a";
+}
+.icon.user:before {
+  content: "\f007";
+}
+.icon.browse:before {
+  content: "\f002";
+}
+.icon.meal:before {
+  content: "\f2e7";
+}
+.icon.settings:before {
+  content: "\f085";
+}
+.icon.arrow-left:before {
+  content: "\f060";
+  font-size: 25px;
+  color: white;
+}
+.icon.arrow-right:before {
+  content: "\f061";
+  font-size: 20px;
+  cursor: pointer;
+}
+.icon.weight:before {
+  content: "\f496";
+}
+.icon.height:before {
+  content: "\f548";
+}
+.icon.profile:before {
+  content: "\f007";
+}
+.icon.plan:before {
+  content: "\f328";
 }
 
 /*# sourceMappingURL=style.css.map */
