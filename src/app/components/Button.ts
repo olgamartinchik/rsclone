@@ -12,6 +12,10 @@ export default class Button {
         this.button.node.classList.add('btn-completed');
     }
 
+    setDisabled(): void {
+        this.button.node.classList.add('btn-disabled');
+    }
+
     setForTablet(): void {
         this.button.node.innerHTML = 'Signup';
         this.button.node.classList.add('header-tablet');

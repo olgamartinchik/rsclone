@@ -21,6 +21,10 @@
     background: linear-gradient(270deg, $color-background-linear-5 -24.77%, $color-background-linear-6 95.41%);
 }
 
+.btn-disabled {
+    background: linear-gradient(270deg, $color-background-linear-7 -24.77%, $color-background-linear-8 95.41%);
+}
+
 .back-btn {
     position: absolute;
     top: 50px;
@@ -36,7 +40,7 @@
     justify-content: space-around;
     margin-bottom: 10px;
     &.settings {
-        margin-top: 35px;
+        margin-top: 20px;
     }
     &.edit-plan {
         margin-top: 20px;
@@ -56,5 +60,11 @@
 @media (max-width: 600px) {
     .btn-large.header-tablet {
         margin-top: 8px;
+    }
+}
+
+@media (max-width: 420px) {
+    .btn-wrapper.settings {
+        margin-top: 15px;
     }
 }

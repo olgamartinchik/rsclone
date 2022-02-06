@@ -4,8 +4,8 @@ import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 import Button from '../../components/Button';
-import { GoalTitles, WorkoutsProgramDuration, WorkoutsNumber, Weight } from '../../services/constants';
-import { TSettings } from '../../services/types';
+import { GoalTitles, WorkoutsProgramDuration, WorkoutsNumber } from '../../services/constants';
+import { TSettings, TWorkoutLength } from '../../services/types';
 
 class EditPlanPageView {
     private rootNode: HTMLElement;
@@ -53,12 +53,13 @@ class EditPlanPageView {
 
         const buttonWrapper = Node.setChild(editPlanWrapper, 'div', 'btn-wrapper edit-plan');
         const saveButton = new Button(buttonWrapper, 'Save');
+        saveButton.setDisabled();
     }
 
     private createPlanItem (parentNode: HTMLElement, title: string, icon: string, userSettings: TSettings | void, settingsType: string): void {
         const planItemWrapper = Node.setChild(parentNode, 'div', 'plan-item wrapper');
         planItemWrapper.insertAdjacentHTML('afterbegin', this.planItemTitle(title, icon));
-        let options = [] as Array<string | number>;
+        let options = [] as Array<string | number | TWorkoutLength>;
 
         switch (settingsType) {
             case 'goal':
@@ -71,9 +72,11 @@ class EditPlanPageView {
                 options = [WorkoutsNumber.small, WorkoutsNumber.medium, WorkoutsNumber.large, WorkoutsNumber.huge];
                 break; 
             case 'desiredWeight':
+                this.createDesiredWeightInput(planItemWrapper);
                 return;
             case 'workoutLength':
-                return;
+                options = [{ min: 5, max: 10 }, { min: 15, max: 20 }, { min: 25, max: 30 }, { min: 30 }];
+                break;
             case 'favWorkouts':
                 return;                        
         }
@@ -91,31 +94,47 @@ class EditPlanPageView {
         `
     }
 
-    private createSelectBlock(parentNode: HTMLElement, options: Array<string | number>, userSettings: TSettings | void, settingsType: string): void {
+    private createSelectBlock(parentNode: HTMLElement, options: Array<string | number | TWorkoutLength>, userSettings: TSettings | void, settingsType: string): void {
         
         const selectBlockWrapper = Node.setChild(parentNode, 'div', 'input-field col s12');
         const selectTag = Node.setChild(selectBlockWrapper, 'select');
         options.forEach((option, index) => {
-            const selectOption = Node.setChild(selectTag, 'option', '', option.toString());
-            selectOption.setAttribute('value', (index + 1).toString());
-            switch(settingsType) {
-                case 'goal':
-                    if (option === GoalTitles[(userSettings as TSettings)[settingsType]]) {
-                        selectOption.setAttribute('selected', 'selected');
-                    };
-                    break;
-                case 'duration':
-                    if (option === +(userSettings as TSettings)[settingsType]) {
-                        selectOption.setAttribute('selected', 'selected');
-                    };
-                    break;
-                case 'workoutsNumber':
-                    if (option === (userSettings as TSettings)[settingsType]) {
-                        selectOption.setAttribute('selected', 'selected');
-                    };
-                    break;
+            if(settingsType !== 'workoutLength') {
+                const selectOption = Node.setChild(selectTag, 'option', '', option.toString());
+                selectOption.setAttribute('value', (index + 1).toString());
+                
+                switch(settingsType) {
+                    case 'goal':
+                        if (option === GoalTitles[(userSettings as TSettings)[settingsType]]) {
+                            selectOption.setAttribute('selected', 'selected');
+                        };
+                        break;
+                    case 'duration':
+                        if (option === +(userSettings as TSettings)[settingsType]) {
+                            selectOption.setAttribute('selected', 'selected');
+                        };
+                        break;
+                    case 'workoutsNumber':
+                        if (option === (userSettings as TSettings)[settingsType]) {
+                            selectOption.setAttribute('selected', 'selected');
+                        };
+                        break;
+                }
+            } else {
+                const selectOption = (index !== 3) ? Node.setChild(selectTag, 'option', '', `${(option as TWorkoutLength).min} - ${(option as TWorkoutLength).max} min`)
+                                                              : Node.setChild(selectTag, 'option', '', `${(option as TWorkoutLength).min}+ min`);
+                if ((option as TWorkoutLength).min === (userSettings as TSettings).workoutLength.min) {
+                    selectOption.setAttribute('selected', 'selected');
+                }
             }
         });
+    }
+
+    private createDesiredWeightInput(parentNode: HTMLElement): void {
+        const wrapper = Node.setChild(parentNode, 'div', 'editplan-input-wrapper');
+        const input = Node.setChild(wrapper, 'input', 'editplan-input');
+        input.setAttribute('value', '0');
+        const span = Node.setChild(wrapper, 'span', 'editplan-unit', 'kg');
     }
 }
 

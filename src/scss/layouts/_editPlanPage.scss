@@ -17,6 +17,20 @@
   font-size: 30px;
 }
 
+.editplan-input-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  flex-basis: 24%;
+}
+
+.editplan-unit {
+  flex-basis: 50%;
+  font-size: 18px;
+  color: $color-text-navbar;
+}
+
 .center-img.editplan {
   margin-bottom: 0;
   height: 120px;
@@ -37,11 +51,24 @@
   }
 }
 
-input[type='text']:not(.browser-default).select-dropdown {
+input[type='text']:not(.browser-default),
+input:not([type]) {
+  &.select-dropdown {
   margin-bottom: 0;
   width: 145px;
   border-bottom: none;
   text-align: center;
   color: $color-text-navbar;
   font-size: 18px;
+  }
+  &.editplan-input {
+    border: none;
+    flex-basis: 50%;
+    width: 50px;
+    height: 30px;
+    margin: 0;
+    text-align: center;
+    font-size: 18px;
+    color: $color-text-navbar;
+  }
 }
