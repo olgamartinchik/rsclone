@@ -19,6 +19,11 @@ class MaterializeHandler {
         const elems = document.querySelectorAll('select');
         M.FormSelect.init(elems, {});
     }
+
+    initModal() {
+        const elems = document.querySelectorAll('.modal');
+        M.Modal.init(elems, {});
+    }
 }
 
 export default MaterializeHandler;

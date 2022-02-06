@@ -95,3 +95,7 @@ export enum Coefficients {
 export enum Endpoints {
     userSettings = 'userSettings',
 }
+
+export enum ModalContents {
+    options = 'checkbox',
+}

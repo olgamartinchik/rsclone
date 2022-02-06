@@ -15770,6 +15770,42 @@ input:not([type]).editplan-input {
   color: #666;
 }
 
+.btn.favWorkouts-choice, .favWorkouts-choice.btn-large, .favWorkouts-choice.btn-small {
+  background-color: transparent;
+  color: #666;
+  font-size: 18px;
+  text-transform: none;
+}
+
+label.editplan {
+  color: #666;
+}
+
+[type=checkbox] + span:not(.lever).editplan {
+  font-size: 18px;
+}
+
+[type=checkbox]:checked + span:not(.lever).editplan:before {
+  border-right: 2px solid #ff8a80;
+  border-bottom: 2px solid #ff8a80;
+}
+
+.btn-flat.editplan {
+  color: #666;
+  font-size: 18px;
+}
+
+.modal.editplan {
+  width: 35%;
+  max-height: 85%;
+}
+.modal.editplan .modal-content {
+  padding: 10px 24px;
+}
+.modal.editplan .modal-content p {
+  margin: 10px 0;
+}
+
 html,
 body,
 #app {

@@ -72,3 +72,39 @@ input:not([type]) {
     color: $color-text-navbar;
   }
 }
+
+.btn.favWorkouts-choice {
+  background-color: transparent;
+  color: $color-text-navbar;
+  font-size: 18px;
+  text-transform: none;
+}
+
+label.editplan {
+  color: $color-text-navbar;
+}
+
+[type=checkbox] + span:not(.lever).editplan {
+  font-size: 18px;
+}
+
+[type=checkbox]:checked + span:not(.lever).editplan:before {
+  border-right: 2px solid $color-primary;
+  border-bottom: 2px solid $color-primary;
+}
+
+.btn-flat.editplan {
+  color: $color-text-navbar;
+  font-size: 18px;
+}
+
+.modal.editplan {
+  width: 35%;
+  max-height: 85%;
+  .modal-content {
+    padding: 10px 24px;
+    p {
+      margin: 10px 0;
+    }
+  }
+}

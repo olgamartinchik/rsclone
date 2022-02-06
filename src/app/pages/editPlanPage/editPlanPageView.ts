@@ -2,10 +2,12 @@ import MaterializeHandler from '../../services/materialize/materializeHandler';
 import footer from '../../components/footer/footer';
 import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
+import modal from '../../components/modal/modal';
 import Node from '../../components/Node';
 import Button from '../../components/Button';
-import { GoalTitles, WorkoutsProgramDuration, WorkoutsNumber } from '../../services/constants';
+import { GoalTitles, WorkoutsProgramDuration, WorkoutsNumber, WorkoutType, ModalContents } from '../../services/constants';
 import { TSettings, TWorkoutLength } from '../../services/types';
+import userSettings from '../../services/mocks/defaultData';
 
 class EditPlanPageView {
     private rootNode: HTMLElement;
@@ -50,7 +52,7 @@ class EditPlanPageView {
         this.createPlanItem(editPlanWrapper, 'Workouts per week', 'frequency', userSettings, 'workoutsNumber');
         this.createPlanItem(editPlanWrapper, 'Workouts Length', 'clock', userSettings, 'workoutLength');
         this.createPlanItem(editPlanWrapper, 'Favorite Types', 'heart', userSettings, 'favWorkouts');
-
+        
         const buttonWrapper = Node.setChild(editPlanWrapper, 'div', 'btn-wrapper edit-plan');
         const saveButton = new Button(buttonWrapper, 'Save');
         saveButton.setDisabled();
@@ -78,6 +80,8 @@ class EditPlanPageView {
                 options = [{ min: 5, max: 10 }, { min: 15, max: 20 }, { min: 25, max: 30 }, { min: 30 }];
                 break;
             case 'favWorkouts':
+                this.createFavoriteTypesChoice(planItemWrapper, userSettings);
+                this.materializeHandler.initModal();
                 return;                        
         }
         this.createSelectBlock(planItemWrapper, options, userSettings, settingsType);
@@ -136,6 +140,65 @@ class EditPlanPageView {
         input.setAttribute('value', '0');
         const span = Node.setChild(wrapper, 'span', 'editplan-unit', 'kg');
     }
+
+    private createFavoriteTypesChoice(parentNode: HTMLElement, userSettings: TSettings | void): void {
+        const options = [WorkoutType.HIIT, WorkoutType.boxing, WorkoutType.cardio, WorkoutType.dance, WorkoutType.meditation, WorkoutType.pilates, WorkoutType.strength, WorkoutType.stretch, WorkoutType.yoga]
+        const checkedOptions = [...(userSettings as TSettings).favWorkouts];
+        
+        parentNode.append(modal.getTemplate(ModalContents.options, 'editplan', 'Change', 'Save', options, checkedOptions))
+        parentNode.insertAdjacentHTML('beforeend', this.addModalTrigger());
+        // const modalWrapper = Node.setChild(parentNode, 'div', 'modal editplan');
+        // modalWrapper.setAttribute('id', 'modal1');
+
+        // const modalContent = Node.setChild(modalWrapper, 'div', 'modal-content');
+        // const form = Node.setChild(modalContent, 'form');
+        // form.setAttribute('action', '#');
+
+
+
+        // const modalFooter = Node.setChild(modalWrapper, 'div', 'modal-footer');
+        // const saveBtn = Node.setChild(modalFooter, 'a', 'modal-close waves-effect waves-red btn-flat editplan', 'Save');
+        // saveBtn.setAttribute('href', '#/editplan');
+
+        // parentNode.insertAdjacentHTML('beforeend', this.addModalTrigger());
+    }
+
+    private generateOptions(): void {
+        const options = [WorkoutType.HIIT, WorkoutType.boxing, WorkoutType.cardio, WorkoutType.dance, WorkoutType.meditation, WorkoutType.pilates, WorkoutType.strength, WorkoutType.stretch, WorkoutType.yoga];
+    }
+
+    private addModalTrigger(): string {
+        return `
+        <a class="waves-effect waves-light btn modal-trigger favWorkouts-choice" href="#modal1">Change</a>
+        `
+    }
+
+    // private createFavoriteTypesChoice(): string {
+    //     return `
+    //     <div id="modal1" class="modal editplan">
+            
+    //         <div class="modal-content">
+    //             <form action="#">
+                    
+    //                 <p>
+    //                     <label for="red" class="editplan">
+    //                         <input type="checkbox" id="red"/>
+    //                         <span class="editplan">Red</span>
+    //                     </label>
+    //                 </p>
+                
+    //             </form>    
+    //         </div>
+
+    //         <div class="modal-footer">
+    //             <a href="#/editplan" class="modal-close waves-effect waves-red btn-flat editplan">Save</a>
+    //         </div>
+
+    //     </div>
+
+    //     <a class="waves-effect waves-light btn modal-trigger favWorkouts-choice" href="#modal1">Change</a>
+    //     `
+    // }
 }
 
 export default EditPlanPageView;
