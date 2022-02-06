@@ -34,8 +34,12 @@
     margin-top: 10px;
     padding: 0 50px;
     justify-content: space-around;
+    margin-bottom: 10px;
     &.settings {
         margin-top: 35px;
+    }
+    &.edit-plan {
+        margin-top: 20px;
     }
 }
 

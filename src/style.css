@@ -15595,7 +15595,7 @@ input[type=text]:not(.browser-default) {
 }
 .settings-wrapper {
   width: 400px;
-  padding-top: 40px;
+  padding-top: 25px;
   margin: 0 auto;
 }
 .settings-title {
@@ -15677,7 +15677,7 @@ p.settings-link {
 
 .decorative-editplan {
   width: 100%;
-  height: 250px;
+  height: 210px;
   background-image: linear-gradient(-180deg, rgba(255, 100, 162, 0.667) -8.99%, rgba(255, 134, 102, 0.8) 109.7%), url("../../assets/img/kickstart-editplan.jpg");
   background-repeat: no-repeat;
   background-position: top;
@@ -15686,8 +15686,8 @@ p.settings-link {
 
 .editplan-title {
   margin: 0;
-  margin-bottom: 20px;
-  padding-top: 30px;
+  margin-bottom: 15px;
+  padding-top: 15px;
   text-align: center;
   color: white;
   font-size: 30px;
@@ -15695,6 +15695,7 @@ p.settings-link {
 
 .center-img.editplan {
   margin-bottom: 0;
+  height: 120px;
 }
 
 .plan-item {
@@ -15702,20 +15703,21 @@ p.settings-link {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 50px;
+  height: 40px;
   border-bottom: 1px solid rgba(194, 190, 190, 0.5);
 }
 .plan-item .input-field {
   margin: 0;
 }
 .plan-item.wrapper {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 input[type=text]:not(.browser-default).select-dropdown {
   margin-bottom: 0;
   width: 145px;
   border-bottom: none;
+  text-align: center;
   color: #666;
   font-size: 18px;
 }
@@ -15818,9 +15820,13 @@ footer {
   margin-top: 10px;
   padding: 0 50px;
   justify-content: space-around;
+  margin-bottom: 10px;
 }
 .btn-wrapper.settings {
   margin-top: 35px;
+}
+.btn-wrapper.edit-plan {
+  margin-top: 20px;
 }
 
 @media (max-width: 768px) {
@@ -16082,6 +16088,18 @@ input[type=password]:not(.browser-default).invalid {
 }
 .icon.target:before {
   content: "\f140";
+}
+.icon.duration:before {
+  content: "\f328";
+}
+.icon.frequency:before {
+  content: "\f46d";
+}
+.icon.heart:before {
+  content: "\f004";
+}
+.icon.clock:before {
+  content: "\f017";
 }
 .icon.select-up:before {
   content: "\f077";

@@ -93,6 +93,26 @@
             content: fa-content($fa-var-bullseye);
         }
     }
+    &.duration {
+        &:before {
+            content: fa-content($fa-var-clipboard);
+        }
+    }
+    &.frequency {
+        &:before {
+            content: fa-content($fa-var-clipboard-list);
+        }
+    }
+    &.heart {
+        &:before {
+            content: fa-content($fa-var-heart);
+        }
+    }
+    &.clock {
+        &:before {
+            content: fa-content($fa-var-clock);
+        }
+    }
     &.select-up {
         &:before {
             content: fa-content($fa-var-chevron-up);
