@@ -1,6 +1,6 @@
 import WorkoutPageModel from './workoutPageModel';
 import WorkoutPageView from './workoutPageView';
-import videoHandler from './videoHandler/videoHandler';
+import videoHandler from '../../components/videoHandler/videoHandler';
 class WorkoutPageController {
     private view: WorkoutPageView;
 

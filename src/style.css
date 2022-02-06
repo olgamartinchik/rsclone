@@ -15608,11 +15608,14 @@ input[type=text]:not(.browser-default) {
 }
 .video-wrapper {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 999;
   width: 100vw;
   min-height: 100vh;
+  opacity: 0;
+  animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 .video-player {
   position: fixed;
@@ -15628,7 +15631,7 @@ input[type=text]:not(.browser-default) {
   border: none;
   opacity: 0;
   object-fit: cover;
-  animation: scaleUp 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 .video-controls {
   padding: 40px;
@@ -15677,6 +15680,31 @@ input[type=text]:not(.browser-default) {
   align-items: center;
   justify-content: space-between;
 }
+.controls-bottom .timeline {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: linear-gradient(to right, #ff8a80 0%, #ff8a80 0%, white 0%, white 100%);
+}
+.controls-bottom .timeline::-webkit-slider-thumb {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  -webkit-appearance: none;
+  border-radius: 50%;
+  background-color: white;
+}
+.controls-bottom .timeline::-moz-range-thumb {
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: white;
+}
+.controls-bottom .timeline::-webkit-slider-runnable-track {
+  height: 4px;
+}
+.controls-bottom .timeline::-moz-range-track {
+  height: 4px;
+}
 
 .btn-video {
   background-color: transparent;
@@ -15692,8 +15720,51 @@ input[type=text]:not(.browser-default) {
 .btn-video:focus {
   background-color: transparent;
 }
-.btn-video .icon-reverse {
-  transform: scale(-1, 1);
+.btn-video .fas.fa-undo, .btn-video .fa-undo.icon-select, .btn-video .fa-undo.icon, .btn-video .fa-undo.calender::before,
+.btn-video .fas.fa-redo,
+.btn-video .fa-redo.icon-select,
+.btn-video .fa-redo.icon,
+.btn-video .fa-redo.calender::before {
+  padding: 0 20px;
+  font-size: 50px;
+}
+
+.video-controls {
+  transition: all 0.5s;
+  opacity: 1;
+}
+
+.video-controls.masked {
+  opacity: 0;
+}
+.video-controls.masked .controls-top,
+.video-controls.masked .controls-center,
+.video-controls.masked .controls-bottom {
+  display: none;
+}
+
+.btn-play.paused .play {
+  visibility: visible;
+  pointer-events: all;
+}
+.btn-play.paused .pause {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.btn-play {
+  display: flex;
+  max-width: 98px;
+  padding: 0;
+}
+.btn-play .pause {
+  position: absolute;
+  visibility: visible;
+  pointer-events: all;
+}
+.btn-play .play {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 body {
