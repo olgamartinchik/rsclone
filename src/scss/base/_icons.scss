@@ -88,6 +88,11 @@
             content: fa-content($fa-var-clipboard);
         }
     }
+    &.target {
+        &:before {
+            content: fa-content($fa-var-bullseye);
+        }
+    }
     &.select-up {
         &:before {
             content: fa-content($fa-var-chevron-up);

@@ -15686,11 +15686,38 @@ p.settings-link {
 
 .editplan-title {
   margin: 0;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   padding-top: 30px;
   text-align: center;
   color: white;
   font-size: 30px;
+}
+
+.center-img.editplan {
+  margin-bottom: 0;
+}
+
+.plan-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid rgba(194, 190, 190, 0.5);
+}
+.plan-item .input-field {
+  margin: 0;
+}
+.plan-item.wrapper {
+  margin-bottom: 15px;
+}
+
+input[type=text]:not(.browser-default).select-dropdown {
+  margin-bottom: 0;
+  width: 145px;
+  border-bottom: none;
+  color: #666;
+  font-size: 18px;
 }
 
 html,
@@ -16052,6 +16079,9 @@ input[type=password]:not(.browser-default).invalid {
 }
 .icon.plan:before {
   content: "\f328";
+}
+.icon.target:before {
+  content: "\f140";
 }
 .icon.select-up:before {
   content: "\f077";
