@@ -1,6 +1,7 @@
 import footer from '../../components/footer/footer';
 import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
+import Node from '../../components/Node';
 
 class EditPlanPageView {
     private rootNode: HTMLElement;
@@ -9,7 +10,7 @@ class EditPlanPageView {
         this.rootNode = <HTMLElement>document.getElementById('app');
     }
 
-    render() {
+    public render(): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
 
@@ -22,12 +23,16 @@ class EditPlanPageView {
         ]);
         navbar.generateMenu();
         navbar.addProfileLink('O');
-        this.rootNode.insertAdjacentHTML(
-            'beforeend',
-            `<main class="main-layout"><span>This is Edit Plan Page!</span></main>`
-        );
+        
+        this.createMainLayout();
 
         this.rootNode.append(footer.getTemplate());
+    }
+
+    private createMainLayout(): void {
+        const main = new Node(this.rootNode, 'main', 'main-layout');
+        const decorativeBlock = Node.setChild(main.node, 'div', 'decorative-editplan');
+        Node.setChild(decorativeBlock, 'h2', 'title editplan-title', 'Edit plan');
     }
 }
 

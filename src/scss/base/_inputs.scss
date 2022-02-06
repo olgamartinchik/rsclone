@@ -77,19 +77,6 @@ input[type='text'].datepicker {
     width: 100%;
 }
 
-.icon-select {
-    @extend %fa-icon;
-    @extend .fas;
-    &:before {
-        content: fa-content($fa-var-check);
-        position: absolute;
-        right: 10px;
-        top: 5px;
-        color: $color-text-navbar;
-        cursor: pointer;
-    }
-}
-
 .select-block {
     margin-top: 10px;
     width: 100%;

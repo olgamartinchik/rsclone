@@ -88,4 +88,49 @@
             content: fa-content($fa-var-clipboard);
         }
     }
+    &.select-up {
+        &:before {
+            content: fa-content($fa-var-chevron-up);
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            color: $color-text-navbar;
+            cursor: pointer;
+        }
+    }
+    &.select-down {
+        &:before {
+            content: fa-content($fa-var-check);
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            color: $color-text-navbar;
+            cursor: pointer;
+        }
+    }
+}
+
+.icon-select {
+    @extend %fa-icon;
+    @extend .fas;
+    &.down {
+        &:before {
+            content: fa-content($fa-var-check);
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            color: $color-text-navbar;
+            cursor: pointer;
+        }
+    }
+    &.up {
+        &:before {
+            content: fa-content($fa-var-chevron-up);
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            color: $color-text-navbar;
+            cursor: pointer;
+        }
+    }
 }
