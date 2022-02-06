@@ -4,6 +4,7 @@ import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 import { IDataExplore } from '../../services/types';
+import Preloader from '../../components/preloader/preloader';
 
 class MealPageView {
     private rootNode: HTMLElement;
@@ -103,16 +104,28 @@ class MealPageView {
         mealContainer[0].append(...mealCards);
     }
 
+    getLoaderMealContainer() {
+        const mealContainer = document.getElementsByClassName('day-meals') as HTMLCollectionOf<Element>;
+        mealContainer[0].innerHTML = '';
+        mealContainer[0].append(Preloader.getTemplate());
+    }
+
     getSearchingCards(searchingData: Array<IDataExplore>, onclick: (e: Event) => void) {
         const cards = searchingData.map((data) => new MealCard(data).getSearchingTemplate(onclick));
         return cards;
     }
 
     loadSearchingData(searchingData: Array<IDataExplore>, onclick: (e: Event) => void) {
-        const searchingMealsContainer = document.getElementsByClassName('searching-meals');
+        const searchingMealsContainer = document.getElementsByClassName('searching-meals') as HTMLCollectionOf<Element>;
         const searchingCards = this.getSearchingCards(searchingData, onclick);
         searchingMealsContainer[0].innerHTML = '';
         searchingMealsContainer[0].append(...searchingCards);
+    }
+
+    getLoaderSearchingContainer() {
+        const searchingMealsContainer = document.getElementsByClassName('searching-meals') as HTMLCollectionOf<Element>;
+        searchingMealsContainer[0]!.innerHTML = '';
+        searchingMealsContainer[0]!.append(Preloader.getTemplate());
     }
 
     getSearchingBtn(onclick: (e: Event) => void) {

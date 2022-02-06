@@ -6,19 +6,18 @@ class MealCard {
     private rootNodeSearching: HTMLElement;
 
     private rootNodeMeal: HTMLElement;
-    // private rootNodeSearching: HTMLElement;
 
     private data: IDataExplore;
 
     constructor(data: IDataExplore) {
         this.data = data;
+        this.rootNodeMeal = document.createElement('div');
+        this.rootNodeMeal.className = 'meal-card';
         this.rootNodeExplore = document.createElement('div');
         this.rootNodeExplore.className = 'explore-card';
         this.rootNodeExplore.setAttribute('data-edamam', data.recipe.dishType!);
         this.rootNodeSearching = document.createElement('div');
         this.rootNodeSearching.className = 'meal-card';
-        this.rootNodeMeal = document.createElement('div');
-        this.rootNodeMeal.className = 'meal-card';
     }
 
     public getMealTemplate(onclick: (e: Event) => void): HTMLElement {

@@ -31,7 +31,6 @@
 .input-wrapper {
     display: flex;
     align-items: center;
-    // justify-content: center;
     justify-content: flex-start;
 
     flex-wrap: wrap;
@@ -72,12 +71,14 @@
     padding: 16px 0 80px;
 }
 .day-meals {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: 50px;
     padding: 30px 60px;
-    overflow-x: scroll;
+    overflow-x: auto;
+    min-height: 365px;
 }
 .meal-card {
     width: 322px;
@@ -180,12 +181,14 @@
 }
 
 .searching-meals {
+    position: relative;
     display: flex;
     gap: 30px;
     align-items: center;
     justify-content: space-evenly;
     flex-wrap: wrap;
     padding: 40px 20px 80px;
+    min-height: 750px;
 }
 .search-btn {
     background: linear-gradient(270deg, #e03694 -24.77%, #f47253 95.41%);

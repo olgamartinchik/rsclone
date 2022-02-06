@@ -15567,12 +15567,14 @@ input[type='text']:not(.browser-default) {
 }
 
 .day-meals {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: 50px;
     padding: 30px 60px;
-    overflow-x: scroll;
+    overflow-x: auto;
+    min-height: 365px;
 }
 
 .meal-card {
@@ -15678,12 +15680,14 @@ input[type='text']:not(.browser-default) {
 }
 
 .searching-meals {
+    position: relative;
     display: flex;
     gap: 30px;
     align-items: center;
     justify-content: space-evenly;
     flex-wrap: wrap;
     padding: 40px 20px 80px;
+    min-height: 750px;
 }
 
 .search-btn {

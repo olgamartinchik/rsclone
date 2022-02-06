@@ -2,7 +2,7 @@ import { IDataExplore } from '../../services/types';
 import Utils from '../../services/utils';
 import MealPageModel from './mealPageModel';
 import MealPageView from './mealPageView';
-
+import Preloader from '../../components/preloader/preloader';
 import StorageApiManager from '../../services/storageManager';
 class MealPageController {
     private view: MealPageView;
@@ -41,14 +41,15 @@ class MealPageController {
     }
 
     public async createPage() {
-        await this.getMealDataWithDay();
-
         this.view.render(
             this.model.dishType,
             this.handlerExploreCard.bind(this),
             this.handlerChange.bind(this),
             this.handlerBtn.bind(this)
         );
+        await this.getMealDataWithDay();
+        this.view.getLoaderSearchingContainer();
+        this.view.getLoaderMealContainer();
 
         if (!this.mealData || this.mealData.length === 0) {
             this.mealData = await this.model.getUserMealData(this.numFrom.toString(), (this.numFrom + 1).toString());
@@ -63,7 +64,9 @@ class MealPageController {
                 StorageApiManager.addItem('searchingData', this.searchingData, 'local');
             }
         }
+
         this.view.loadMealCard(this.mealData!, this.handlerMealCard.bind(this));
+
         this.view.loadSearchingData(this.searchingData!, this.handlerSearchingCard.bind(this));
     }
 
@@ -82,12 +85,15 @@ class MealPageController {
         if (this.inputValue) {
             const searchingMeals = document.querySelector('.searching-meals') as HTMLElement;
             searchingMeals!.innerHTML = '';
+            searchingMeals.append(Preloader.getTemplate());
+
             this.searchingData = await this.model.getSearchingData(this.inputValue);
 
             if (this.searchingData) {
                 if (this.searchingData.length === 0) {
                     searchingMeals!.innerHTML = 'No matches';
                 } else {
+                    searchingMeals!.innerHTML = '';
                     const searchingCards = this.view.getSearchingCards(this.searchingData, this.handlerSearchingCard);
                     searchingMeals.append(...searchingCards);
                     StorageApiManager.addItem('searchingData', this.searchingData, 'local');
@@ -98,7 +104,7 @@ class MealPageController {
 
     async getMealDataWithDay() {
         const day = JSON.stringify(this.model.rememberDateToday());
-        if (localStorage.getItem('today')) {
+        if (StorageApiManager.getItem('today', 'local')) {
             if (day !== localStorage.getItem('today')) {
                 this.numFrom = Utils.randomInteger(0, 100);
                 this.mealData = await this.model.getUserMealData(
