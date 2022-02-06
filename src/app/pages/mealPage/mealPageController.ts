@@ -41,6 +41,19 @@ class MealPageController {
     public async createPage() {
         await this.getMealDataWithDay();
 
+
+        this.view.render(
+            // this.mealData!,
+            // this.handlerMealCard.bind(this),
+            this.model.dishType,
+            this.handlerExploreCard.bind(this),
+            // this.searchingData!,
+            // this.handlerSearchingCard.bind(this),
+            this.handlerChange.bind(this),
+            this.handlerBtn.bind(this)
+        );
+
+        
         if (!this.mealData || this.mealData.length === 0) {
             this.mealData = await this.model.getUserMealData(this.numFrom.toString(), (this.numFrom + 1).toString());
             if (this.mealData) {
@@ -55,17 +68,8 @@ class MealPageController {
                 localStorage.setItem('searchingData', JSON.stringify(this.searchingData));
             }
         }
-
-        this.view.render(
-            this.mealData!,
-            this.handlerMealCard.bind(this),
-            this.model.dishType,
-            this.handlerExploreCard.bind(this),
-            this.searchingData!,
-            this.handlerSearchingCard.bind(this),
-            this.handlerChange.bind(this),
-            this.handlerBtn.bind(this)
-        );
+        this.view.loadMealCard(this.mealData!,this.handlerMealCard.bind(this))
+        this.view.loadSearchingData(this.searchingData!,this.handlerSearchingCard.bind(this),)
     }
 
     async handlerChange(e: Event) {
@@ -111,6 +115,8 @@ class MealPageController {
             }
         }
     }
+   
 }
+
 
 export default MealPageController;
