@@ -110,7 +110,6 @@ class MealPageView {
 
     getExploreCards(exploreData: Array<IDataExplore>, onclick: (e: Event) => void) {
         const cards = exploreData.map((data) => new MealCard(data).getExploreTemplate(onclick));
-
         return cards;
     }
 

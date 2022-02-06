@@ -3,18 +3,20 @@ import Utils from '../../services/utils';
 import MealPageModel from './mealPageModel';
 import MealPageView from './mealPageView';
 
+import StorageApiManager from '../../services/storageManager'
 class MealPageController {
     private view: MealPageView;
 
     private model: MealPageModel;
 
-    inputValue: string;
+     inputValue: string;
 
     mealData: IDataExplore[] | null;
 
-    searchingData: IDataExplore[] | null;
+     searchingData: IDataExplore[] | null;
 
     numFrom: number;
+    
 
     constructor() {
         this.view = new MealPageView();
@@ -23,16 +25,17 @@ class MealPageController {
         this.inputValue = '';
         this.mealData = null;
         this.searchingData = null;
-        if (localStorage.getItem('mealData')) {
-            const mealData = JSON.parse(localStorage.getItem('mealData')!);
-            if (mealData !== undefined || mealData.length !== 0) {
-                this.mealData = mealData;
+
+        if (StorageApiManager.getItem('mealData','local')) {
+            const mealData = StorageApiManager.getItem('mealData','local') as IDataExplore[];
+            if (mealData !== undefined || (mealData as IDataExplore[]).length !== 0) {
+                this.mealData! = mealData;
             }
         }
 
-        if (localStorage.getItem('searchingData')) {
-            const searchingData = JSON.parse(localStorage.getItem('searchingData')!);
-            if (searchingData !== undefined || searchingData.length !== 0) {
+        if (StorageApiManager.getItem('searchingData','local')) {
+            const searchingData = StorageApiManager.getItem('searchingData','local') as IDataExplore[]
+            if (searchingData !== undefined || (searchingData as IDataExplore[]).length !== 0) {
                 this.searchingData = searchingData;
             }
         }
@@ -57,7 +60,8 @@ class MealPageController {
         if (!this.mealData || this.mealData.length === 0) {
             this.mealData = await this.model.getUserMealData(this.numFrom.toString(), (this.numFrom + 1).toString());
             if (this.mealData) {
-                localStorage.setItem('mealData', JSON.stringify(this.mealData));
+                StorageApiManager.addItem('mealData',this.mealData,'local')
+              
             }
             console.log('this.mealData', this.mealData);
         }
@@ -65,11 +69,12 @@ class MealPageController {
         if (!this.searchingData || this.searchingData.length === 0) {
             this.searchingData = await this.model.getSearchingData('brownie');
             if (this.searchingData) {
-                localStorage.setItem('searchingData', JSON.stringify(this.searchingData));
+                StorageApiManager.addItem('searchingData',this.searchingData,'local')               
             }
         }
         this.view.loadMealCard(this.mealData!,this.handlerMealCard.bind(this))
         this.view.loadSearchingData(this.searchingData!,this.handlerSearchingCard.bind(this),)
+        
     }
 
     async handlerChange(e: Event) {
@@ -95,7 +100,7 @@ class MealPageController {
                 } else {
                     const searchingCards = this.view.getSearchingCards(this.searchingData, this.handlerSearchingCard);
                     searchingMeals.append(...searchingCards);
-                    localStorage.setItem('searchingData', JSON.stringify(this.searchingData));
+                    StorageApiManager.addItem('searchingData',this.searchingData,'local')                   
                 }
             }
         }
@@ -110,8 +115,10 @@ class MealPageController {
                     this.numFrom.toString(),
                     (this.numFrom + 1).toString()
                 );
-                localStorage.setItem('mealData', JSON.stringify(this.mealData));
-                localStorage.setItem('today', JSON.stringify(day));
+                StorageApiManager.addItem('mealData',this.mealData,'local')
+                // localStorage.setItem('mealData', JSON.stringify(this.mealData));
+                StorageApiManager.addItem('today',day,'local')
+                // localStorage.setItem('today', JSON.stringify(day));
             }
         }
     }
