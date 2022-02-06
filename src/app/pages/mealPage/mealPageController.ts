@@ -46,7 +46,7 @@ class MealPageController {
             if (this.mealData) {
                 localStorage.setItem('mealData', JSON.stringify(this.mealData));
             }
-            console.log('this.mealData', this.mealData);
+           
         }
 
         if (!this.searchingData || this.searchingData.length === 0) {
@@ -75,7 +75,9 @@ class MealPageController {
 
     handlerMealCard() {}
 
-    handlerExploreCard() {}
+    handlerExploreCard() {
+        console.log('click')
+    }
 
     handlerSearchingCard() {}
 

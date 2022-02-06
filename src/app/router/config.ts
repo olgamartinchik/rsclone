@@ -10,6 +10,8 @@ import WorkoutPageController from '../pages/workoutPage/workoutPageController';
 import EditPlanPageController from '../pages/editPlanPage/editPlanPageController';
 import EditProfilePageController from '../pages/editProfilePage/editProfilePageController';
 import { RouteOption } from '../services/types';
+import ExploreController from '../pages/explorePage/explorePageController';
+import RecipePageController from '../pages/recipePage/recipePageController';
 
 class Config {
     public programPageController: ProgramPageController;
@@ -34,6 +36,10 @@ class Config {
 
     public editProfilePageController: EditProfilePageController;
 
+    public exploreController:ExploreController
+    
+    public recipePageController: RecipePageController
+
     constructor() {
         this.programPageController = new ProgramPageController();
         this.mainPageController = new MainPageController();
@@ -46,6 +52,8 @@ class Config {
         this.workoutPageController = new WorkoutPageController();
         this.editPlanPageController = new EditPlanPageController();
         this.editProfilePageController = new EditProfilePageController();
+        this.exploreController=new ExploreController()
+        this.recipePageController=new RecipePageController()
     }
 
     public getRoutes(): RouteOption[] {
@@ -118,6 +126,16 @@ class Config {
             {
                 path: /inprogress\/(\d{1,2})/,
                 callback: (...args) => console.log('progress page', args),
+                isAuth: true,
+            },
+            {
+                path: /explore/,
+                callback: () => this.exploreController.createPage(),
+                isAuth: true,
+            },
+            {
+                path: /recipe/,
+                callback: () => this.recipePageController.createPage(),
                 isAuth: true,
             },
         ];

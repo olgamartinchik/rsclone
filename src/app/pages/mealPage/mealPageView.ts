@@ -69,7 +69,7 @@ class MealPageView {
         onchange: (e: Event) => void,
         onclickBtn: (e: Event) => void
     ) {
-        const main = new Node(this.rootNode, 'main', 'main-page');
+        const main = new Node(this.rootNode, 'main', 'main-layout');
         const sectionUserMeal = new Node(main.node, 'section', 'section meal-section');
         const cardsUserMealContainer = new Node(sectionUserMeal.node, 'div', 'meal-card-container');
         Node.setChild(cardsUserMealContainer.node, 'h5', 'title-meal', 'YOUR MEALS');
