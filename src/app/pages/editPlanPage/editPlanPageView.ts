@@ -26,11 +26,11 @@ class EditPlanPageView {
         this.materializeHandler = new MaterializeHandler();
     }
 
-    public render(userSettings: TSettings | void, onchange: (e: Event) => void): void {
+    public render(userSettings: TSettings | void, onchange: (e: Event) => void, onclick: (e: Event) => void): void {
         this.rootNode.textContent = '';
 
         this.createHeader();
-        this.createMainLayout(userSettings, onchange);
+        this.createMainLayout(userSettings, onchange, onclick);
         this.createFooter();
     }
 
@@ -47,7 +47,11 @@ class EditPlanPageView {
         navbar.addProfileLink('O');
     }
 
-    private createMainLayout(userSettings: TSettings | void, onchange: (e: Event) => void): void {
+    private createMainLayout(
+        userSettings: TSettings | void,
+        onchange: (e: Event) => void,
+        onclick: (e: Event) => void
+    ): void {
         const main = new Node(this.rootNode, 'main', 'main-layout');
         this.insertDecorativeBlock(main.node);
         const editPlanWrapper = Node.setChild(main.node, 'div', 'settings-wrapper');
@@ -68,6 +72,7 @@ class EditPlanPageView {
 
         const buttonWrapper = Node.setChild(editPlanWrapper, 'div', 'btn-wrapper edit-plan');
         const saveButton = new Button(buttonWrapper, 'Save');
+        saveButton.onclick(onclick);
         saveButton.setDisabled();
     }
 
@@ -195,7 +200,7 @@ class EditPlanPageView {
                 this.selectOption(option === GoalTitles[(<TSettings>userSettings)[settingsType]], selectOption);
                 break;
             case 'duration':
-            case 'workoutNumber':
+            case 'workoutsNumber':
                 this.selectOption(+option === +(<TSettings>userSettings)[settingsType], selectOption);
                 break;
             case 'workoutLength':
@@ -216,7 +221,7 @@ class EditPlanPageView {
     private createDesiredWeightInput(parentNode: HTMLElement, userSettings: TSettings | void): void {
         const wrapper = Node.setChild(parentNode, 'div', 'editplan-input-wrapper');
         const input = Node.setChild(wrapper, 'input', 'editplan-input');
-        input.setAttribute('value', '0');
+        input.setAttribute('value', (<TSettings>userSettings).desiredWeight.toString());
         input.setAttribute('data-type', 'desiredWeight');
         Node.setChild(wrapper, 'span', 'editplan-unit', 'kg');
 

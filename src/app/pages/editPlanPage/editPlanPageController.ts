@@ -1,8 +1,10 @@
 import EditPlanPageView from './editPlanPageView';
+import EditPlanPageModel from './editPlanPageModel';
 import storageManager from '../../services/storageManager';
+import authManager from '../../services/authManager';
 import Utils from '../../services/utils';
 import { TSettings, TWorkoutLength } from '../../services/types';
-import { GoalTitles, MinWorkoutLength, MaxWorkoutLength, WorkoutType } from '../../services/constants';
+import { GoalTitles, MinWorkoutLength, MaxWorkoutLength, WorkoutType, Message } from '../../services/constants';
 
 class EditPlanPageController {
     private view: EditPlanPageView;
@@ -11,14 +13,18 @@ class EditPlanPageController {
 
     private modifiedUserSettings: TSettings | void;
 
+    private model: EditPlanPageModel;
+
     constructor() {
         this.view = new EditPlanPageView();
+        this.model = new EditPlanPageModel();
         this.userSettings = this.getUserSettings();
         this.modifiedUserSettings = this.getModifiedUserSettings();
     }
 
     public createPage() {
-        this.view.render(this.userSettings, this.handleSettingsChoice.bind(this));
+        this.userSettings = this.getUserSettings();
+        this.view.render(this.userSettings, this.handleSettingsChoice.bind(this), this.handleSaveBtnClick.bind(this));
     }
 
     private getUserSettings(): TSettings | void {
@@ -47,6 +53,10 @@ class EditPlanPageController {
                 break;
             case 'duration':
             case 'workoutsNumber':
+                this.updateUserSettings(settingsType, +settingValueChosen);
+                this.handleSaveButtonStatus(saveButton);
+                break;
+            case 'desiredWeight':
                 this.updateUserSettings(settingsType, +settingValueChosen);
                 this.handleSaveButtonStatus(saveButton);
                 break;
@@ -93,6 +103,7 @@ class EditPlanPageController {
             case 'workoutsNumber':
             case 'workoutLength':
             case 'favWorkouts':
+            case 'desiredWeight':
                 this.modifiedUserSettings[key] = value;
                 break;
         }
@@ -115,6 +126,32 @@ class EditPlanPageController {
             settingsWrapper.children[1].classList.remove('hidden');
         } else {
             settingsWrapper.children[1].classList.add('hidden');
+        }
+    }
+
+    private createMessage(text: string) {
+        if (text) {
+            window.M.toast({ html: `${text}` });
+        }
+    }
+
+    private handleSaveBtnClick(e: Event): void {
+        if (
+            (<TSettings>this.modifiedUserSettings).goal === 'weight' &&
+            (<TSettings>this.modifiedUserSettings).desiredWeight === 0
+        ) {
+            this.createMessage(Message.desiredWeightmissing);
+        } else if (
+            (<TSettings>this.modifiedUserSettings).goal === 'weight' &&
+            (<TSettings>this.modifiedUserSettings).desiredWeight >= (<TSettings>this.modifiedUserSettings).weight
+        ) {
+            this.createMessage(Message.invalidWeightValue);
+            const input = <HTMLInputElement>document.querySelector('.editplan-input');
+            input.value = '0';
+        } else {
+            console.log('modified', this.modifiedUserSettings);
+            // this.model.saveSettings(this.modifiedUserSettings);
+            // authManager.navigate('/settings');
         }
     }
 }

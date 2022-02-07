@@ -70,6 +70,7 @@ export enum Message {
     registerSuccess = 'User created',
     valueMissing = 'Please, choose a value',
     invalidWeightValue = 'Please, select desired weight less than actual one',
+    desiredWeightmissing = 'Please, choose desired weight',
 }
 
 export enum Height {
