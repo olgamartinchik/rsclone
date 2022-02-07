@@ -15842,6 +15842,10 @@ input:not([type]).select-dropdown {
   .editplan-input-wrapper {
     flex-basis: 29%;
   }
+
+  .modal.editplan {
+    width: 80%;
+  }
 }
 html,
 body,
