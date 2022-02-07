@@ -11,6 +11,8 @@ import {
     WorkoutsNumber,
     WorkoutType,
     ModalContents,
+    MinWorkoutLength,
+    MaxWorkoutLength,
 } from '../../services/constants';
 import { TSettings, TWorkoutLength } from '../../services/types';
 
@@ -108,7 +110,12 @@ class EditPlanPageView {
                 this.createDesiredWeightInput(planItemWrapper, userSettings);
                 return;
             case 'workoutLength':
-                options = [{ min: 5, max: 10 }, { min: 15, max: 20 }, { min: 25, max: 30 }, { min: 30 }];
+                options = [
+                    { min: MinWorkoutLength.small, max: MaxWorkoutLength.small },
+                    { min: MinWorkoutLength.medium, max: MaxWorkoutLength.medium },
+                    { min: MinWorkoutLength.large, max: MaxWorkoutLength.large },
+                    { min: MinWorkoutLength.huge },
+                ];
                 break;
             case 'favWorkouts':
                 this.createFavoriteTypesChoice(planItemWrapper, userSettings);

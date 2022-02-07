@@ -1,8 +1,8 @@
 import EditPlanPageView from './editPlanPageView';
 import storageManager from '../../services/storageManager';
 import Utils from '../../services/utils';
-import { TSettings } from '../../services/types';
-import { GoalTitles } from '../../services/constants';
+import { TSettings, TWorkoutLength } from '../../services/types';
+import { GoalTitles, MinWorkoutLength, MaxWorkoutLength } from '../../services/constants';
 
 class EditPlanPageController {
     private view: EditPlanPageView;
@@ -36,41 +36,62 @@ class EditPlanPageController {
         const settingInput = <HTMLInputElement>(<HTMLElement>e.currentTarget).querySelector('input');
         const settingValueChosen = settingInput.value;
         const saveButton = <HTMLButtonElement>(<HTMLElement>settingBlock.parentElement).querySelector('button');
-        const enumID = this.userSettings[settingsType];
 
         switch (settingsType) {
             case 'goal':
                 this.updateUserSettings(settingsType, settingValueChosen);
-                this.handleSaveButtonStatus(GoalTitles[enumID], settingValueChosen, saveButton);
+                this.handleSaveButtonStatus(saveButton);
                 this.toggleDesiredWeightBlock(settingValueChosen, settingsWrapper);
                 break;
             case 'duration':
             case 'workoutsNumber':
                 this.updateUserSettings(settingsType, +settingValueChosen);
-                this.handleSaveButtonStatus(this.userSettings[settingsType].toString(), settingValueChosen, saveButton);
+                this.handleSaveButtonStatus(saveButton);
                 break;
             case 'workoutLength':
-                console.log(settingValueChosen);
+                this.formWorkoutLengthValue(+settingValueChosen.split(' ')[0]);
+                this.handleSaveButtonStatus(saveButton);
                 break;
         }
     }
 
-    private updateUserSettings(key: string, value: string | number): void {
-        if (key === 'goal') {
-            this.modifiedUserSettings[key] = Utils.getKeyByValue(GoalTitles, value);
-        } else {
-            this.modifiedUserSettings[key] = value;
+    private formWorkoutLengthValue(min: number): void {
+        switch (min) {
+            case MinWorkoutLength.small:
+                this.updateUserSettings('workoutLength', { min: MinWorkoutLength.small, max: MaxWorkoutLength.small });
+                break;
+            case MinWorkoutLength.medium:
+                this.updateUserSettings('workoutLength', {
+                    min: MinWorkoutLength.medium,
+                    max: MaxWorkoutLength.medium,
+                });
+                break;
+            case MinWorkoutLength.large:
+                this.updateUserSettings('workoutLength', { min: MinWorkoutLength.large, max: MaxWorkoutLength.large });
+                break;
+            case MinWorkoutLength.huge:
+                this.updateUserSettings('workoutLength', { min: MinWorkoutLength.huge });
+                break;
         }
     }
 
-    private handleSaveButtonStatus(
-        settingValue: string,
-        settingValueChosen: string,
-        saveButton: HTMLButtonElement
-    ): void {
+    private updateUserSettings(key: string, value: string | number | TWorkoutLength): void {
+        switch (key) {
+            case 'goal':
+                this.modifiedUserSettings[key] = Utils.getKeyByValue(GoalTitles, value);
+                break;
+            case 'duration':
+            case 'workoutsNumber':
+            case 'workoutLength':
+                this.modifiedUserSettings[key] = value;
+                break;
+        }
+    }
+
+    private handleSaveButtonStatus(saveButton: HTMLButtonElement): void {
         const haveSettingsChanged = !Utils.compareObjects(this.userSettings, this.modifiedUserSettings);
 
-        if (settingValueChosen !== settingValue || haveSettingsChanged) {
+        if (haveSettingsChanged) {
             saveButton.classList.remove('btn-disabled');
             saveButton.removeAttribute('disabled');
         } else {
