@@ -13,6 +13,7 @@ import {
     ModalContents,
 } from '../../services/constants';
 import { TSettings, TWorkoutLength } from '../../services/types';
+import userSettings from '../../services/mocks/defaultData';
 
 class EditPlanPageView {
     private rootNode: HTMLElement;
@@ -24,7 +25,7 @@ class EditPlanPageView {
         this.materializeHandler = new MaterializeHandler();
     }
 
-    public render(userSettings: TSettings | void, onclick: (e: Event) => void): void {
+    public render(userSettings: TSettings | void, onchange: (e: Event) => void): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
 
@@ -38,26 +39,25 @@ class EditPlanPageView {
         navbar.generateMenu();
         navbar.addProfileLink('O');
 
-        this.createMainLayout(userSettings, onclick);
+        this.createMainLayout(userSettings, onchange);
 
         this.rootNode.append(footer.getTemplate());
     }
 
-    private createMainLayout(userSettings: TSettings | void, onclick: (e: Event) => void): void {
+    private createMainLayout(userSettings: TSettings | void, onchange: (e: Event) => void): void {
         const main = new Node(this.rootNode, 'main', 'main-layout');
         const decorativeBlock = Node.setChild(main.node, 'div', 'decorative-editplan');
         Node.setChild(decorativeBlock, 'h2', 'title editplan-title', 'Edit plan');
         const decorativeImg = Node.setChild(decorativeBlock, 'img', 'center-img editplan') as HTMLImageElement;
         decorativeImg.src = '../../../assets/img/svg/kick_start.svg';
         const editPlanWrapper = Node.setChild(main.node, 'div', 'settings-wrapper');
-        editPlanWrapper.onclick = (e: Event) => onclick(e);
 
-        this.createPlanItem(editPlanWrapper, 'Fitness Goal', 'target', userSettings, 'goal');
-        this.createPlanItem(editPlanWrapper, 'Desired weight', 'weight', userSettings, 'desiredWeight');
-        this.createPlanItem(editPlanWrapper, 'Program duration', 'duration', userSettings, 'duration');
-        this.createPlanItem(editPlanWrapper, 'Workouts per week', 'frequency', userSettings, 'workoutsNumber');
-        this.createPlanItem(editPlanWrapper, 'Workouts Length', 'clock', userSettings, 'workoutLength');
-        this.createPlanItem(editPlanWrapper, 'Favorite Types', 'heart', userSettings, 'favWorkouts');
+        this.createPlanItem(editPlanWrapper, 'Fitness Goal', 'target', userSettings, 'goal', onchange);
+        this.createPlanItem(editPlanWrapper, 'Desired weight', 'weight', userSettings, 'desiredWeight', onchange);
+        this.createPlanItem(editPlanWrapper, 'Program duration', 'duration', userSettings, 'duration', onchange);
+        this.createPlanItem(editPlanWrapper, 'Workouts per week', 'frequency', userSettings, 'workoutsNumber', onchange);
+        this.createPlanItem(editPlanWrapper, 'Workouts Length', 'clock', userSettings, 'workoutLength', onchange);
+        this.createPlanItem(editPlanWrapper, 'Favorite Types', 'heart', userSettings, 'favWorkouts', onchange);
 
         const buttonWrapper = Node.setChild(editPlanWrapper, 'div', 'btn-wrapper edit-plan');
         const saveButton = new Button(buttonWrapper, 'Save');
@@ -69,10 +69,14 @@ class EditPlanPageView {
         title: string,
         icon: string,
         userSettings: TSettings | void,
-        settingsType: string
+        settingsType: string,
+        onchange: (e: Event) => void
     ): void {
         const planItemWrapper = Node.setChild(parentNode, 'div', 'plan-item wrapper');
         planItemWrapper.insertAdjacentHTML('afterbegin', this.planItemTitle(title, icon));
+        planItemWrapper.onchange = (e: Event) => onchange(e);
+        this.setDataAttribute(planItemWrapper, 'data-type', settingsType);
+
         let options = [] as Array<string | number | TWorkoutLength>;
 
         switch (settingsType) {
@@ -99,6 +103,10 @@ class EditPlanPageView {
         this.createSelectBlock(planItemWrapper, options, userSettings, settingsType);
 
         this.materializeHandler.initSelect();
+    }
+
+    private setDataAttribute(element: HTMLElement, key: string, value: string): void {
+        element.setAttribute(key, value);
     }
 
     private planItemTitle(text: string, icon: string): string {
@@ -164,6 +172,8 @@ class EditPlanPageView {
         input.setAttribute('value', '0');
         input.setAttribute('data-type', 'desiredWeight');
         Node.setChild(wrapper, 'span', 'editplan-unit', 'kg');
+
+        if (userSettings.goal !== 'weight') parentNode.classList.add('hidden');
     }
 
     private createFavoriteTypesChoice(parentNode: HTMLElement, userSettings: TSettings | void): void {
