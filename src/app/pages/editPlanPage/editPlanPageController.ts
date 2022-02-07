@@ -13,11 +13,15 @@ class EditPlanPageController {
     }
 
     public createPage() {
-        this.view.render(this.userSettings);
+        this.view.render(this.userSettings, this.handleSettingsChoice.bind(this));
     }
 
     private getUserSettings(): TSettings | void {
         return storageManager.getItem('userSettings', 'local');
+    }
+
+    private handleSettingsChoice(e: Event): void {
+        console.log((<HTMLElement>e.target).dataset);
     }
 }
 

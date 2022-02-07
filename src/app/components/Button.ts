@@ -14,6 +14,7 @@ export default class Button {
 
     setDisabled(): void {
         this.button.node.classList.add('btn-disabled');
+        this.button.node.setAttribute('disabled', 'disabled');
     }
 
     setForTablet(): void {

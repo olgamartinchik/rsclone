@@ -15,14 +15,15 @@ class Modal {
     public getTemplate(
         content: ModalContents,
         className: string,
-        triggerBtnText: string,
         modalBtnText: string,
         options?: Array<string>,
-        checkedOptions?: Array<string | undefined>
+        checkedOptions?: Array<string | undefined>,
+        attribute?: string
     ): HTMLElement {
         this.rootNode.textContent = '';
 
         const modalContent = new Node(this.rootNode, 'div', 'modal-content');
+        if (attribute) modalContent.setAttribute('data-type', attribute);
         const contentType = content;
 
         if (contentType === ModalContents.options)

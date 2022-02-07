@@ -24,7 +24,7 @@ class EditPlanPageView {
         this.materializeHandler = new MaterializeHandler();
     }
 
-    public render(userSettings: TSettings | void): void {
+    public render(userSettings: TSettings | void, onclick: (e: Event) => void): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
 
@@ -38,18 +38,19 @@ class EditPlanPageView {
         navbar.generateMenu();
         navbar.addProfileLink('O');
 
-        this.createMainLayout(userSettings);
+        this.createMainLayout(userSettings, onclick);
 
         this.rootNode.append(footer.getTemplate());
     }
 
-    private createMainLayout(userSettings: TSettings | void): void {
+    private createMainLayout(userSettings: TSettings | void, onclick: (e: Event) => void): void {
         const main = new Node(this.rootNode, 'main', 'main-layout');
         const decorativeBlock = Node.setChild(main.node, 'div', 'decorative-editplan');
         Node.setChild(decorativeBlock, 'h2', 'title editplan-title', 'Edit plan');
         const decorativeImg = Node.setChild(decorativeBlock, 'img', 'center-img editplan') as HTMLImageElement;
         decorativeImg.src = '../../../assets/img/svg/kick_start.svg';
         const editPlanWrapper = Node.setChild(main.node, 'div', 'settings-wrapper');
+        editPlanWrapper.onclick = (e: Event) => onclick(e);
 
         this.createPlanItem(editPlanWrapper, 'Fitness Goal', 'target', userSettings, 'goal');
         this.createPlanItem(editPlanWrapper, 'Desired weight', 'weight', userSettings, 'desiredWeight');
@@ -117,6 +118,7 @@ class EditPlanPageView {
     ): void {
         const selectBlockWrapper = Node.setChild(parentNode, 'div', 'input-field col s12');
         const selectTag = Node.setChild(selectBlockWrapper, 'select');
+        selectTag.setAttribute('data-type', settingsType);
         options.forEach((option, index) => {
             if (settingsType !== 'workoutLength') {
                 const selectOption = Node.setChild(selectTag, 'option', '', option.toString());
@@ -160,6 +162,7 @@ class EditPlanPageView {
         const wrapper = Node.setChild(parentNode, 'div', 'editplan-input-wrapper');
         const input = Node.setChild(wrapper, 'input', 'editplan-input');
         input.setAttribute('value', '0');
+        input.setAttribute('data-type', 'desiredWeight');
         Node.setChild(wrapper, 'span', 'editplan-unit', 'kg');
     }
 
@@ -178,7 +181,7 @@ class EditPlanPageView {
         const checkedOptions = [...(userSettings as TSettings).favWorkouts];
 
         parentNode.append(
-            modal.getTemplate(ModalContents.options, 'editplan', 'Change', 'Save', options, checkedOptions)
+            modal.getTemplate(ModalContents.options, 'editplan', 'Save', options, checkedOptions, 'favWorkouts')
         );
         parentNode.insertAdjacentHTML('beforeend', this.addModalTrigger());
     }

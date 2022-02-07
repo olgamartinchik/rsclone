@@ -23,7 +23,15 @@
 
 .btn-disabled {
     background: linear-gradient(270deg, $color-background-linear-7 -24.77%, $color-background-linear-8 95.41%);
+    cursor: not-allowed;
 }
+.btn-large:disabled.btn-disabled,
+.btn-large[disabled].btn-disabled {
+    pointer-events: initial;
+    cursor: not-allowed;
+    color: $color-text-on-dark !important;
+}
+
 
 .back-btn {
     position: absolute;

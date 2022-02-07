@@ -9,6 +9,7 @@
 }
 
 .editplan-title {
+    display: block;
     margin: 0;
     margin-bottom: 15px;
     padding-top: 15px;
@@ -106,5 +107,40 @@ label.editplan {
         p {
             margin: 10px 0;
         }
+    }
+}
+
+@media (max-width: 420px) {
+    .editplan-unit,
+    .plan-item .settings-link,
+    input[type=text]:not(.browser-default).editplan-input, 
+    input:not([type]).editplan-input,
+    input[type=text]:not(.browser-default).select-dropdown, 
+    input:not([type]).select-dropdown,
+    .btn.favWorkouts-choice  {
+        font-size: 16px;
+    }
+
+    .settings-link .icon {
+        width: 15px;
+        margin-right: 10px;
+        font-size: 20px;
+    }
+
+    input[type=text]:not(.browser-default).editplan-input, 
+    input:not([type]).editplan-input {
+        flex-basis: 45%;
+        width: 100%;
+    }
+
+    input[type=text]:not(.browser-default).select-dropdown, 
+    input:not([type]).select-dropdown {
+        padding-right: 19px;
+        width: 115px;
+        box-sizing: border-box;
+    }   
+    
+    .editplan-input-wrapper {
+        flex-basis: 29%;
     }
 }
