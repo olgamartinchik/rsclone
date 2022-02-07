@@ -2,7 +2,7 @@ import EditPlanPageView from './editPlanPageView';
 import storageManager from '../../services/storageManager';
 import Utils from '../../services/utils';
 import { TSettings, TWorkoutLength } from '../../services/types';
-import { GoalTitles, MinWorkoutLength, MaxWorkoutLength } from '../../services/constants';
+import { GoalTitles, MinWorkoutLength, MaxWorkoutLength, WorkoutType } from '../../services/constants';
 
 class EditPlanPageController {
     private view: EditPlanPageView;
@@ -34,8 +34,10 @@ class EditPlanPageController {
         const settingsWrapper = <HTMLElement>settingBlock.parentElement;
         const settingsType = <string>settingBlock.dataset.type;
         const settingInput = <HTMLInputElement>(<HTMLElement>e.currentTarget).querySelector('input');
+        const settingInputs = (<HTMLElement>e.currentTarget).querySelectorAll('input');
         const settingValueChosen = settingInput.value;
         const saveButton = <HTMLButtonElement>(<HTMLElement>settingBlock.parentElement).querySelector('button');
+        const favWorkouts: Array<WorkoutType> = [];
 
         switch (settingsType) {
             case 'goal':
@@ -50,6 +52,13 @@ class EditPlanPageController {
                 break;
             case 'workoutLength':
                 this.formWorkoutLengthValue(+settingValueChosen.split(' ')[0]);
+                this.handleSaveButtonStatus(saveButton);
+                break;
+            case 'favWorkouts':
+                settingInputs.forEach((input) => {
+                    if (input.checked) favWorkouts.push(<WorkoutType>input.id.toUpperCase());
+                });
+                this.updateUserSettings(settingsType, favWorkouts);
                 this.handleSaveButtonStatus(saveButton);
                 break;
         }
@@ -75,7 +84,7 @@ class EditPlanPageController {
         }
     }
 
-    private updateUserSettings(key: string, value: string | number | TWorkoutLength): void {
+    private updateUserSettings(key: string, value: string | number | TWorkoutLength | Array<WorkoutType>): void {
         switch (key) {
             case 'goal':
                 this.modifiedUserSettings[key] = Utils.getKeyByValue(GoalTitles, value);
@@ -83,6 +92,7 @@ class EditPlanPageController {
             case 'duration':
             case 'workoutsNumber':
             case 'workoutLength':
+            case 'favWorkouts':
                 this.modifiedUserSettings[key] = value;
                 break;
         }

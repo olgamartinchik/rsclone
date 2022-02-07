@@ -1,4 +1,5 @@
 import { TWorkoutLength } from './types';
+import { WorkoutType } from './constants';
 export default class Utils {
     static getChunks<T>(dataArr: T[], chunk: number): Array<T[]> {
         return dataArr.reduce((resultArray: Array<T[]>, item: T, index: number) => {
@@ -94,7 +95,7 @@ export default class Utils {
         return true;
     }
 
-    static getKeyByValue<T>(object: T, value: string | number | TWorkoutLength) {
+    static getKeyByValue<T>(object: T, value: string | number | TWorkoutLength | Array<WorkoutType>) {
         return Object.keys(object).find((key) => object[key] === value);
     }
 }
