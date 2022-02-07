@@ -5,10 +5,13 @@ import Node from '../../components/Node';
 
 class ExplorePageView{
     private rootNode: HTMLElement;
+    private tabsData:string[]
+    
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
+        this.tabsData=['balanced','high-fiber','high-protein','low-carb','low-fat','low-sodium']
     }
-    render(){
+    render(diet:string){
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
 
@@ -19,86 +22,40 @@ class ExplorePageView{
             'meal',
             'settings',
         ]);
-        navbar.generateMenu('Meal');
+        navbar.generateMenu('');
         navbar.addProfileLink('O');
 
-        this.rootNode.insertAdjacentHTML(
-            'beforeend',
-            this.createContentExplore()
-        );
+        this.createContentExplore(diet)
         this.rootNode.append(footer.getTemplate());
+ 
     }
-    createContentExplore(){
-        // const main = new Node(this.rootNode, 'main', 'main-layout');
-        // Node.setChild(main.node, 'h1', 'title-meal', 'EXPLORE');
-        return `
-        <main class="main-layuot">
-        <section class="meal-type-section">
-            <h1 class="title-type">balanced</h1>
-        </section>
-        <section class="meal-section">
-            <div class="tabs-container">
-                <ul class="diet-list">
-                    <li class="active">balanced</li>
-                    <li>high-fiber</li>
-                    <li>high-protein</li>
-                    <li>low-carb</li>
-                    <li>low-fat</li>
-                    <li>low-sodium</li>
-                </ul>
-            </div>
-            <div class="explore-container">
-                <div class="meal-card">
-                    <div class="col s12 m6">
-                        <div class="card">
-                            <div class="card-image">
-                                <img
-                                    src="https://www.edamam.com/web-img/7ff/7ffa5b0f12fcbede921e187fdc2f5348.jpg"
-                                />
-                            </div>
-                            <div class="card-content">
-                                <h6 class="title-meal-card">BREAKFAST</h6>
-                                <p class="subtitle-day-meal">Sausage, Cheese And Potato Breakfast Casserole</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="meal-card">
-                    <div class="col s12 m6">
-                        <div class="card">
-                            <div class="card-image">
-                                <img
-                                    src="https://www.edamam.com/web-img/193/193f045bd47a8339cd0345b9e43b91eb.jpg"
-                                />
-                            </div>
-                            <div class="card-content">
-                                <h6 class="title-meal-card">Lunch</h6>
-                                <p class="subtitle-day-meal">Party-Pan Pizza</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="meal-card">
-                    <div class="col s12 m6">
-                        <div class="card">
-                            <div class="card-image">
-                                <img
-                                    src="https://www.edamam.com/web-img/3b6/3b655bdb110f68bff9b11fc3234e8a9e.jpg"
-                                />
-                            </div>
-                            <div class="card-content">
-                                <h6 class="title-meal-card">Snack</h6>
-                                <p class="subtitle-day-meal">
-                                    Sicilian-Style Spaghetti Alla Carrettiera (Fresh Tomato and Garlic Sauce) Recipe
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-        `
+    createContentExplore(diet:string){
+        const main = new Node(this.rootNode, 'main', 'main-layout');
+        const mealTypeSection=new Node(main.node, 'section', 'meal-type-section');     
+        Node.setChild(mealTypeSection.node, 'i', 'fas fa-long-arrow-alt-left');
+    
+        Node.setChild(mealTypeSection.node, 'h1', 'title-type', `${diet}`);
+        const mealSection=new Node(main.node, 'section', 'meal-section');
+        const pageContainer=new Node(mealSection.node, 'div', 'row');
+        const tabsContainer=new Node(pageContainer.node, 'div', 'col s12');
+        const ul=new Node(tabsContainer.node, 'ul', 'tabs');
+        ul.setAttribute('id','tabs-swipe-demo')
+
+        this.tabsData.forEach((tab, ind)=>{
+            const li=new Node(ul.node, 'li', 'tab col s3');
+            const a=new Node(li.node, 'a', 'tab-explore', tab);
+            a.setAttribute('data-diet',tab)
+            a.setAttribute('href', `#tab-${ind}`)
+        })
+        this.tabsData.forEach((el,ind)=>{
+            const exploreWrapper=new Node(tabsContainer.node, 'div', 'col s12');
+            exploreWrapper.setAttribute('id',`tab-${ind}`)
+            const exploreContainer=new Node(exploreWrapper.node, 'div', 'explore-container diet-container',el);
+            exploreContainer.setAttribute('data-diet',el)
+        })
+
+
+       
     }
 }
 

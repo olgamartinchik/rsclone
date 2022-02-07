@@ -1,72 +1,66 @@
 .meal-type-section {
+    position: relative;
     height: 30vh;
-    background-image: url('https://static.onecms.io/wp-content/uploads/sites/23/2021/01/07/Best-romantic-desserts-2000.jpg');
+    // background-image: url('../../assets/exploreMeal/balanced.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: 0.5s ease-in-out;
+    transition: 1s ease-in-out;
 }
+// .meal-type-section::after {
+//     content: '';
+//     position: absolute;
+//     height: 30vh;
+//     width: 100%;
+// }
 .meal-section .explore-container {
-    padding: 10px 15px 70px;
+    padding: 10px 0px 70px;
 }
 .title-type {
+    display: block;
     text-transform: uppercase;
     color: $color-text-on-dark;
     text-shadow: 5px 2px 3px black, 0 0 1em white;
-    transition: 0.5s ease-in-out;
+    backdrop-filter: blur(2px);
+    padding: 15px;
+    transition: 1s ease-in-out;
 }
 .tabs-container {
     padding: 30px;
 }
-.diet-list {
+.tabs {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    border-bottom: 2px solid gray;
-    gap: 15px;
-    flex-wrap: wrap;
-    padding: 10px;
-    li {
-        padding: 10px 5px;
-        border: 2px solid gray;
-        color: #fc6f00;
-        text-transform: capitalize;
-        // text-shadow: 1px 1px 2px grey;
-        font-weight: 500;
-        border-radius: 12px;
-        width: 120px;
-        text-align: center;
-        cursor: pointer;
-        transition: 0.3s ease-in-out;
-        &:hover {
-            background: linear-gradient(270deg, #e03694 -24.77%, #f47253 95.41%);
-            color: $color-text-on-dark;
-            text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1),
-                0px 18px 23px rgba(0, 0, 0, 0.1);
-        }
-    }
-    li.active {
-        background: linear-gradient(270deg, #e03694 -24.77%, #f47253 95.41%);
-        color: $color-text-on-dark;
-        text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1), 0px 18px 23px rgba(0, 0, 0, 0.1);
+    justify-content: flex-start;
+}
+.row .col.s3 {
+    max-width: 220px;
+    width: 100%;
+}
+.fa-long-arrow-alt-left {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    color: #fff;
+    font-size: 55px;
+    padding: 0 15px;
+    text-shadow: 5px 2px 3px black, 0 0 1em white;
+    transition: 0.3s ease-in-out;
+    backdrop-filter: blur(2px);
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.1);
     }
 }
+
 @media (max-width: 360px) {
     .title-type {
         font-size: 40px;
     }
 }
 @media (max-width: 330px) {
-    .tabs-container {
-        padding: 20px 15px;
-    }
-    .diet-list {
-        li {
-            font-size: 14px;
-            width: 115px;
-        }
-    }
 }

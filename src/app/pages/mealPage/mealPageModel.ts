@@ -21,12 +21,12 @@ class MealPageModel {
         this.mealData = new ClientManager();
         this.mealType = ['Breakfast', 'Lunch', 'Snack'];
         this.dishType = [
-            { recipe: { dishType: 'Desserts', image: '1' } },
-            { recipe: { dishType: 'Main course', image: '2' } },
-            { recipe: { dishType: 'Pancake', image: '3' } },
-            { recipe: { dishType: 'Salad', image: '4' } },
-            { recipe: { dishType: 'Starter', image: '5' } },
-            { recipe: { dishType: 'Soup', image: '6' } },
+            { recipe: { diet: 'balanced', image: 'balanced' } },
+            { recipe: { diet: 'high-fiber', image: 'high-fiber' } },
+            { recipe: { diet: 'high-protein', image: 'high-protein' } },
+            { recipe: { diet: 'low-carb', image: 'low-carb' } },
+            { recipe: { diet: 'low-fat', image: 'low-fat' } },
+            { recipe: { diet: 'low-sodium', image: 'low-sodium' } },
         ];
     }
 

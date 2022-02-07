@@ -48,8 +48,10 @@ class MealPageController {
             this.handlerBtn.bind(this)
         );
         await this.getMealDataWithDay();
+       
         this.view.getLoaderSearchingContainer();
         this.view.getLoaderMealContainer();
+        
 
         if (!this.mealData || this.mealData.length === 0) {
             this.mealData = await this.model.getUserMealData(this.numFrom.toString(), (this.numFrom + 1).toString());

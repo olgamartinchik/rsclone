@@ -19,7 +19,7 @@ export const userMealCardTemplate = function (data: IDataExplore): string {
 };
 export const exploreCardTemplate = function (data: IDataExplore): string {
     return `    
-        <div class="explore-card" data-edamam=${data.recipe.dishType}>
+        <div class="explore-card" data-edamam=${data.recipe.diet}>
             <div class="explore-img-container">
                 <img
                     class="explore-img"
@@ -27,7 +27,7 @@ export const exploreCardTemplate = function (data: IDataExplore): string {
                     alt="meal"
                 />
             </div>
-            <p class="subtitle-meal">${data.recipe.dishType}</p> 
+            <p class="subtitle-meal">${data.recipe.diet}</p> 
         </div>  
     `;
 };

@@ -126,6 +126,7 @@ class MealPageView {
         const searchingMealsContainer = document.getElementsByClassName('searching-meals') as HTMLCollectionOf<Element>;
         searchingMealsContainer[0]!.innerHTML = '';
         searchingMealsContainer[0]!.append(Preloader.getTemplate());
+        console.log(Preloader.getTemplate())
     }
 
     getSearchingBtn(onclick: (e: Event) => void) {

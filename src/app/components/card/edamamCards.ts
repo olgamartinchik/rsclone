@@ -12,7 +12,7 @@ class MealCard {
     constructor(data: IDataExplore) {
         this.data = data;
         this.rootNodeExplore = document.createElement('a');
-        this.rootNodeExplore.className = '';
+        // this.rootNodeExplore.className = '';
         this.rootNodeExplore.setAttribute('href', '#/explore')
         this.rootNodeSearching = document.createElement('a');
         this.rootNodeSearching.setAttribute('href', '#/recipe')
