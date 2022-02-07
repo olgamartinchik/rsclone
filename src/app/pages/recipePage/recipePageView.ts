@@ -19,7 +19,7 @@ class RecipePageView{
             'meal',
             'settings',
         ]);
-        navbar.generateMenu('Meal');
+        navbar.generateMenu('');
         navbar.addProfileLink('O');
 
         this.rootNode.insertAdjacentHTML(

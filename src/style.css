@@ -15485,7 +15485,7 @@ input[type=text]:not(.browser-default) {
   font-style: normal;
   font-weight: 800;
   font-size: 16px;
-  line-height: 22px;
+  line-height: 23px;
   color: #191348;
   white-space: normal;
 }
@@ -15580,6 +15580,9 @@ input[type=text]:not(.browser-default) {
   }
 }
 @media (max-width: 375px) {
+  .meal-card {
+    width: 300px;
+  }
   .meal-card .card {
     width: 300px;
   }
@@ -15589,6 +15592,9 @@ input[type=text]:not(.browser-default) {
   }
 }
 @media (max-width: 350px) {
+  .meal-card {
+    width: 280px;
+  }
   .meal-card .card {
     width: 280px;
   }
@@ -15598,6 +15604,9 @@ input[type=text]:not(.browser-default) {
   }
 }
 @media (max-width: 325px) {
+  .meal-card {
+    width: 265px;
+  }
   .meal-card .card {
     width: 265px;
   }
@@ -15684,6 +15693,80 @@ p.settings-link {
   background-color: #816ffe;
 }
 
+.meal-type-section {
+  height: 30vh;
+  background-image: url("https://static.onecms.io/wp-content/uploads/sites/23/2021/01/07/Best-romantic-desserts-2000.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s ease-in-out;
+}
+
+.meal-section .explore-container {
+  padding: 10px 15px 70px;
+}
+
+.title-type {
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 5px 2px 3px black, 0 0 1em white;
+  transition: 0.5s ease-in-out;
+}
+
+.tabs-container {
+  padding: 30px;
+}
+
+.diet-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-bottom: 2px solid gray;
+  gap: 15px;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+.diet-list li {
+  padding: 10px 5px;
+  border: 2px solid gray;
+  color: #fc6f00;
+  text-transform: capitalize;
+  font-weight: 500;
+  border-radius: 12px;
+  width: 120px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.diet-list li:hover {
+  background: linear-gradient(270deg, #e03694 -24.77%, #f47253 95.41%);
+  color: white;
+  text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1), 0px 18px 23px rgba(0, 0, 0, 0.1);
+}
+.diet-list li.active {
+  background: linear-gradient(270deg, #e03694 -24.77%, #f47253 95.41%);
+  color: white;
+  text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1), 0px 18px 23px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 360px) {
+  .title-type {
+    font-size: 40px;
+  }
+}
+@media (max-width: 330px) {
+  .tabs-container {
+    padding: 20px 15px;
+  }
+
+  .diet-list li {
+    font-size: 14px;
+    width: 115px;
+  }
+}
 html,
 body,
 #app {

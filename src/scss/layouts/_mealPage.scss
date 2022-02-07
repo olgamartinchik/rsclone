@@ -128,7 +128,7 @@
     font-style: normal;
     font-weight: 800;
     font-size: 16px;
-    line-height: 22px;
+    line-height: 23px;
     color: $color-subtitle;
 
     white-space: normal;
@@ -220,23 +220,32 @@
     }
 }
 @media (max-width: 375px) {
-    .meal-card .card {
+    .meal-card {
         width: 300px;
+        .card {
+            width: 300px;
+        }
     }
     .meal-explore {
         width: calc(100% - 50px);
     }
 }
 @media (max-width: 350px) {
-    .meal-card .card {
+    .meal-card {
         width: 280px;
+        .card {
+            width: 280px;
+        }
     }
     .meal-explore {
         width: calc(100% - 10px);
     }
 }
 @media (max-width: 325px) {
-    .meal-card .card {
+    .meal-card {
         width: 265px;
+        .card {
+            width: 265px;
+        }
     }
 }
