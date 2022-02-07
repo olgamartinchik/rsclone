@@ -1,20 +1,31 @@
 import ExplorePageModel from "./explorePageModel";
 import ExplorePageView from "./explorePageView";
-
+import StorageApiManager from '../../services/storageManager'
+import { IDataExplore } from "../../services/types";
 class ExploreController{
     private view: ExplorePageView;
     private model: ExplorePageModel;
+    dietData:Array<IDataExplore>|null
     constructor(){
       this.view=new ExplorePageView()
       this.model=new ExplorePageModel()
+      this.dietData=null
     }
     public async createPage() {
-        this.view.render('balanced')
-        this.setBgExplorePage('balanced')
-            this.activeTabs()
-        this. handlerTabs()
        
+        if(StorageApiManager.getItem('diet', 'local')){
+         let diet=StorageApiManager.getItem('diet', 'local') as string
+        
+        this.view.render(diet)
+        this.setBgExplorePage(diet)
+            
+        this. handlerTabs()
+        this.getActiveClassTabs(diet)
+        this.activeTabs()
+        this.setCards(diet)
+       }
     }
+
     activeTabs(){     
         const tabs=document.getElementsByClassName('tabs')[0] as HTMLElement
         if(tabs){
@@ -22,7 +33,17 @@ class ExploreController{
                 swipeable: true,
                 duration: 300,
             });
-        }
+        }        
+    }
+    getActiveClassTabs(diet:string){
+        const allTabs=document.getElementsByClassName('tab-explore')       
+       for(let i=0; i<allTabs.length; i++){
+        allTabs[i].classList.remove('active')
+           if(allTabs[i].getAttribute('data-diet')===diet){
+            allTabs[i].classList.add('active')
+           }
+       }
+    
     }
   
     handlerTabs(){
@@ -31,9 +52,11 @@ class ExploreController{
     }
     getDataDiet(e:Event){
         if((e.target as HTMLElement).closest('.tab-explore')){
-            let data=((e.target as HTMLElement).closest('.tab-explore') as HTMLElement).getAttribute('data-diet') 
-            this.setBgExplorePage(data!)
-            this.setTitleExplorePage(data!)
+            let diet=((e.target as HTMLElement).closest('.tab-explore') as HTMLElement).getAttribute('data-diet') 
+            this.setBgExplorePage(diet!)
+            this.setTitleExplorePage(diet!)
+            StorageApiManager.addItem('diet', diet, 'local');
+            this.setCards(diet!)
         }
 
     }
@@ -44,6 +67,25 @@ class ExploreController{
     setTitleExplorePage(diet:string){
         const title=document.getElementsByClassName('title-type')[0]
         title.textContent=diet
+    }
+    async setCards(diet:string){
+        const containersCards=document.getElementsByClassName('diet-container')
+        for(let i=0;i<containersCards.length; i++){
+            if(containersCards[i].getAttribute('data-diet')===diet){
+                containersCards[i].innerHTML=''
+                this.dietData=await this.model.getDataExplore(diet) 
+                console.log('data1', this.dietData)
+                if(this.dietData){
+                   const cards= this.view.getCardsDiet(this.dietData, this.handlersDietCards)
+                   containersCards[i].append(...cards)
+                }
+                
+            }
+        }
+
+    }
+    handlersDietCards(){
+        
     }
 }
 export default ExploreController

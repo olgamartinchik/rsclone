@@ -79,8 +79,13 @@ class MealPageController {
 
     handlerMealCard() {}
 
-    handlerExploreCard() {
-        console.log('click')
+    handlerExploreCard(e:Event) {
+        let dietCard=(e.target as HTMLElement).closest('.explore-card')
+        if(dietCard){            
+            StorageApiManager.addItem('diet', dietCard.getAttribute('data-edamam'), 'local');
+           
+        }
+
     }
 
     handlerSearchingCard() {}

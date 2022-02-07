@@ -1,7 +1,9 @@
+import MealCard from '../../components/card/edamamCards';
 import footer from '../../components/footer/footer';
 import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
+import { IDataExplore } from '../../services/types';
 
 class ExplorePageView{
     private rootNode: HTMLElement;
@@ -30,9 +32,11 @@ class ExplorePageView{
  
     }
     createContentExplore(diet:string){
-        const main = new Node(this.rootNode, 'main', 'main-layout');
+        const main = new Node(this.rootNode, 'main', 'main-layout main-diet');
         const mealTypeSection=new Node(main.node, 'section', 'meal-type-section');     
-        Node.setChild(mealTypeSection.node, 'i', 'fas fa-long-arrow-alt-left');
+        const linkBack=new Node(mealTypeSection.node, 'a', 'arrow-back')
+        linkBack.setAttribute('href', '#meal')
+        Node.setChild(linkBack.node, 'i', 'fas fa-long-arrow-alt-left');
     
         Node.setChild(mealTypeSection.node, 'h1', 'title-type', `${diet}`);
         const mealSection=new Node(main.node, 'section', 'meal-section');
@@ -56,6 +60,10 @@ class ExplorePageView{
 
 
        
+    }
+    getCardsDiet(dietData:Array<IDataExplore>, onclick: (e: Event) => void){
+        const cards = dietData.map(data=>new MealCard(data).getMealTemplate(onclick))
+        return cards
     }
 }
 

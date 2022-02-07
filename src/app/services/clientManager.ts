@@ -106,9 +106,9 @@ class ClientManager {
             console.log(e);
         }
     }
-    public async mealExploreData(from: string, to: string, dishType = 'Salad') {
+    public async mealExploreData(from: string, to: string, diet = 'balanced',mealType='Breakfast') {
         try {
-            const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&dishType=${dishType}&imageSize=LARGE`;
+            const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&diet=${diet}&dishType=Main course&mealType=${mealType}&imageSize=LARGE`;
 
             const response = await fetch(url);
             const data = await response.json();

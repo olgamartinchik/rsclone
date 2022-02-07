@@ -15738,10 +15738,13 @@ p.settings-link {
   width: 100%;
 }
 
-.fa-long-arrow-alt-left {
+.arrow-back {
   position: absolute;
   left: 15px;
   top: 15px;
+}
+
+.fa-long-arrow-alt-left {
   color: #fff;
   font-size: 55px;
   padding: 0 15px;
@@ -15752,6 +15755,10 @@ p.settings-link {
 }
 .fa-long-arrow-alt-left:hover {
   transform: scale(1.1);
+}
+
+.row {
+  margin-bottom: 0px;
 }
 
 @media (max-width: 360px) {
