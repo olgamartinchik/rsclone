@@ -69,4 +69,15 @@ export default class Utils {
         }
         return targetMonth;
     }
+
+    static getTime(time: number): string {
+        let minutes = Math.floor(time / 60);
+        let seconds = Math.round(time % 60);
+        if (seconds === 60) {
+            seconds = 0;
+            minutes += 1;
+        }
+
+        return `${minutes > 9 ? minutes : '0' + minutes}:${seconds > 9 ? seconds : '0' + seconds}`;
+    }
 }

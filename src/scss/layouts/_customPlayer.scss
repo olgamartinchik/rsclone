@@ -80,11 +80,20 @@
     }
 
     &-bottom {
+        .time {
+            width: 90px;
+        }
         .timeline {
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-            background: linear-gradient(to right, $color-primary 0%, $color-primary 0%, $color-background 0%, $color-background 100%);
+            background: linear-gradient(
+                to right,
+                $color-primary 0%,
+                $color-primary 0%,
+                $color-background 0%,
+                $color-background 100%
+            );
         }
 
         .timeline::-webkit-slider-thumb {
@@ -111,8 +120,6 @@
         }
     }
 }
-
-
 
 .btn-video {
     background-color: transparent;
@@ -171,5 +178,72 @@
     .play {
         visibility: hidden;
         pointer-events: none;
+    }
+}
+
+.volume-btn.mute {
+    .volume-off {
+        position: absolute;
+        visibility: visible;
+    }
+    .volume-up {
+        visibility: hidden;
+    }
+}
+
+.volume-btn {
+    display: flex;
+    position: relative;
+    width: 40px;
+    height: 30px;
+    .volume-up {
+        position: absolute;
+        visibility: visible;
+    }
+    .volume-off {
+        visibility: hidden;
+    }
+}
+
+.forward,
+.backward {
+    position: relative;
+    font-size: 14px;
+    &::after {
+        content: '15';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-68%, -30%);
+    }
+}
+
+.backward {
+    &::after {
+        transform: translate(-42%, -30%);
+    }
+}
+
+.fullscreen {
+    display: flex;
+    position: relative;
+    width: 40px;
+    height: 30px;
+    .fullscreen-up {
+        position: absolute;
+        visibility: visible;
+    }
+    .fullscreen-off {
+        visibility: hidden;
+    }
+}
+
+.fullscreen.full {
+    .fullscreen-off {
+        position: absolute;
+        visibility: visible;
+    }
+    .fullscreen-on {
+        visibility: hidden;
     }
 }

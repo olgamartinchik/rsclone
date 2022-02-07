@@ -35,7 +35,7 @@ class WorkoutPageModel {
     public getVideoLink(id: string): string {
         const card = this.getCardById(id);
         let url = '';
-        if(card) {
+        if (card) {
             url = this.sdk.getVideoUrl(card.data.title);
         }
 

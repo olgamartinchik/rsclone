@@ -5,24 +5,27 @@ export default function videoControls(): string {
                     <i class="material-icons">arrow_back</i>
                 </button>
                 <div class="controls-right">
-                    <button class="btn-video">
-                        <i class="material-icons">volume_up</i>
+                    <button class="btn-video volume-btn volume-js">
+                        <i class="material-icons volume-up">volume_up</i>
+                        <i class="material-icons volume-off">volume_off</i>
                     </button>
-                    <button class="btn-video" data-action="fullscreen">
-                        <i class="material-icons">crop_free</i>
+                    <input class="volume-range volume-range-js" type="range" value="1" step="0.01" max="1" data-action="volume">
+                    <button class="btn-video fullscreen" data-action="fullscreen">
+                        <i class="material-icons fullscreen-on">fullscreen</i>
+                        <i class="material-icons fullscreen-off">fullscreen_exit</i>
                     </button>
                 </div>
                 
             </div>
             <div class="controls-center">
-                <button class="btn-video">
+                <button class="btn-video backward" data-action="backward">
                     <i class="fas fa-undo"></i>
                 </button>
-                <button class="btn-video btn-play btn-play-js">
+                <button class="btn-video btn-play btn-play-js paused">
                     <i class="large material-icons play">play_circle_outline</i>
                     <i class="large material-icons pause">pause_circle_outline</i>
                 </button>
-                <button class="btn-video">
+                <button class="btn-video forward" data-action="forward">
                     <i class="fas fa-redo"></i>
                 </button>
             </div>
