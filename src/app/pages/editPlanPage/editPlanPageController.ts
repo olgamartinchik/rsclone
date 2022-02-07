@@ -4,6 +4,7 @@ import { TSettings } from '../../services/types';
 
 class EditPlanPageController {
     private view: EditPlanPageView;
+
     private userSettings: TSettings | void;
 
     constructor() {

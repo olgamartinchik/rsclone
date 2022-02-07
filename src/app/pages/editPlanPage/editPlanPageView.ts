@@ -5,13 +5,18 @@ import NavBar from '../../components/header/navbar';
 import modal from '../../components/modal/modal';
 import Node from '../../components/Node';
 import Button from '../../components/Button';
-import { GoalTitles, WorkoutsProgramDuration, WorkoutsNumber, WorkoutType, ModalContents } from '../../services/constants';
+import {
+    GoalTitles,
+    WorkoutsProgramDuration,
+    WorkoutsNumber,
+    WorkoutType,
+    ModalContents,
+} from '../../services/constants';
 import { TSettings, TWorkoutLength } from '../../services/types';
-import userSettings from '../../services/mocks/defaultData';
 
 class EditPlanPageView {
     private rootNode: HTMLElement;
-    
+
     private materializeHandler: MaterializeHandler;
 
     constructor() {
@@ -32,7 +37,7 @@ class EditPlanPageView {
         ]);
         navbar.generateMenu();
         navbar.addProfileLink('O');
-        
+
         this.createMainLayout(userSettings);
 
         this.rootNode.append(footer.getTemplate());
@@ -52,13 +57,19 @@ class EditPlanPageView {
         this.createPlanItem(editPlanWrapper, 'Workouts per week', 'frequency', userSettings, 'workoutsNumber');
         this.createPlanItem(editPlanWrapper, 'Workouts Length', 'clock', userSettings, 'workoutLength');
         this.createPlanItem(editPlanWrapper, 'Favorite Types', 'heart', userSettings, 'favWorkouts');
-        
+
         const buttonWrapper = Node.setChild(editPlanWrapper, 'div', 'btn-wrapper edit-plan');
         const saveButton = new Button(buttonWrapper, 'Save');
         saveButton.setDisabled();
     }
 
-    private createPlanItem (parentNode: HTMLElement, title: string, icon: string, userSettings: TSettings | void, settingsType: string): void {
+    private createPlanItem(
+        parentNode: HTMLElement,
+        title: string,
+        icon: string,
+        userSettings: TSettings | void,
+        settingsType: string
+    ): void {
         const planItemWrapper = Node.setChild(parentNode, 'div', 'plan-item wrapper');
         planItemWrapper.insertAdjacentHTML('afterbegin', this.planItemTitle(title, icon));
         let options = [] as Array<string | number | TWorkoutLength>;
@@ -72,7 +83,7 @@ class EditPlanPageView {
                 break;
             case 'workoutsNumber':
                 options = [WorkoutsNumber.small, WorkoutsNumber.medium, WorkoutsNumber.large, WorkoutsNumber.huge];
-                break; 
+                break;
             case 'desiredWeight':
                 this.createDesiredWeightInput(planItemWrapper);
                 return;
@@ -82,10 +93,10 @@ class EditPlanPageView {
             case 'favWorkouts':
                 this.createFavoriteTypesChoice(planItemWrapper, userSettings);
                 this.materializeHandler.initModal();
-                return;                        
+                return;
         }
         this.createSelectBlock(planItemWrapper, options, userSettings, settingsType);
-        
+
         this.materializeHandler.initSelect();
     }
 
@@ -95,38 +106,49 @@ class EditPlanPageView {
             <i class="icon ${icon}"></i>
             ${text}
         </p>
-        `
+        `;
     }
 
-    private createSelectBlock(parentNode: HTMLElement, options: Array<string | number | TWorkoutLength>, userSettings: TSettings | void, settingsType: string): void {
-        
+    private createSelectBlock(
+        parentNode: HTMLElement,
+        options: Array<string | number | TWorkoutLength>,
+        userSettings: TSettings | void,
+        settingsType: string
+    ): void {
         const selectBlockWrapper = Node.setChild(parentNode, 'div', 'input-field col s12');
         const selectTag = Node.setChild(selectBlockWrapper, 'select');
         options.forEach((option, index) => {
-            if(settingsType !== 'workoutLength') {
+            if (settingsType !== 'workoutLength') {
                 const selectOption = Node.setChild(selectTag, 'option', '', option.toString());
                 selectOption.setAttribute('value', (index + 1).toString());
-                
-                switch(settingsType) {
+
+                switch (settingsType) {
                     case 'goal':
                         if (option === GoalTitles[(userSettings as TSettings)[settingsType]]) {
                             selectOption.setAttribute('selected', 'selected');
-                        };
+                        }
                         break;
                     case 'duration':
                         if (option === +(userSettings as TSettings)[settingsType]) {
                             selectOption.setAttribute('selected', 'selected');
-                        };
+                        }
                         break;
                     case 'workoutsNumber':
                         if (option === (userSettings as TSettings)[settingsType]) {
                             selectOption.setAttribute('selected', 'selected');
-                        };
+                        }
                         break;
                 }
             } else {
-                const selectOption = (index !== 3) ? Node.setChild(selectTag, 'option', '', `${(option as TWorkoutLength).min} - ${(option as TWorkoutLength).max} min`)
-                                                              : Node.setChild(selectTag, 'option', '', `${(option as TWorkoutLength).min}+ min`);
+                const selectOption =
+                    index !== 3
+                        ? Node.setChild(
+                              selectTag,
+                              'option',
+                              '',
+                              `${(option as TWorkoutLength).min} - ${(option as TWorkoutLength).max} min`
+                          )
+                        : Node.setChild(selectTag, 'option', '', `${(option as TWorkoutLength).min}+ min`);
                 if ((option as TWorkoutLength).min === (userSettings as TSettings).workoutLength.min) {
                     selectOption.setAttribute('selected', 'selected');
                 }
@@ -138,67 +160,34 @@ class EditPlanPageView {
         const wrapper = Node.setChild(parentNode, 'div', 'editplan-input-wrapper');
         const input = Node.setChild(wrapper, 'input', 'editplan-input');
         input.setAttribute('value', '0');
-        const span = Node.setChild(wrapper, 'span', 'editplan-unit', 'kg');
+        Node.setChild(wrapper, 'span', 'editplan-unit', 'kg');
     }
 
     private createFavoriteTypesChoice(parentNode: HTMLElement, userSettings: TSettings | void): void {
-        const options = [WorkoutType.HIIT, WorkoutType.boxing, WorkoutType.cardio, WorkoutType.dance, WorkoutType.meditation, WorkoutType.pilates, WorkoutType.strength, WorkoutType.stretch, WorkoutType.yoga]
+        const options = [
+            WorkoutType.HIIT,
+            WorkoutType.boxing,
+            WorkoutType.cardio,
+            WorkoutType.dance,
+            WorkoutType.meditation,
+            WorkoutType.pilates,
+            WorkoutType.strength,
+            WorkoutType.stretch,
+            WorkoutType.yoga,
+        ];
         const checkedOptions = [...(userSettings as TSettings).favWorkouts];
-        
-        parentNode.append(modal.getTemplate(ModalContents.options, 'editplan', 'Change', 'Save', options, checkedOptions))
+
+        parentNode.append(
+            modal.getTemplate(ModalContents.options, 'editplan', 'Change', 'Save', options, checkedOptions)
+        );
         parentNode.insertAdjacentHTML('beforeend', this.addModalTrigger());
-        // const modalWrapper = Node.setChild(parentNode, 'div', 'modal editplan');
-        // modalWrapper.setAttribute('id', 'modal1');
-
-        // const modalContent = Node.setChild(modalWrapper, 'div', 'modal-content');
-        // const form = Node.setChild(modalContent, 'form');
-        // form.setAttribute('action', '#');
-
-
-
-        // const modalFooter = Node.setChild(modalWrapper, 'div', 'modal-footer');
-        // const saveBtn = Node.setChild(modalFooter, 'a', 'modal-close waves-effect waves-red btn-flat editplan', 'Save');
-        // saveBtn.setAttribute('href', '#/editplan');
-
-        // parentNode.insertAdjacentHTML('beforeend', this.addModalTrigger());
-    }
-
-    private generateOptions(): void {
-        const options = [WorkoutType.HIIT, WorkoutType.boxing, WorkoutType.cardio, WorkoutType.dance, WorkoutType.meditation, WorkoutType.pilates, WorkoutType.strength, WorkoutType.stretch, WorkoutType.yoga];
     }
 
     private addModalTrigger(): string {
         return `
         <a class="waves-effect waves-light btn modal-trigger favWorkouts-choice" href="#modal1">Change</a>
-        `
+        `;
     }
-
-    // private createFavoriteTypesChoice(): string {
-    //     return `
-    //     <div id="modal1" class="modal editplan">
-            
-    //         <div class="modal-content">
-    //             <form action="#">
-                    
-    //                 <p>
-    //                     <label for="red" class="editplan">
-    //                         <input type="checkbox" id="red"/>
-    //                         <span class="editplan">Red</span>
-    //                     </label>
-    //                 </p>
-                
-    //             </form>    
-    //         </div>
-
-    //         <div class="modal-footer">
-    //             <a href="#/editplan" class="modal-close waves-effect waves-red btn-flat editplan">Save</a>
-    //         </div>
-
-    //     </div>
-
-    //     <a class="waves-effect waves-light btn modal-trigger favWorkouts-choice" href="#modal1">Change</a>
-    //     `
-    // }
 }
 
 export default EditPlanPageView;

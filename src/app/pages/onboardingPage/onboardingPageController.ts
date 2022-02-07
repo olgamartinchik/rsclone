@@ -107,7 +107,7 @@ class OnboardingPageController {
             clickedElement.classList.toggle('up');
         } else {
             select.classList.add('active');
-            const arrowIcon = <HTMLElement>(<HTMLElement>clickedElement.nextElementSibling).nextElementSibling; 
+            const arrowIcon = <HTMLElement>(<HTMLElement>clickedElement.nextElementSibling).nextElementSibling;
             arrowIcon.classList.remove('down');
             arrowIcon.classList.add('up');
         }

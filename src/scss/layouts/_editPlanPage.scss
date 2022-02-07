@@ -1,110 +1,110 @@
 .decorative-editplan {
-  width: 100%;
-  height: 210px;
-  background-image: linear-gradient(-180deg, $color-background-linear-1 -8.99%, $color-background-linear-2 109.7%),
-  url('../../assets/img/kickstart-editplan.jpg');
-  background-repeat: no-repeat;
-  background-position: top;
-  position: relative;
+    width: 100%;
+    height: 210px;
+    background-image: linear-gradient(-180deg, $color-background-linear-1 -8.99%, $color-background-linear-2 109.7%),
+        url('../../assets/img/kickstart-editplan.jpg');
+    background-repeat: no-repeat;
+    background-position: top;
+    position: relative;
 }
 
 .editplan-title {
-  margin: 0;
-  margin-bottom: 15px;
-  padding-top: 15px;
-  text-align: center;
-  color: $color-text-on-dark;
-  font-size: 30px;
+    margin: 0;
+    margin-bottom: 15px;
+    padding-top: 15px;
+    text-align: center;
+    color: $color-text-on-dark;
+    font-size: 30px;
 }
 
 .editplan-input-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  flex-basis: 24%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    flex-basis: 24%;
 }
 
 .editplan-unit {
-  flex-basis: 50%;
-  font-size: 18px;
-  color: $color-text-navbar;
+    flex-basis: 50%;
+    font-size: 18px;
+    color: $color-text-navbar;
 }
 
 .center-img.editplan {
-  margin-bottom: 0;
-  height: 120px;
+    margin-bottom: 0;
+    height: 120px;
 }
 
 .plan-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 40px;
-  border-bottom: 1px solid $color-border-light;
-  .input-field {
-    margin: 0;
-  }
-  &.wrapper {
-    margin-bottom: 10px;
-  }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid $color-border-light;
+    .input-field {
+        margin: 0;
+    }
+    &.wrapper {
+        margin-bottom: 10px;
+    }
 }
 
 input[type='text']:not(.browser-default),
 input:not([type]) {
-  &.select-dropdown {
-  margin-bottom: 0;
-  width: 145px;
-  border-bottom: none;
-  text-align: center;
-  color: $color-text-navbar;
-  font-size: 18px;
-  }
-  &.editplan-input {
-    border: none;
-    flex-basis: 50%;
-    width: 50px;
-    height: 30px;
-    margin: 0;
-    text-align: center;
-    font-size: 18px;
-    color: $color-text-navbar;
-  }
+    &.select-dropdown {
+        margin-bottom: 0;
+        width: 145px;
+        border-bottom: none;
+        text-align: center;
+        color: $color-text-navbar;
+        font-size: 18px;
+    }
+    &.editplan-input {
+        border: none;
+        flex-basis: 50%;
+        width: 50px;
+        height: 30px;
+        margin: 0;
+        text-align: center;
+        font-size: 18px;
+        color: $color-text-navbar;
+    }
 }
 
 .btn.favWorkouts-choice {
-  background-color: transparent;
-  color: $color-text-navbar;
-  font-size: 18px;
-  text-transform: none;
+    background-color: transparent;
+    color: $color-text-navbar;
+    font-size: 18px;
+    text-transform: none;
 }
 
 label.editplan {
-  color: $color-text-navbar;
+    color: $color-text-navbar;
 }
 
-[type=checkbox] + span:not(.lever).editplan {
-  font-size: 18px;
+[type='checkbox'] + span:not(.lever).editplan {
+    font-size: 18px;
 }
 
-[type=checkbox]:checked + span:not(.lever).editplan:before {
-  border-right: 2px solid $color-primary;
-  border-bottom: 2px solid $color-primary;
+[type='checkbox']:checked + span:not(.lever).editplan:before {
+    border-right: 2px solid $color-primary;
+    border-bottom: 2px solid $color-primary;
 }
 
 .btn-flat.editplan {
-  color: $color-text-navbar;
-  font-size: 18px;
+    color: $color-text-navbar;
+    font-size: 18px;
 }
 
 .modal.editplan {
-  width: 35%;
-  max-height: 85%;
-  .modal-content {
-    padding: 10px 24px;
-    p {
-      margin: 10px 0;
+    width: 35%;
+    max-height: 85%;
+    .modal-content {
+        padding: 10px 24px;
+        p {
+            margin: 10px 0;
+        }
     }
-  }
 }
