@@ -8,7 +8,7 @@ class EditPlanPageController {
     private view: EditPlanPageView;
 
     private userSettings: TSettings | void;
-    
+
     private modifiedUserSettings: TSettings | void;
 
     constructor() {
@@ -18,7 +18,7 @@ class EditPlanPageController {
     }
 
     public createPage() {
-        this.view.render(this.userSettings, this.handleSettingsChoice.bind(this)); 
+        this.view.render(this.userSettings, this.handleSettingsChoice.bind(this));
     }
 
     private getUserSettings(): TSettings | void {
@@ -37,17 +37,20 @@ class EditPlanPageController {
         const settingValueChosen = settingInput.value;
         const saveButton = <HTMLButtonElement>(<HTMLElement>settingBlock.parentElement).querySelector('button');
         const enumID = this.userSettings[settingsType];
-        
-        switch(settingsType) {
+
+        switch (settingsType) {
             case 'goal':
                 this.updateUserSettings(settingsType, settingValueChosen);
                 this.handleSaveButtonStatus(GoalTitles[enumID], settingValueChosen, saveButton);
-                this.toggleDesiredWeightBlock(settingValueChosen, settingsWrapper); 
+                this.toggleDesiredWeightBlock(settingValueChosen, settingsWrapper);
                 break;
             case 'duration':
             case 'workoutsNumber':
                 this.updateUserSettings(settingsType, +settingValueChosen);
                 this.handleSaveButtonStatus(this.userSettings[settingsType].toString(), settingValueChosen, saveButton);
+                break;
+            case 'workoutLength':
+                console.log(settingValueChosen);
                 break;
         }
     }
@@ -60,7 +63,11 @@ class EditPlanPageController {
         }
     }
 
-    private handleSaveButtonStatus(settingValue: string, settingValueChosen: string, saveButton: HTMLButtonElement): void {
+    private handleSaveButtonStatus(
+        settingValue: string,
+        settingValueChosen: string,
+        saveButton: HTMLButtonElement
+    ): void {
         const haveSettingsChanged = !Utils.compareObjects(this.userSettings, this.modifiedUserSettings);
 
         if (settingValueChosen !== settingValue || haveSettingsChanged) {
@@ -73,7 +80,7 @@ class EditPlanPageController {
     }
 
     private toggleDesiredWeightBlock(settingValueChosen: string, settingsWrapper: HTMLElement): void {
-        if(settingValueChosen === 'Lose weight') {
+        if (settingValueChosen === 'Lose weight') {
             settingsWrapper.children[1].classList.remove('hidden');
         } else {
             settingsWrapper.children[1].classList.add('hidden');

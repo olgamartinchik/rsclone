@@ -13,7 +13,6 @@ import {
     ModalContents,
 } from '../../services/constants';
 import { TSettings, TWorkoutLength } from '../../services/types';
-import userSettings from '../../services/mocks/defaultData';
 
 class EditPlanPageView {
     private rootNode: HTMLElement;
@@ -27,8 +26,14 @@ class EditPlanPageView {
 
     public render(userSettings: TSettings | void, onchange: (e: Event) => void): void {
         this.rootNode.textContent = '';
-        this.rootNode.append(header.getTemplate());
 
+        this.createHeader();
+        this.createMainLayout(userSettings, onchange);
+        this.createFooter();
+    }
+
+    private createHeader(): void {
+        this.rootNode.append(header.getTemplate());
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -38,30 +43,40 @@ class EditPlanPageView {
         ]);
         navbar.generateMenu();
         navbar.addProfileLink('O');
-
-        this.createMainLayout(userSettings, onchange);
-
-        this.rootNode.append(footer.getTemplate());
     }
 
     private createMainLayout(userSettings: TSettings | void, onchange: (e: Event) => void): void {
         const main = new Node(this.rootNode, 'main', 'main-layout');
-        const decorativeBlock = Node.setChild(main.node, 'div', 'decorative-editplan');
-        Node.setChild(decorativeBlock, 'h2', 'title editplan-title', 'Edit plan');
-        const decorativeImg = Node.setChild(decorativeBlock, 'img', 'center-img editplan') as HTMLImageElement;
-        decorativeImg.src = '../../../assets/img/svg/kick_start.svg';
+        this.insertDecorativeBlock(main.node);
         const editPlanWrapper = Node.setChild(main.node, 'div', 'settings-wrapper');
 
         this.createPlanItem(editPlanWrapper, 'Fitness Goal', 'target', userSettings, 'goal', onchange);
         this.createPlanItem(editPlanWrapper, 'Desired weight', 'weight', userSettings, 'desiredWeight', onchange);
         this.createPlanItem(editPlanWrapper, 'Program duration', 'duration', userSettings, 'duration', onchange);
-        this.createPlanItem(editPlanWrapper, 'Workouts per week', 'frequency', userSettings, 'workoutsNumber', onchange);
+        this.createPlanItem(
+            editPlanWrapper,
+            'Workouts per week',
+            'frequency',
+            userSettings,
+            'workoutsNumber',
+            onchange
+        );
         this.createPlanItem(editPlanWrapper, 'Workouts Length', 'clock', userSettings, 'workoutLength', onchange);
         this.createPlanItem(editPlanWrapper, 'Favorite Types', 'heart', userSettings, 'favWorkouts', onchange);
 
         const buttonWrapper = Node.setChild(editPlanWrapper, 'div', 'btn-wrapper edit-plan');
         const saveButton = new Button(buttonWrapper, 'Save');
         saveButton.setDisabled();
+    }
+
+    private insertDecorativeBlock(parentNode: HTMLElement): void {
+        const template = `
+        <div class="decorative-editplan">
+            <h2 class="title editplan-title">Edit plan</h2>
+            <img class="center-img editplan" src="../../../assets/img/svg/kick_start.svg" width="204" height="120" alt="Motivation logo">
+        </div>
+        `;
+        parentNode.insertAdjacentHTML('afterbegin', template);
     }
 
     private createPlanItem(
@@ -73,12 +88,12 @@ class EditPlanPageView {
         onchange: (e: Event) => void
     ): void {
         const planItemWrapper = Node.setChild(parentNode, 'div', 'plan-item wrapper');
-        planItemWrapper.insertAdjacentHTML('afterbegin', this.planItemTitle(title, icon));
         planItemWrapper.onchange = (e: Event) => onchange(e);
         this.setDataAttribute(planItemWrapper, 'data-type', settingsType);
 
-        let options = [] as Array<string | number | TWorkoutLength>;
+        planItemWrapper.insertAdjacentHTML('afterbegin', this.insertPlanItemTitle(title, icon));
 
+        let options = [] as Array<string | number | TWorkoutLength>;
         switch (settingsType) {
             case 'goal':
                 options = [GoalTitles.muscle, GoalTitles.relax, GoalTitles.toned, GoalTitles.weight];
@@ -90,7 +105,7 @@ class EditPlanPageView {
                 options = [WorkoutsNumber.small, WorkoutsNumber.medium, WorkoutsNumber.large, WorkoutsNumber.huge];
                 break;
             case 'desiredWeight':
-                this.createDesiredWeightInput(planItemWrapper);
+                this.createDesiredWeightInput(planItemWrapper, userSettings);
                 return;
             case 'workoutLength':
                 options = [{ min: 5, max: 10 }, { min: 15, max: 20 }, { min: 25, max: 30 }, { min: 30 }];
@@ -109,7 +124,7 @@ class EditPlanPageView {
         element.setAttribute(key, value);
     }
 
-    private planItemTitle(text: string, icon: string): string {
+    private insertPlanItemTitle(text: string, icon: string): string {
         return `
         <p class="settings-link">
             <i class="icon ${icon}"></i>
@@ -127,53 +142,78 @@ class EditPlanPageView {
         const selectBlockWrapper = Node.setChild(parentNode, 'div', 'input-field col s12');
         const selectTag = Node.setChild(selectBlockWrapper, 'select');
         selectTag.setAttribute('data-type', settingsType);
-        options.forEach((option, index) => {
-            if (settingsType !== 'workoutLength') {
-                const selectOption = Node.setChild(selectTag, 'option', '', option.toString());
-                selectOption.setAttribute('value', (index + 1).toString());
 
-                switch (settingsType) {
-                    case 'goal':
-                        if (option === GoalTitles[(userSettings as TSettings)[settingsType]]) {
-                            selectOption.setAttribute('selected', 'selected');
-                        }
-                        break;
-                    case 'duration':
-                        if (option === +(userSettings as TSettings)[settingsType]) {
-                            selectOption.setAttribute('selected', 'selected');
-                        }
-                        break;
-                    case 'workoutsNumber':
-                        if (option === (userSettings as TSettings)[settingsType]) {
-                            selectOption.setAttribute('selected', 'selected');
-                        }
-                        break;
-                }
-            } else {
-                const selectOption =
-                    index !== 3
-                        ? Node.setChild(
-                              selectTag,
-                              'option',
-                              '',
-                              `${(option as TWorkoutLength).min} - ${(option as TWorkoutLength).max} min`
-                          )
-                        : Node.setChild(selectTag, 'option', '', `${(option as TWorkoutLength).min}+ min`);
-                if ((option as TWorkoutLength).min === (userSettings as TSettings).workoutLength.min) {
-                    selectOption.setAttribute('selected', 'selected');
-                }
+        options.forEach((option, index) => {
+            switch (settingsType) {
+                case 'goal':
+                case 'duration':
+                case 'workoutsNumber':
+                    this.renderOptions(userSettings, settingsType, selectTag, option.toString(), index);
+                    break;
+                case 'workoutLength':
+                    if (index !== 3) {
+                        this.renderOptions(
+                            userSettings,
+                            settingsType,
+                            selectTag,
+                            `${(<TWorkoutLength>option).min} - ${(<TWorkoutLength>option).max} min`,
+                            index
+                        );
+                    } else {
+                        this.renderOptions(
+                            userSettings,
+                            settingsType,
+                            selectTag,
+                            `${(<TWorkoutLength>option).min}+ min`,
+                            index
+                        );
+                    }
+                    break;
             }
         });
     }
 
-    private createDesiredWeightInput(parentNode: HTMLElement): void {
+    private renderOptions(
+        userSettings: TSettings | void,
+        settingsType: string,
+        parentNode: HTMLElement,
+        option: string,
+        index: number
+    ): void {
+        const selectOption = Node.setChild(parentNode, 'option', '', option);
+        selectOption.setAttribute('value', (index + 1).toString());
+
+        switch (settingsType) {
+            case 'goal':
+                this.selectOption(option === GoalTitles[(<TSettings>userSettings)[settingsType]], selectOption);
+                break;
+            case 'duration':
+            case 'workoutNumber':
+                this.selectOption(+option === +(<TSettings>userSettings)[settingsType], selectOption);
+                break;
+            case 'workoutLength':
+                this.selectOption(
+                    <string>option.split(' ')[0] === (<TSettings>userSettings).workoutLength.min.toString(),
+                    selectOption
+                );
+                break;
+        }
+    }
+
+    private selectOption<T>(condition: T, selectOption: HTMLElement): void {
+        if (condition) {
+            selectOption.setAttribute('selected', 'selected');
+        }
+    }
+
+    private createDesiredWeightInput(parentNode: HTMLElement, userSettings: TSettings | void): void {
         const wrapper = Node.setChild(parentNode, 'div', 'editplan-input-wrapper');
         const input = Node.setChild(wrapper, 'input', 'editplan-input');
         input.setAttribute('value', '0');
         input.setAttribute('data-type', 'desiredWeight');
         Node.setChild(wrapper, 'span', 'editplan-unit', 'kg');
 
-        if (userSettings.goal !== 'weight') parentNode.classList.add('hidden');
+        if ((<TSettings>userSettings).goal !== 'weight') parentNode.classList.add('hidden');
     }
 
     private createFavoriteTypesChoice(parentNode: HTMLElement, userSettings: TSettings | void): void {
@@ -188,7 +228,7 @@ class EditPlanPageView {
             WorkoutType.stretch,
             WorkoutType.yoga,
         ];
-        const checkedOptions = [...(userSettings as TSettings).favWorkouts];
+        const checkedOptions = [...(<TSettings>userSettings).favWorkouts];
 
         parentNode.append(
             modal.getTemplate(ModalContents.options, 'editplan', 'Save', options, checkedOptions, 'favWorkouts')
@@ -200,6 +240,10 @@ class EditPlanPageView {
         return `
         <a class="waves-effect waves-light btn modal-trigger favWorkouts-choice" href="#modal1">Change</a>
         `;
+    }
+
+    private createFooter(): void {
+        this.rootNode.append(footer.getTemplate());
     }
 }
 
