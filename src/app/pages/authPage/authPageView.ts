@@ -1,6 +1,5 @@
 import Auth from '../../components/auth/auth';
 import Preloader from '../../components/preloader/preloader';
-import Node from '../../components/Node';
 
 export default class AuthView {
     private rootNode: HTMLElement;
@@ -12,23 +11,35 @@ export default class AuthView {
         this.auth = new Auth(this.rootNode);
     }
 
-    public render(onchange: (e: Event) => void, onclick: (e: Event) => void, isLogin: boolean) {
+    public render(onchange: (e: Event) => void, oninput: (e: Event) => void, onBackBtnclick: (e: Event) => void, onclick: (e: Event) => void, isLogin: boolean) {
         this.rootNode.textContent = '';
+        this.rootNode.append(this.auth.getTemplate(isLogin, onBackBtnclick, onclick));
+        this.activateValidation();
+        this.addOnChangeEvent(onchange);
+        this.addOnInputEvent(oninput);
+    }
 
-        this.rootNode.append(this.auth.getTemplate(isLogin));
-
+    private addOnChangeEvent(onchange: (e: Event) => void): void {
         const inputs = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
         inputs.forEach((input) => {
             input.onchange = (e: Event) => onchange(e);
         });
+    }
 
-        const form = document.querySelector('.login-content') as HTMLElement;
-        if (isLogin) {
-            const authLink = new Node(form, 'a', 'auth-link', 'Not Registered yet?');
-            authLink.setAttribute('href', `#/register`);
-        }
+    private addOnInputEvent(oninput: (e: Event) => void): void {
+        const inputs = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;   
+        inputs.forEach((input) => {
+            input.oninput = (e: Event) => oninput(e);
+        });
+    }
 
-        this.rootNode.append(this.auth.addButton(onclick));
+    private activateValidation(): void {
+        const nameInput = <HTMLInputElement>this.rootNode.querySelector('#userName');
+        const emailInput = <HTMLInputElement>this.rootNode.querySelector('#email');
+        const passwordInput = <HTMLInputElement>this.rootNode.querySelector('#password');
+        if(nameInput) nameInput.setAttribute('pattern', '^[a-zA-Zа-яА-Я*\s]{2,15}$');
+        if(emailInput) emailInput.setAttribute('pattern', '^([a-zA-Z_\-]{3,15})@([a-z]{4,})(\.)([a-z]{2,})');
+        if(passwordInput) passwordInput.setAttribute('pattern', '^[0-9a-zA-Z!@#$%^&*]{6,}$');
     }
 
     public handlePreloader(isLoading: boolean): void {

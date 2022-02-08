@@ -71,6 +71,9 @@ export enum Message {
     valueMissing = 'Please, choose a value',
     invalidWeightValue = 'Please, select desired weight less than actual one',
     desiredWeightmissing = 'Please, choose desired weight',
+    invalidName = 'Please enter a valid name consisting only of letters',
+    invalidPassword = 'Password should not be less than 6 symbols',
+    invalidValue = 'Please enter a valid value',
 }
 
 export enum Height {
