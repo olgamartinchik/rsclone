@@ -1,16 +1,13 @@
-import { TLoginForm, TToken } from '../../services/types';
+import { TLoginForm } from '../../services/types';
 import authManager from '../../services/authManager';
 import ClientManager from '../../services/clientManager';
 import StorageManager from '../../services/storageManager';
-import { Message } from '../../services/constants';
 import storageManager from '../../services/storageManager';
 
 export default class AuthModel {
     private form: TLoginForm;
 
     public isLoading: boolean;
-
-    private isSuccess: boolean;
 
     private clientManager: ClientManager;
 
@@ -22,7 +19,6 @@ export default class AuthModel {
             email: '',
             password: '',
         };
-        this.isSuccess = true;
     }
 
     public changeHandler(...args: Array<Partial<TLoginForm>>) {
@@ -30,8 +26,6 @@ export default class AuthModel {
         if (authData.userName || authData.userName === '') this.form.userName = authData.userName;
         if (authData.email || authData.email === '') this.form.email = authData.email;
         if (authData.password || authData.password === '') this.form.password = authData.password;
-        
-        console.log(this.form);
     }
 
     public checkUserData(isExistingUser: boolean): void {
@@ -41,14 +35,14 @@ export default class AuthModel {
                 if (this.form.email && this.form.password) {
                     this.activateSendBtn();
                 } else if (!this.form.email || !this.form.password) {
-                    this.disactivateSendBtn();
+                    this.deactivateSendBtn();
                 }
                 break;
             case 'auth/register':
                 if (this.form.userName && this.form.email && this.form.password) {
                     this.activateSendBtn();
                 } else {
-                    this.disactivateSendBtn();
+                    this.deactivateSendBtn();
                 }
                 break;
         }
@@ -60,7 +54,7 @@ export default class AuthModel {
         button.removeAttribute('disabled');
     }
 
-    private disactivateSendBtn(): void {
+    private deactivateSendBtn(): void {
         const button = <HTMLElement>document.querySelector('.btn-send');
         button.classList.add('btn-disabled');
         button.setAttribute('disabled', 'disabled');
@@ -89,7 +83,7 @@ export default class AuthModel {
         this.form.userName = '';
         this.form.email = '';
         this.form.password = '';
-        StorageManager.deleteItem('token', 'local'); 
+        StorageManager.deleteItem('token', 'local');
     }
 
     private async saveUserSettings(): Promise<void> {

@@ -20,7 +20,13 @@ export default class AuthController {
         this.isExistingUser = isExistingUser;
         if (!this.isExistingUser) StorageManager.deleteItem('token', 'local');
 
-        this.view.render(this.handleInputChange.bind(this), this.handleInput.bind(this), this.handleBackButtonClick.bind(this), this.handleButtonClick.bind(this), this.isExistingUser);
+        this.view.render(
+            this.handleInputChange.bind(this),
+            this.handleInput.bind(this),
+            this.handleBackButtonClick.bind(this),
+            this.handleButtonClick.bind(this),
+            this.isExistingUser
+        );
         StorageManager.deleteItem('userSettings', 'local');
         StorageManager.deleteItem('workout-program', 'local');
         StorageManager.deleteItem('workout-cards', 'local');
@@ -30,25 +36,25 @@ export default class AuthController {
         const element = <HTMLInputElement>e.target;
         const elementType = element.id;
         const value = element.value;
-        if (value === '') this.model.changeHandler({[elementType]: value});
-        
+        if (value === '') this.model.changeHandler({ [elementType]: value });
+
         this.handleValidation(elementType, element);
     }
 
     private handleInput(e: Event): void {
         const element = <HTMLInputElement>e.target;
-        const elementType = element.id; 
+        const elementType = element.id;
         const value = element.value;
-        if (element.validity.valid ) {
-            this.model.changeHandler({[elementType]: value});
+        if (element.validity.valid) {
+            this.model.changeHandler({ [elementType]: value });
         } else {
-            this.model.changeHandler({[elementType]: ''});
+            this.model.changeHandler({ [elementType]: '' });
         }
         this.model.checkUserData(this.isExistingUser);
     }
 
     private handleValidation(type: string, element: HTMLInputElement): void {
-        if(!element.validity.valid) {
+        if (!element.validity.valid) {
             switch (type) {
                 case 'userName':
                     this.model.createMessage(Message.invalidName);
@@ -64,9 +70,9 @@ export default class AuthController {
     }
 
     private handleBackButtonClick(): void {
-        this.model.changeHandler({['userName']: ''});
-        this.model.changeHandler({['email']: ''});
-        this.model.changeHandler({['password']: ''});
+        this.model.changeHandler({ ['userName']: '' });
+        this.model.changeHandler({ ['email']: '' });
+        this.model.changeHandler({ ['password']: '' });
     }
 
     private async handleButtonClick(e: Event): Promise<void> {

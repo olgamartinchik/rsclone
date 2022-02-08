@@ -19,7 +19,7 @@ export default class Auth {
     private addBackButton(parentNode: HTMLElement, onBackBtnClick: (e: Event) => void): void {
         const backButton = new Node(parentNode, 'a', 'back-btn');
         backButton.setAttribute('href', '#/main');
-        backButton.node.onclick = (e: Event) => onBackBtnClick(e); 
+        backButton.node.onclick = (e: Event) => onBackBtnClick(e);
         Node.setChild(backButton.node, 'i', 'icon arrow-left');
     }
 
