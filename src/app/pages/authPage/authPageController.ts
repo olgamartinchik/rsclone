@@ -1,9 +1,9 @@
-import AuthModel from './authPageModel';
-import AuthView from './authPageView';
+import authModel, { AuthModel } from './authPageModel';
+import authView, { AuthView } from './authPageView';
 import StorageManager from '../../services/storageManager';
 import { Message } from '../../services/constants';
 
-export default class AuthController {
+export class AuthPageController {
     private model: AuthModel;
 
     private view: AuthView;
@@ -11,8 +11,8 @@ export default class AuthController {
     private isExistingUser: boolean;
 
     constructor() {
-        this.model = new AuthModel();
-        this.view = new AuthView();
+        this.model = authModel;
+        this.view = authView;
         this.isExistingUser = false;
     }
 
@@ -94,3 +94,5 @@ export default class AuthController {
         button.removeAttribute('disabled');
     }
 }
+
+export default new AuthPageController();

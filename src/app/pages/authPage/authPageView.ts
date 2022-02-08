@@ -1,10 +1,10 @@
 import Auth from '../../components/auth/auth';
 import Preloader from '../../components/preloader/preloader';
 
-export default class AuthView {
+export class AuthView {
     private rootNode: HTMLElement;
 
-    auth: Auth;
+    private auth: Auth;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
@@ -56,3 +56,5 @@ export default class AuthView {
         }
     }
 }
+
+export default new AuthView();

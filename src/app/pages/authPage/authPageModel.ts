@@ -1,10 +1,10 @@
-import { TLoginForm } from '../../services/types';
+import { TLoginForm, TLoginResponse } from '../../services/types';
 import authManager from '../../services/authManager';
 import ClientManager from '../../services/clientManager';
 import StorageManager from '../../services/storageManager';
 import storageManager from '../../services/storageManager';
 
-export default class AuthModel {
+export class AuthModel {
     private form: TLoginForm;
 
     public isLoading: boolean;
@@ -26,6 +26,7 @@ export default class AuthModel {
         if (authData.userName || authData.userName === '') this.form.userName = authData.userName;
         if (authData.email || authData.email === '') this.form.email = authData.email;
         if (authData.password || authData.password === '') this.form.password = authData.password;
+        console.log(this.form);
     }
 
     public checkUserData(isExistingUser: boolean): void {
@@ -62,11 +63,11 @@ export default class AuthModel {
 
     public async authHandler(type: string): Promise<void> {
         this.isLoading = true;
-        await this.clientManager.postData(`${type}`, this.form);
+        const data = await this.clientManager.postData(`${type}`, this.form);
         this.isLoading = false;
-
+        console.log((<TLoginResponse>data).userName);
         if (this.clientManager.result) {
-            this.saveData(type);
+            this.saveData(type, (<TLoginResponse>data).userName);
             this.navigate(type);
         } else {
             this.createMessage(this.clientManager.text);
@@ -74,12 +75,20 @@ export default class AuthModel {
         }
     }
 
-    private saveData(type: string): void {
+    private saveData(type: string, userName: string): void {
         StorageManager.addItem('token', this.clientManager.token, 'local');
-        if (type === 'auth/login') this.saveUserSettings();
+        switch(type) {
+            case 'auth/register':
+                StorageManager.addItem('user', this.form.userName.split('')[0], 'local');
+                break;
+            case 'auth/login':
+                StorageManager.addItem('user', userName.split('')[0], 'local');
+                this.saveUserSettings();
+                break;
+        }
     }
 
-    private destroyData(): void {
+    public destroyData(): void {
         this.form.userName = '';
         this.form.email = '';
         this.form.password = '';
@@ -112,3 +121,5 @@ export default class AuthModel {
         return this.isLoading;
     }
 }
+
+export default new AuthModel();
