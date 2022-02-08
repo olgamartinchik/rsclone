@@ -60,7 +60,6 @@ class MealPageModel {
         const mm = String(day.getMonth() + 1).padStart(2, '0');
         const yyyy = day.getFullYear();
         this.today = mm + '/' + dd + '/' + yyyy;
-        localStorage.setItem('today', JSON.stringify(this.today));
         return this.today;
     }
 }

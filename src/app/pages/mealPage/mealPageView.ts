@@ -16,12 +16,14 @@ class MealPageView {
     cardsWrapper!: Node<HTMLElement>;
 
     contentBlock!: Node<HTMLElement>;
+    count:number
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
         this.rootNodeInput = <HTMLElement>document.createElement('input');
         this.rootNodeInput.className = 'search-meals';
         this.rootNodeBtn = <HTMLElement>document.createElement('button');
+        this.count=0
     }
 
     render(
@@ -88,12 +90,13 @@ class MealPageView {
     }
 
     getExploreCards(exploreData: Array<IDataExplore>, onclick: (e: Event) => void) {
-        const cards = exploreData.map((data, ind) => new MealCard(data,ind).getExploreTemplate(onclick));
+        const cards = exploreData.map((data, ind) => new MealCard(data).getExploreTemplate(onclick,ind));
         return cards;
     }
 
     getMealCards(mealData: Array<IDataExplore>, onclick: (e: Event) => void) {
-        const cards = mealData.map((data, ind) => new MealCard(data, ind).getMealTemplate(onclick));
+      
+        const cards = mealData.map((data, ind) => new MealCard(data).getMealTemplate(onclick, ind));
         return cards;
     }
 
@@ -111,7 +114,7 @@ class MealPageView {
     }
 
     getSearchingCards(searchingData: Array<IDataExplore>, onclick: (e: Event) => void) {
-        const cards = searchingData.map((data, ind) => new MealCard(data, ind).getSearchingTemplate(onclick));
+        const cards = searchingData.map((data, ind) => new MealCard(data).getSearchingTemplate(onclick, ind));
         return cards;
     }
 

@@ -15706,7 +15706,7 @@ p.settings-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 1.5s ease-in-out;
+  transition: 1s ease-in-out;
 }
 
 .meal-type-section::before {

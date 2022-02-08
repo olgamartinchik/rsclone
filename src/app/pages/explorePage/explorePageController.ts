@@ -99,7 +99,11 @@ class ExploreController{
     handlersDietCards(e:Event){
         if((e.target as HTMLElement).closest('.meal-card')){
             let card=(e.target as HTMLElement).closest('.meal-card')
-            console.log('111', card)
+            const cardNum=card!.getAttribute('data-num')
+            const localDiet=StorageApiManager.getItem('diet',  'local')
+            const recipePageData=(StorageApiManager.getItem(`dietData-${localDiet}`,  'local')as Array<IDataExplore>)[Number(cardNum)]
+            console.log('111', cardNum,localDiet,recipePageData)
+            StorageApiManager.addItem('recipePageData', recipePageData,'local')
         }
         
         

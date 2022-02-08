@@ -77,7 +77,13 @@ class MealPageController {
         this.inputValue = value.toLowerCase().trim();
     }
 
-    handlerMealCard() {}
+    handlerMealCard(e:Event) {
+        if((e.target as HTMLElement).closest('.meal-card')){
+            const cardNum=(e.target as HTMLElement).closest('.meal-card')!.getAttribute('data-num')
+            const recipePageData=(StorageApiManager.getItem('mealData','local')as Array<IDataExplore>)[Number(cardNum)]
+            StorageApiManager.addItem('recipePageData', recipePageData,'local')
+        }
+    }
 
     handlerExploreCard(e:Event) {
         let dietCard=(e.target as HTMLElement).closest('.explore-card')
@@ -88,7 +94,13 @@ class MealPageController {
 
     }
 
-    handlerSearchingCard() {}
+    handlerSearchingCard(e:Event) {
+        if((e.target as HTMLElement).closest('.meal-card')){
+            const cardNum=(e.target as HTMLElement).closest('.meal-card')!.getAttribute('data-num')
+            const recipePageData=(StorageApiManager.getItem('searchingData','local')as Array<IDataExplore>)[Number(cardNum)]
+            StorageApiManager.addItem('recipePageData', recipePageData,'local')
+        }
+    }
 
     async handlerBtn() {
         if (this.inputValue) {
