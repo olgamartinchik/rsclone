@@ -24,6 +24,7 @@ class EditPlanPageController {
 
     public createPage() {
         this.userSettings = this.getUserSettings();
+        this.modifiedUserSettings = this.getModifiedUserSettings();
         this.view.render(this.userSettings, this.handleSettingsChoice.bind(this), this.handleSaveBtnClick.bind(this));
     }
 
@@ -111,7 +112,6 @@ class EditPlanPageController {
 
     private handleSaveButtonStatus(saveButton: HTMLButtonElement): void {
         const haveSettingsChanged = !Utils.compareObjects(this.userSettings, this.modifiedUserSettings);
-
         if (haveSettingsChanged) {
             saveButton.classList.remove('btn-disabled');
             saveButton.removeAttribute('disabled');
@@ -135,7 +135,7 @@ class EditPlanPageController {
         }
     }
 
-    private handleSaveBtnClick(e: Event): void {
+    private handleSaveBtnClick(): void {
         if (
             (<TSettings>this.modifiedUserSettings).goal === 'weight' &&
             (<TSettings>this.modifiedUserSettings).desiredWeight === 0
@@ -149,9 +149,8 @@ class EditPlanPageController {
             const input = <HTMLInputElement>document.querySelector('.editplan-input');
             input.value = '0';
         } else {
-            console.log('modified', this.modifiedUserSettings);
-            // this.model.saveSettings(this.modifiedUserSettings);
-            // authManager.navigate('/settings');
+            this.model.saveSettings(this.modifiedUserSettings);
+            authManager.navigate('/settings');
         }
     }
 }

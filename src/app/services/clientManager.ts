@@ -60,7 +60,7 @@ class ClientManager {
     public async changeData(path: string, id: string, form: TLoginForm | TSettings): Promise<void | TSettings> {
         try {
             const response = await fetch(`https://rsclonebackend.herokuapp.com/api/${path}/${id}`, {
-                method: 'PUT',
+                method: 'PATCH',
                 body: JSON.stringify({ ...form }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -70,7 +70,6 @@ class ClientManager {
             if (!response.ok) {
                 throw new Error(data.message || 'Something went wrong');
             }
-
             return data;
         } catch (e: unknown) {
             if (e instanceof Error) {
