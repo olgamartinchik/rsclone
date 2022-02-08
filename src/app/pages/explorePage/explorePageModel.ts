@@ -14,7 +14,7 @@ class ExplorePageModel{
     }
    async getDataExplore(diet:string){
        const dietData:Array<IDataExplore>=[];
-        let randomNum=Utils.randomInteger(1, 200)
+        let randomNum=Utils.randomInteger(1, 50)
         for(let type of this.mealType){
         let data =await this.exploreDietData.mealExploreData(String(randomNum),String(randomNum+1),diet,type)
         dietData.push(...data)

@@ -66,7 +66,8 @@ export interface IDataExplore {
         label?: string;
         calories?: string;
         yield?: number;
-        diet?:string
+        diet?:string;
+        dietLabels?:string
     };
 }
 

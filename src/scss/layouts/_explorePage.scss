@@ -8,18 +8,20 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-
+    // filter: grayscale(100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: 1s ease-in-out;
+    transition: 1.5s ease-in-out;
 }
-// .meal-type-section::after {
-//     content: '';
-//     position: absolute;
-//     height: 30vh;
-//     width: 100%;
-// }
+.meal-type-section::before {
+    content: '';
+    position: absolute;
+    height: 30vh;
+    width: 100%;
+    // background: linear-gradient(135deg, rgb(57, 60, 59), rgb(233, 240, 239));
+    opacity: 0.3;
+}
 .meal-section .explore-container {
     padding: 10px 0px 70px;
 }
@@ -48,14 +50,16 @@
     position: absolute;
     left: 15px;
     top: 15px;
+
+    backdrop-filter: blur(2px);
 }
 .fa-long-arrow-alt-left {
     color: #fff;
-    font-size: 55px;
+    font-size: 45px;
     padding: 0 15px;
     text-shadow: 5px 2px 3px black, 0 0 1em white;
     transition: 0.3s ease-in-out;
-    backdrop-filter: blur(2px);
+
     cursor: pointer;
     &:hover {
         transform: scale(1.1);

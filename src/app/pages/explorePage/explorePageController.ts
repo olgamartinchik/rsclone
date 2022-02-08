@@ -5,7 +5,7 @@ import { IDataExplore } from "../../services/types";
 class ExploreController{
     private view: ExplorePageView;
     private model: ExplorePageModel;
-    dietData:Array<IDataExplore>|null
+    dietData:Array<IDataExplore>|null|void
     constructor(){
       this.view=new ExplorePageView()
       this.model=new ExplorePageModel()
@@ -73,18 +73,36 @@ class ExploreController{
         for(let i=0;i<containersCards.length; i++){
             if(containersCards[i].getAttribute('data-diet')===diet){
                 containersCards[i].innerHTML=''
-                this.dietData=await this.model.getDataExplore(diet) 
-                console.log('data1', this.dietData)
+             
+                if(StorageApiManager.getItem(`dietData-${diet}`, 'local')){
+                    this.dietData = StorageApiManager.getItem(`dietData-${diet}`, 'local')
+                    // console.log('data1', this.dietData)
+                }else{
+                    this.dietData=await this.model.getDataExplore(diet)
+                    if( this.dietData && (this.dietData as IDataExplore[]).length !==0){
+                        StorageApiManager.addItem(`dietData-${diet}`, this.dietData, 'local'); 
+                    }                 
+                     
+                }
+                
+                
                 if(this.dietData){
-                   const cards= this.view.getCardsDiet(this.dietData, this.handlersDietCards)
+                   const cards= this.view.getCardsDiet(this.dietData!, this.handlersDietCards)
                    containersCards[i].append(...cards)
+                //    console.log('data1', this.dietData)
                 }
                 
             }
         }
 
     }
-    handlersDietCards(){
+    handlersDietCards(e:Event){
+        if((e.target as HTMLElement).closest('.meal-card')){
+            let card=(e.target as HTMLElement).closest('.meal-card')
+            console.log('111', card)
+        }
+        
+        
         
     }
 }

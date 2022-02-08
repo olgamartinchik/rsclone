@@ -88,12 +88,12 @@ class MealPageView {
     }
 
     getExploreCards(exploreData: Array<IDataExplore>, onclick: (e: Event) => void) {
-        const cards = exploreData.map((data) => new MealCard(data).getExploreTemplate(onclick));
+        const cards = exploreData.map((data, ind) => new MealCard(data,ind).getExploreTemplate(onclick));
         return cards;
     }
 
     getMealCards(mealData: Array<IDataExplore>, onclick: (e: Event) => void) {
-        const cards = mealData.map((data) => new MealCard(data).getMealTemplate(onclick));
+        const cards = mealData.map((data, ind) => new MealCard(data, ind).getMealTemplate(onclick));
         return cards;
     }
 
@@ -111,7 +111,7 @@ class MealPageView {
     }
 
     getSearchingCards(searchingData: Array<IDataExplore>, onclick: (e: Event) => void) {
-        const cards = searchingData.map((data) => new MealCard(data).getSearchingTemplate(onclick));
+        const cards = searchingData.map((data, ind) => new MealCard(data, ind).getSearchingTemplate(onclick));
         return cards;
     }
 

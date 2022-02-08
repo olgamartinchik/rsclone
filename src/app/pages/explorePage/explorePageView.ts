@@ -62,7 +62,7 @@ class ExplorePageView{
        
     }
     getCardsDiet(dietData:Array<IDataExplore>, onclick: (e: Event) => void){
-        const cards = dietData.map(data=>new MealCard(data).getMealTemplate(onclick))
+        const cards = dietData.map((data, ind)=>new MealCard(data,ind).getMealTemplate(onclick))
         return cards
     }
 }
