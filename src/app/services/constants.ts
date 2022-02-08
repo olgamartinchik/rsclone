@@ -37,6 +37,19 @@ export enum WorkoutsNumber {
     huge = 5,
 }
 
+export enum MinWorkoutLength {
+    small = 5,
+    medium = 15,
+    large = 25,
+    huge = 30,
+}
+
+export enum MaxWorkoutLength {
+    small = 10,
+    medium = 20,
+    large = 30,
+}
+
 export enum IntensityType {
     low = 'low',
     medium = 'medium',
@@ -57,6 +70,7 @@ export enum Message {
     registerSuccess = 'User created',
     valueMissing = 'Please, choose a value',
     invalidWeightValue = 'Please, select desired weight less than actual one',
+    desiredWeightmissing = 'Please, choose desired weight',
 }
 
 export enum Height {
@@ -94,4 +108,8 @@ export enum Coefficients {
 
 export enum Endpoints {
     userSettings = 'userSettings',
+}
+
+export enum ModalContents {
+    options = 'checkbox',
 }

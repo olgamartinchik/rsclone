@@ -1,3 +1,5 @@
+import { TWorkoutLength } from './types';
+import { WorkoutType } from './constants';
 export default class Utils {
     static getChunks<T>(dataArr: T[], chunk: number): Array<T[]> {
         return dataArr.reduce((resultArray: Array<T[]>, item: T, index: number) => {
@@ -68,5 +70,32 @@ export default class Utils {
                 break;
         }
         return targetMonth;
+    }
+
+    static compareObjects<T>(object1: T, object2: T): boolean {
+        const props1 = Object.getOwnPropertyNames(object1);
+        const props2 = Object.getOwnPropertyNames(object2);
+
+        if (props1.length !== props2.length) {
+            return false;
+        }
+
+        for (let i = 0; i < props1.length; i += 1) {
+            const prop = props1[i];
+            const bothAreObjects = typeof object1[prop] === 'object' && typeof object2[prop] === 'object';
+
+            if (
+                (!bothAreObjects && object1[prop] !== object2[prop]) ||
+                (bothAreObjects && !this.compareObjects(object1[prop], object2[prop]))
+            ) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    static getKeyByValue<T>(object: T, value: string | number | TWorkoutLength | Array<WorkoutType>) {
+        return Object.keys(object).find((key) => object[key] === value);
     }
 }

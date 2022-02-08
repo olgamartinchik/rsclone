@@ -10,6 +10,10 @@ class Node<NodeType extends HTMLElement = HTMLElement> {
         this.node.setAttribute(attributeName, attributeValue);
     }
 
+    append(element: HTMLElement): void {
+        this.node.append(element);
+    }
+
     destroy(): void {
         this.node.remove();
     }

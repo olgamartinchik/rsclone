@@ -8258,8 +8258,8 @@ input[type='range']::-ms-thumb {
  */
 .fa,
 .fas,
-.icon,
 .icon-select,
+.icon,
 .calender::before,
 .far,
 .fal,
@@ -8274,8 +8274,8 @@ input[type='range']::-ms-thumb {
     line-height: 1;
 }
 
-.icon,
 .icon-select,
+.icon,
 .calender::before {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -8378,8 +8378,8 @@ input[type='range']::-ms-thumb {
 
 .fa.fa-pull-left,
 .fas.fa-pull-left,
-.fa-pull-left.icon,
 .fa-pull-left.icon-select,
+.fa-pull-left.icon,
 .fa-pull-left.calender::before,
 .far.fa-pull-left,
 .fal.fa-pull-left,
@@ -8388,8 +8388,8 @@ input[type='range']::-ms-thumb {
 }
 .fa.fa-pull-right,
 .fas.fa-pull-right,
-.fa-pull-right.icon,
 .fa-pull-right.icon-select,
+.fa-pull-right.icon,
 .fa-pull-right.calender::before,
 .far.fa-pull-right,
 .fal.fa-pull-right,
@@ -14355,8 +14355,8 @@ readers do not read off random characters that represent icons */
 }
 .fa,
 .fas,
-.icon,
 .icon-select,
+.icon,
 .calender::before {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
@@ -14613,9 +14613,13 @@ nav .brand-logo {
 }
 .main-layout {
     min-height: calc(100% - 144px);
-    background: rgba(144, 150, 159, 0.1);
 }
 
+@media (max-width: 600px) {
+    .main-layout {
+        min-height: calc(100% - 136px);
+    }
+}
 .registration-header {
     display: flex;
     flex-wrap: wrap;
@@ -14635,7 +14639,7 @@ nav .brand-logo {
 
 .registration-content {
     padding-top: 25px;
-    height: calc(100vh - 230px);
+    height: calc(100% - 230px);
 }
 .registration-content > div {
     display: flex;
@@ -15747,7 +15751,8 @@ input[type='text']:not(.browser-default) {
 }
 .settings-wrapper {
     width: 400px;
-    padding-top: 40px;
+    height: 100%;
+    padding-top: 25px;
     margin: 0 auto;
 }
 .settings-title {
@@ -15761,7 +15766,7 @@ input[type='text']:not(.browser-default) {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 25px;
     width: 100%;
     text-align: left;
 }
@@ -15769,7 +15774,7 @@ input[type='text']:not(.browser-default) {
     display: block;
     width: 100%;
     margin: 0;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     color: rgba(28, 28, 29, 0.8);
     font-size: 25px;
 }
@@ -15827,6 +15832,176 @@ p.settings-link {
     background-color: #816ffe;
 }
 
+@media (max-width: 420px) {
+    .settings-wrapper {
+        width: 300px;
+        padding-top: 20px;
+    }
+    .settings-block {
+        margin-top: 30px;
+    }
+    .settings-subtitle {
+        margin-bottom: 15px;
+        font-size: 22px;
+    }
+
+    .unit-selection {
+        width: 115px;
+    }
+}
+.decorative-editplan {
+    width: 100%;
+    height: 210px;
+    background-image: linear-gradient(-180deg, rgba(255, 100, 162, 0.667) -8.99%, rgba(255, 134, 102, 0.8) 109.7%),
+        url('../../assets/img/kickstart-editplan.jpg');
+    background-repeat: no-repeat;
+    background-position: top;
+    position: relative;
+}
+
+.editplan-title {
+    display: block;
+    margin: 0;
+    margin-bottom: 15px;
+    padding-top: 15px;
+    text-align: center;
+    color: white;
+    font-size: 30px;
+}
+
+.editplan-input-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    flex-basis: 24%;
+}
+
+.editplan-unit {
+    flex-basis: 50%;
+    font-size: 18px;
+    color: #666;
+}
+
+.center-img.editplan {
+    margin-bottom: 0;
+    height: 120px;
+}
+
+.plan-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid rgba(194, 190, 190, 0.5);
+}
+.plan-item .input-field {
+    margin: 0;
+}
+.plan-item.wrapper {
+    margin-bottom: 10px;
+}
+
+input[type='text']:not(.browser-default).select-dropdown,
+input:not([type]).select-dropdown {
+    margin-bottom: 0;
+    width: 145px;
+    border-bottom: none;
+    text-align: center;
+    color: #666;
+    font-size: 18px;
+}
+input[type='text']:not(.browser-default).editplan-input,
+input:not([type]).editplan-input {
+    border: none;
+    flex-basis: 50%;
+    width: 50px;
+    height: 30px;
+    margin: 0;
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+}
+
+.btn.favWorkouts-choice,
+.favWorkouts-choice.btn-large,
+.favWorkouts-choice.btn-small {
+    background-color: transparent;
+    color: #666;
+    font-size: 18px;
+    text-transform: none;
+}
+
+label.editplan {
+    color: #666;
+}
+
+[type='checkbox'] + span:not(.lever).editplan {
+    font-size: 18px;
+}
+
+[type='checkbox']:checked + span:not(.lever).editplan:before {
+    border-right: 2px solid #ff8a80;
+    border-bottom: 2px solid #ff8a80;
+}
+
+.btn-flat.editplan {
+    color: #666;
+    font-size: 18px;
+}
+
+.modal.editplan {
+    width: 35%;
+    max-height: 85%;
+}
+.modal.editplan .modal-content {
+    padding: 10px 24px;
+}
+.modal.editplan .modal-content p {
+    margin: 10px 0;
+}
+
+@media (max-width: 420px) {
+    .editplan-unit,
+    .plan-item .settings-link,
+    input[type='text']:not(.browser-default).editplan-input,
+    input:not([type]).editplan-input,
+    input[type='text']:not(.browser-default).select-dropdown,
+    input:not([type]).select-dropdown,
+    .btn.favWorkouts-choice,
+    .favWorkouts-choice.btn-large,
+    .favWorkouts-choice.btn-small {
+        font-size: 16px;
+    }
+
+    .settings-link .icon {
+        width: 15px;
+        margin-right: 10px;
+        font-size: 20px;
+    }
+
+    input[type='text']:not(.browser-default).editplan-input,
+    input:not([type]).editplan-input {
+        flex-basis: 45%;
+        width: 100%;
+    }
+
+    input[type='text']:not(.browser-default).select-dropdown,
+    input:not([type]).select-dropdown {
+        padding-right: 19px;
+        width: 115px;
+        box-sizing: border-box;
+    }
+
+    .editplan-input-wrapper {
+        flex-basis: 29%;
+    }
+
+    .modal.editplan {
+        width: 80%;
+    }
+}
 html,
 body,
 #app {
@@ -15840,7 +16015,7 @@ body {
 }
 
 header {
-    min-height: 64px;
+    min-height: 56px;
 }
 
 footer {
@@ -15912,6 +16087,18 @@ footer {
     background: linear-gradient(270deg, #3680e0 -24.77%, #53e9f4 95.41%);
 }
 
+.btn-disabled {
+    background: linear-gradient(270deg, #dee3e6 -24.77%, #9b9e9e 95.41%);
+    cursor: not-allowed;
+}
+
+.btn-large:disabled.btn-disabled,
+.btn-large[disabled].btn-disabled {
+    pointer-events: initial;
+    cursor: not-allowed;
+    color: white !important;
+}
+
 .back-btn {
     position: absolute;
     top: 50px;
@@ -15925,9 +16112,13 @@ footer {
     margin-top: 10px;
     padding: 0 50px;
     justify-content: space-around;
+    margin-bottom: 10px;
 }
 .btn-wrapper.settings {
-    margin-top: 35px;
+    margin-top: 20px;
+}
+.btn-wrapper.edit-plan {
+    margin-top: 20px;
 }
 
 @media (max-width: 768px) {
@@ -15942,6 +16133,11 @@ footer {
 @media (max-width: 600px) {
     .btn-large.header-tablet {
         margin-top: 8px;
+    }
+}
+@media (max-width: 420px) {
+    .btn-wrapper.settings {
+        margin-top: 15px;
     }
 }
 input {
@@ -16025,15 +16221,6 @@ input[type='text'].datepicker::placeholder {
 
 .auth-field {
     width: 100%;
-}
-
-.icon-select:before {
-    content: '\f00c';
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    color: #666;
-    cursor: pointer;
 }
 
 .select-block {
@@ -16195,6 +16382,54 @@ input[type='password']:not(.browser-default).invalid {
 }
 .icon.plan:before {
     content: '\f328';
+}
+.icon.target:before {
+    content: '\f140';
+}
+.icon.duration:before {
+    content: '\f328';
+}
+.icon.frequency:before {
+    content: '\f46d';
+}
+.icon.heart:before {
+    content: '\f004';
+}
+.icon.clock:before {
+    content: '\f017';
+}
+.icon.select-up:before {
+    content: '\f077';
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    color: #666;
+    cursor: pointer;
+}
+.icon.select-down:before {
+    content: '\f00c';
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    color: #666;
+    cursor: pointer;
+}
+
+.icon-select.down:before {
+    content: '\f00c';
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    color: #666;
+    cursor: pointer;
+}
+.icon-select.up:before {
+    content: '\f077';
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    color: #666;
+    cursor: pointer;
 }
 
 /*# sourceMappingURL=style.css.map */

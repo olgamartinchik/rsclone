@@ -35,6 +35,11 @@ export type TSettings = {
     favWorkouts: Array<WorkoutType>;
 };
 
+export type TWorkoutLength = {
+    min: number;
+    max?: number | undefined;
+};
+
 export type TWorkoutProgram = Array<TWorkout[]>;
 
 export interface IWorkoutManager {

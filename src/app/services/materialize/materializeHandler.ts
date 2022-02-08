@@ -14,6 +14,16 @@ class MaterializeHandler {
             maxDate: new Date('January 01, 2020 00:00:00'),
         });
     }
+
+    initSelect() {
+        const elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems, {});
+    }
+
+    initModal() {
+        const elems = document.querySelectorAll('.modal');
+        M.Modal.init(elems, {});
+    }
 }
 
 export default MaterializeHandler;

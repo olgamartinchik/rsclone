@@ -3,19 +3,23 @@ import authManager from '../../services/authManager';
 import ClientManager from '../../services/clientManager';
 import StorageManager from '../../services/storageManager';
 import { Message } from '../../services/constants';
+import storageManager from '../../services/storageManager';
 
 export default class AuthModel {
-    form: TLoginForm;
+    private form: TLoginForm;
 
-    isLoading: boolean;
+    public isLoading: boolean;
 
-    isSuccess: boolean;
+    private isSuccess: boolean;
 
-    message: string;
+    private message: string;
 
-    tokenInfo: TToken;
+    private tokenInfo: TToken;
+
+    private clientManager: ClientManager;
 
     constructor() {
+        this.clientManager = new ClientManager();
         this.isLoading = true;
         this.form = {
             userName: '',
@@ -39,23 +43,28 @@ export default class AuthModel {
     }
 
     public async authHandler(type: string): Promise<void> {
-        const clientManager = new ClientManager();
-        await clientManager.postData(`${type}`, this.form);
+        await this.clientManager.postData(`${type}`, this.form);
 
         this.isLoading = false;
 
-        this.isSuccess = clientManager.result;
-        this.message = clientManager.text;
-        this.tokenInfo = clientManager.token;
+        this.isSuccess = this.clientManager.result;
+        this.message = this.clientManager.text;
+        this.tokenInfo = this.clientManager.token;
 
         this.createMessage(this.message);
 
         if (this.isSuccess) {
             StorageManager.addItem('token', this.tokenInfo, 'local');
+            if (type === 'auth/login') this.saveUserSettings();
             this.navigate(type);
         } else {
             StorageManager.deleteItem('token', 'local');
         }
+    }
+
+    private async saveUserSettings(): Promise<void> {
+        const userSettings = await this.clientManager.getUserSettings(this.tokenInfo.userID);
+        storageManager.addItem('userSettings', userSettings, 'local');
     }
 
     private createMessage(text: string) {

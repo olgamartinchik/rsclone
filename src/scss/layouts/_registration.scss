@@ -13,7 +13,7 @@
 
 .registration-content {
     padding-top: 25px;
-    height: calc(100vh - 230px);
+    height: calc(100% - 230px);
     & > div {
         @include flex;
         justify-content: center;
