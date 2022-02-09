@@ -71,13 +71,13 @@ class ProgramPageView {
                 <img class="red-plus" src="./assets/img/svg/add.svg" alt="" />
             </div>
             </div>
-            <div class="card-info">
-            <div class="title card-title">Add Workout</div>
-            <ol class="subtitle list">
-                <li>Tap on any workout card</li>
-                <li>Tap <span class="bold-text">•••</span> in the top right</li>
-                <li>Select <span class="bold-text">Add to Program</span></li>
-            </ol>
+            <div class="card-info add">
+                <div class="title card-title add">Add Workout</div>
+                <ol class="subtitle list">
+                    <li>Tap on any workout card</li>
+                    <li>Tap <span class="bold-text">•••</span> in the top right</li>
+                    <li>Select <span class="bold-text">Add to Program</span></li>
+                </ol>
             </div>
         </div>
         `;

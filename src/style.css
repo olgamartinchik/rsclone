@@ -14906,6 +14906,10 @@ input[type=text]:not(.browser-default) {
   cursor: pointer;
 }
 
+.subtitle.list {
+  margin-bottom: 0;
+}
+
 .gradient-text {
   background: linear-gradient(270deg, #e03694, #f47253 70%);
   -webkit-background-clip: text;
@@ -14935,6 +14939,7 @@ input[type=text]:not(.browser-default) {
   width: 350px;
   height: 300px;
   margin-right: 25px;
+  border: 0.5px solid rgba(194, 190, 190, 0.5);
   border-radius: 12px;
   text-align: left;
   position: relative;
@@ -14954,6 +14959,10 @@ input[type=text]:not(.browser-default) {
 }
 .program-card .title::-webkit-scrollbar {
   width: 5px;
+}
+.program-card .title.add {
+  margin-top: 10px;
+  font-size: 24px;
 }
 .program-card .image {
   width: 317px;
@@ -14980,6 +14989,10 @@ input[type=text]:not(.browser-default) {
 }
 .program-card .card-info.description {
   flex-wrap: nowrap;
+}
+.program-card .card-info.add {
+  justify-content: center;
+  height: 120px;
 }
 .program-card .card-info .btn-large {
   height: 36px;
@@ -15012,7 +15025,7 @@ input[type=text]:not(.browser-default) {
 .program-card .card-info .list {
   width: 100%;
   font-size: 14px;
-  padding-left: 8px;
+  padding-left: 20px;
 }
 .program-card .add-block {
   width: 160px;
@@ -16315,7 +16328,7 @@ footer {
 }
 
 *::-webkit-scrollbar {
-  height: 6px;
+  height: 4px;
   width: 0;
 }
 

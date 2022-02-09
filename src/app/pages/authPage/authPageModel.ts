@@ -26,7 +26,6 @@ export class AuthModel {
         if (authData.userName || authData.userName === '') this.form.userName = authData.userName;
         if (authData.email || authData.email === '') this.form.email = authData.email;
         if (authData.password || authData.password === '') this.form.password = authData.password;
-        console.log(this.form);
     }
 
     public checkUserData(isExistingUser: boolean): void {
@@ -65,7 +64,6 @@ export class AuthModel {
         this.isLoading = true;
         const data = await this.clientManager.postData(`${type}`, this.form);
         this.isLoading = false;
-        console.log((<TLoginResponse>data).userName);
         if (this.clientManager.result) {
             this.saveData(type, (<TLoginResponse>data).userName);
             this.navigate(type);
