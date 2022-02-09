@@ -1,14 +1,17 @@
 import WorkoutPageModel from './workoutPageModel';
 import WorkoutPageView from './workoutPageView';
-import youTubeApiManager from '../../services/youTubeApiManager';
+import videoHandler from '../../components/videoHandler/videoHandler';
 class WorkoutPageController {
     private view: WorkoutPageView;
 
     private model: WorkoutPageModel;
 
+    private videoHandler: typeof videoHandler;
+
     constructor() {
         this.model = new WorkoutPageModel();
         this.view = new WorkoutPageView();
+        this.videoHandler = videoHandler;
     }
 
     public createPage(idArr: string[]): void {
@@ -22,10 +25,10 @@ class WorkoutPageController {
 
     private startWorkout(e: Event) {
         const id = (<HTMLElement>e.currentTarget).id;
-        const card = this.model.getCardById(id);
-        if (card) {
-            const iframe = youTubeApiManager.createIFrame(card.data.link);
-            this.view.renderVideo(iframe);
+        const link = this.model.getVideoLink(id);
+        if (link) {
+            this.videoHandler.createVideo(this.view.rootNode, link);
+            // this.view.renderVideoPreloader();
         }
     }
 }

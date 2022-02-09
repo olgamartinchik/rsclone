@@ -1,4 +1,4 @@
-import { TLoginForm, TToken, TSettings, TWorkout, TAuthResult, TLoginResponse } from '../services/types';
+import { TLoginForm, TToken, TSettings, TWorkout, TAuthResult, TLoginResponse, TWorkoutProgram } from '../services/types';
 import { API_ID, KEY_API } from '../configs/edamamConfig';
 
 class ClientManager {
@@ -86,24 +86,43 @@ class ClientManager {
 
             return (await res.json()) as TWorkout[];
         } catch (e: unknown) {
-            if (e instanceof Error) {
-                this.text = e.message;
-            } else {
-                this.text = String(e);
-            }
+            this.handleError(e);
         }
     }
 
     public async getUserSettings(id: string): Promise<TSettings | void> {
         try {
             const res = await fetch(`https://rsclonebackend.herokuapp.com/api/userSettings/${id}`);
+
             return (await res.json()) as TSettings;
         } catch (e: unknown) {
-            if (e instanceof Error) {
-                this.text = e.message;
-            } else {
-                this.text = String(e);
-            }
+            this.handleError(e);
+        }
+    }
+
+    public async postProgram(program: TWorkoutProgram, id: string) {
+        try {
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/workoutSettings`, {
+                method: 'POST',
+                body: JSON.stringify({ _id: id, program }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            return await res.json();
+        } catch (e: unknown) {
+            this.handleError(e);
+        }
+    }
+
+    public async getProgram(id: string): Promise<TWorkoutProgram | void> {
+        try {
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/workoutSettings/${id}`);
+
+            return (await res.json()).program as TWorkoutProgram;
+        } catch (e: unknown) {
+            this.handleError(e);
         }
     }
 
@@ -151,6 +170,14 @@ class ClientManager {
             return data.hits;
         } catch (e) {
             console.log(e);
+        }
+    }
+
+    private handleError(e: unknown) {
+        if (e instanceof Error) {
+            this.text = e.message;
+        } else {
+            this.text = String(e);
         }
     }
 }

@@ -1,0 +1,298 @@
+.video {
+    &-wrapper {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 999;
+        width: 100vw;
+        min-height: 100vh;
+        opacity: 0;
+        animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        .preloader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1001;
+            &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(0, 0, 0, 0.8);
+                width: 100vw;
+                height: 100vh;
+            }
+        }
+        .count-down {
+            &-timer {
+                position: fixed;
+                z-index: 999;
+                bottom: 0;
+                left: 51px;
+            }
+            &-time {
+                margin: 0;
+                position: fixed;
+                bottom: 59px;
+                left: 120px;
+                z-index: 999;
+                font-size: 20px;
+                font-weight: 600;
+                color: $color-background;
+                letter-spacing: 2px;
+            }
+        }
+    }
+    &-player {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 998;
+        display: block;
+        min-width: 100vw;
+        height: 100vh;
+        background-color: transparent;
+        overflow: hidden;
+        border: none;
+        opacity: 0;
+        object-fit: cover;
+        animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        filter: brightness(97%) saturate(93%) contrast(90%);
+        -webkit-filter: brightness(97%) saturate(93%) contrast(90%);
+        -moz-filter: brightness(97%) saturate(93%) contrast(90%);
+    }
+    &-controls {
+        padding: 40px;
+        position: absolute;
+        z-index: 1000;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+}
+
+.controls {
+    &-bottom {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .time {
+            padding: 0 20px;
+            color: white;
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        .timeline {
+            width: 100%;
+            max-width: 1200px;
+        }
+    }
+
+    &-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &-right {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &-bottom {
+        .time {
+            width: 90px;
+        }
+        .timeline {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: linear-gradient(
+                to right,
+                $color-primary 0%,
+                $color-primary 0%,
+                $color-background 0%,
+                $color-background 100%
+            );
+        }
+
+        .timeline::-webkit-slider-thumb {
+            cursor: pointer;
+            width: 15px;
+            height: 15px;
+            -webkit-appearance: none;
+            border-radius: 50%;
+            background-color: $color-background;
+        }
+
+        .timeline::-moz-range-thumb {
+            border-radius: 50%;
+            cursor: pointer;
+            background-color: $color-background;
+        }
+
+        .timeline::-webkit-slider-runnable-track {
+            height: 4px;
+        }
+
+        .timeline::-moz-range-track {
+            height: 4px;
+        }
+    }
+}
+
+.btn-video {
+    background-color: transparent;
+    border: none;
+    color: white;
+    transition: 0.5s;
+    cursor: pointer;
+    &:hover {
+        color: #f47253;
+        background-color: transparent;
+    }
+    &:focus {
+        background-color: transparent;
+    }
+    .fas.fa-undo,
+    .fas.fa-redo {
+        padding: 0 20px;
+        font-size: 50px;
+    }
+}
+
+.video-controls {
+    transition: all 0.5s;
+    opacity: 1;
+}
+
+.video-controls ~ .count-down-timer,
+.video-controls ~ .count-down-time {
+    visibility: hidden;
+}
+
+.video-controls.masked ~ .count-down-timer,
+.video-controls.masked ~ .count-down-time {
+    visibility: visible;
+}
+
+.video-controls.masked {
+    opacity: 0;
+    .controls-top,
+    .controls-center,
+    .controls-bottom {
+        display: none;
+    }
+}
+
+.btn-play.paused {
+    .play {
+        visibility: visible;
+        pointer-events: all;
+    }
+    .pause {
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
+.btn-play {
+    display: flex;
+    max-width: 98px;
+    padding: 0;
+    .pause {
+        position: absolute;
+        visibility: visible;
+        pointer-events: all;
+    }
+    .play {
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
+.volume-btn.mute {
+    .volume-off {
+        position: absolute;
+        visibility: visible;
+    }
+    .volume-up {
+        visibility: hidden;
+    }
+}
+
+.volume-btn {
+    display: flex;
+    position: relative;
+    width: 40px;
+    height: 30px;
+    .volume-up {
+        position: absolute;
+        visibility: visible;
+    }
+    .volume-off {
+        visibility: hidden;
+    }
+}
+
+.forward,
+.backward {
+    position: relative;
+    font-size: 14px;
+    &::after {
+        content: '15';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-68%, -30%);
+    }
+}
+
+.backward {
+    &::after {
+        transform: translate(-42%, -30%);
+    }
+}
+
+.fullscreen {
+    display: flex;
+    position: relative;
+    width: 40px;
+    height: 30px;
+    .fullscreen-up {
+        position: absolute;
+        visibility: visible;
+    }
+    .fullscreen-off {
+        visibility: hidden;
+    }
+}
+
+.fullscreen.full {
+    .fullscreen-off {
+        position: absolute;
+        visibility: visible;
+    }
+    .fullscreen-on {
+        visibility: hidden;
+    }
+}

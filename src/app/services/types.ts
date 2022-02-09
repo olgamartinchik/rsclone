@@ -10,6 +10,7 @@ export type TWorkout = {
     caloriesPerMinute: number;
     link: string;
     img: string;
+    completed: boolean;
     _id?: string;
 };
 
