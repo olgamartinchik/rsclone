@@ -20,15 +20,20 @@
 
 @import 'layouts/header';
 @import 'layouts/startingContent';
+@import 'layouts/mainLayout';
 @import 'layouts/registration';
 @import 'layouts/mainPage';
 @import 'layouts/workoutPage';
 @import 'layouts/footer';
 @import 'layouts/mealPage';
 @import 'layouts/customPlayer';
+@import 'layouts/settingsPage';
+@import 'layouts/editPlanPage';
+@import 'layouts/profilePage';
 
 //Base
 
 @import 'base/base';
 @import 'base/buttons';
 @import 'base/inputs';
+@import 'base/icons';

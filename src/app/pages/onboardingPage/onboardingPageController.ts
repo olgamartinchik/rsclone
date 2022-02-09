@@ -1,6 +1,6 @@
 import OnboardingPageView from './onboardingPageView';
 import OnboardingModel from './onboardingPageModel';
-import router from '../../router/router';
+import authManager from '../../services/authManager';
 import { Height, Weight, Colors, Coefficients, Goal, Message, WorkoutType } from '../../services/constants';
 
 class OnboardingPageController {
@@ -89,7 +89,11 @@ class OnboardingPageController {
         const select = (<HTMLElement>e.currentTarget).children[2];
 
         selectBlocks.forEach((block) => {
-            if (block.id !== select.id) block.className = 'select-block';
+            const tickIcon = (<HTMLElement>block.parentElement).querySelector('.icon-select') as HTMLElement;
+            if (block.id !== select.id) {
+                block.className = 'select-block';
+                tickIcon.className = 'icon-select down';
+            }
         });
         this.activateParametersBlock(e);
     }
@@ -99,8 +103,13 @@ class OnboardingPageController {
         const select = (<HTMLElement>e.currentTarget).children[2];
         if (clickedElement.className.includes('icon-select')) {
             select.classList.toggle('active');
+            clickedElement.classList.toggle('down');
+            clickedElement.classList.toggle('up');
         } else {
             select.classList.add('active');
+            const arrowIcon = <HTMLElement>(<HTMLElement>clickedElement.nextElementSibling).nextElementSibling;
+            arrowIcon.classList.remove('down');
+            arrowIcon.classList.add('up');
         }
     }
 
@@ -321,7 +330,7 @@ class OnboardingPageController {
 
     public handleFinalButtonClick(e: Event): void {
         if ((<HTMLElement>e.target).dataset.btn === 'start') {
-            router.navigate('/program');
+            authManager.navigate('/program');
         }
     }
 }

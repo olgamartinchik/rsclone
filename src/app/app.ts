@@ -1,8 +1,14 @@
-import authManager from './services/authManager';
+import authManager, { AuthManager } from './services/authManager';
 
 class App {
+    authManager: AuthManager;
+
+    constructor() {
+        this.authManager = authManager;
+    }
+
     public start(): void {
-        authManager.checkAuth();
+        this.authManager.navigate();
     }
 }
 

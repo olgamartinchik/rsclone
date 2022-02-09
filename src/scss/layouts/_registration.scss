@@ -13,7 +13,7 @@
 
 .registration-content {
     padding-top: 25px;
-    height: calc(100vh - 230px);
+    height: calc(100% - 230px);
     & > div {
         @include flex;
         justify-content: center;
@@ -176,69 +176,6 @@ div.parameters-options {
     }
 }
 
-.icon {
-    margin-right: 8px;
-    @extend %fa-icon;
-    @extend .fas;
-    &.female {
-        &:before {
-            content: fa-content($fa-var-venus);
-        }
-    }
-    &.male {
-        &:before {
-            content: fa-content($fa-var-mars);
-        }
-    }
-    &.other_gender {
-        &:before {
-            content: fa-content($fa-var-mars-stroke-v);
-        }
-    }
-    &.user {
-        &:before {
-            content: fa-content($fa-var-user);
-        }
-    }
-    &.browse {
-        &:before {
-            content: fa-content($fa-var-search);
-        }
-    }
-    &.meal {
-        &:before {
-            content: fa-content($fa-var-utensils);
-        }
-    }
-    &.settings {
-        &:before {
-            content: fa-content($fa-var-cogs);
-        }
-    }
-    &.arrow-left {
-        &:before {
-            content: fa-content($fa-var-arrow-left);
-            font-size: 25px;
-        }
-    }
-}
-
-.icon-container {
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-    .profile {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: $color-text-on-dark;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background-color: $color-settings-active;
-    }
-}
-
 //Pop-up calender
 
 .datepicker::placeholder {
@@ -368,7 +305,6 @@ button:focus {
         margin: 0 auto;
         padding: 80px 0 40px;
         text-align: center;
-        height: 60%;
         position: relative;
     }
 }

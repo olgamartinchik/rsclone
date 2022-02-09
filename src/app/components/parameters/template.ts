@@ -12,7 +12,7 @@ export function paramsTemplate(
   <span class="value" data-${dataAttribute}>
       <input type="text" class="value-select" placeholder="0" data-type='parameter' data-${dataAttribute} data-value=${dataAttribute} min=${min} max=${max}> 
       <span>${units}</span>
-      <i class="icon-select"></i>
+      <i class="icon-select down"></i>
   </span>
   <div class="select-block" id=${title.split(' ').join('')}>
     <div class="options" data-select>

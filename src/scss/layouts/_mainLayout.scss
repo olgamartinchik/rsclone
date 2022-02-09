@@ -1,0 +1,9 @@
+.main-layout {
+    min-height: calc(100% - 144px);
+}
+
+@media (max-width: 600px) {
+    .main-layout {
+        min-height: calc(100% - 136px);
+    }
+}

@@ -1,34 +1,56 @@
 import Config from '../router/config';
 import StorageManager from './storageManager';
 import router, { Router } from '../router/router';
-import { TToken } from './types';
+import { RouteOption, TToken } from './types';
 
-class AuthManager {
-    private router: Router;
-
+export class AuthManager {
     private config: Config;
 
     private isLogin: boolean;
 
-    constructor() {
+    private router: Router;
+
+    constructor(isLogin: boolean) {
         this.router = router;
         this.config = new Config();
-        this.isLogin = false;
+        this.isLogin = isLogin;
     }
 
-    public checkAuth(): void {
+    public navigate(path?: string | undefined): void {
+        this.checkAuth();
+
+        if (path) this.router.navigate(path);
+    }
+
+    private checkAuth(): void {
+        this.isLogin = false;
         const token = StorageManager.getItem('token', 'local') as TToken;
         if (token && token.jwtToken.length > 0) this.isLogin = true;
+
         this.setRouter();
     }
 
     private setRouter(): void {
-        const routes = this.config.getRoutes();
+        this.definePaths();
+        this.setRootPath();
+    }
 
-        if (this.isLogin) this.router = new Router({ root: '/program' });
+    private definePaths(): void {
+        const allRoutes = this.config.getRoutes();
+        const routes = [] as RouteOption[];
+        allRoutes.forEach((route) => {
+            if (route.isAuth === this.isLogin || route.isAuth === null) {
+                routes.push(route);
+            }
+        });
 
         this.router.addAllPath(routes);
     }
+
+    private setRootPath(): void {
+        const rootPath = this.isLogin ? '/program' : ' ';
+        this.router.setRoot(rootPath);
+    }
 }
 
-export default new AuthManager();
+export default new AuthManager(false);

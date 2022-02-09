@@ -3,6 +3,7 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
+import storageManager from '../../services/storageManager';
 
 class ProgramPageView {
     private rootNode: HTMLElement;
@@ -18,7 +19,7 @@ class ProgramPageView {
     render(data: Card[], onclick: (e: Event) => void, week: number): void {
         this.rootNode.textContent = '';
         this.rootNode.append(Header.getTemplate());
-
+        const user = <string>storageManager.getItem('user', 'local');
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -26,15 +27,15 @@ class ProgramPageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu();
-        navbar.addProfileLink('O');
+        navbar.generateMenu('Program');
+        navbar.addProfileLink(user);
 
         this.setContents(data, onclick, week);
         this.rootNode.append(Footer.getTemplate());
     }
 
     setContents(data: Card[], onclick: (e: Event) => void, week: number): void {
-        const Program = new Node(this.rootNode, 'main', 'main-page');
+        const Program = new Node(this.rootNode, 'main', 'main-layout');
         Node.setChild(Program.node, 'div', 'decorative');
         const contentWrapper = new Node(Program.node, 'div', 'main-content');
         const ProgramContent = new Node(contentWrapper.node, 'div', 'left-block');

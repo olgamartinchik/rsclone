@@ -36,6 +36,11 @@ export type TSettings = {
     favWorkouts: Array<WorkoutType>;
 };
 
+export type TWorkoutLength = {
+    min: number;
+    max?: number | undefined;
+};
+
 export type TWorkoutProgram = Array<TWorkout[]>;
 
 export interface IWorkoutManager {
@@ -48,6 +53,13 @@ export type TLoginForm = {
     password: string;
 };
 
+export type TLoginResponse = {
+    token: string;
+    userId: string;
+    userName: string;
+    email: string;
+}
+
 export type TToken = {
     userID: string;
     jwtToken: string;
@@ -56,16 +68,17 @@ export type TToken = {
 export type RouteOption = {
     path: RegExp;
     callback: () => void;
+    isAuth: boolean | null;
 };
 
 export interface IDataExplore {
     recipe: {
-        image: string;
-        dishType: string;
-        mealType: object;
-        label: string;
-        calories: string;
-        yield: number;
+        image?: string;
+        dishType?: string;
+        mealType?: object;
+        label?: string;
+        calories?: string;
+        yield?: number;
     };
 }
 

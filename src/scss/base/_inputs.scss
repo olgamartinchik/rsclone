@@ -47,9 +47,10 @@ input[type='text'].datepicker {
     }
 }
 
-#nick-name,
+#userName,
 #email,
 #password {
+    padding-left: 12px;
     color: white;
 }
 
@@ -75,19 +76,6 @@ input[type='text'].datepicker {
 
 .auth-field {
     width: 100%;
-}
-
-.icon-select {
-    @extend %fa-icon;
-    @extend .fas;
-    &:before {
-        content: fa-content($fa-var-check);
-        position: absolute;
-        right: 10px;
-        top: 5px;
-        color: $color-text-navbar;
-        cursor: pointer;
-    }
 }
 
 .select-block {
