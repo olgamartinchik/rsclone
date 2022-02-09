@@ -1,8 +1,12 @@
 import Utils from '../../services/utils';
 import videoControls from './templateControls';
+import Timer from '../timer/timer';
+import preloader from '../preloader/preloader';
 
 class VideoHandler {
     private video: HTMLVideoElement | null;
+
+    private readonly timer: Timer;
 
     private readonly videoWrapper: HTMLElement;
 
@@ -36,7 +40,11 @@ class VideoHandler {
 
     private isVideoInstalled: boolean;
 
+    private preloader: HTMLElement;
+
     constructor() {
+        this.timer = new Timer();
+        this.preloader = preloader.getTemplate();
         this.videoWrapper = document.createElement('div');
         this.videoWrapper.className = 'video-wrapper';
         this.video = null;
@@ -62,7 +70,7 @@ class VideoHandler {
         this.removeInnerContext();
         this.initVideo(parentElement, src);
 
-        this.video!.oncanplay = (e: Event): void => {
+        this.video!.oncanplaythrough = (e: Event): void => {
             e.stopPropagation();
             this.setFullTime();
 
@@ -72,6 +80,7 @@ class VideoHandler {
                 this.play();
                 this.playBtn?.classList.remove('paused');
             }
+            this.preloader.remove();
         };
     }
 
@@ -82,7 +91,8 @@ class VideoHandler {
         this.src.setAttribute('type', 'video/mp4');
         this.src.setAttribute('src', src);
         this.video.append(this.src);
-        this.videoWrapper.append(this.video!);
+        this.videoWrapper.append(this.video);
+        this.videoWrapper.append(this.preloader);
         parentElement.append(this.videoWrapper);
         this.isVideoInstalled = true;
         document.body.style.overflow = 'hidden';
@@ -92,6 +102,7 @@ class VideoHandler {
         this.video.currentTime = 0;
         this.video.volume = this.currentVolumeValue;
         this.changeTimelineBg();
+        this.timer.createTimer(this.videoWrapper, 0);
     }
 
     private removeInnerContext(): void {
@@ -195,6 +206,8 @@ class VideoHandler {
         this.timeline = this.controls.querySelector('.timeline-js');
         this.video!.ontimeupdate = (e: Event): void => {
             e.stopPropagation();
+            this.timer.setTime(this.fullTime - this.currentTime, this.fullTime);
+
             if (this.timeline) {
                 this.timeline.value = String(this.currentTime);
                 this.changeTimelineBg();
@@ -394,6 +407,7 @@ class VideoHandler {
         this.video!.pause();
         this.video!.volume = 0;
         this.removeInnerContext();
+        this.preloader.remove();
         this.videoWrapper.remove();
         this.isVideoInstalled = false;
         this.volumeRange?.removeEventListener('click', this.stopPropClick.bind(this));

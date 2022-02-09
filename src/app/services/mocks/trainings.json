@@ -8,7 +8,8 @@
         "duration": 332,
         "caloriesPerMinute": 0,
         "link": "https://www.youtube.com/embed/Nr33aOaa8xA",
-        "img": "01"
+        "img": "01",
+        "completed": false
     },
     {
         "title": "Peace and Calm Meditation",
@@ -19,7 +20,8 @@
         "duration": 380,
         "caloriesPerMinute": 0,
         "link": "https://www.youtube.com/embed/ZJItGoeSfxY",
-        "img": "02"
+        "img": "02",
+        "completed": false
     },
     {
         "title": "Meditation For Letting Go (with Elise Joan)",
@@ -30,7 +32,8 @@
         "duration": 346,
         "caloriesPerMinute": 0,
         "link": "https://www.youtube.com/embed/XTH_yE7ESWg",
-        "img": "03"
+        "img": "03",
+        "completed": false
     },
     {
         "title": "Mediation For Being Present with Elise Joan",
@@ -41,7 +44,8 @@
         "duration": 331,
         "caloriesPerMinute": 0,
         "link": "https://www.youtube.com/embed/BmAe7TppVlk",
-        "img": "04"
+        "img": "04",
+        "completed": false
     },
     {
         "title": "Centering Meditation With Hailey Lott",
@@ -52,7 +56,8 @@
         "duration": 649,
         "caloriesPerMinute": 0,
         "link": "https://www.youtube.com/embed/SbeiciDG-is",
-        "img": "05"
+        "img": "05",
+        "completed": false
     },
     {
         "title": "30-Minute Standing Cardio Workout",
@@ -63,7 +68,8 @@
         "duration": 2084,
         "caloriesPerMinute": 0.066,
         "link": "https://www.youtube.com/embed/-YJXpabrX4k",
-        "img": "06"
+        "img": "06",
+        "completed": false
     },
     {
         "title": "20-Minute Standing Cardio Workout With Ashley Joi",
@@ -74,7 +80,8 @@
         "duration": 1361,
         "caloriesPerMinute": 0.066,
         "link": "https://www.youtube.com/embed/iZ40fyGH4bQ",
-        "img": "07"
+        "img": "07",
+        "completed": false
     },
     {
         "title": "40-Minute No-Equipment Cardio and Sculpting Workout With Jake DuPree",
@@ -85,7 +92,8 @@
         "duration": 2531,
         "caloriesPerMinute": 0.1,
         "link": "https://www.youtube.com/embed/ZJ_LH_hXOf8",
-        "img": "08"
+        "img": "08",
+        "completed": false
     },
     {
         "title": "30-Minute No-Equipment Cardio and Core Workout",
@@ -96,7 +104,8 @@
         "duration": 1803,
         "caloriesPerMinute": 0.1,
         "link": "https://www.youtube.com/embed/05fCNM9f0ic",
-        "img": "09"
+        "img": "09",
+        "completed": false
     },
     {
         "title": "Low Impact Cardio",
@@ -107,7 +116,8 @@
         "duration": 634,
         "caloriesPerMinute": 0.066,
         "link": "https://www.youtube.com/embed/4_b9rWBrvrM",
-        "img": "10"
+        "img": "10",
+        "completed": false
     },
     {
         "title": "Intermediate 10-Minute HIIT",
@@ -118,7 +128,8 @@
         "duration": 602,
         "caloriesPerMinute": 0.0633,
         "link": "https://www.youtube.com/embed/DPbI5_8gV-s",
-        "img": "11"
+        "img": "11",
+        "completed": false
     },
     {
         "title": "Hot Body HIIT Workout",
@@ -129,7 +140,8 @@
         "duration": 532,
         "caloriesPerMinute": 0.0633,
         "link": "https://www.youtube.com/embed/UOuqg-U4Ado",
-        "img": "12"
+        "img": "12",
+        "completed": false
     },
     {
         "title": "30-Minute Cardio HIIT Workout",
@@ -140,7 +152,8 @@
         "duration": 1779,
         "caloriesPerMinute": 0.0633,
         "link": "https://www.youtube.com/embed/3DAQIK6IyOo",
-        "img": "13"
+        "img": "13",
+        "completed": false
     },
     {
         "title": "30-Minute No-Equipment HIIT Workout",
@@ -151,7 +164,8 @@
         "duration": 1785,
         "caloriesPerMinute": 0.1333,
         "link": "https://www.youtube.com/embed/GOyhgv6SA1k",
-        "img": "14"
+        "img": "14",
+        "completed": false
     },
     {
         "title": "30-Minute Low-Impact HIIT With LIT Method",
@@ -162,7 +176,8 @@
         "duration": 1826,
         "caloriesPerMinute": 0.0583,
         "link": "https://www.youtube.com/embed/fgxFOJyTwKE",
-        "img": "15"
+        "img": "15",
+        "completed": false
     },
     {
         "title": "30-Minute At-Home Boxing Workout",
@@ -173,7 +188,8 @@
         "duration": 2049,
         "caloriesPerMinute": 0.0633,
         "link": "https://www.youtube.com/embed/jCTEVKRTuS8",
-        "img": "16"
+        "img": "16",
+        "completed": false
     },
     {
         "title": "15-Minute Interval Boxing Workout",
@@ -184,7 +200,8 @@
         "duration": 903,
         "caloriesPerMinute": 0.0466,
         "link": "https://www.youtube.com/embed/bxbK8fyDC54",
-        "img": "17"
+        "img": "17",
+        "completed": false
     },
     {
         "title": "25-Minute Rumble No-Equipment Cardio-Boxing Workout",
@@ -195,7 +212,8 @@
         "duration": 1538,
         "caloriesPerMinute": 0.1333,
         "link": "https://www.youtube.com/embed/sgwtp9mF8tI",
-        "img": "18"
+        "img": "18",
+        "completed": false
     },
     {
         "title": "5 Minutes to Punch & Kick Stress to the Curb",
@@ -206,7 +224,8 @@
         "duration": 323,
         "caloriesPerMinute": 0.0466,
         "link": "https://www.youtube.com/embed/CfpAmX2ACzQ",
-        "img": "19"
+        "img": "19",
+        "completed": false
     },
     {
         "title": "35-Minute Full-Body Kickboxing Workout With Christa DiPaolo",
@@ -217,7 +236,8 @@
         "duration": 1939,
         "caloriesPerMinute": 0.0633,
         "link": "https://www.youtube.com/embed/uRZVnIEDK-Q",
-        "img": "20"
+        "img": "20",
+        "completed": false
     },
     {
         "title": "25-Minute Pilates Workout to Tone Your Abs, Butt, and Arms",
@@ -228,7 +248,8 @@
         "duration": 1509,
         "caloriesPerMinute": 0.061,
         "link": "https://www.youtube.com/embed/RDQmnzuE2q4",
-        "img": "21"
+        "img": "21",
+        "completed": false
     },
     {
         "title": "30-Minute Fat-Burning Pilates Workout",
@@ -239,7 +260,8 @@
         "duration": 1771,
         "caloriesPerMinute": 0.061,
         "link": "https://www.youtube.com/embed/cmYRQaIy_J8",
-        "img": "22"
+        "img": "22",
+        "completed": false
     },
     {
         "title": "10 Minute Total Body Pilates (with Cassey Ho)",
@@ -250,7 +272,8 @@
         "duration": 653,
         "caloriesPerMinute": 0.05,
         "link": "https://www.youtube.com/embed/K1Hj08Ycats",
-        "img": "23"
+        "img": "23",
+        "completed": false
     },
     {
         "title": "5-Minute Thigh-Sculpting Pilates Workout",
@@ -261,7 +284,8 @@
         "duration": 390,
         "caloriesPerMinute": 0.05,
         "link": "https://www.youtube.com/embed/PzqNepp-MTo",
-        "img": "24"
+        "img": "24",
+        "completed": false
     },
     {
         "title": "10-Minute Butt Lift with Blogilates's Cassey Ho",
@@ -272,19 +296,21 @@
         "duration": 763,
         "caloriesPerMinute": 0.05,
         "link": "https://www.youtube.com/embed/4D4sLahnSVM",
-        "img": "25"
+        "img": "25",
+        "completed": false
     },
-     {
-         "title": "30-Minute Tabata Session",
-         "description": "This calorie-torching cardio and sculpting workout is one of our hardest ever, but Equinox Tabata instructor Raneir Pollard's amazing energy will inspire you to fight for it. Tabata is a form of HIIT (high intensity interval training) that alternates between 20 seconds of intense bursts of work and 10 seconds of rest in four-minute rounds. You don't need any equipment for the workout, but do grab a towel and a bottle of water — you're going to need both.",
-         "equipment": "none",
-         "type": "dance",
-         "intensity": "high",
-         "duration": 1878,
-         "caloriesPerMinute": 0.1666,
-         "link": "https://www.youtube.com/embed/XIeCMhNWFQQ",
-         "img": "26"
-     },
+    {
+        "title": "30-Minute Tabata Session",
+        "description": "This calorie-torching cardio and sculpting workout is one of our hardest ever, but Equinox Tabata instructor Raneir Pollard's amazing energy will inspire you to fight for it. Tabata is a form of HIIT (high intensity interval training) that alternates between 20 seconds of intense bursts of work and 10 seconds of rest in four-minute rounds. You don't need any equipment for the workout, but do grab a towel and a bottle of water — you're going to need both.",
+        "equipment": "none",
+        "type": "dance",
+        "intensity": "high",
+        "duration": 1878,
+        "caloriesPerMinute": 0.1666,
+        "link": "https://www.youtube.com/embed/XIeCMhNWFQQ",
+        "img": "26",
+        "completed": false
+    },
     {
         "title": "30-Minute Cardio Dance Workout",
         "description": "Deja Riley is bringing you a dance and toning workout that will have you moving to the beat as you burn up all your muscles. Get ready to groove!",
@@ -294,7 +320,8 @@
         "duration": 1842,
         "caloriesPerMinute": 0.1416,
         "link": "https://www.youtube.com/embed/J8Ja50bnX6U",
-        "img": "27"
+        "img": "27",
+        "completed": false
     },
     {
         "title": "5-Minute Hip-Hop Dance Cardio",
@@ -305,7 +332,8 @@
         "duration": 333,
         "caloriesPerMinute": 0.08,
         "link": "https://www.youtube.com/embed/QKV-KhMjOWA",
-        "img": "28"
+        "img": "28",
+        "completed": false
     },
     {
         "title": "Dance Sculpt",
@@ -316,7 +344,8 @@
         "duration": 698,
         "caloriesPerMinute": 0.1416,
         "link": "https://www.youtube.com/embed/deBOJR4nRx8",
-        "img": "29"
+        "img": "29",
+        "completed": false
     },
     {
         "title": "10-Minute Standing Barre Core Workout",
@@ -327,7 +356,8 @@
         "duration": 777,
         "caloriesPerMinute": 0.08,
         "link": "https://www.youtube.com/embed/KcY7ITTDecs",
-        "img": "30"
+        "img": "30",
+        "completed": false
     },
     {
         "title": "Full Body Stretch and Cool Down",
@@ -338,7 +368,8 @@
         "duration": 474,
         "caloriesPerMinute": 0.0383,
         "link": "https://www.youtube.com/embed/vBCgwmNZjWI",
-        "img": "31"
+        "img": "31",
+        "completed": false
     },
     {
         "title": "10-Minute Stretch To Relieve Tension",
@@ -349,7 +380,8 @@
         "duration": 635,
         "caloriesPerMinute": 0.0383,
         "link": "https://www.youtube.com/embed/VD_RAzSJvFg",
-        "img": "32"
+        "img": "32",
+        "completed": false
     },
     {
         "title": "Full-Body Stretch to Unwind",
@@ -360,7 +392,8 @@
         "duration": 707,
         "caloriesPerMinute": 0.0383,
         "link": "https://www.youtube.com/embed/4c2Pv16Gr3A",
-        "img": "33"
+        "img": "33",
+        "completed": false
     },
     {
         "title": "Dynamic Stretching Routine",
@@ -371,7 +404,8 @@
         "duration": 663,
         "caloriesPerMinute": 0.0383,
         "link": "https://www.youtube.com/embed/jSfnoyO8lio",
-        "img": "34"
+        "img": "34",
+        "completed": false
     },
     {
         "title": "Full-Body Gentle Stretch Series",
@@ -382,7 +416,8 @@
         "duration": 676,
         "caloriesPerMinute": 0.0383,
         "link": "https://www.youtube.com/embed/c4FjhEDMWDQ",
-        "img": "35"
+        "img": "35",
+        "completed": false
     },
     {
         "title": "Quick Yoga Flow",
@@ -393,7 +428,8 @@
         "duration": 364,
         "caloriesPerMinute": 0.0383,
         "link": "https://www.youtube.com/embed/0Zjg8NPV62M",
-        "img": "36"
+        "img": "36",
+        "completed": false
     },
     {
         "title": "30-Minute Yoga-Barre Hybrid Workout to Empower Your Body & Mind",
@@ -404,7 +440,8 @@
         "duration": 2097,
         "caloriesPerMinute": 0.05,
         "link": "https://www.youtube.com/embed/88NicYLCdPk",
-        "img": "37"
+        "img": "37",
+        "completed": false
     },
     {
         "title": "10 Minute Power Yoga",
@@ -415,7 +452,8 @@
         "duration": 629,
         "caloriesPerMinute": 0.066,
         "link": "https://www.youtube.com/embed/h4uZNafIh44",
-        "img": "38"
+        "img": "38",
+        "completed": false
     },
     {
         "title": "20-Minute Morning Deep-Stretch Yoga to Warm Up Your Body",
@@ -426,7 +464,8 @@
         "duration": 1198,
         "caloriesPerMinute": 0.066,
         "link": "https://www.youtube.com/embed/dXySmzm2Ay0",
-        "img": "39"
+        "img": "39",
+        "completed": false
     },
     {
         "title": "Calm Your Mind With This 15-Minute Soothing Yoga Flow",
@@ -437,7 +476,8 @@
         "duration": 973,
         "caloriesPerMinute": 0.041,
         "link": "https://www.youtube.com/embed/dwa2KHEW2_4",
-        "img": "40"
+        "img": "40",
+        "completed": false
     },
     {
         "title": "30-Minute Strength and Functional Mobility Workout",
@@ -448,7 +488,8 @@
         "duration": 1994,
         "caloriesPerMinute": 0.133,
         "link": "https://www.youtube.com/embed/ma2mL7NLCtE",
-        "img": "41"
+        "img": "41",
+        "completed": false
     },
     {
         "title": "Upper Body At-Home Workout",
@@ -459,7 +500,8 @@
         "duration": 370,
         "caloriesPerMinute": 0.046,
         "link": "https://www.youtube.com/embed/1v1ECailriA",
-        "img": "42"
+        "img": "42",
+        "completed": false
     },
     {
         "title": "30-Minute Strength-Training Workout With Weights",
@@ -470,7 +512,8 @@
         "duration": 1826,
         "caloriesPerMinute": 0.133,
         "link": "https://www.youtube.com/embed/g4exVUZlERo",
-        "img": "43"
+        "img": "43",
+        "completed": false
     },
     {
         "title": "10 Full-Body Moves to Build Strength",
@@ -481,7 +524,8 @@
         "duration": 262,
         "caloriesPerMinute": 0.05,
         "link": "https://www.youtube.com/embed/3tH_0xhfytc",
-        "img": "44"
+        "img": "44",
+        "completed": false
     },
     {
         "title": "10-Minute Strong Beginner's Body Workout",
@@ -492,6 +536,7 @@
         "duration": 885,
         "caloriesPerMinute": 0.05,
         "link": "https://www.youtube.com/embed/n7u5ebj97nI",
-        "img": "45"
+        "img": "45",
+        "completed": false
     }
 ]

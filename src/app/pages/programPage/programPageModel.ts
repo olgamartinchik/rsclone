@@ -25,10 +25,14 @@ class ProgramPageModel {
 
     public async getWeekTrainings(): Promise<Card[]> {
         const data = await this.getSettingsData();
-        const program = this.getProgram();
+        const program = await this.getProgram();
 
         if (!program && data) {
             this.program = await this.wrManager.getProgram(data);
+            const userData = storageManager.getItem<TToken>('token', 'local');
+            if (userData) {
+                await this.client.postProgram(this.program, userData.userID);
+            }
         } else if (program) {
             this.program = program;
         }
@@ -39,8 +43,16 @@ class ProgramPageModel {
         return this.cards[this.week];
     }
 
-    private getProgram() {
-        return storageManager.getItem<TWorkoutProgram>('workout-program', 'local');
+    private async getProgram(): Promise<TWorkoutProgram | void> {
+        let program = storageManager.getItem<TWorkoutProgram>('workout-program', 'local');
+        if (!program) {
+            const userData = storageManager.getItem<TToken>('token', 'local');
+            if (userData) {
+                program = await this.client.getProgram(userData.userID);
+            }
+        }
+
+        return program;
     }
 
     private saveData(): void {
@@ -52,8 +64,10 @@ class ProgramPageModel {
         let settings = storageManager.getItem<TSettings>('userSettings', 'local');
         if (!settings) {
             const userData = storageManager.getItem<TToken>('token', 'local');
+
             if (userData) {
                 settings = await this.client.getUserSettings(userData.userID);
+                storageManager.addItem('userSettings', settings, 'local');
             }
         }
         return settings;
