@@ -133,6 +133,58 @@
             cursor: pointer;
         }
     }
+    &.pencil {
+        margin: auto;
+        &:before {
+            content: fa-content($fa-var-pencil-alt);
+            color: $color-text-on-dark;
+            cursor: pointer;
+        }
+    }
+    &.medal {
+        margin: auto;
+        &:before {
+            content: fa-content($fa-var-medal);
+            font-size: 55px;
+            line-height: 55px;
+            @media (max-width: 650px) {
+                font-size: 45px;
+                line-height: 45px;
+            }
+            @media (max-width: 450px) {
+                font-size: 35px;
+                line-height: 35px;
+            }
+        }
+    }
+    &.calories {
+        margin: auto;
+        &:before {
+            content: fa-content($fa-var-fire-alt);
+            font-size: 55px;
+            line-height: 55px;
+            @media (max-width: 650px) {
+                font-size: 45px;
+                line-height: 45px;
+            }
+            @media (max-width: 450px) {
+                font-size: 35px;
+                line-height: 35px;
+            }
+        }
+    }
+}
+
+.icon-upload {
+    display: inline-flex;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: $color-settings-active;
+    border-radius: 50%;
+    position: absolute;
+    left: 115px;
+    top: 105px;
 }
 
 .icon-select {
