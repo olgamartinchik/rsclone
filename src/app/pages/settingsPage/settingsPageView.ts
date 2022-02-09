@@ -4,6 +4,7 @@ import NavBar from '../../components/header/navbar';
 import settings from '../../components/settings/settings';
 import Node from '../../components/Node';
 import Button from '../../components/Button';
+import storageManager from '../../services/storageManager';
 
 class SettingsPageView {
     private rootNode: HTMLElement;
@@ -15,7 +16,7 @@ class SettingsPageView {
     render(onclick: (e: Event) => void, onclickButton: (e: Event) => void): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-
+        const user = <string>storageManager.getItem('user', 'local');
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -24,7 +25,7 @@ class SettingsPageView {
             'settings',
         ]);
         navbar.generateMenu('Settings');
-        navbar.addProfileLink('O');
+        navbar.addProfileLink(user);
 
         this.createMainLayout(onclick, onclickButton);
 

@@ -5,6 +5,7 @@ import NavBar from '../../components/header/navbar';
 import modal from '../../components/modal/modal';
 import Node from '../../components/Node';
 import Button from '../../components/Button';
+import storageManager from '../../services/storageManager';
 import {
     GoalTitles,
     WorkoutsProgramDuration,
@@ -35,6 +36,7 @@ class EditPlanPageView {
     }
 
     private createHeader(): void {
+        const user = <string>storageManager.getItem('user', 'local');
         this.rootNode.append(header.getTemplate());
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
@@ -44,7 +46,7 @@ class EditPlanPageView {
             'settings',
         ]);
         navbar.generateMenu();
-        navbar.addProfileLink('O');
+        navbar.addProfileLink(user);
     }
 
     private createMainLayout(

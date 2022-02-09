@@ -22,6 +22,10 @@ export default class Button {
         this.button.node.classList.add('header-tablet');
     }
 
+    addClass(text: string): void {
+        this.button.node.classList.add(text);
+    }
+
     onclick(onclick: (e: Event) => void): void {
         this.button.node.onclick = (e: Event) => onclick(e);
     }
