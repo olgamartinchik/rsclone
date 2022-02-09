@@ -2,11 +2,11 @@ import Utils from '../../services/utils';
 import videoControls from './templateControls';
 
 class VideoHandler {
-    private readonly video: HTMLVideoElement;
+    private video: HTMLVideoElement | null;
 
     private readonly videoWrapper: HTMLElement;
 
-    private readonly src: HTMLSourceElement;
+    private src: HTMLSourceElement | null;
 
     private controls: HTMLElement;
 
@@ -39,10 +39,8 @@ class VideoHandler {
     constructor() {
         this.videoWrapper = document.createElement('div');
         this.videoWrapper.className = 'video-wrapper';
-        this.video = document.createElement('video');
-        this.video.className = 'video-player';
-        this.src = document.createElement('source');
-        this.src.setAttribute('type', 'video/mp4');
+        this.video = null;
+        this.src = null;
         this.controls = document.createElement('div');
         this.controls.className = 'video-controls masked';
         this.playBtn = null;
@@ -62,9 +60,29 @@ class VideoHandler {
 
     public createVideo(parentElement: HTMLElement, src: string): void {
         this.removeInnerContext();
+        this.initVideo(parentElement, src);
+
+        this.video!.oncanplay = (e: Event): void => {
+            e.stopPropagation();
+            this.setFullTime();
+
+            if (this.currentTime > 0 && this.video!.paused) {
+                this.video!.pause();
+            } else {
+                this.play();
+                this.playBtn?.classList.remove('paused');
+            }
+        };
+    }
+
+    private initVideo(parentElement: HTMLElement, src: string): void {
+        this.video = document.createElement('video');
+        this.video.className = 'video-player';
+        this.src = document.createElement('source');
+        this.src.setAttribute('type', 'video/mp4');
         this.src.setAttribute('src', src);
         this.video.append(this.src);
-        this.videoWrapper.append(this.video);
+        this.videoWrapper.append(this.video!);
         parentElement.append(this.videoWrapper);
         this.isVideoInstalled = true;
         document.body.style.overflow = 'hidden';
@@ -74,23 +92,11 @@ class VideoHandler {
         this.video.currentTime = 0;
         this.video.volume = this.currentVolumeValue;
         this.changeTimelineBg();
-        this.video.oncanplay = (e: Event): void => {
-            e.stopPropagation();
-            this.setFullTime();
-
-            if (this.currentTime > 0 && this.video.paused) {
-                this.video.pause();
-            } else {
-                this.play();
-                this.playBtn?.classList.remove('paused');
-            }
-        };
     }
 
     private removeInnerContext(): void {
         this.videoWrapper.textContent = '';
-        this.video.textContent = '';
-        this.src.textContent = '';
+        if (this.src) this.src.remove();
         this.controls.textContent = '';
         this.playBtn = null;
         this.backBtn = null;
@@ -100,7 +106,7 @@ class VideoHandler {
         if (this.timeline) {
             this.timeline.setAttribute('max', String(this.fullTime));
         }
-        this.video.play();
+        this.video!.play();
     }
 
     private togglePlayIcon(): void {
@@ -112,8 +118,8 @@ class VideoHandler {
     }
 
     public toggle(): void {
-        if (!this.video.paused) {
-            this.video.pause();
+        if (!this.video!.paused) {
+            this.video!.pause();
         } else {
             this.play();
         }
@@ -122,17 +128,17 @@ class VideoHandler {
     }
 
     public get currentTime(): number {
-        return this.video.currentTime;
+        return this.video!.currentTime;
     }
 
     private set currentTime(num: number) {
         if (num <= this.fullTime) {
-            this.video.currentTime = num;
+            this.video!.currentTime = num;
         }
     }
 
     public get fullTime(): number {
-        return this.video.duration;
+        return this.video!.duration;
     }
 
     public renderControls(): void {
@@ -187,14 +193,14 @@ class VideoHandler {
 
     private initTimeline(): void {
         this.timeline = this.controls.querySelector('.timeline-js');
-        this.video.ontimeupdate = (e: Event): void => {
+        this.video!.ontimeupdate = (e: Event): void => {
             e.stopPropagation();
             if (this.timeline) {
                 this.timeline.value = String(this.currentTime);
                 this.changeTimelineBg();
                 this.setCurrentTime();
 
-                if (this.video.ended) {
+                if (this.video!.ended) {
                     this.playBtn?.classList.add('paused');
                 }
             }
@@ -247,11 +253,11 @@ class VideoHandler {
             this.changeVolumeBg();
             this.volumeBtn.onclick = (e: MouseEvent): void => {
                 e.stopPropagation();
-                if (this.video.volume > 0) {
-                    this.video.volume = 0;
+                if (this.video!.volume > 0) {
+                    this.video!.volume = 0;
                     this.volumeRange!.value = String(0);
                 } else {
-                    this.video.volume = this.currentVolumeValue;
+                    this.video!.volume = this.currentVolumeValue;
                     this.volumeRange!.value = String(this.currentVolumeValue);
                 }
 
@@ -272,9 +278,9 @@ class VideoHandler {
     }
 
     private changeVolumeLevel(): void {
-        this.currentVolumeValue = this.video.volume;
+        this.currentVolumeValue = this.video!.volume;
         const currVolVal = parseFloat(this.volumeRange!.value);
-        this.video.volume = currVolVal;
+        this.video!.volume = currVolVal;
         this.changeVolumeBg();
 
         if (currVolVal === 0) {
@@ -334,12 +340,12 @@ class VideoHandler {
 
     private goForward(e: Event): void {
         e.stopPropagation();
-        this.video.currentTime += 15;
+        this.video!.currentTime += 15;
     }
 
     private goBackward(e: Event): void {
         e.stopPropagation();
-        this.video.currentTime -= 15;
+        this.video!.currentTime -= 15;
     }
 
     private initKeyEvents() {
@@ -352,18 +358,18 @@ class VideoHandler {
 
         if (e.code === 'Space') {
             e.preventDefault();
-            this.video.focus();
+            this.video!.focus();
             this.toggle();
             return false;
         }
 
         if (e.code === 'KeyM') {
-            this.video.focus();
-            if (this.video.volume === 0) {
-                this.video.volume = this.currentVolumeValue;
+            this.video!.focus();
+            if (this.video!.volume === 0) {
+                this.video!.volume = this.currentVolumeValue;
                 this.volumeRange!.value = `${this.currentVolumeValue}`;
             } else {
-                this.video.volume = 0;
+                this.video!.volume = 0;
                 this.volumeRange!.value = String(0);
             }
             this.toggleMute();
@@ -384,9 +390,9 @@ class VideoHandler {
     }
 
     public destroy(): void {
-        this.video.currentTime = 0;
-        this.video.pause();
-        this.video.volume = 0;
+        this.video!.currentTime = 0;
+        this.video!.pause();
+        this.video!.volume = 0;
         this.removeInnerContext();
         this.videoWrapper.remove();
         this.isVideoInstalled = false;
