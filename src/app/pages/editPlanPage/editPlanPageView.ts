@@ -36,7 +36,7 @@ class EditPlanPageView {
     }
 
     private createHeader(): void {
-        const user = <string>storageManager.getItem('user', 'local');
+        const user = (<string>storageManager.getItem('user', 'local')).split('')[0];
         this.rootNode.append(header.getTemplate());
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [

@@ -92,3 +92,10 @@ export type TAuthResult = {
     token: string;
     userId: string;
 };
+
+export type TBadge = {
+    src: string;
+    name: string;
+    text: string;
+    modalId: string;
+}

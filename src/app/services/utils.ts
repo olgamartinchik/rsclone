@@ -1,5 +1,6 @@
-import { TWorkoutLength } from './types';
-import { WorkoutType } from './constants';
+import { TBadge, TWorkoutLength } from './types';
+import { WorkoutType, BadgeSrc, BadgeName, BadgeText } from './constants';
+
 export default class Utils {
     static getChunks<T>(dataArr: T[], chunk: number): Array<T[]> {
         return dataArr.reduce((resultArray: Array<T[]>, item: T, index: number) => {
@@ -108,5 +109,48 @@ export default class Utils {
 
     static getKeyByValue<T>(object: T, value: string | number | TWorkoutLength | Array<WorkoutType>) {
         return Object.keys(object).find((key) => object[key] === value);
+    }
+
+    static getBadges(): Array<TBadge> {
+        const badges = [
+            {
+                src: BadgeSrc.oneWorkout,
+                name: BadgeName.oneWorkout,
+                text: BadgeText.oneWorkout,
+                modalId: 'modal1',
+            },
+            {
+                src: BadgeSrc.fiveWorkouts,
+                name: BadgeName.fiveWorkouts,
+                text: BadgeText.fiveWorkouts,
+                modalId: 'modal2',
+            },
+            {
+                src: BadgeSrc.tenWorkouts,
+                name: BadgeName.tenWorkouts,
+                text: BadgeText.tenWorkouts,
+                modalId: 'modal3',
+            },
+            {
+                src: BadgeSrc.twentyWorkouts,
+                name: BadgeName.twentyWorkouts,
+                text: BadgeText.twentyWorkouts,
+                modalId: 'modal4',
+            },
+            {
+                src: BadgeSrc.fiftyWorkouts,
+                name: BadgeName.fiftyWorkouts,
+                text: BadgeText.fiftyWorkouts,
+                modalId: 'modal5',
+            },
+            {
+                src: BadgeSrc.hundredWorkouts,
+                name: BadgeName.hundredWorkouts,
+                text: BadgeText.hundredWorkouts,
+                modalId: 'modal6',
+            },
+        ]
+
+        return badges;
     }
 }

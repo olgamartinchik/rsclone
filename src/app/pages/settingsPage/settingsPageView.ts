@@ -16,7 +16,7 @@ class SettingsPageView {
     render(onclick: (e: Event) => void, onclickButton: (e: Event) => void): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-        const user = <string>storageManager.getItem('user', 'local');
+        const user = (<string>storageManager.getItem('user', 'local')).split('')[0];
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',

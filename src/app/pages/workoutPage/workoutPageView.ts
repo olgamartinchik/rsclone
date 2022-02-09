@@ -6,6 +6,7 @@ import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 import workoutHeaderTemplate from '../../components/workout/template';
 import workoutDesc from '../../components/workout/workoutDescription';
+import storageManager from '../../services/storageManager';
 
 class WorkoutPageView {
     public readonly rootNode: HTMLElement;
@@ -17,7 +18,7 @@ class WorkoutPageView {
     render(card: Card, startVideo: (e: Event) => void): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-
+        const user = (<string>storageManager.getItem('user', 'local')).split('')[0];
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -26,7 +27,7 @@ class WorkoutPageView {
             'settings',
         ]);
         navbar.generateMenu();
-        navbar.addProfileLink('O');
+        navbar.addProfileLink(user);
         this.createMainBlockLayout(card, startVideo);
 
         this.rootNode.append(footer.getTemplate());

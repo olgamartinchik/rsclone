@@ -19,7 +19,7 @@ class ProgramPageView {
     render(data: Card[], onclick: (e: Event) => void, week: number): void {
         this.rootNode.textContent = '';
         this.rootNode.append(Header.getTemplate());
-        const user = <string>storageManager.getItem('user', 'local');
+        const user = (<string>storageManager.getItem('user', 'local')).split('')[0];
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
