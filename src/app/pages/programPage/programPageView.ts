@@ -65,17 +65,16 @@ class ProgramPageView {
     getAddWorkoutBlock(): string {
         return `
         <div class="program-card z-depth-1">
+            <h3 class="title card-title title-container">Add Workout</h3>
             <div class="image-container">
             <div class="image lighthen"></div>
             <div class="add-block">
                 <img class="red-plus" src="./assets/img/svg/add.svg" alt="" />
             </div>
             </div>
-            <div class="card-info add">
-                <div class="title card-title add">Add Workout</div>
+            <div class="card-info">
                 <ol class="subtitle list">
                     <li>Tap on any workout card</li>
-                    <li>Tap <span class="bold-text">•••</span> in the top right</li>
                     <li>Select <span class="bold-text">Add to Program</span></li>
                 </ol>
             </div>

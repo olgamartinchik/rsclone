@@ -14936,9 +14936,10 @@ input[type=text]:not(.browser-default) {
 }
 
 .program-card {
-  width: 350px;
+  width: 370px;
   height: 300px;
   margin-right: 25px;
+  padding: 10px;
   border: 0.5px solid rgba(194, 190, 190, 0.5);
   border-radius: 12px;
   text-align: left;
@@ -14949,6 +14950,7 @@ input[type=text]:not(.browser-default) {
   margin-right: 0;
 }
 .program-card .title {
+  height: 40px;
   margin: 0;
   margin-bottom: 10px;
   font-weight: 700;
@@ -14978,6 +14980,7 @@ input[type=text]:not(.browser-default) {
 }
 .program-card .image.lighthen {
   opacity: 0.3;
+  background-position: left 50% top 18%;
 }
 .program-card .card-info {
   display: flex;
@@ -14985,7 +14988,7 @@ input[type=text]:not(.browser-default) {
   align-items: center;
   flex-wrap: wrap;
   padding: 6px 15px;
-  height: 78px;
+  height: 72px;
 }
 .program-card .card-info.description {
   flex-wrap: nowrap;
@@ -15033,8 +15036,8 @@ input[type=text]:not(.browser-default) {
   box-sizing: border-box;
   position: absolute;
   left: 50%;
-  top: 35px;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 .program-card .add-block .red-plus {
   width: 40px;
@@ -15054,6 +15057,10 @@ input[type=text]:not(.browser-default) {
 
 .title-container {
   padding: 6px;
+}
+
+span.bold-text {
+  font-weight: 700;
 }
 
 .parameters {
@@ -16222,7 +16229,6 @@ input:not([type]).select-dropdown {
 
 .modal.profile {
   width: 55%;
-  min-height: 80%;
 }
 
 .modal.profile .badge-title,
