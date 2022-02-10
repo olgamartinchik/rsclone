@@ -324,7 +324,7 @@ class OnboardingPageController {
         if ((<HTMLElement>e.target).dataset.btn === 'start') {
             authManager.navigate('/program');
         }
-        console.log('!!!!!!!!!!!!!!!!')
+        
     }
 }
 

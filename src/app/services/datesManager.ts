@@ -1,4 +1,5 @@
 import { TSettings } from "./types"
+import StorageManager from './storageManager';
 
 class DateManager{
     userSettings:TSettings
@@ -27,8 +28,7 @@ getArrayDate(){
        this.arrayDates.push(''+ this.padStart(startDate.getMonth()+1) +'-'+ this.padStart(startDate.getDate())+ '-' + startDate.getFullYear());
        startDate.setDate( startDate.getDate()+1);
      }
-//    console.log('date',allDaysProgramme,this.arrayDates,lastDay)
-//    console.log('todayDate', this.rememberDateToday())
+
    return this.arrayDates
 }
 dateToday() {
@@ -48,34 +48,34 @@ padStart(s:number){
      return ('00' + s).slice(-2)
   }
   getNumWeek(){
-      let week=0
+      let numWeek=0
       let arrayDate=this.getArrayDate()
       let dayToday=this.dateToday()
       let num=arrayDate.indexOf(dayToday)
       console.log('num', num)
       if(num<=7){
-         week=0
+        numWeek=0
       }else if(num<=14){
-        week= 1
+        numWeek= 1
       }else if(num<21){
-        week= 2
+        numWeek= 2
       }else if(num <28){
-        week=3
+        numWeek=3
       }else if(num<=35){
-        week= 4
+        numWeek= 4
       }else if(num<=42){
-        week= 5
+        numWeek= 5
     }else if(num<49){
-        week= 6
+        numWeek= 6
     }else if(num <56){
-        week= 7
+        numWeek= 7
     }else if(num<=63){
-        week= 8
+        numWeek= 8
     }else if(num <70){
-        week= 9
+        numWeek= 9
     }
-
-    return week
+    StorageManager.addItem('numWeek',numWeek,'local')
+    return numWeek
   }
 
 }
