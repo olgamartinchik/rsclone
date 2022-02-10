@@ -31,7 +31,7 @@ getArrayDate(){
 //    console.log('todayDate', this.rememberDateToday())
    return this.arrayDates
 }
-rememberDateToday() {
+dateToday() {
     const day = new Date();
     const dd = String(day.getDate()).padStart(2, '0');
     const mm = String(day.getMonth() + 1).padStart(2, '0');
@@ -46,6 +46,36 @@ getLastDay (date:Date, days:number) {
 }
 padStart(s:number){
      return ('00' + s).slice(-2)
+  }
+  getNumWeek(){
+      let week=0
+      let arrayDate=this.getArrayDate()
+      let dayToday=this.dateToday()
+      let num=arrayDate.indexOf(dayToday)
+      console.log('num', num)
+      if(num<=7){
+         week=0
+      }else if(num<=14){
+        week= 1
+      }else if(num<21){
+        week= 2
+      }else if(num <28){
+        week=3
+      }else if(num<=35){
+        week= 4
+      }else if(num<=42){
+        week= 5
+    }else if(num<49){
+        week= 6
+    }else if(num <56){
+        week= 7
+    }else if(num<=63){
+        week= 8
+    }else if(num <70){
+        week= 9
+    }
+
+    return week
   }
 
 }

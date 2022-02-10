@@ -1,7 +1,8 @@
 
 import ClientManager from './clientManager';
+import DateManager from './datesManager';
 import StorageManager from './storageManager';
-import { TSettings } from './types';
+import { IDataExplore, TSettings } from './types';
 class CalculationCalories{
     userSettings:TSettings
     weight:number
@@ -68,9 +69,33 @@ class CalculationCalories{
       const calories=this.getCalories()
       const recipeData= await new ClientManager().getRecipe(calories);
       StorageManager.addItem('allRecipe', recipeData, 'local')
+      console.log('recipe',StorageManager.getItem('allRecipe', 'local'))
+      this.createUserMeal()
+     }
+     
+     createUserMeal(){
+        let periodUserMeal={}
+        let dayMeals=['breakfast','lunch/dinner','snack']    
+        let arrayDates=new DateManager(this.userSettings).getArrayDate()
+        if(StorageManager.getItem('allRecipe', 'local')){        
+           let allRecipe=StorageManager.getItem('allRecipe', 'local') as IDataExplore[]
+
+           arrayDates.forEach((date)=>{   
+            periodUserMeal[date]=[]         
+            dayMeals.forEach((day)=>{
+               if(day){
+                  periodUserMeal[date].push(allRecipe!.find((meal)=>(meal!.recipe.mealType! as [])!.includes(day as never)) )
+               }              
+            })
+           })
+          
+           StorageManager.addItem('periodUserMeal',periodUserMeal,'local')
+
+         }
+
      }
   
- 
+
   
   
 }
