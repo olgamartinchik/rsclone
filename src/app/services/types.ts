@@ -32,8 +32,15 @@ export type TSettings = {
     desiredWeight: number;
     duration: WorkoutsProgramDuration;
     workoutsNumber: WorkoutsNumber;
-    workoutLength: { min: number; max: number };
+    weekProgress: TWeekProgress;
     favWorkouts: Array<WorkoutType>;
+    caloriesBurned: number;
+    badges: string[];
+    heightUnit: string;
+    weightUnit: string;
+    completedWorkouts: number;
+    liked: TWorkout[];
+    workoutLength: TWorkoutLength;
 };
 
 export type TWorkoutLength = {
@@ -91,4 +98,12 @@ export type TAuthResult = {
     message: string;
     token: string;
     userId: string;
+};
+
+export type TWeekProgress = {
+    currentWeek: number;
+    calories: number;
+    workoutsNumber: number;
+    workoutsCompleted: number;
+    minutes: number;
 };

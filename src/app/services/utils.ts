@@ -109,4 +109,10 @@ export default class Utils {
     static getKeyByValue<T>(object: T, value: string | number | TWorkoutLength | Array<WorkoutType>) {
         return Object.keys(object).find((key) => object[key] === value);
     }
+
+    static getTimeDiffInSeconds(startTime: number): number {
+        const diff = Date.now() - startTime;
+
+        return new Date(diff).getSeconds();
+    }
 }

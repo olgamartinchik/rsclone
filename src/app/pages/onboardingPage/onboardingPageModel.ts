@@ -22,6 +22,19 @@ export default class OnboardingModel {
             workoutsNumber: WorkoutsNumber.small,
             workoutLength: { min: 5, max: 10 },
             favWorkouts: [],
+            weekProgress: {
+                currentWeek: 0,
+                calories: 0,
+                workoutsNumber: WorkoutsNumber.small,
+                workoutsCompleted: 0,
+                minutes: 0,
+            },
+            caloriesBurned: 0,
+            badges: [],
+            heightUnit: '',
+            weightUnit: '',
+            completedWorkouts: 0,
+            liked: [],
         };
     }
 

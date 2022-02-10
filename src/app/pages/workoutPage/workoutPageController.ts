@@ -21,6 +21,8 @@ class WorkoutPageController {
         const card = this.model.getCardById(id);
         if (card) {
             this.view.render(card, this.startWorkout.bind(this));
+        } else {
+            authManager.navigate('program');
         }
     }
 
@@ -32,11 +34,13 @@ class WorkoutPageController {
         }
     }
 
-    private async sendStatistics(id: string): Promise<void> {
+    private async sendStatistics(id: string, time: number): Promise<void> {
         const workout = this.model.getCardById(id);
         if(workout) {
+            await this.model.updateSettingsData(time, workout);
             workout.completed = true;
             await this.model.updateWorkoutData(workout);
+
         }
         authManager.navigate(`workoutsummary/${id}`);
     }

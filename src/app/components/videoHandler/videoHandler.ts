@@ -42,6 +42,8 @@ class VideoHandler {
 
     private preloader: HTMLElement;
 
+    private startTime: number;
+
     constructor() {
         this.timer = new Timer();
         this.preloader = preloader.getTemplate();
@@ -64,9 +66,10 @@ class VideoHandler {
         this.forward = null;
         this.currentVolumeValue = 1;
         this.isVideoInstalled = false;
+        this.startTime = 0;
     }
 
-    public createVideo(parentElement: HTMLElement, src: string, id: string, callback: (id: string) => void): void {
+    public createVideo(parentElement: HTMLElement, src: string, id: string, callback: (id: string, time: number) => void): void {
         this.removeInnerContext();
         this.initVideo(parentElement, src, id);
 
@@ -82,7 +85,7 @@ class VideoHandler {
             }
             this.preloader.remove();
         };
-        this.video!.onended = () => callback(this.video!.id);
+        this.video!.onended = () => callback(this.video!.id, Utils.getTimeDiffInSeconds(this.startTime));
     }
 
     private initVideo(parentElement: HTMLElement, src: string, id: string): void {
@@ -106,6 +109,7 @@ class VideoHandler {
         this.video.volume = this.currentVolumeValue;
         this.changeTimelineBg();
         this.timer.createTimer(this.videoWrapper, 0);
+        this.startTime = Date.now();
     }
 
     private removeInnerContext(): void {
@@ -406,9 +410,12 @@ class VideoHandler {
     }
 
     public destroy(): void {
-        this.video!.currentTime = 0;
-        this.video!.pause();
-        this.video!.volume = 0;
+        if(this.video) {
+            this.video.currentTime = 0;
+            this.video.pause();
+            this.video.volume = 0;
+        }
+        
         this.removeInnerContext();
         this.preloader.remove();
         this.videoWrapper.remove();

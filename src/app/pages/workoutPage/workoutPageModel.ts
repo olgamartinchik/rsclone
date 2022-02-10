@@ -1,7 +1,7 @@
 import Card from '../../components/card/card';
 import storageManager from '../../services/storageManager';
 import CloudinaryManager from '../../services/cloudinarySDK';
-import { TToken, TWorkoutProgram } from '../../services/types';
+import { TSettings, TToken, TWorkoutProgram } from '../../services/types';
 import ClientManager from '../../services/clientManager';
 
 class WorkoutPageModel {
@@ -64,6 +64,22 @@ class WorkoutPageModel {
             }
         }
         storageManager.addItem('workout-cards', this.cards, 'local');
+    }
+
+    public async updateSettingsData(time: number, card: Card): Promise<void> {
+        const settings = storageManager.getItem<TSettings>('userSettings', 'local');
+        if(settings) {
+            settings.weekProgress.minutes += Math.ceil(time / 60);
+            settings.weekProgress.workoutsCompleted += 1;
+            settings.completedWorkouts += 1;
+            storageManager.addItem('userSettings', settings, 'local');
+
+            const userData = storageManager.getItem<TToken>('token', 'local');
+            if (userData) {
+                await this.client.changeData('userSettings', userData.userID, settings);
+            }
+        }
+        
     }
 }
 

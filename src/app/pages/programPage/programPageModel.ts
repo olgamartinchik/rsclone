@@ -60,7 +60,7 @@ class ProgramPageModel {
         storageManager.addItem('workout-program', this.program, 'local');
     }
 
-    private async getSettingsData(): Promise<TSettings | void> {
+    public async getSettingsData(): Promise<TSettings | void> {
         let settings = storageManager.getItem<TSettings>('userSettings', 'local');
         if (!settings) {
             const userData = storageManager.getItem<TToken>('token', 'local');
