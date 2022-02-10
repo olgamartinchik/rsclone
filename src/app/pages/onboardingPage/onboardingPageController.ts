@@ -1,7 +1,9 @@
 import OnboardingPageView from './onboardingPageView';
 import onboardingModel, { OnboardingModel } from './onboardingPageModel';
 import authManager from '../../services/authManager';
+import storageManager from '../../services/storageManager';
 import { Height, Weight, Colors, Coefficients, Goal, Message, WorkoutType } from '../../services/constants';
+import { TToken } from '../../services/types';
 
 class OnboardingPageController {
     private view: OnboardingPageView;
@@ -35,6 +37,12 @@ class OnboardingPageController {
     }
 
     public createPage() {
+        const token = <TToken>storageManager.getItem('token', 'local');
+        if (!token) {
+            authManager.navigate('/');
+            return;
+        }
+
         this.birthday = this.model.dateOfBirth;
         this.view.render(
             this.blocks[this.block],

@@ -8,26 +8,26 @@ export class AuthPageController {
 
     private view: AuthView;
 
-    private isExistingUser: boolean;
+    private isLogin: boolean;
 
     constructor() {
         this.model = authModel;
         this.view = authView;
-        this.isExistingUser = false;
+        this.isLogin = false;
     }
 
-    public createPage(isExistingUser: boolean): void {
-        this.isExistingUser = isExistingUser;
-        if (!this.isExistingUser) StorageManager.deleteItem('token', 'local');
+    public createPage(isLogin: boolean): void {
+        this.isLogin = isLogin;
 
         this.view.render(
             this.handleInputChange.bind(this),
             this.handleInput.bind(this),
             this.handleBackButtonClick.bind(this),
             this.handleButtonClick.bind(this),
-            this.isExistingUser
+            this.isLogin
         );
         StorageManager.deleteItem('userSettings', 'local');
+        StorageManager.deleteItem('user', 'local');
         StorageManager.deleteItem('workout-program', 'local');
         StorageManager.deleteItem('workout-cards', 'local');
     }
@@ -50,7 +50,7 @@ export class AuthPageController {
         } else {
             this.model.changeHandler({ [elementType]: '' });
         }
-        this.model.checkUserData(this.isExistingUser);
+        this.model.checkUserData(this.isLogin);
     }
 
     private handleValidation(type: string, element: HTMLInputElement): void {
@@ -77,7 +77,7 @@ export class AuthPageController {
 
     private async handleButtonClick(e: Event): Promise<void> {
         this.initPreloader(<HTMLElement>e.target);
-        const type = this.isExistingUser ? 'auth/login' : 'auth/register';
+        const type = this.isLogin ? 'auth/login' : 'auth/register';
         await this.model.authHandler(`${type}`);
         this.destroyPreloader(<HTMLElement>e.target);
     }
