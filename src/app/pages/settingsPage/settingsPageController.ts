@@ -1,5 +1,6 @@
 import SettingsPageView from './settingsPageView';
 import authManager from '../../services/authManager';
+import authModel from '../authPage/authPageModel';
 
 class SettingsPageController {
     private view: SettingsPageView;
@@ -41,6 +42,7 @@ class SettingsPageController {
 
     private handleButtonClick(): void {
         localStorage.clear();
+        authModel.destroyData();
         authManager.navigate('/');
     }
 }

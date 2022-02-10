@@ -1,6 +1,23 @@
+import ClientManager from '../../services/clientManager';
+import StorageManager from '../../services/storageManager';
+import { TSettings } from '../../services/types';
+import { Endpoints } from '../../services/constants';
+
 class EditPlanPageModel {
-    getData() {
-        console.log('data is being loaded');
+    public saveSettings(modifiedSettings: TSettings | void) {
+        const clientManager = new ClientManager();
+        StorageManager.addItem('userSettings', modifiedSettings, 'local');
+        clientManager.changeData(
+            Endpoints.userSettings,
+            (<TSettings>modifiedSettings).userId,
+            <TSettings>modifiedSettings
+        );
+        this.updateWorkoutProgram();
+    }
+
+    public updateWorkoutProgram(): void {
+        StorageManager.deleteItem('workout-cards', 'local');
+        StorageManager.deleteItem('workout-program', 'local');
     }
 }
 

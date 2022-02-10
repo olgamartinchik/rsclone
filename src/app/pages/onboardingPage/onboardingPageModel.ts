@@ -38,7 +38,7 @@ export default class OnboardingModel {
         if (setting.workoutsNumber) this.form.workoutsNumber = +setting.workoutsNumber;
         if (setting.favWorkouts) this.form.favWorkouts = setting.favWorkouts;
         if (setting.workoutLength) this.form.workoutLength = setting.workoutLength;
-        if (setting.duration) this.form.duration = setting.duration;
+        if (setting.duration) this.form.duration = +setting.duration;
     }
 
     public async saveSettings() {

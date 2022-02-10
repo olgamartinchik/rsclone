@@ -5,6 +5,7 @@ import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 import { IDataExplore } from '../../services/types';
 import Preloader from '../../components/preloader/preloader';
+import storageManager from '../../services/storageManager';
 
 class MealPageView {
     private rootNode: HTMLElement;
@@ -34,7 +35,7 @@ class MealPageView {
     ) {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-
+        const user = <string>storageManager.getItem('user', 'local');
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -43,7 +44,7 @@ class MealPageView {
             'settings',
         ]);
         navbar.generateMenu('Meal');
-        navbar.addProfileLink('O');
+        navbar.addProfileLink(user);
         this.createContentMeal(exploreData, onclick, onchange, onclickBtn);
 
         this.rootNode.append(footer.getTemplate());

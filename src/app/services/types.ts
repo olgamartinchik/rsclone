@@ -10,6 +10,7 @@ export type TWorkout = {
     caloriesPerMinute: number;
     link: string;
     img: string;
+    completed: boolean;
     _id?: string;
 };
 
@@ -35,6 +36,11 @@ export type TSettings = {
     favWorkouts: Array<WorkoutType>;
 };
 
+export type TWorkoutLength = {
+    min: number;
+    max?: number | undefined;
+};
+
 export type TWorkoutProgram = Array<TWorkout[]>;
 
 export interface IWorkoutManager {
@@ -46,6 +52,13 @@ export type TLoginForm = {
     email: string;
     password: string;
 };
+
+export type TLoginResponse = {
+    token: string;
+    userId: string;
+    userName: string;
+    email: string;
+}
 
 export type TToken = {
     userID: string;

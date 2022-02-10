@@ -1,67 +1,109 @@
-import { TLoginForm, TToken } from '../../services/types';
+import { TLoginForm, TLoginResponse } from '../../services/types';
 import authManager from '../../services/authManager';
 import ClientManager from '../../services/clientManager';
 import StorageManager from '../../services/storageManager';
-import { Message } from '../../services/constants';
+import storageManager from '../../services/storageManager';
 
-export default class AuthModel {
-    form: TLoginForm;
+export class AuthModel {
+    private form: TLoginForm;
 
-    isLoading: boolean;
+    public isLoading: boolean;
 
-    isSuccess: boolean;
-
-    message: string;
-
-    tokenInfo: TToken;
+    private clientManager: ClientManager;
 
     constructor() {
+        this.clientManager = new ClientManager();
         this.isLoading = true;
         this.form = {
             userName: '',
             email: '',
             password: '',
         };
-        this.isSuccess = true;
-        this.message = '';
-        this.tokenInfo = {
-            userID: '',
-            jwtToken: '',
-        };
     }
 
-    public changeHandler(name: string, email: string, password: string) {
-        if (name) {
-            this.form.userName = name;
+    public changeHandler(...args: Array<Partial<TLoginForm>>) {
+        const authData = Array.from(args)[0];
+        if (authData.userName || authData.userName === '') this.form.userName = authData.userName;
+        if (authData.email || authData.email === '') this.form.email = authData.email;
+        if (authData.password || authData.password === '') this.form.password = authData.password;
+        console.log(this.form);
+    }
+
+    public checkUserData(isExistingUser: boolean): void {
+        const type = isExistingUser ? 'auth/login' : 'auth/register';
+        switch (type) {
+            case 'auth/login':
+                if (this.form.email && this.form.password) {
+                    this.activateSendBtn();
+                } else if (!this.form.email || !this.form.password) {
+                    this.deactivateSendBtn();
+                }
+                break;
+            case 'auth/register':
+                if (this.form.userName && this.form.email && this.form.password) {
+                    this.activateSendBtn();
+                } else {
+                    this.deactivateSendBtn();
+                }
+                break;
         }
-        this.form.email = email;
-        this.form.password = password;
+    }
+
+    private activateSendBtn(): void {
+        const button = <HTMLElement>document.querySelector('.btn-send');
+        button.classList.remove('btn-disabled');
+        button.removeAttribute('disabled');
+    }
+
+    private deactivateSendBtn(): void {
+        const button = <HTMLElement>document.querySelector('.btn-send');
+        button.classList.add('btn-disabled');
+        button.setAttribute('disabled', 'disabled');
     }
 
     public async authHandler(type: string): Promise<void> {
-        const clientManager = new ClientManager();
-        await clientManager.postData(`${type}`, this.form);
-
+        this.isLoading = true;
+        const data = await this.clientManager.postData(`${type}`, this.form);
         this.isLoading = false;
-
-        this.isSuccess = clientManager.result;
-        this.message = clientManager.text;
-        this.tokenInfo = clientManager.token;
-
-        this.createMessage(this.message);
-
-        if (this.isSuccess) {
-            StorageManager.addItem('token', this.tokenInfo, 'local');
+        console.log((<TLoginResponse>data).userName);
+        if (this.clientManager.result) {
+            this.saveData(type, (<TLoginResponse>data).userName);
             this.navigate(type);
         } else {
-            StorageManager.deleteItem('token', 'local');
+            this.createMessage(this.clientManager.text);
+            this.destroyData();
         }
 
         
     }
 
-    private createMessage(text: string) {
-        if (text && text !== Message.registerSuccess) {
+    private saveData(type: string, userName: string): void {
+        StorageManager.addItem('token', this.clientManager.token, 'local');
+        switch(type) {
+            case 'auth/register':
+                StorageManager.addItem('user', this.form.userName.split('')[0], 'local');
+                break;
+            case 'auth/login':
+                StorageManager.addItem('user', userName.split('')[0], 'local');
+                this.saveUserSettings();
+                break;
+        }
+    }
+
+    public destroyData(): void {
+        this.form.userName = '';
+        this.form.email = '';
+        this.form.password = '';
+        StorageManager.deleteItem('token', 'local');
+    }
+
+    private async saveUserSettings(): Promise<void> {
+        const userSettings = await this.clientManager.getUserSettings(this.clientManager.token.userID);
+        storageManager.addItem('userSettings', userSettings, 'local');
+    }
+
+    public createMessage(text: string) {
+        if (text) {
             window.M.toast({ html: `${text}` });
         }
     }
@@ -81,3 +123,5 @@ export default class AuthModel {
         return this.isLoading;
     }
 }
+
+export default new AuthModel();

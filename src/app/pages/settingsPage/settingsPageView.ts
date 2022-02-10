@@ -4,6 +4,7 @@ import NavBar from '../../components/header/navbar';
 import settings from '../../components/settings/settings';
 import Node from '../../components/Node';
 import Button from '../../components/Button';
+import storageManager from '../../services/storageManager';
 
 class SettingsPageView {
     private rootNode: HTMLElement;
@@ -15,7 +16,7 @@ class SettingsPageView {
     render(onclick: (e: Event) => void, onclickButton: (e: Event) => void): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-
+        const user = <string>storageManager.getItem('user', 'local');
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -24,7 +25,7 @@ class SettingsPageView {
             'settings',
         ]);
         navbar.generateMenu('Settings');
-        navbar.addProfileLink('O');
+        navbar.addProfileLink(user);
 
         this.createMainLayout(onclick, onclickButton);
 
@@ -36,15 +37,15 @@ class SettingsPageView {
         const settingsWrapper = Node.setChild(main.node, 'div', 'settings-wrapper');
         Node.setChild(settingsWrapper, 'h2', 'title settings-title', 'Settings');
 
-        this.createSettingsBlockWrapper(settingsWrapper, 'Account', ['Edit Profile', 'Edit Plan'], false, onclick);
-        this.createSettingsBlockWrapper(settingsWrapper, 'Unit', ['Weight', 'Height'], true, onclick);
+        this.createSettingsBlock(settingsWrapper, 'Account', ['Edit Profile', 'Edit Plan'], false, onclick);
+        this.createSettingsBlock(settingsWrapper, 'Unit', ['Weight', 'Height'], true, onclick);
 
         const buttonWrapper = Node.setChild(settingsWrapper, 'div', 'btn-wrapper settings');
         const logoutButton = new Button(buttonWrapper, 'Log out');
         logoutButton.onclick(onclickButton);
     }
 
-    private createSettingsBlockWrapper(
+    private createSettingsBlock(
         parentNode: HTMLElement,
         title: string,
         subtitles: Array<string>,

@@ -11,7 +11,7 @@ body {
 }
 
 header {
-    min-height: 64px;
+    min-height: 56px;
 }
 
 footer {
@@ -60,4 +60,15 @@ footer {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(0.8) translateY(1000px) translateX(-50%);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translate(-50%, -50%);
+        opacity: 1;
+    }
 }

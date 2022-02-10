@@ -8,7 +8,7 @@ import workoutHeaderTemplate from '../../components/workout/template';
 import workoutDesc from '../../components/workout/workoutDescription';
 
 class WorkoutPageView {
-    private rootNode: HTMLElement;
+    public readonly rootNode: HTMLElement;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
@@ -61,13 +61,11 @@ class WorkoutPageView {
         return workoutDetails.node;
     }
 
-    public renderVideo(iframe: HTMLIFrameElement): void {
-        this.rootNode.insertAdjacentElement('afterend', iframe);
+    public renderVideo(): void {
         const backButton = new Node(this.rootNode, 'button', '');
         backButton.node.classList.add('btn-back');
         const icon = new Node(backButton.node, 'i', 'large material-icons', 'arrow_back');
         icon.node.onclick = () => {
-            iframe.remove();
             icon.destroy();
         };
     }

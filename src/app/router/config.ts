@@ -1,5 +1,5 @@
 import BrowsePageController from '../pages/browsePage/browsePageController';
-import AuthPageController from '../pages/authPage/authPageController';
+import { AuthPageController } from '../pages/authPage/authPageController';
 import OnboardingPageController from '../pages/onboardingPage/onboardingPageController';
 import MainPageController from '../pages/mainPage/mainPageController';
 import MealPageController from '../pages/mealPage/mealPageController';
