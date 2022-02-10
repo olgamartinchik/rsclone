@@ -5,8 +5,10 @@ import Utils from '../../services/utils';
 import { TToken } from '../../services/types';
 import { Goal, Gender, WorkoutsProgramDuration, WorkoutsNumber, Endpoints, WeightUnit, HeightUnit } from '../../services/constants';
 
-export default class OnboardingModel {
+export class OnboardingModel {
     form: TSettings;
+    
+    birthday: string;
 
     constructor() {
         this.form = {
@@ -28,6 +30,7 @@ export default class OnboardingModel {
             completedWorkouts: 0,
             liked: [],
         };
+        this.birthday = '';
     }
 
     public changeHandler(...args: Array<Partial<TSettings>>) {
@@ -51,6 +54,7 @@ export default class OnboardingModel {
     }
 
     public calculateAge(dateOfBirth: string): number {
+        this.birthday = dateOfBirth;
         const date = new Date();
         const currentDay = date.getDate();
         const currentMonth = date.getMonth();
@@ -72,7 +76,34 @@ export default class OnboardingModel {
         return age;
     }
 
+    public resetData(): void {
+        this.form.userId = '';
+        this.form.startDate = Date.now().toString();
+        this.form.goal = Goal.muscle;
+        this.form.weight = 0;
+        this.form.height = 0;
+        this.form.age = 0;
+        this.form.gender = Gender.female;
+        this.form.desiredWeight = 0;
+        this.form.duration = WorkoutsProgramDuration.short;
+        this.form.workoutsNumber = WorkoutsNumber.small;
+        this.form.favWorkouts = [];
+        this.form.caloriesBurned = 0;
+        this.form.badges = [];
+        this.form.heightUnit = HeightUnit.unitDefault;
+        this.form.weightUnit = WeightUnit.unitDefault;
+        this.form.completedWorkouts = 0;
+        this.form.liked = [];
+        this.birthday = '';
+    }
+
     public get settings(): TSettings {
         return this.form;
     }
+
+    public get dateOfBirth(): string {
+        return this.birthday;
+    }
 }
+
+export default new OnboardingModel();

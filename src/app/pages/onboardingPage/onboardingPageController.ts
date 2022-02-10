@@ -1,5 +1,5 @@
 import OnboardingPageView from './onboardingPageView';
-import OnboardingModel from './onboardingPageModel';
+import onboardingModel, { OnboardingModel } from './onboardingPageModel';
 import authManager from '../../services/authManager';
 import { Height, Weight, Colors, Coefficients, Goal, Message, WorkoutType } from '../../services/constants';
 
@@ -20,7 +20,7 @@ class OnboardingPageController {
 
     constructor() {
         this.view = new OnboardingPageView();
-        this.model = new OnboardingModel();
+        this.model = onboardingModel;
         this.isFeet = false;
         this.isPounds = false;
         this.blocks = [
@@ -35,6 +35,7 @@ class OnboardingPageController {
     }
 
     public createPage() {
+        this.birthday = this.model.dateOfBirth;
         this.view.render(
             this.blocks[this.block],
             this.model.settings,
