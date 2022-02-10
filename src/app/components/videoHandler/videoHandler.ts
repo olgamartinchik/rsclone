@@ -66,11 +66,11 @@ class VideoHandler {
         this.isVideoInstalled = false;
     }
 
-    public createVideo(parentElement: HTMLElement, src: string): void {
+    public createVideo(parentElement: HTMLElement, src: string, id: string, callback: (id: string) => void): void {
         this.removeInnerContext();
-        this.initVideo(parentElement, src);
+        this.initVideo(parentElement, src, id);
 
-        this.video!.oncanplaythrough = (e: Event): void => {
+        this.video!.oncanplay = (e: Event): void => {
             e.stopPropagation();
             this.setFullTime();
 
@@ -82,11 +82,14 @@ class VideoHandler {
             }
             this.preloader.remove();
         };
+        this.video!.onended = () => callback(this.video!.id);
     }
 
-    private initVideo(parentElement: HTMLElement, src: string): void {
+    private initVideo(parentElement: HTMLElement, src: string, id: string): void {
         this.video = document.createElement('video');
         this.video.className = 'video-player';
+        this.video.id = id;
+
         this.src = document.createElement('source');
         this.src.setAttribute('type', 'video/mp4');
         this.src.setAttribute('src', src);

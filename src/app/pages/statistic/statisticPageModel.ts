@@ -4,7 +4,7 @@ import CloudinaryManager from '../../services/cloudinarySDK';
 import { TToken, TWorkoutProgram } from '../../services/types';
 import ClientManager from '../../services/clientManager';
 
-class WorkoutPageModel {
+class StatisticPageModel {
     private cards: Array<Card[]>;
 
     private sdk: CloudinaryManager;
@@ -67,4 +67,4 @@ class WorkoutPageModel {
     }
 }
 
-export default WorkoutPageModel;
+export default StatisticPageModel;

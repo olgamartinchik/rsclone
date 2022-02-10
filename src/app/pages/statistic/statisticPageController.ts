@@ -1,8 +1,8 @@
-import WorkoutPageModel from './workoutPageModel';
-import WorkoutPageView from './workoutPageView';
+import WorkoutPageModel from './statisticPageModel';
+import WorkoutPageView from './statisticPageView';
 import videoHandler from '../../components/videoHandler/videoHandler';
-import authManager from '../../services/authManager';
-class WorkoutPageController {
+
+class StatisticPageController {
     private view: WorkoutPageView;
 
     private model: WorkoutPageModel;
@@ -15,13 +15,8 @@ class WorkoutPageController {
         this.videoHandler = videoHandler;
     }
 
-    public createPage(idArr: string[]): void {
-        const [id] = idArr;
-        this.model.getData();
-        const card = this.model.getCardById(id);
-        if (card) {
-            this.view.render(card, this.startWorkout.bind(this));
-        }
+    public createPage(args: string[]): void {
+        this.view.render();
     }
 
     private startWorkout(e: Event) {
@@ -34,12 +29,13 @@ class WorkoutPageController {
 
     private async sendStatistics(id: string): Promise<void> {
         const workout = this.model.getCardById(id);
-        if(workout) {
+        if (workout) {
             workout.completed = true;
             await this.model.updateWorkoutData(workout);
         }
-        authManager.navigate(`workoutsummary/${id}`);
+
+        console.log(this.model.getCardById(id));
     }
 }
 
-export default WorkoutPageController;
+export default StatisticPageController;

@@ -65,7 +65,6 @@ export class AuthModel {
         this.isLoading = true;
         const data = await this.clientManager.postData(`${type}`, this.form);
         this.isLoading = false;
-        console.log((<TLoginResponse>data).userName);
         if (this.clientManager.result) {
             this.saveData(type, (<TLoginResponse>data).userName);
             this.navigate(type);

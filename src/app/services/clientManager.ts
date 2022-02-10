@@ -27,7 +27,10 @@ class ClientManager {
         return ClientManager._instance;
     }
 
-    public async postData(path: string, form: TLoginForm | TSettings): Promise<void | TAuthResult | TSettings | TLoginResponse> {
+    public async postData(
+        path: string,
+        form: TLoginForm | TSettings
+    ): Promise<void | TAuthResult | TSettings | TLoginResponse> {
         try {
             const response = await fetch(`https://rsclonebackend.herokuapp.com/api/${path}`, {
                 method: 'POST',
@@ -46,7 +49,7 @@ class ClientManager {
             this.text = data.message;
             this.tokenInfo.jwtToken = data.token;
             this.tokenInfo.userID = data.userId;
-            
+
             return data;
         } catch (e: unknown) {
             if (e instanceof Error) {
@@ -119,6 +122,22 @@ class ClientManager {
     public async getProgram(id: string): Promise<TWorkoutProgram | void> {
         try {
             const res = await fetch(`https://rsclonebackend.herokuapp.com/api/workoutSettings/${id}`);
+
+            return (await res.json()).program as TWorkoutProgram;
+        } catch (e: unknown) {
+            this.handleError(e);
+        }
+    }
+
+    public async updateProgram(program: TWorkoutProgram, id: string): Promise<TWorkoutProgram | void> {
+        try {
+             const res = await fetch(`https://rsclonebackend.herokuapp.com/api/workoutSettings/${id}`, {
+                 method: 'PATCH',
+                 body: JSON.stringify({ _id: id, program }),
+                 headers: {
+                     'Content-Type': 'application/json',
+                 },
+             });
 
             return (await res.json()).program as TWorkoutProgram;
         } catch (e: unknown) {

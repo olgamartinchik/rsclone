@@ -1,7 +1,6 @@
 import { TWorkout } from '../../services/types';
 
 export default function cardTemplate(data: TWorkout): string {
-    console.log(data.completed);
     return `
     <h3 class="title card-title title-container">${data.title}</h3>
     <div class="image" style="background-image: url('../../assets/trainings/${data.img}.jpg')"></div>
@@ -14,7 +13,9 @@ export default function cardTemplate(data: TWorkout): string {
           <span class="middle-dot ${data.intensity === 'medium' || data.intensity === 'high' ? 'active' : ''}"></span>
           <span class="middle-dot ${data.intensity === 'high' ? 'active' : ''}"></span>
         </div>
-        <a class="waves-effect waves-light btn-large ${data.completed === true ? 'btn-completed' : ''}">Start</a>
+        <a class="waves-effect waves-light btn-large ${data.completed === true ? 'btn-completed' : ''}">${
+        data.completed === true ? 'Completed' : 'Start'
+    }</a>
       </div>
     </div>
   `;

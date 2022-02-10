@@ -10,6 +10,7 @@ import WorkoutPageController from '../pages/workoutPage/workoutPageController';
 import EditPlanPageController from '../pages/editPlanPage/editPlanPageController';
 import EditProfilePageController from '../pages/editProfilePage/editProfilePageController';
 import { RouteOption } from '../services/types';
+import StatisticPageController from '../pages/statistic/statisticPageController';
 
 class Config {
     public programPageController: ProgramPageController;
@@ -34,6 +35,8 @@ class Config {
 
     public editProfilePageController: EditProfilePageController;
 
+    public statisticPageController: StatisticPageController;
+
     constructor() {
         this.programPageController = new ProgramPageController();
         this.mainPageController = new MainPageController();
@@ -46,6 +49,7 @@ class Config {
         this.workoutPageController = new WorkoutPageController();
         this.editPlanPageController = new EditPlanPageController();
         this.editProfilePageController = new EditProfilePageController();
+        this.statisticPageController = new StatisticPageController();
     }
 
     public getRoutes(): RouteOption[] {
@@ -118,6 +122,11 @@ class Config {
             {
                 path: /inprogress\/(\d{1,2})/,
                 callback: (...args) => console.log('progress page', args),
+                isAuth: true,
+            },
+            {
+                path: /workoutsummary\/([\deabcdf]{24})/,
+                callback: (...args) => this.statisticPageController.createPage(args),
                 isAuth: true,
             },
         ];
