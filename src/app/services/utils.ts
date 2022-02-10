@@ -81,7 +81,7 @@ export default class Utils {
 
         return `${minutes > 9 ? minutes : '0' + minutes}:${seconds > 9 ? seconds : '0' + seconds}`;
     }
-    
+
     static compareObjects<T>(object1: T, object2: T): boolean {
         const props1 = Object.getOwnPropertyNames(object1);
         const props2 = Object.getOwnPropertyNames(object2);

@@ -74,7 +74,7 @@ export class AuthModel {
 
     private saveData(type: string, userName: string): void {
         StorageManager.addItem('token', this.clientManager.token, 'local');
-        switch(type) {
+        switch (type) {
             case 'auth/register':
                 StorageManager.addItem('user', this.form.userName.split('')[0], 'local');
                 this.navigate(type);

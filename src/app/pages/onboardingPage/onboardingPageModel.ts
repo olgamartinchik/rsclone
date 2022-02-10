@@ -3,11 +3,19 @@ import StorageManager from '../../services/storageManager';
 import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';
 import { TToken } from '../../services/types';
-import { Goal, Gender, WorkoutsProgramDuration, WorkoutsNumber, Endpoints, WeightUnit, HeightUnit } from '../../services/constants';
+import {
+    Goal,
+    Gender,
+    WorkoutsProgramDuration,
+    WorkoutsNumber,
+    Endpoints,
+    WeightUnit,
+    HeightUnit,
+} from '../../services/constants';
 
 export class OnboardingModel {
     form: TSettings;
-    
+
     birthday: string;
 
     constructor() {

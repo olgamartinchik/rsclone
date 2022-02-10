@@ -10,7 +10,7 @@ export class AuthManager {
     private isLogin: boolean;
 
     private router: Router;
-    
+
     private clientManager: ClientManager;
 
     constructor(isLogin: boolean) {
@@ -26,10 +26,10 @@ export class AuthManager {
         if (path) this.router.navigate(path);
     }
 
-    private checkAuth(): void  {
+    private checkAuth(): void {
         this.isLogin = false;
         const token = <TToken>storageManager.getItem('token', 'local');
-        const userSettings = <TSettings>storageManager.getItem('userSettings', 'local'); 
+        const userSettings = <TSettings>storageManager.getItem('userSettings', 'local');
         if (token && !userSettings) {
             this.saveUserSettings(token);
         }

@@ -1,4 +1,14 @@
-import { WorkoutType, IntensityType, Goal, Gender, WorkoutsProgramDuration, WorkoutsNumber, BadgeName, HeightUnit, WeightUnit } from './constants';
+import {
+    WorkoutType,
+    IntensityType,
+    Goal,
+    Gender,
+    WorkoutsProgramDuration,
+    WorkoutsNumber,
+    BadgeName,
+    HeightUnit,
+    WeightUnit,
+} from './constants';
 
 export type TWorkout = {
     title: string;
@@ -58,7 +68,7 @@ export type TLoginResponse = {
     userId: string;
     userName: string;
     email: string;
-}
+};
 
 export type TToken = {
     userID: string;
