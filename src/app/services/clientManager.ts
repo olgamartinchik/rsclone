@@ -57,7 +57,7 @@ class ClientManager {
             this.text = data.message;
             this.tokenInfo.jwtToken = data.token;
             this.tokenInfo.userID = data.userId;
-
+            
             return data;
         } catch (e: unknown) {
             if (e instanceof Error) {

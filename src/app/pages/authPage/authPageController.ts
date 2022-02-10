@@ -18,7 +18,7 @@ export class AuthPageController {
 
     public createPage(isLogin: boolean): void {
         this.isLogin = isLogin;
-
+        this.model.destroyData();
         this.view.render(
             this.handleInputChange.bind(this),
             this.handleInput.bind(this),

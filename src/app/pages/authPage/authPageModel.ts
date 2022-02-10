@@ -68,7 +68,7 @@ export class AuthModel {
             this.saveData(type, (<TLoginResponse>data).userName);
         } else {
             this.createMessage(this.clientManager.text);
-            this.destroyData();
+            StorageManager.deleteItem('token', 'local');
         }
     }
 
@@ -90,7 +90,6 @@ export class AuthModel {
         this.form.userName = '';
         this.form.email = '';
         this.form.password = '';
-        StorageManager.deleteItem('token', 'local');
     }
 
     private async saveUserSettings(type: string): Promise<void> {
