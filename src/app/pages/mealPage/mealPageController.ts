@@ -47,7 +47,7 @@ class MealPageController {
             this.handlerChange.bind(this),
             this.handlerBtn.bind(this)
         );
-        await this.getMealDataWithDay();
+        // await this.getMealDataWithDay();
        
         this.view.getLoaderSearchingContainer();
         this.view.getLoaderMealContainer();
@@ -123,20 +123,20 @@ class MealPageController {
         }
     }
 
-    async getMealDataWithDay() {
-        const day = JSON.stringify(this.model.rememberDateToday());
-        if (StorageApiManager.getItem('today', 'local')) {
-            if (day !== localStorage.getItem('today')) {
-                this.numFrom = Utils.randomInteger(0, 100);
-                this.mealData = await this.model.getUserMealData(
-                    this.numFrom.toString(),
-                    (this.numFrom + 1).toString()
-                );
-                StorageApiManager.addItem('mealData', this.mealData, 'local');
-                StorageApiManager.addItem('today', day, 'local');
-            }
-        }
-    }
+    // async getMealDataWithDay() {
+    //     const day = JSON.stringify(this.model.rememberDateToday());
+    //     if (StorageApiManager.getItem('today', 'local')) {
+    //         if (day !== localStorage.getItem('today')) {
+    //             this.numFrom = Utils.randomInteger(0, 100);
+    //             this.mealData = await this.model.getUserMealData(
+    //                 this.numFrom.toString(),
+    //                 (this.numFrom + 1).toString()
+    //             );
+    //             StorageApiManager.addItem('mealData', this.mealData, 'local');
+    //             StorageApiManager.addItem('today', day, 'local');
+    //         }
+    //     }
+    // }
 }
 
 export default MealPageController;

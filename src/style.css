@@ -15774,6 +15774,73 @@ p.settings-link {
     font-size: 40px;
   }
 }
+.about-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 0px 20px;
+}
+
+.recipe-section {
+  display: flex;
+  flex-direction: column;
+  padding: 0 15px;
+}
+
+.about-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 30vh;
+}
+.about-container img {
+  width: 100%;
+}
+.about-container h1 {
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  text-shadow: 5px 2px 3px black, 0 0 1em white;
+  left: 50%;
+  transform: translate(-50%, 0);
+  text-align: center;
+  width: 100%;
+  padding: 20px;
+  font-size: 47px;
+}
+
+.recipe-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.recipe-container .ingredients-container,
+.recipe-container .recipe-details-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 465px;
+  width: 100%;
+}
+
+.image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 20px;
+}
+.image-container img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: scale-down;
+  object-position: center;
+}
+
 html,
 body,
 #app {

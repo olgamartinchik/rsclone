@@ -4,6 +4,7 @@ import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';
 import { TToken } from '../../services/types';
 import { Goal, Gender, WorkoutsProgramDuration, WorkoutsNumber, Endpoints } from '../../services/constants';
+import UserDataManager from '../../services/userDataManager';
 
 export default class OnboardingModel {
     form: TSettings;
@@ -40,10 +41,12 @@ export default class OnboardingModel {
         if (setting.duration) this.form.duration = setting.duration;
     }
 
-    public saveSettings() {
+    public async saveSettings() {
         const clientManager = new ClientManager();
         StorageManager.addItem('userSettings', this.form, 'local');
         clientManager.postData(Endpoints.userSettings, this.form);
+        await  new UserDataManager(this.form).createUserData()
+    
     }
 
     public calculateAge(dateOfBirth: string): number {
@@ -71,4 +74,5 @@ export default class OnboardingModel {
     public get settings(): TSettings {
         return this.form;
     }
+  
 }

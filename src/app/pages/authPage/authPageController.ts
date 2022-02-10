@@ -52,5 +52,6 @@ export default class AuthController {
         (e.target as HTMLElement).removeAttribute('disabled');
         isLoading = this.model.isLoading;
         this.view.handlePreloader(isLoading);
+        
     }
 }

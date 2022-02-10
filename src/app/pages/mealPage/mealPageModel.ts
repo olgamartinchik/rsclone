@@ -54,14 +54,14 @@ class MealPageModel {
         return this.numFrom;
     }
 
-    rememberDateToday() {
-        const day = new Date();
-        const dd = String(day.getDate()).padStart(2, '0');
-        const mm = String(day.getMonth() + 1).padStart(2, '0');
-        const yyyy = day.getFullYear();
-        this.today = mm + '/' + dd + '/' + yyyy;
-        return this.today;
-    }
+    // rememberDateToday() {
+    //     const day = new Date();
+    //     const dd = String(day.getDate()).padStart(2, '0');
+    //     const mm = String(day.getMonth() + 1).padStart(2, '0');
+    //     const yyyy = day.getFullYear();
+    //     this.today = mm + '-' + dd + '-' + yyyy;
+    //     return this.today;
+    // }
 }
 
 export default MealPageModel;

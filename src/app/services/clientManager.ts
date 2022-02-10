@@ -1,10 +1,7 @@
 import { TLoginForm, TToken, TSettings, TWorkout, TAuthResult } from '../services/types';
 import { API_ID, KEY_API } from '../configs/edamamConfig';
 
-class ClientManager {
-    getMealTemplate(arg0: string, arg1: string, mealType: string) {
-        throw new Error('Method not implemented.');
-    }
+class ClientManager {  
 
     private static _instance: ClientManager | null;
 
@@ -129,7 +126,18 @@ class ClientManager {
             console.log(e);
         }
     }
+    public async getRecipe(calories:number){
+        try{
+            const caloriesForOneMeal=Math.floor(calories/3)
+            const url = `https://api.edamam.com/search?q=all&app_id=1ddd26bc&app_key=aa2a6148d30d95275813c6bc548941bf&from=0&to=100&imageSize=LARGE&calories=${String(caloriesForOneMeal)}-${String(caloriesForOneMeal+300)}&Health=alcohol-free`;
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.hits;
 
+        }catch(e){
+            console.log(e);
+        }
+    }
   
 }
 

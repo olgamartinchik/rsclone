@@ -66,7 +66,7 @@ class MealPageView {
         const sectionExplore = new Node(main.node, 'section', 'section meal-section');
         const mealExploreContainer = new Node(sectionExplore.node, 'div', 'meal-explore-container');
         const exploreContainer = new Node(mealExploreContainer.node, 'div', 'meal-explore');
-        Node.setChild(exploreContainer.node, 'h5', 'title-meal', 'EXPLORE');
+        Node.setChild(exploreContainer.node, 'h5', 'title-meal', 'EXPLORE DIETS');
         const cardsExploreContainer = new Node(exploreContainer.node, 'div', 'explore-container');
 
         const exploreCards = this.getExploreCards(exploreData, onclick);

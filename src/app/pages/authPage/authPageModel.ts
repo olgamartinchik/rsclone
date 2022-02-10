@@ -56,6 +56,8 @@ export default class AuthModel {
         } else {
             StorageManager.deleteItem('token', 'local');
         }
+
+        
     }
 
     private createMessage(text: string) {
