@@ -32,13 +32,7 @@ export type TSettings = {
     desiredWeight: number;
     duration: WorkoutsProgramDuration;
     workoutsNumber: WorkoutsNumber;
-    workoutLength: { min: number; max: number };
     favWorkouts: Array<WorkoutType>;
-};
-
-export type TWorkoutLength = {
-    min: number;
-    max?: number | undefined;
 };
 
 export type TWorkoutProgram = Array<TWorkout[]>;

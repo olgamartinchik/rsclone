@@ -20,7 +20,6 @@ export default class OnboardingModel {
             desiredWeight: 0,
             duration: WorkoutsProgramDuration.short,
             workoutsNumber: WorkoutsNumber.small,
-            workoutLength: { min: 5, max: 10 },
             favWorkouts: [],
         };
     }
@@ -36,7 +35,6 @@ export default class OnboardingModel {
         if (setting.desiredWeight) this.form.desiredWeight = setting.desiredWeight;
         if (setting.workoutsNumber) this.form.workoutsNumber = +setting.workoutsNumber;
         if (setting.favWorkouts) this.form.favWorkouts = setting.favWorkouts;
-        if (setting.workoutLength) this.form.workoutLength = setting.workoutLength;
         if (setting.duration) this.form.duration = +setting.duration;
     }
 

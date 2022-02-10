@@ -28,7 +28,6 @@ class OnboardingPageController {
             `What's your goal?`,
             'How many workouts per week do you want?',
             'Select all your favorite type of classes:',
-            'How much time do you prefer to work out?',
             'How many weeks do you want to start with?',
         ];
         this.block = 0;
@@ -66,8 +65,6 @@ class OnboardingPageController {
             this.handleGoalSelect(e);
         } else if (className.includes('classes')) {
             this.handleClassesSelect(e);
-        } else if (className.includes('length')) {
-            this.handleLengthSelect(e);
         }
     }
 
@@ -247,14 +244,6 @@ class OnboardingPageController {
         } else {
             this.model.settings.favWorkouts.push(clickedElement.textContent as WorkoutType);
         }
-    }
-
-    public handleLengthSelect(e: Event): void {
-        this.selectValue(e);
-
-        const min = +(<string>(<HTMLElement>e.target).dataset.min);
-        const max = +(<string>(<HTMLElement>e.target).dataset.max);
-        this.model.changeHandler({ workoutLength: { min: min, max: max } });
     }
 
     private registerSelectedValue(e: Event): void {
