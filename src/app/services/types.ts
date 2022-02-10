@@ -1,4 +1,4 @@
-import { WorkoutType, IntensityType, Goal, Gender, WorkoutsProgramDuration, WorkoutsNumber } from './constants';
+import { WorkoutType, IntensityType, Goal, Gender, WorkoutsProgramDuration, WorkoutsNumber, BadgeName, HeightUnit, WeightUnit } from './constants';
 
 export type TWorkout = {
     title: string;
@@ -33,6 +33,12 @@ export type TSettings = {
     duration: WorkoutsProgramDuration;
     workoutsNumber: WorkoutsNumber;
     favWorkouts: Array<WorkoutType>;
+    caloriesBurned: number;
+    badges: Array<BadgeName>;
+    heightUnit: HeightUnit;
+    weightUnit: WeightUnit;
+    completedWorkouts: number;
+    liked: Array<string>;
 };
 
 export type TWorkoutProgram = Array<TWorkout[]>;

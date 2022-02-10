@@ -3,7 +3,7 @@ import StorageManager from '../../services/storageManager';
 import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';
 import { TToken } from '../../services/types';
-import { Goal, Gender, WorkoutsProgramDuration, WorkoutsNumber, Endpoints } from '../../services/constants';
+import { Goal, Gender, WorkoutsProgramDuration, WorkoutsNumber, Endpoints, WeightUnit, HeightUnit } from '../../services/constants';
 
 export default class OnboardingModel {
     form: TSettings;
@@ -21,6 +21,12 @@ export default class OnboardingModel {
             duration: WorkoutsProgramDuration.short,
             workoutsNumber: WorkoutsNumber.small,
             favWorkouts: [],
+            caloriesBurned: 0,
+            badges: [],
+            heightUnit: HeightUnit.unitDefault,
+            weightUnit: WeightUnit.unitDefault,
+            completedWorkouts: 0,
+            liked: [],
         };
     }
 
