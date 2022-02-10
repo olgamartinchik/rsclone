@@ -50,6 +50,7 @@ input[type='text'].datepicker {
 #userName,
 #email,
 #password {
+    box-sizing: border-box;
     padding-left: 12px;
     color: white;
 }

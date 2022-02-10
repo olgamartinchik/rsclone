@@ -113,6 +113,30 @@
             content: fa-content($fa-var-clock);
         }
     }
+    &.eye {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        font-size: 22px;
+        color: $color-border;
+        z-index: 1;
+        cursor: pointer;
+        &:before {
+            content: fa-content($fa-var-eye);
+        }
+    }
+    &.eye-closed {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        font-size: 22px;
+        color: $color-border;
+        z-index: 1;
+        cursor: pointer;
+        &:before {
+            content: fa-content($fa-var-eye-slash);
+        }
+    }
     &.select-up {
         &:before {
             content: fa-content($fa-var-chevron-up);

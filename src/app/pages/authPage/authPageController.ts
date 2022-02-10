@@ -24,6 +24,7 @@ export class AuthPageController {
             this.handleInput.bind(this),
             this.handleBackButtonClick.bind(this),
             this.handleButtonClick.bind(this),
+            this.handleIconClick.bind(this),
             this.isLogin
         );
         StorageManager.deleteItem('userSettings', 'local');
@@ -81,6 +82,17 @@ export class AuthPageController {
         await this.model.authHandler(`${type}`);
         this.destroyPreloader(<HTMLElement>e.target);
     }
+
+    private handleIconClick(e: Event): void {
+        const clickedIcon = <HTMLElement>e.target
+        const input = <HTMLInputElement>clickedIcon.nextElementSibling;
+        const inputType = input.type; 
+        
+        input.type = (inputType === 'password') ? 'text' : 'password';
+        clickedIcon.classList.toggle('eye');
+        clickedIcon.classList.toggle('eye-closed');
+        console.log((<HTMLInputElement>(<HTMLElement>e.target).nextElementSibling).type);
+    } 
 
     private initPreloader(button: HTMLElement): void {
         const isLoading = this.model.isLoading;
