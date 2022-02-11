@@ -2,15 +2,10 @@ import { TSettings } from './types';
 import StorageManager from './storageManager';
 
 class DateManager {
-    // userSettings:TSettings
     arrayDates: Array<string>;
 
-    // duration:number
-    // startDate:string
     constructor() {
-        // this.userSettings=userSettings
-        // this.duration=this.userSettings.duration
-        // this.startDate=this.userSettings.startDate
+      
         this.arrayDates = [];
     }
 
@@ -19,12 +14,7 @@ class DateManager {
         const allDaysProgramme = userSettings.duration * allDaysWeek;
         const startDate = new Date(Number(userSettings.startDate));
         const lastDay = this.getLastDay(startDate, allDaysProgramme);
-        // let today =new Date()
-        //    console.log("today", today.getDay(),startDate.getDay())
-        //   ?new Date(startDate.getTime())+'startDate':new Date(today.getTime())+'today'
-
-        //  let userDate=today.getDay()===startDate.getDay()? startDate.getTime():today.getTime()
-        //  console.log('userDate', today.getDay()===startDate.getDay())
+       
 
         while (startDate.getTime() < lastDay.getTime()) {
             this.arrayDates.push(

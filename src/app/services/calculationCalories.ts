@@ -99,22 +99,18 @@ class CalculationCalories {
     }
 
     async createUserMeal() {
-        //   const calories=this.getCalories()/3
 
         const periodUserMeal = {};
         const dayMeals = ['breakfast', 'lunch/dinner', 'snack'];
         const arrayDates = new DateManager().getArrayDate(this.userSettings);
         const allRecipe =
-            (StorageManager.getItem('allRecipe', 'local') as IDataExplore[]) ?? (await this.getRecipeDate());
+        (StorageManager.getItem('allRecipe', 'local') as IDataExplore[]) ?? (await this.getRecipeDate());
 
-        //   Utils.shuffleArr(allRecipe)
         arrayDates.forEach((date) => {
             periodUserMeal[date] = [];
             dayMeals.forEach((day) => {
                 periodUserMeal[date].push(
                     allRecipe!.find((meal, ind, array) => {
-                        // if((meal!.recipe.calories! as number)>=calories+count)
-                        // Utils.shuffleArr(array);
                         if ((meal!.recipe.mealType! as [])!.includes(day as never)) {
                             return meal!.recipe.mealType!;
                         }
