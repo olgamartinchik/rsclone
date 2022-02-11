@@ -58,7 +58,7 @@ export type TLoginResponse = {
     userId: string;
     userName: string;
     email: string;
-}
+};
 
 export type TToken = {
     userID: string;
@@ -77,8 +77,10 @@ export interface IDataExplore {
         dishType?: string;
         mealType?: object;
         label?: string;
-        calories?: string;
+        calories?: string | number;
         yield?: number;
+        diet?: string;
+        dietLabels?: string;
     };
 }
 
