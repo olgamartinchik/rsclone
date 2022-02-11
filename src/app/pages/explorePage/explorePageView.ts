@@ -11,7 +11,7 @@ class ExplorePageView{
     
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
-        this.tabsData=['balanced','high-fiber','high-protein','low-carb','low-fat','low-sodium']
+        this.tabsData=['balanced','high-fiber','low-carb','low-fat','low-sodium']
     }
     render(diet:string){
         this.rootNode.textContent = '';

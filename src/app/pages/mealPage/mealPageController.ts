@@ -4,6 +4,8 @@ import MealPageModel from './mealPageModel';
 import MealPageView from './mealPageView';
 import Preloader from '../../components/preloader/preloader';
 import StorageApiManager from '../../services/storageManager';
+
+
 class MealPageController {
     private view: MealPageView;
 
@@ -55,7 +57,7 @@ class MealPageController {
 
         // if (!this.mealData) {
             // this.mealData = await this.model.getUserMealData(this.numFrom.toString(), (this.numFrom + 1).toString());
-            this.mealData= this.model.getUserMealData()
+            this.mealData= await this.model.getUserMealData()
             // if (this.mealData) {
                 // StorageApiManager.addItem('mealData', this.mealData, 'local');
             // }
@@ -78,13 +80,14 @@ class MealPageController {
         this.inputValue = value.toLowerCase().trim();
     }
 
-    handlerMealCard(e:Event) {
+    handlerMealCard(e:Event) {      
         if((e.target as HTMLElement).closest('.meal-card')){
             const cardNum=(e.target as HTMLElement).closest('.meal-card')!.getAttribute('data-num')
             const recipePageData=(StorageApiManager.getItem('mealData','local')as Array<IDataExplore>)[Number(cardNum)]
             StorageApiManager.addItem('recipePageData', recipePageData,'local')
         }
     }
+ 
 
     handlerExploreCard(e:Event) {
         let dietCard=(e.target as HTMLElement).closest('.explore-card')

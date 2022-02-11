@@ -1,8 +1,9 @@
 import ClientManager from '../../services/clientManager';
-import { IDataExplore } from '../../services/types';
+import { IDataExplore, TSettings } from '../../services/types';
 import Utils from '../../services/utils';
 import StorageManager from '../../services/storageManager'
 import DateManager from '../../services/datesManager';
+import CalculationCalories from '../../services/calculationCalories';
 
 class MealPageModel {
     mealData: ClientManager;
@@ -26,7 +27,6 @@ class MealPageModel {
         this.dishType = [
             { recipe: { diet: 'balanced', image: 'balanced' } },
             { recipe: { diet: 'high-fiber', image: 'high-fiber' } },
-            { recipe: { diet: 'high-protein', image: 'high-protein' } },
             { recipe: { diet: 'low-carb', image: 'low-carb' } },
             { recipe: { diet: 'low-fat', image: 'low-fat' } },
             { recipe: { diet: 'low-sodium', image: 'low-sodium' } },
@@ -55,18 +55,22 @@ class MealPageModel {
     //     return userData;
     // }
 
-    getUserMealData(){
+  async  getUserMealData(){
         const userData: Array<IDataExplore> = [];
-        if( StorageManager.getItem('periodUserMeal','local')){
-            console.log('true')           
-            let periodUserMeal=StorageManager.getItem('periodUserMeal','local') as Array<IDataExplore>
+
+        // if( StorageManager.getItem('periodUserMeal','local')){
+            console.log('true')
+                   let periodUserMeal=StorageManager.getItem('periodUserMeal','local') as Array<IDataExplore> ?? await new CalculationCalories(StorageManager.getItem('userSettings','local') as TSettings).createUserMeal()  
+            // let periodUserMeal=StorageManager.getItem('periodUserMeal','local') as Array<IDataExplore>
             periodUserMeal[this.today.dateToday()].forEach(meal=>{
                 if(meal){
                     userData.push(meal)
                 }
             })
             // userData.push(...periodUserMeal[this.today.dateToday()])
-        }       
+        // } else{
+
+        // }      
         console.log('userData', userData);
         StorageManager.addItem('mealData', userData, 'local')
         return userData;

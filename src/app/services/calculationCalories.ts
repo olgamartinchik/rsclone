@@ -72,24 +72,22 @@ class CalculationCalories{
       StorageManager.addItem('allRecipe', recipeData, 'local')
       console.log('recipe',StorageManager.getItem('allRecipe', 'local'))
       this.createUserMeal()
+      return recipeData
      }
      
-     createUserMeal(){
+    async createUserMeal(){
         const calories=this.getCalories()/3
         let count =0
         let periodUserMeal={}
         let dayMeals=['breakfast','lunch/dinner','snack']    
         let arrayDates=new DateManager().getArrayDate(this.userSettings)
-        if(StorageManager.getItem('allRecipe', 'local')){        
-           let allRecipe=StorageManager.getItem('allRecipe', 'local') as IDataExplore[]
+        let allRecipe= StorageManager.getItem('allRecipe', 'local') as IDataExplore[] ?? await this.getRecipeDate()
+      
            Utils.shuffleArr(allRecipe)
            arrayDates.forEach((date)=>{   
             periodUserMeal[date]=[]  
             count++       
             dayMeals.forEach((day)=>{
-               
-               if(day!== null){
-                  
                   periodUserMeal[date].push(allRecipe!.find((meal,ind, array)=>{
                      // if((meal!.recipe.calories! as number)>=calories+count)
                      Utils.shuffleArr(array);
@@ -102,12 +100,11 @@ class CalculationCalories{
                   
                   }) )
                }              
-            })
-           })
-          
+            )
+           })          
            StorageManager.addItem('periodUserMeal',periodUserMeal,'local')
 
-         }
+         return periodUserMeal
 
      }
   

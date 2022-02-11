@@ -7,6 +7,7 @@ import { IDataExplore } from '../../services/types';
 import Preloader from '../../components/preloader/preloader';
 import storageManager from '../../services/storageManager';
 
+
 class MealPageView {
     private rootNode: HTMLElement;
 
@@ -57,12 +58,13 @@ class MealPageView {
         onclickBtn: (e: Event) => void
     ) {
         const main = new Node(this.rootNode, 'main', 'main-layout main-meal');
-        const sectionUserMeal = new Node(main.node, 'section', 'section meal-section');
-        const cardsUserMealContainer = new Node(sectionUserMeal.node, 'div', 'meal-card-container');
-        Node.setChild(cardsUserMealContainer.node, 'h5', 'title-meal', 'YOUR MEALS');
-        Node.setChild(cardsUserMealContainer.node, 'div', 'divider', '');
+        main.node.insertAdjacentHTML('afterbegin', this.getSectionMeal())
+        // const sectionUserMeal = new Node(main.node, 'section', 'section meal-section');
+        // const cardsUserMealContainer = new Node(sectionUserMeal.node, 'div', 'meal-card-container');
+        // Node.setChild(cardsUserMealContainer.node, 'h5', 'title-meal', 'YOUR MEALS');
+        // Node.setChild(cardsUserMealContainer.node, 'div', 'divider', '');
 
-        new Node(cardsUserMealContainer.node, 'div', 'day-meals');
+        // new Node(cardsUserMealContainer.node, 'div', 'day-meals');
 
         const sectionExplore = new Node(main.node, 'section', 'section meal-section');
         const mealExploreContainer = new Node(sectionExplore.node, 'div', 'meal-explore-container');
@@ -101,17 +103,23 @@ class MealPageView {
         return cards;
     }
 
-    loadMealCard(mealData: Array<IDataExplore>, onclick: (e: Event) => void) {
+    loadMealCard(mealData: Array<IDataExplore>, onclick: (e: Event) => void):void {
         const mealContainer = document.getElementsByClassName('day-meals') as HTMLCollectionOf<Element>;
-        mealContainer[0].innerHTML = '';
+        for(let i=0; i<mealContainer.length;i++){
+            mealContainer[i].innerHTML = '';
         const mealCards = this.getMealCards(mealData, onclick);
-        mealContainer[0].append(...mealCards);
+        mealContainer[i].append(...mealCards);
+        }
+        
     }
 
     getLoaderMealContainer() {
         const mealContainer = document.getElementsByClassName('day-meals') as HTMLCollectionOf<Element>;
-        mealContainer[0].innerHTML = '';
-        mealContainer[0].append(Preloader.getTemplate());
+     for (let i = 0; i<mealContainer.length; i++){
+         mealContainer[i].innerHTML = '';
+        mealContainer[i].append(Preloader.getTemplate());
+     }
+        
     }
 
     getSearchingCards(searchingData: Array<IDataExplore>, onclick: (e: Event) => void) {
@@ -138,6 +146,17 @@ class MealPageView {
         this.rootNodeBtn.className = 'search-btn';
         this.rootNodeBtn.textContent = 'search';
         return this.rootNodeBtn;
+    }
+    getSectionMeal(){
+        return `
+        <section class ="section meal-section">
+            <div class = "meal-card-container">
+                <h5 class ="title-meal">YOUR MEALS</h5>
+                <div class="divider"></div>
+                <div class = "day-meals"></div>
+            </div>
+        </section>
+        `
     }
 }
 
