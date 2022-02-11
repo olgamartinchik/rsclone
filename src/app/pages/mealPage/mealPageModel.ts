@@ -14,7 +14,7 @@ class MealPageModel {
 
     numTo: number | null;
 
-    mealType: Array<string>;
+    // mealType: Array<string>;
 
     today: DateManager;
 
@@ -23,7 +23,7 @@ class MealPageModel {
         this.numFrom = this.getNumFrom();
         this.numTo = this.numFrom + 1;
         this.mealData = new ClientManager();
-        this.mealType = ['Breakfast', 'Lunch', 'Snack'];
+        // this.mealType = ['Breakfast', 'Lunch', 'Snack'];
         this.dishType = [
             { recipe: { diet: 'balanced', image: 'balanced' } },
             { recipe: { diet: 'high-fiber', image: 'high-fiber' } },
