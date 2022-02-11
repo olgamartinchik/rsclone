@@ -11,6 +11,8 @@ import EditPlanPageController from '../pages/editPlanPage/editPlanPageController
 import EditProfilePageController from '../pages/editProfilePage/editProfilePageController';
 import { RouteOption } from '../services/types';
 import StatisticPageController from '../pages/statistic/statisticPageController';
+import ExploreController from '../pages/explorePage/explorePageController';
+import RecipePageController from '../pages/recipePage/recipePageController';
 
 class Config {
     public programPageController: ProgramPageController;
@@ -36,6 +38,10 @@ class Config {
     public editProfilePageController: EditProfilePageController;
 
     public statisticPageController: StatisticPageController;
+    
+    public exploreController: ExploreController;
+
+    public recipePageController: RecipePageController;
 
     constructor() {
         this.programPageController = new ProgramPageController();
@@ -50,6 +56,8 @@ class Config {
         this.editPlanPageController = new EditPlanPageController();
         this.editProfilePageController = new EditProfilePageController();
         this.statisticPageController = new StatisticPageController();
+        this.exploreController = new ExploreController();
+        this.recipePageController = new RecipePageController();
     }
 
     public getRoutes(): RouteOption[] {
@@ -127,6 +135,16 @@ class Config {
             {
                 path: /workoutsummary\/([\deabcdf]{24})/,
                 callback: (...args) => this.statisticPageController.createPage(args),
+                isAuth: true,
+            },
+            {
+                path: /explore/,
+                callback: () => this.exploreController.createPage(),
+                isAuth: true,
+            },
+            {
+                path: /recipe/,
+                callback: () => this.recipePageController.createPage(),
                 isAuth: true,
             },
         ];

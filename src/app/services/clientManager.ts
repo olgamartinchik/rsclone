@@ -1,11 +1,15 @@
-import { TLoginForm, TToken, TSettings, TWorkout, TAuthResult, TLoginResponse, TWorkoutProgram } from '../services/types';
+import {
+    TLoginForm,
+    TToken,
+    TSettings,
+    TWorkout,
+    TAuthResult,
+    TLoginResponse,
+    TWorkoutProgram,
+} from '../services/types';
 import { API_ID, KEY_API } from '../configs/edamamConfig';
 
 class ClientManager {
-    getMealTemplate(arg0: string, arg1: string, mealType: string) {
-        throw new Error('Method not implemented.');
-    }
-
     private static _instance: ClientManager | null;
 
     text: string;
@@ -156,18 +160,27 @@ class ClientManager {
     public get token(): TToken {
         return this.tokenInfo;
     }
+    // public async userData(from: string, to: string, mealType: string, calories: string) {
+    //     try {
+    //         const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&imageSize=LARGE&mealType=${mealType}&calories=${calories}&dishType=Main course`;
+    //         const response = await fetch(url);
+    //         const data = await response.json();
+    //         return data.hits;
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
+    // public async mealExploreData(from: string, to: string, diet = 'balanced',mealType='Breakfast') {
+    //     try {
+    //         const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&diet=${diet}&dishType=Main course&mealType=${mealType}&imageSize=LARGE`;
 
-    public async mealExploreData(from: string, to: string, dishType = 'Salad') {
-        try {
-            const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&dishType=${dishType}&imageSize=LARGE`;
-
-            const response = await fetch(url);
-            const data = await response.json();
-            return data.hits;
-        } catch (e) {
-            console.log(e);
-        }
-    }
+    //         const response = await fetch(url);
+    //         const data = await response.json();
+    //         return data.hits;
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
 
     public async searchingData(from: string, to: string, meal = 'Salad') {
         try {
@@ -181,9 +194,12 @@ class ClientManager {
         }
     }
 
-    public async userData(from: string, to: string, mealType: string, calories: string) {
+    public async getRecipe(calories: number) {
         try {
-            const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&imageSize=LARGE&mealType=${mealType}&calories=${calories}`;
+            const caloriesForOneMeal = Math.floor(calories / 3);
+            const url = `https://api.edamam.com/search?q=all&app_id=1ddd26bc&app_key=aa2a6148d30d95275813c6bc548941bf&from=0&to=100&imageSize=LARGE&calories=${String(
+                caloriesForOneMeal
+            )}-${String(caloriesForOneMeal + 300)}&Health=alcohol-free`;
             const response = await fetch(url);
             const data = await response.json();
             return data.hits;

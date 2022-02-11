@@ -4,6 +4,7 @@ import MealPageModel from './mealPageModel';
 import MealPageView from './mealPageView';
 import Preloader from '../../components/preloader/preloader';
 import StorageApiManager from '../../services/storageManager';
+
 class MealPageController {
     private view: MealPageView;
 
@@ -27,9 +28,9 @@ class MealPageController {
 
         if (StorageApiManager.getItem('mealData', 'local')) {
             const mealData = StorageApiManager.getItem('mealData', 'local') as IDataExplore[];
-            if (mealData !== undefined || (mealData as IDataExplore[]).length !== 0) {
-                this.mealData! = mealData;
-            }
+            // if (mealData !== undefined || (mealData as IDataExplore[]).length !== 0) {
+            this.mealData! = mealData;
+            // }
         }
 
         if (StorageApiManager.getItem('searchingData', 'local')) {
@@ -47,16 +48,11 @@ class MealPageController {
             this.handlerChange.bind(this),
             this.handlerBtn.bind(this)
         );
-        await this.getMealDataWithDay();
+
         this.view.getLoaderSearchingContainer();
         this.view.getLoaderMealContainer();
 
-        if (!this.mealData || this.mealData.length === 0) {
-            this.mealData = await this.model.getUserMealData(this.numFrom.toString(), (this.numFrom + 1).toString());
-            if (this.mealData) {
-                StorageApiManager.addItem('mealData', this.mealData, 'local');
-            }
-        }
+        this.mealData = await this.model.getUserMealData();
 
         if (!this.searchingData || this.searchingData.length === 0) {
             this.searchingData = await this.model.getSearchingData('brownie');
@@ -75,11 +71,32 @@ class MealPageController {
         this.inputValue = value.toLowerCase().trim();
     }
 
-    handlerMealCard() {}
+    handlerMealCard(e: Event) {
+        if ((e.target as HTMLElement).closest('.meal-card')) {
+            const cardNum = (e.target as HTMLElement).closest('.meal-card')!.getAttribute('data-num');
+            const recipePageData = (StorageApiManager.getItem('mealData', 'local') as Array<IDataExplore>)[
+                Number(cardNum)
+            ];
+            StorageApiManager.addItem('recipePageData', recipePageData, 'local');
+        }
+    }
 
-    handlerExploreCard() {}
+    handlerExploreCard(e: Event) {
+        const dietCard = (e.target as HTMLElement).closest('.explore-card');
+        if (dietCard) {
+            StorageApiManager.addItem('diet', dietCard.getAttribute('data-edamam'), 'local');
+        }
+    }
 
-    handlerSearchingCard() {}
+    handlerSearchingCard(e: Event) {
+        if ((e.target as HTMLElement).closest('.meal-card')) {
+            const cardNum = (e.target as HTMLElement).closest('.meal-card')!.getAttribute('data-num');
+            const recipePageData = (StorageApiManager.getItem('searchingData', 'local') as Array<IDataExplore>)[
+                Number(cardNum)
+            ];
+            StorageApiManager.addItem('recipePageData', recipePageData, 'local');
+        }
+    }
 
     async handlerBtn() {
         if (this.inputValue) {
@@ -98,21 +115,6 @@ class MealPageController {
                     searchingMeals.append(...searchingCards);
                     StorageApiManager.addItem('searchingData', this.searchingData, 'local');
                 }
-            }
-        }
-    }
-
-    async getMealDataWithDay() {
-        const day = JSON.stringify(this.model.rememberDateToday());
-        if (StorageApiManager.getItem('today', 'local')) {
-            if (day !== localStorage.getItem('today')) {
-                this.numFrom = Utils.randomInteger(0, 100);
-                this.mealData = await this.model.getUserMealData(
-                    this.numFrom.toString(),
-                    (this.numFrom + 1).toString()
-                );
-                StorageApiManager.addItem('mealData', this.mealData, 'local');
-                StorageApiManager.addItem('today', day, 'local');
             }
         }
     }

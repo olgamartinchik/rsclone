@@ -1,0 +1,84 @@
+.meal-type-section {
+    position: relative;
+    height: 30vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 1s ease-in-out;
+}
+.diet-menu-section {
+    margin-bottom: 20px;
+}
+.meal-type-section::before {
+    content: '';
+    position: absolute;
+    height: 30vh;
+    width: 100%;
+    opacity: 0.3;
+}
+.meal-section .explore-container {
+    padding: 50px 0px 70px;
+}
+.title-type {
+    display: block;
+    text-transform: uppercase;
+    color: $color-text-on-dark;
+    text-shadow: 5px 2px 3px black, 0 0 1em white;
+    backdrop-filter: blur(2px);
+    padding: 15px;
+    transition: 1s ease-in-out;
+}
+.tabs-container {
+    padding: 30px;
+}
+.tabs {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.row .col {
+    padding: 0;
+}
+.row .col.s3 {
+    max-width: 220px;
+    width: 100%;
+
+    padding: 0;
+    box-sizing: border-box;
+}
+.arrow-back {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+
+    backdrop-filter: blur(2px);
+}
+.fa-long-arrow-alt-left {
+    color: #fff;
+    font-size: 45px;
+    padding: 0 15px;
+    text-shadow: 5px 2px 3px black, 0 0 1em white;
+    transition: 0.3s ease-in-out;
+
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+.row {
+    margin-bottom: 0px;
+}
+.col.s12.active.carousel-item {
+    overflow-y: auto;
+    margin-top: 15px;
+}
+@media (max-width: 360px) {
+    .title-type {
+        font-size: 40px;
+    }
+}
+@media (max-width: 330px) {
+}

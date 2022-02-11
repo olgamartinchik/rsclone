@@ -6,6 +6,7 @@ import Node from '../../components/Node';
 import storageManager from '../../services/storageManager';
 import { TSettings } from '../../services/types';
 import StatisticWeekWidget from '../../components/statWeekWidget/statisticWeekWidget';
+import MealPageView from '../mealPage/mealPageView';
 
 class ProgramPageView {
     private rootNode: HTMLElement;
@@ -71,6 +72,7 @@ class ProgramPageView {
         this.getContentBlockTitle(week);
         this.getCards(data, onclick);
         this.cardsWrapper.node.insertAdjacentHTML('beforeend', this.getAddWorkoutBlock());
+        Program.node.insertAdjacentHTML('beforeend', new MealPageView().getSectionMeal());
     }
 
     private getContentBlockTitle(week: number): void {
@@ -105,7 +107,7 @@ class ProgramPageView {
                 <li>Select <span class="bold-text">Add to Program</span></li>
             </ol>
             </div>
-        </div>
+        </div>        
         `;
     }
 }
