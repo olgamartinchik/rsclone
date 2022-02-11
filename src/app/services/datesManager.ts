@@ -51,27 +51,27 @@ padStart(s:number){
       let numWeek=0
       let arrayDate=this.getArrayDate(userSettings)
       let dayToday=this.dateToday()
-      let num=arrayDate.indexOf(dayToday)
-      console.log('num', num)
-      if(num<=7){
+      let numDay=arrayDate.indexOf(dayToday)
+      console.log('num', numDay)
+      if(numDay<=7){
         numWeek=0
-      }else if(num<=14){
+      }else if(numDay<=14){
         numWeek= 1
-      }else if(num<21){
+      }else if(numDay<21){
         numWeek= 2
-      }else if(num <28){
+      }else if(numDay <28){
         numWeek=3
-      }else if(num<=35){
+      }else if(numDay<=35){
         numWeek= 4
-      }else if(num<=42){
+      }else if(numDay<=42){
         numWeek= 5
-    }else if(num<49){
+    }else if(numDay<49){
         numWeek= 6
-    }else if(num <56){
+    }else if(numDay <56){
         numWeek= 7
-    }else if(num<=63){
+    }else if(numDay<=63){
         numWeek= 8
-    }else if(num <70){
+    }else if(numDay <70){
         numWeek= 9
     }
     StorageManager.addItem('numWeek',numWeek,'local')

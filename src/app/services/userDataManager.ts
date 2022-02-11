@@ -15,7 +15,7 @@ class UserDataManager{
       await new MealPageModel().getSearchingData('brownie')
       new DateManager().getArrayDate(this.userSettings)
       let numWeek=new DateManager().getNumWeek(this.userSettings)     
-      new MealPageModel().getUserMealData()
+     await new MealPageModel().getUserMealData()
      
       console.log('numWeek',numWeek)
     }

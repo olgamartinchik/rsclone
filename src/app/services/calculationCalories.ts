@@ -76,27 +76,25 @@ class CalculationCalories{
      }
      
     async createUserMeal(){
-        const calories=this.getCalories()/3
-        let count =0
+      //   const calories=this.getCalories()/3
+        
         let periodUserMeal={}
         let dayMeals=['breakfast','lunch/dinner','snack']    
         let arrayDates=new DateManager().getArrayDate(this.userSettings)
         let allRecipe= StorageManager.getItem('allRecipe', 'local') as IDataExplore[] ?? await this.getRecipeDate()
       
-           Utils.shuffleArr(allRecipe)
-           arrayDates.forEach((date)=>{   
+         //   Utils.shuffleArr(allRecipe)
+           arrayDates.forEach((date)=>{  
             periodUserMeal[date]=[]  
-            count++       
             dayMeals.forEach((day)=>{
+           
                   periodUserMeal[date].push(allRecipe!.find((meal,ind, array)=>{
                      // if((meal!.recipe.calories! as number)>=calories+count)
-                     Utils.shuffleArr(array);
+                     // Utils.shuffleArr(array);
                     if((meal!.recipe.mealType! as [])!.includes(day as never)) {
-                       if(meal!.recipe.mealType! !== null){
-                           return meal!.recipe.mealType!
-                       }
-                      
+                        return meal!.recipe.mealType!
                     }
+                    Utils.shuffleArr(array);
                   
                   }) )
                }              
