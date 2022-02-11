@@ -9,16 +9,16 @@ export class Profile {
     this.rootNode = new Node(null, 'main',  'main-layout');
   }
 
-  public getTemplate(name: string, badges: Array<TBadge>): HTMLElement {
-    this.createHeader(name);
+  public getTemplate(name: string, src:string, badges: Array<TBadge>): HTMLElement {
+    this.createHeader(name, src);
     this.createContent(badges);
 
     return this.rootNode.node;
   }
 
-  private createHeader(name: string): void {
+  private createHeader(name: string, src:string): void {
     const profileHeader = Node.setChild(this.rootNode.node, 'div', 'profile-header');
-    profileHeader.insertAdjacentHTML('afterbegin', profileHeaderTemplate(name));
+    profileHeader.insertAdjacentHTML('afterbegin', profileHeaderTemplate(name, src));
   }
 
   private createContent(badges: Array<TBadge>): void {

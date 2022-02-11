@@ -1,10 +1,10 @@
-export function profileHeaderTemplate(name: string): string {
+export function profileHeaderTemplate(name: string, src: string): string {
   return `
   <div class="profile-decorative"></div>
   <div class="profile-decorative narrow"></div>
   <div class="profile-header_info z-depth-1">
       <div class="avatar">
-          <canvas class="profile-avatar"></canvas>
+          <img src=${src} class="profile-avatar"></img>
           <span class="icon-upload"><i class="icon pencil"></i></span>
       </div>        
       <p class="profile-name title">${name}</p>        
