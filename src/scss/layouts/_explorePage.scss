@@ -1,14 +1,9 @@
-.main-diet {
-    // height: 100%;
-    // height: calc(100% - 144px);
-}
 .meal-type-section {
     position: relative;
     height: 30vh;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    // filter: grayscale(100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,7 +17,6 @@
     position: absolute;
     height: 30vh;
     width: 100%;
-    // background: linear-gradient(135deg, rgb(57, 60, 59), rgb(233, 240, 239));
     opacity: 0.3;
 }
 .meal-section .explore-container {

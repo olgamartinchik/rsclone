@@ -15325,7 +15325,7 @@ input[type=text]:not(.browser-default) {
   }
 }
 .meal-section {
-  margin-bottom: 40px;
+  padding-bottom: 40px;
 }
 
 .main-meal {

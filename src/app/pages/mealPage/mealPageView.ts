@@ -58,13 +58,7 @@ class MealPageView {
         onclickBtn: (e: Event) => void
     ) {
         const main = new Node(this.rootNode, 'main', 'main-layout main-meal');
-        main.node.insertAdjacentHTML('afterbegin', this.getSectionMeal())
-        // const sectionUserMeal = new Node(main.node, 'section', 'section meal-section');
-        // const cardsUserMealContainer = new Node(sectionUserMeal.node, 'div', 'meal-card-container');
-        // Node.setChild(cardsUserMealContainer.node, 'h5', 'title-meal', 'YOUR MEALS');
-        // Node.setChild(cardsUserMealContainer.node, 'div', 'divider', '');
-
-        // new Node(cardsUserMealContainer.node, 'div', 'day-meals');
+        main.node.insertAdjacentHTML('afterbegin', this.getSectionMeal())     
 
         const sectionExplore = new Node(main.node, 'section', 'section meal-section');
         const mealExploreContainer = new Node(sectionExplore.node, 'div', 'meal-explore-container');
@@ -138,7 +132,7 @@ class MealPageView {
         const searchingMealsContainer = document.getElementsByClassName('searching-meals') as HTMLCollectionOf<Element>;
         searchingMealsContainer[0]!.innerHTML = '';
         searchingMealsContainer[0]!.append(Preloader.getTemplate());
-        console.log(Preloader.getTemplate())
+        
     }
 
     getSearchingBtn(onclick: (e: Event) => void) {

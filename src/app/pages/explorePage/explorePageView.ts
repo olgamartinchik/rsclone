@@ -65,6 +65,7 @@ class ExplorePageView{
         const cards = dietData.map((data, ind)=>new MealCard(data).getMealTemplate(onclick,ind))
         return cards
     }
+    
 }
 
 export default ExplorePageView

@@ -3,25 +3,30 @@ import { IDataExplore } from "../../services/types";
 import Utils from "../../services/utils";
 
 class ExplorePageModel{
-    exploreDietData:ClientManager
-    mealType:Array<string>;
     constructor(){
-    this.mealType = ['Breakfast', 'Lunch', 'Snack'];
-    this.exploreDietData=new ClientManager()
     }
-    getData() {
-        console.log('data is being loaded');
+   
+    activeTabs(){     
+        const tabs=document.getElementsByClassName('tabs')[0] as HTMLElement
+        if(tabs){
+            M.Tabs.init(tabs, {
+                swipeable: true,
+                duration: 300,
+            });
+        }        
     }
-//    async getDataExplore(diet:string){
-//        const dietData:Array<IDataExplore>=[];
-//         let randomNum=Utils.randomInteger(1, 50)
-//         for(let type of this.mealType){
-//         let data =await this.exploreDietData.mealExploreData(String(randomNum),String(randomNum+1),diet,type)
-//         dietData.push(...data)
-//         }
-        
-//         return dietData
-//     }
+    getActiveClassTabs(diet:string){
+        const allTabs=document.getElementsByClassName('tab-explore')  as HTMLCollectionOf<HTMLElement>     
+       for(let i=0; i<allTabs.length; i++){
+        allTabs[i].classList.remove('active')       
+           if(allTabs[i].getAttribute('data-diet')===diet){
+            allTabs[i].classList.add('active')
+                allTabs[i].style.backgroundColor='rgba(246, 178, 181, 0.2)'            
+           }
+       }
+
+     
+    }
     
 }
 export default ExplorePageModel

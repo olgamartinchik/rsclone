@@ -2,6 +2,7 @@ import ExplorePageModel from "./explorePageModel";
 import ExplorePageView from "./explorePageView";
 import StorageApiManager from '../../services/storageManager'
 import { IDataExplore } from "../../services/types";
+import { none } from "@cloudinary/url-gen/qualifiers/progressive";
 class ExploreController{
     private view: ExplorePageView;
     private model: ExplorePageModel;
@@ -15,48 +16,36 @@ class ExploreController{
        
         if(StorageApiManager.getItem('diet', 'local')){
          let diet=StorageApiManager.getItem('diet', 'local') as string
-        
+
         this.view.render(diet)
-        this.setBgExplorePage(diet)
-            
+        this.setBgExplorePage(diet)            
         this. handlerTabs()
-        this.getActiveClassTabs(diet)
-        this.activeTabs()
+        this.model.getActiveClassTabs(diet)
+        this.model.activeTabs()
         this.setCards(diet)
        }
     }
 
-    activeTabs(){     
-        const tabs=document.getElementsByClassName('tabs')[0] as HTMLElement
-        if(tabs){
-            M.Tabs.init(tabs, {
-                swipeable: true,
-                duration: 300,
-            });
-        }        
-    }
-    getActiveClassTabs(diet:string){
-        const allTabs=document.getElementsByClassName('tab-explore')       
-       for(let i=0; i<allTabs.length; i++){
-        allTabs[i].classList.remove('active')
-           if(allTabs[i].getAttribute('data-diet')===diet){
-            allTabs[i].classList.add('active')
-           }
-       }
+ 
     
-    }
   
     handlerTabs(){
         const tabs=document.getElementsByClassName('tabs')[0]
         tabs.addEventListener('click', this.getDataDiet.bind(this))
     }
     getDataDiet(e:Event){
+        const allTabs=document.getElementsByClassName('tab-explore')  as HTMLCollectionOf<HTMLElement>
+        for(let i=0;i<allTabs.length;i++){
+            allTabs[i].style.backgroundColor=''
+        }
         if((e.target as HTMLElement).closest('.tab-explore')){
             let diet=((e.target as HTMLElement).closest('.tab-explore') as HTMLElement).getAttribute('data-diet') 
             this.setBgExplorePage(diet!)
             this.setTitleExplorePage(diet!)
             StorageApiManager.addItem('diet', diet, 'local');
             this.setCards(diet!)
+        
+
         }
 
     }
@@ -76,28 +65,21 @@ class ExploreController{
              
                 if(StorageApiManager.getItem(`dietData-${diet}`, 'local')){
                     this.dietData = StorageApiManager.getItem(`dietData-${diet}`, 'local')
-                    // console.log('data1', this.dietData)
                 }else{
-                    // this.dietData=await this.model.getDataExplore(diet)
                     if(StorageApiManager.getItem('allRecipe', 'local')){
                         let data=StorageApiManager.getItem('allRecipe', 'local')as IDataExplore[]
                         this.dietData = data.filter((meal) =>
                         String(meal.recipe.dietLabels!).toLowerCase().includes(diet))
-                        console.log('this.dietData',this.dietData)
+                       
                     }
                     if( this.dietData && (this.dietData as IDataExplore[]).length !==0){
                         StorageApiManager.addItem(`dietData-${diet}`, this.dietData, 'local'); 
                     }   
-                   
-                    
                 }
-               
-                
                 
                 if(this.dietData){
                    const cards= this.view.getCardsDiet(this.dietData!, this.handlersDietCards)
                    containersCards[i].append(...cards)
-                //    console.log('data1', this.dietData)
                 }
                 
             }
@@ -110,7 +92,7 @@ class ExploreController{
             const cardNum=card!.getAttribute('data-num')
             const localDiet=StorageApiManager.getItem('diet',  'local')
             const recipePageData=(StorageApiManager.getItem(`dietData-${localDiet}`,  'local')as Array<IDataExplore>)[Number(cardNum)]
-            console.log('111', cardNum,localDiet,recipePageData)
+           
             StorageApiManager.addItem('recipePageData', recipePageData,'local')
         }
         
