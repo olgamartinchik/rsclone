@@ -2,7 +2,6 @@ import { TLoginForm, TLoginResponse, TSettings } from '../../services/types';
 import authManager from '../../services/authManager';
 import ClientManager from '../../services/clientManager';
 import StorageManager from '../../services/storageManager';
-import storageManager from '../../services/storageManager';
 
 export class AuthModel {
     private form: TLoginForm;
@@ -30,6 +29,7 @@ export class AuthModel {
 
     public checkUserData(isLogin: boolean): void {
         const type = isLogin ? 'auth/login' : 'auth/register';
+        const isPasswordConfirmed = this.checkPassword();
         switch (type) {
             case 'auth/login':
                 if (this.form.email && this.form.password) {
@@ -39,13 +39,19 @@ export class AuthModel {
                 }
                 break;
             case 'auth/register':
-                if (this.form.userName && this.form.email && this.form.password) {
+                if (this.form.userName && this.form.email && this.form.password && isPasswordConfirmed) {
                     this.activateSendBtn();
                 } else {
                     this.deactivateSendBtn();
                 }
                 break;
         }
+    }
+
+    public checkPassword(): boolean {
+        const passwordInput = <HTMLInputElement>document.querySelector('#password');
+        const confirmPasswordInput = <HTMLInputElement>document.querySelector('#confirm');
+        return passwordInput.value === confirmPasswordInput.value;
     }
 
     private activateSendBtn(): void {
@@ -95,7 +101,7 @@ export class AuthModel {
     private async saveUserSettings(type: string): Promise<void> {
         const userSettings = await this.clientManager.getUserSettings(this.clientManager.token.userID);
         if (userSettings) {
-            storageManager.addItem('userSettings', userSettings, 'local');
+            StorageManager.addItem('userSettings', userSettings, 'local');
         }
         this.navigate(type);
     }
@@ -107,7 +113,7 @@ export class AuthModel {
     }
 
     private navigate(type: string) {
-        const userSettings = <TSettings>storageManager.getItem('userSettings', 'local');
+        const userSettings = <TSettings>StorageManager.getItem('userSettings', 'local');
         switch (type) {
             case 'auth/register':
                 authManager.navigate('/onboarding');

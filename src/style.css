@@ -16498,7 +16498,8 @@ input[type=text].datepicker::placeholder {
 
 #userName,
 #email,
-#password {
+#password,
+#confirm {
   box-sizing: border-box;
   padding-left: 12px;
   color: white;

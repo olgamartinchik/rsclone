@@ -28,7 +28,8 @@ export default class Auth {
         
         if (!isLogin) form.node.insertAdjacentHTML('beforeend', authTemplate('userName', 'text', 'Name'));
         form.node.insertAdjacentHTML('beforeend', authTemplate('email', 'email', 'Email'));
-        form.node.insertAdjacentHTML('beforeend', passwordTemplate('password', 'password', 'Password'));
+        form.node.insertAdjacentHTML('beforeend', passwordTemplate('password', 'password', 'validate', 'Password'));
+        if (!isLogin) form.node.insertAdjacentHTML('beforeend', passwordTemplate('confirm', 'password', '','Confirm password'));
         if (isLogin) {
             const authLink = new Node(form.node, 'a', 'auth-link', 'Not Registered yet?');
             authLink.setAttribute('href', `#/register`);
@@ -47,7 +48,9 @@ export default class Auth {
     }
 
     private addEvents(onIconClick: (e: Event) => void): void {
-        const eyeIcon = <HTMLElement>this.main.node.querySelector(`[data-type='eye-icon']`);
-        eyeIcon.onclick = (e: Event) => onIconClick(e);
+        const eyeIcons = <NodeListOf<HTMLElement>>this.main.node.querySelectorAll(`[data-type='eye-icon']`);
+        eyeIcons.forEach((eyeIcon) => {
+            eyeIcon.onclick = (e: Event) => onIconClick(e);
+        });
     }
 }
