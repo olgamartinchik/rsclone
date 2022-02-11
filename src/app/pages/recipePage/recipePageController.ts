@@ -1,15 +1,18 @@
-import RecipePageModel from "./recipePageModel";
-import RecipePageView from "./recipePageView";
+import RecipePageModel from './recipePageModel';
+import RecipePageView from './recipePageView';
 
-class RecipePageController{
+class RecipePageController {
     private view: RecipePageView;
+
     private model: RecipePageModel;
-    constructor(){
-      this.view=new RecipePageView()
-      this.model=new RecipePageModel()
+
+    constructor() {
+        this.view = new RecipePageView();
+        this.model = new RecipePageModel();
     }
+
     public async createPage() {
-        this.view.render()
+        this.view.render();
     }
 }
-export default RecipePageController
+export default RecipePageController;

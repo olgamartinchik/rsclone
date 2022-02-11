@@ -13,7 +13,6 @@ class EditPlanPageModel {
             <TSettings>modifiedSettings
         );
         this.updateWorkoutProgram();
-        
     }
 
     public updateWorkoutProgram(): void {

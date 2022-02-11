@@ -314,7 +314,6 @@ class OnboardingPageController {
             const programDuration = this.model.settings.duration;
             this.view.renderCongratulations(programDuration, this.handleFinalButtonClick.bind(this));
         }
-        
     }
 
     private handleBackBtnClick(e: Event): void {
@@ -333,7 +332,6 @@ class OnboardingPageController {
         if ((<HTMLElement>e.target).dataset.btn === 'start') {
             authManager.navigate('/program');
         }
-        
     }
 }
 

@@ -3,12 +3,14 @@ import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 
-class RecipePageView{
+class RecipePageView {
     private rootNode: HTMLElement;
+
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
     }
-    render(){
+
+    render() {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
 
@@ -22,13 +24,11 @@ class RecipePageView{
         navbar.generateMenu('');
         navbar.addProfileLink('O');
 
-        this.rootNode.insertAdjacentHTML(
-            'beforeend',
-            this.createContentExplore()
-        );
+        this.rootNode.insertAdjacentHTML('beforeend', this.createContentExplore());
         this.rootNode.append(footer.getTemplate());
     }
-    createContentExplore(){
+
+    createContentExplore() {
         // const main = new Node(this.rootNode, 'main', 'main-layout');
         // Node.setChild(main.node, 'h1', 'title-meal', 'Recipe');
         return `
@@ -110,7 +110,7 @@ class RecipePageView{
             </div>
         </section>
     </main>
-        `
+        `;
     }
 }
-export default RecipePageView
+export default RecipePageView;

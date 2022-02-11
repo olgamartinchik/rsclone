@@ -46,7 +46,7 @@ class ProgramPageView {
         this.getContentBlockTitle(week);
         this.getCards(data, onclick);
         this.cardsWrapper.node.insertAdjacentHTML('beforeend', this.getAddWorkoutBlock());
-        Program.node.insertAdjacentHTML('beforeend', new MealPageView().getSectionMeal())
+        Program.node.insertAdjacentHTML('beforeend', new MealPageView().getSectionMeal());
     }
 
     getContentBlockTitle(week: number): void {

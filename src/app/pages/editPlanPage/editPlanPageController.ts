@@ -151,8 +151,8 @@ class EditPlanPageController {
             input.value = '0';
         } else {
             this.model.saveSettings(this.modifiedUserSettings);
-            
-            new UserDataManager(this.modifiedUserSettings!).createUserData()
+
+            new UserDataManager(this.modifiedUserSettings!).createUserData();
             authManager.navigate('/settings');
         }
     }

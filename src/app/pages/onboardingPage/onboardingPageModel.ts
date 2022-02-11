@@ -45,8 +45,7 @@ export default class OnboardingModel {
         const clientManager = new ClientManager();
         StorageManager.addItem('userSettings', this.form, 'local');
         clientManager.postData(Endpoints.userSettings, this.form);
-        await  new UserDataManager(this.form).createUserData()
-    
+        await new UserDataManager(this.form).createUserData();
     }
 
     public calculateAge(dateOfBirth: string): number {
@@ -74,5 +73,4 @@ export default class OnboardingModel {
     public get settings(): TSettings {
         return this.form;
     }
-  
 }

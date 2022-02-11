@@ -36,9 +36,9 @@ class Config {
 
     public editProfilePageController: EditProfilePageController;
 
-    public exploreController:ExploreController
-    
-    public recipePageController: RecipePageController
+    public exploreController: ExploreController;
+
+    public recipePageController: RecipePageController;
 
     constructor() {
         this.programPageController = new ProgramPageController();
@@ -52,8 +52,8 @@ class Config {
         this.workoutPageController = new WorkoutPageController();
         this.editPlanPageController = new EditPlanPageController();
         this.editProfilePageController = new EditProfilePageController();
-        this.exploreController=new ExploreController()
-        this.recipePageController=new RecipePageController()
+        this.exploreController = new ExploreController();
+        this.recipePageController = new RecipePageController();
     }
 
     public getRoutes(): RouteOption[] {

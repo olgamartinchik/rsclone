@@ -7,7 +7,6 @@ import { IDataExplore } from '../../services/types';
 import Preloader from '../../components/preloader/preloader';
 import storageManager from '../../services/storageManager';
 
-
 class MealPageView {
     private rootNode: HTMLElement;
 
@@ -18,14 +17,15 @@ class MealPageView {
     cardsWrapper!: Node<HTMLElement>;
 
     contentBlock!: Node<HTMLElement>;
-    count:number
+
+    count: number;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
         this.rootNodeInput = <HTMLElement>document.createElement('input');
         this.rootNodeInput.className = 'search-meals';
         this.rootNodeBtn = <HTMLElement>document.createElement('button');
-        this.count=0
+        this.count = 0;
     }
 
     render(
@@ -58,7 +58,7 @@ class MealPageView {
         onclickBtn: (e: Event) => void
     ) {
         const main = new Node(this.rootNode, 'main', 'main-layout main-meal');
-        main.node.insertAdjacentHTML('afterbegin', this.getSectionMeal())     
+        main.node.insertAdjacentHTML('afterbegin', this.getSectionMeal());
 
         const sectionExplore = new Node(main.node, 'section', 'section meal-section');
         const mealExploreContainer = new Node(sectionExplore.node, 'div', 'meal-explore-container');
@@ -87,33 +87,30 @@ class MealPageView {
     }
 
     getExploreCards(exploreData: Array<IDataExplore>, onclick: (e: Event) => void) {
-        const cards = exploreData.map((data, ind) => new MealCard(data).getExploreTemplate(onclick,ind));
+        const cards = exploreData.map((data, ind) => new MealCard(data).getExploreTemplate(onclick, ind));
         return cards;
     }
 
     getMealCards(mealData: Array<IDataExplore>, onclick: (e: Event) => void) {
-      
         const cards = mealData.map((data, ind) => new MealCard(data).getMealTemplate(onclick, ind));
         return cards;
     }
 
-    loadMealCard(mealData: Array<IDataExplore>, onclick: (e: Event) => void):void {
+    loadMealCard(mealData: Array<IDataExplore>, onclick: (e: Event) => void): void {
         const mealContainer = document.getElementsByClassName('day-meals') as HTMLCollectionOf<Element>;
-        for(let i=0; i<mealContainer.length;i++){
+        for (let i = 0; i < mealContainer.length; i++) {
             mealContainer[i].innerHTML = '';
-        const mealCards = this.getMealCards(mealData, onclick);
-        mealContainer[i].append(...mealCards);
+            const mealCards = this.getMealCards(mealData, onclick);
+            mealContainer[i].append(...mealCards);
         }
-        
     }
 
     getLoaderMealContainer() {
         const mealContainer = document.getElementsByClassName('day-meals') as HTMLCollectionOf<Element>;
-     for (let i = 0; i<mealContainer.length; i++){
-         mealContainer[i].innerHTML = '';
-        mealContainer[i].append(Preloader.getTemplate());
-     }
-        
+        for (let i = 0; i < mealContainer.length; i++) {
+            mealContainer[i].innerHTML = '';
+            mealContainer[i].append(Preloader.getTemplate());
+        }
     }
 
     getSearchingCards(searchingData: Array<IDataExplore>, onclick: (e: Event) => void) {
@@ -132,7 +129,6 @@ class MealPageView {
         const searchingMealsContainer = document.getElementsByClassName('searching-meals') as HTMLCollectionOf<Element>;
         searchingMealsContainer[0]!.innerHTML = '';
         searchingMealsContainer[0]!.append(Preloader.getTemplate());
-        
     }
 
     getSearchingBtn(onclick: (e: Event) => void) {
@@ -141,7 +137,8 @@ class MealPageView {
         this.rootNodeBtn.textContent = 'search';
         return this.rootNodeBtn;
     }
-    getSectionMeal(){
+
+    getSectionMeal() {
         return `
         <section class ="section meal-section">
             <div class = "meal-card-container">
@@ -150,7 +147,7 @@ class MealPageView {
                 <div class = "day-meals"></div>
             </div>
         </section>
-        `
+        `;
     }
 }
 

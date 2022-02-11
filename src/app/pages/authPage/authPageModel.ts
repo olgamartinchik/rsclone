@@ -74,13 +74,11 @@ export class AuthModel {
             this.createMessage(this.clientManager.text);
             this.destroyData();
         }
-
-        
     }
 
     private saveData(type: string, userName: string): void {
         StorageManager.addItem('token', this.clientManager.token, 'local');
-        switch(type) {
+        switch (type) {
             case 'auth/register':
                 StorageManager.addItem('user', this.form.userName.split('')[0], 'local');
                 break;
@@ -101,7 +99,7 @@ export class AuthModel {
     private async saveUserSettings(): Promise<void> {
         const userSettings = await this.clientManager.getUserSettings(this.clientManager.token.userID);
         storageManager.addItem('userSettings', userSettings, 'local');
-        new UserDataManager(userSettings!).createUserData()
+        new UserDataManager(userSettings!).createUserData();
     }
 
     public createMessage(text: string) {
