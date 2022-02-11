@@ -51,7 +51,7 @@ export class AuthView {
         const passwordInput = <HTMLInputElement>this.rootNode.querySelector('#password');
         if (nameInput) nameInput.setAttribute('pattern', '^[a-zA-Zа-яА-Я].*');
         if (emailInput) emailInput.setAttribute('pattern', '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}');
-        if (passwordInput) passwordInput.setAttribute('pattern', '(?=*\d)(?=*[a-z])(?=*[A-Z]){8,}');
+        // if (passwordInput) passwordInput.setAttribute('pattern', '(?=*\d)(?=*[a-z])(?=*[A-Z]){8,}');
     }
 
     public handlePreloader(isLoading: boolean): void {

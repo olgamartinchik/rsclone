@@ -29,7 +29,7 @@ export class AuthModel {
 
     public checkUserData(isLogin: boolean): void {
         const type = isLogin ? 'auth/login' : 'auth/register';
-        const isPasswordConfirmed = this.checkPassword();
+
         switch (type) {
             case 'auth/login':
                 if (this.form.email && this.form.password) {
@@ -39,7 +39,7 @@ export class AuthModel {
                 }
                 break;
             case 'auth/register':
-                if (this.form.userName && this.form.email && this.form.password && isPasswordConfirmed) {
+                if (this.form.userName && this.form.email && this.form.password && this.checkPassword()) {
                     this.activateSendBtn();
                 } else {
                     this.deactivateSendBtn();
