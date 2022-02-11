@@ -39,7 +39,7 @@ class ExplorePageView{
         Node.setChild(linkBack.node, 'i', 'fas fa-long-arrow-alt-left');
     
         Node.setChild(mealTypeSection.node, 'h1', 'title-type', `${diet}`);
-        const mealSection=new Node(main.node, 'section', 'meal-section');
+        const mealSection=new Node(main.node, 'section', 'meal-section diet-menu-section');
         const pageContainer=new Node(mealSection.node, 'div', 'row');
         const tabsContainer=new Node(pageContainer.node, 'div', 'col s12');
         const ul=new Node(tabsContainer.node, 'ul', 'tabs');
