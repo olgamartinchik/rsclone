@@ -54,6 +54,7 @@ export class AuthPageController {
         const element = <HTMLInputElement>e.target;
         const elementType = element.id;
         const value = element.value;
+        console.log(element.validity)
         if (element.validity.valid) {
             this.model.changeHandler({ [elementType]: value });
         } else {
@@ -72,7 +73,7 @@ export class AuthPageController {
                     this.model.createMessage(Message.invalidValue);
                     break;
                 case 'password':
-                    this.model.createMessage(Message.invalidPassword);
+                    this.model.createMessage(Message.invalidValue);
                     break;
             }
         }

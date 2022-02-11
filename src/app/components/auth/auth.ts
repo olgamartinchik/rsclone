@@ -1,4 +1,4 @@
-import { authTemplate, passwordTemplate } from './template';
+import { authTemplate, passwordTemplate, confirmPasswordTemplate } from './template';
 import Node from '../Node';
 import Button from '../Button';
 
@@ -28,8 +28,8 @@ export default class Auth {
         
         if (!isLogin) form.node.insertAdjacentHTML('beforeend', authTemplate('userName', 'text', 'Name'));
         form.node.insertAdjacentHTML('beforeend', authTemplate('email', 'email', 'Email'));
-        form.node.insertAdjacentHTML('beforeend', passwordTemplate('password', 'password', 'validate', 'Password'));
-        if (!isLogin) form.node.insertAdjacentHTML('beforeend', passwordTemplate('confirm', 'password', '','Confirm password'));
+        form.node.insertAdjacentHTML('beforeend', passwordTemplate('password', 'password', 'Password'));
+        if (!isLogin) form.node.insertAdjacentHTML('beforeend', confirmPasswordTemplate('confirm', 'password', 'Confirm password'));
         if (isLogin) {
             const authLink = new Node(form.node, 'a', 'auth-link', 'Not Registered yet?');
             authLink.setAttribute('href', `#/register`);
