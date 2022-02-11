@@ -77,7 +77,7 @@ export interface IDataExplore {
         dishType?: string;
         mealType?: object;
         label?: string;
-        calories?: string;
+        calories?: string|number;
         yield?: number;
         diet?:string;
         dietLabels?:string

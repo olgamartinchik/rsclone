@@ -27,9 +27,9 @@ class MealPageController {
 
         if (StorageApiManager.getItem('mealData', 'local')) {
             const mealData = StorageApiManager.getItem('mealData', 'local') as IDataExplore[];
-            if (mealData !== undefined || (mealData as IDataExplore[]).length !== 0) {
+            // if (mealData !== undefined || (mealData as IDataExplore[]).length !== 0) {
                 this.mealData! = mealData;
-            }
+            // }
         }
 
         if (StorageApiManager.getItem('searchingData', 'local')) {
@@ -53,12 +53,13 @@ class MealPageController {
         this.view.getLoaderMealContainer();
         
 
-        if (!this.mealData || this.mealData.length === 0) {
-            this.mealData = await this.model.getUserMealData(this.numFrom.toString(), (this.numFrom + 1).toString());
-            if (this.mealData) {
-                StorageApiManager.addItem('mealData', this.mealData, 'local');
-            }
-        }
+        // if (!this.mealData) {
+            // this.mealData = await this.model.getUserMealData(this.numFrom.toString(), (this.numFrom + 1).toString());
+            this.mealData= this.model.getUserMealData()
+            // if (this.mealData) {
+                // StorageApiManager.addItem('mealData', this.mealData, 'local');
+            // }
+        // }
 
         if (!this.searchingData || this.searchingData.length === 0) {
             this.searchingData = await this.model.getSearchingData('brownie');

@@ -3,6 +3,7 @@ import ClientManager from './clientManager';
 import DateManager from './datesManager';
 import StorageManager from './storageManager';
 import { IDataExplore, TSettings } from './types';
+import Utils from './utils';
 class CalculationCalories{
     userSettings:TSettings
     weight:number
@@ -74,17 +75,32 @@ class CalculationCalories{
      }
      
      createUserMeal(){
+        const calories=this.getCalories()/3
+        let count =0
         let periodUserMeal={}
         let dayMeals=['breakfast','lunch/dinner','snack']    
-        let arrayDates=new DateManager(this.userSettings).getArrayDate()
+        let arrayDates=new DateManager().getArrayDate(this.userSettings)
         if(StorageManager.getItem('allRecipe', 'local')){        
            let allRecipe=StorageManager.getItem('allRecipe', 'local') as IDataExplore[]
-
+           Utils.shuffleArr(allRecipe)
            arrayDates.forEach((date)=>{   
-            periodUserMeal[date]=[]         
+            periodUserMeal[date]=[]  
+            count++       
             dayMeals.forEach((day)=>{
-               if(day){
-                  periodUserMeal[date].push(allRecipe!.find((meal)=>(meal!.recipe.mealType! as [])!.includes(day as never)) )
+               
+               if(day!== null){
+                  
+                  periodUserMeal[date].push(allRecipe!.find((meal,ind, array)=>{
+                     // if((meal!.recipe.calories! as number)>=calories+count)
+                     Utils.shuffleArr(array);
+                    if((meal!.recipe.mealType! as [])!.includes(day as never)) {
+                       if(meal!.recipe.mealType! !== null){
+                           return meal!.recipe.mealType!
+                       }
+                      
+                    }
+                  
+                  }) )
                }              
             })
            })

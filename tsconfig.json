@@ -14,7 +14,10 @@
         "experimentalDecorators": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "outDir": "./dist"
+        "outDir": "./dist",
+        "lib": [
+            "es5", "es6", "dom", "dom.iterable"
+        ]
     },
     "exclude": ["node_modules", "**/*.spec.ts"],
     "include": ["src/**/*", "modules.d.ts"]

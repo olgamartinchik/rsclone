@@ -78,12 +78,20 @@ class ExploreController{
                     this.dietData = StorageApiManager.getItem(`dietData-${diet}`, 'local')
                     // console.log('data1', this.dietData)
                 }else{
-                    this.dietData=await this.model.getDataExplore(diet)
+                    // this.dietData=await this.model.getDataExplore(diet)
+                    if(StorageApiManager.getItem('allRecipe', 'local')){
+                        let data=StorageApiManager.getItem('allRecipe', 'local')as IDataExplore[]
+                        this.dietData = data.filter((meal) =>
+                        String(meal.recipe.dietLabels!).toLowerCase().includes(diet))
+                        console.log('this.dietData',this.dietData)
+                    }
                     if( this.dietData && (this.dietData as IDataExplore[]).length !==0){
                         StorageApiManager.addItem(`dietData-${diet}`, this.dietData, 'local'); 
-                    }                 
-                     
+                    }   
+                   
+                    
                 }
+               
                 
                 
                 if(this.dietData){

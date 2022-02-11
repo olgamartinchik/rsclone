@@ -1,3 +1,4 @@
+import MealPageModel from "../pages/mealPage/mealPageModel"
 import CalculationCalories from "./calculationCalories"
 import DateManager from "./datesManager"
 import { TSettings } from "./types"
@@ -11,8 +12,10 @@ class UserDataManager{
 
    async createUserData(){
       await  new CalculationCalories(this.userSettings).getRecipeDate()
-      new DateManager(this.userSettings).getArrayDate()
-      let numWeek=new DateManager(this.userSettings).getNumWeek()
+      await new MealPageModel().getSearchingData('brownie')
+      new DateManager().getArrayDate(this.userSettings)
+      let numWeek=new DateManager().getNumWeek(this.userSettings)     
+      new MealPageModel().getUserMealData()
      
       console.log('numWeek',numWeek)
     }

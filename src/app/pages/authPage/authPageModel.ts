@@ -3,6 +3,7 @@ import authManager from '../../services/authManager';
 import ClientManager from '../../services/clientManager';
 import StorageManager from '../../services/storageManager';
 import storageManager from '../../services/storageManager';
+import UserDataManager from '../../services/userDataManager';
 
 export class AuthModel {
     private form: TLoginForm;
@@ -100,6 +101,7 @@ export class AuthModel {
     private async saveUserSettings(): Promise<void> {
         const userSettings = await this.clientManager.getUserSettings(this.clientManager.token.userID);
         storageManager.addItem('userSettings', userSettings, 'local');
+        new UserDataManager(userSettings!).createUserData()
     }
 
     public createMessage(text: string) {

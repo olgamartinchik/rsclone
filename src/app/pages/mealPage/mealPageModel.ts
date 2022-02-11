@@ -1,6 +1,9 @@
 import ClientManager from '../../services/clientManager';
 import { IDataExplore } from '../../services/types';
 import Utils from '../../services/utils';
+import StorageManager from '../../services/storageManager'
+import DateManager from '../../services/datesManager';
+
 class MealPageModel {
     mealData: ClientManager;
 
@@ -12,10 +15,10 @@ class MealPageModel {
 
     mealType: Array<string>;
 
-    today: string;
+    today: DateManager;
 
     constructor() {
-        this.today = '';
+        this.today = new DateManager();
         this.numFrom = this.getNumFrom();
         this.numTo = this.numFrom + 1;
         this.mealData = new ClientManager();
@@ -30,22 +33,54 @@ class MealPageModel {
         ];
     }
 
-    async getUserMealData(from = '0', to = '1') {
-        const userData: Array<IDataExplore> = [];
-        for (const mealType of this.mealType) {
-            const userRecipe = await this.mealData.userData(from, to, mealType, '591-722');
-            if (userRecipe) {
-                userData.push(...userRecipe);
-            }
-        }
+    // async getUserMealData(from = '0', to = '1') {
+      
+    //     const userData: Array<IDataExplore> = [];
+    //     for (const mealType of this.mealType) {
+    //         const userRecipe = await this.mealData.userData(from, to, mealType, '591-722');
+    //         if (userRecipe) {
+    //             userData.push(...userRecipe);
+    //         }
+    //     }
+    //     if(  StorageManager.getItem('periodUserMeal','local')){
+    //         console.log('true')
+           
+    //         let periodUserMeal=StorageManager.getItem('periodUserMeal','local') as Array<IDataExplore>
+         
+    //         // userData.push(...periodUserMeal[this.today.dateToday()])
 
+    //     }
+       
+    //     console.log('userData', userData)
+    //     return userData;
+    // }
+
+    getUserMealData(){
+        const userData: Array<IDataExplore> = [];
+        if( StorageManager.getItem('periodUserMeal','local')){
+            console.log('true')           
+            let periodUserMeal=StorageManager.getItem('periodUserMeal','local') as Array<IDataExplore>
+            periodUserMeal[this.today.dateToday()].forEach(meal=>{
+                if(meal){
+                    userData.push(meal)
+                }
+            })
+            // userData.push(...periodUserMeal[this.today.dateToday()])
+        }       
+        console.log('userData', userData);
+        StorageManager.addItem('mealData', userData, 'local')
         return userData;
+
     }
+
 
     async getSearchingData(meal = 'Salad') {
         const numTo = this.numFrom! + 6;
         const searchingData = await this.mealData.searchingData(this.numFrom!.toString(), numTo.toString(), meal);
-
+        if(searchingData){
+            StorageManager.addItem('searchingData', searchingData, 'local')
+        }
+        
         return searchingData;
     }
 
