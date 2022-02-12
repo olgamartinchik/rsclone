@@ -53,7 +53,6 @@ class ProfilePageView {
     }
 
     public createProfileHeader(src: string): void {
-        console.log('1', this.userName);
         this.rootNode.append(profile.getTemplate(this.userName, src, this.badges));
     }
 
