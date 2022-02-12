@@ -1,5 +1,5 @@
 import { TBadge } from './types';
-import { WorkoutType, BadgeSrc, BadgeName, BadgeText } from './constants';
+import { WorkoutType, BadgeSrc, BadgeName, BadgeText, BadgeActiveSrc } from './constants';
 
 export default class Utils {
     static getChunks<T>(dataArr: T[], chunk: number): Array<T[]> {
@@ -115,36 +115,42 @@ export default class Utils {
         const badges = [
             {
                 src: BadgeSrc.oneWorkout,
+                srcActive: BadgeActiveSrc.oneWorkout,
                 name: BadgeName.oneWorkout,
                 text: BadgeText.oneWorkout,
                 modalId: 'modal1',
             },
             {
                 src: BadgeSrc.fiveWorkouts,
+                srcActive: BadgeActiveSrc.fiveWorkouts,
                 name: BadgeName.fiveWorkouts,
                 text: BadgeText.fiveWorkouts,
                 modalId: 'modal2',
             },
             {
                 src: BadgeSrc.tenWorkouts,
+                srcActive: BadgeActiveSrc.tenWorkouts,
                 name: BadgeName.tenWorkouts,
                 text: BadgeText.tenWorkouts,
                 modalId: 'modal3',
             },
             {
                 src: BadgeSrc.twentyWorkouts,
+                srcActive: BadgeActiveSrc.twentyWorkouts,
                 name: BadgeName.twentyWorkouts,
                 text: BadgeText.twentyWorkouts,
                 modalId: 'modal4',
             },
             {
                 src: BadgeSrc.fiftyWorkouts,
+                srcActive: BadgeActiveSrc.fiftyWorkouts,
                 name: BadgeName.fiftyWorkouts,
                 text: BadgeText.fiftyWorkouts,
                 modalId: 'modal5',
             },
             {
                 src: BadgeSrc.hundredWorkouts,
+                srcActive: BadgeActiveSrc.hundredWorkouts,
                 name: BadgeName.hundredWorkouts,
                 text: BadgeText.hundredWorkouts,
                 modalId: 'modal6',

@@ -9,10 +9,10 @@ export class Profile {
     this.rootNode = new Node(null, 'main',  'main-layout');
   }
 
-  public getTemplate(name: string, src:string, badges: Array<TBadge>, completedWorkouts: number, caloriesBurned: number): HTMLElement {
+  public getTemplate(name: string, src:string, badges: Array<TBadge>, badgesActivated: Array<string>, completedWorkouts: number, caloriesBurned: number): HTMLElement {
     this.rootNode.node.textContent = '';
     this.createHeader(name, src, completedWorkouts, caloriesBurned);
-    this.createContent(badges);
+    this.createContent(badges, badgesActivated);
 
     return this.rootNode.node;
   }
@@ -22,12 +22,16 @@ export class Profile {
     profileHeader.insertAdjacentHTML('afterbegin', profileHeaderTemplate(name, src, completedWorkouts, caloriesBurned));
   }
 
-  private createContent(badges: Array<TBadge>): void {
+  private createContent(badges: Array<TBadge>, badgesActivated: Array<string>): void {
     const contentBlock = Node.setChild(this.rootNode.node, 'div', 'profile-content-block');
     Node.setChild(contentBlock, 'h2', 'title', 'Achievements');
     const contentWrapper = Node.setChild(contentBlock, 'div', 'profile-content item');
     badges.forEach((badge) => {
-      contentWrapper.insertAdjacentHTML('beforeend', achievementCardTemplate(badge.src, badge.name, badge.text, badge.modalId));
+      if(badgesActivated.includes(badge.name)) {
+        contentWrapper.insertAdjacentHTML('beforeend', achievementCardTemplate(badge.srcActive, badge.name, badge.text, badge.modalId));
+      } else {
+        contentWrapper.insertAdjacentHTML('beforeend', achievementCardTemplate(badge.src, badge.name, badge.text, badge.modalId));
+      }
     });
   }
 }

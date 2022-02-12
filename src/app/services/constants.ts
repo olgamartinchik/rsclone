@@ -123,6 +123,15 @@ export enum BadgeSrc {
     hundredWorkouts = '../../../assets/img/badges/6.png',
 }
 
+export enum BadgeActiveSrc {
+    oneWorkout = '../../../assets/img/badges/1_active.png',
+    fiveWorkouts = '../../../assets/img/badges/2.png',
+    tenWorkouts = '../../../assets/img/badges/3.png',
+    twentyWorkouts = '../../../assets/img/badges/4.png',
+    fiftyWorkouts = '../../../assets/img/badges/5.png',
+    hundredWorkouts = '../../../assets/img/badges/6.png',
+}
+
 export enum BadgeName {
     oneWorkout = 'GameOn Badge',
     fiveWorkouts = 'TakeOn Badge',

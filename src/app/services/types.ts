@@ -107,6 +107,7 @@ export type TAuthResult = {
 
 export type TBadge = {
     src: string;
+    srcActive: string;
     name: string;
     text: string;
     modalId: string;

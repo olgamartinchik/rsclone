@@ -21,11 +21,14 @@ class ProfilePageView {
     private completedWorkouts: number;
     
     private caloriesBurned: number;
+    
+    private badgesActivated: Array<string>;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
         this.materializeHandler = new MaterializeHandler();
         this.badges = Utils.getBadges();
+        this.badgesActivated = [];
         this.userName = '';
         this.gender = '';
         this.completedWorkouts = 0;
@@ -59,7 +62,7 @@ class ProfilePageView {
     }
 
     public createProfileHeader(src: string): void {
-        this.rootNode.append(profile.getTemplate(this.userName, src, this.badges, this.completedWorkouts, this.caloriesBurned));
+        this.rootNode.append(profile.getTemplate(this.userName, src, this.badges, this.badgesActivated ,this.completedWorkouts, this.caloriesBurned));
         this.colorStatistics();
     }
 
@@ -83,6 +86,7 @@ class ProfilePageView {
         this.gender = (<TSettings>storageManager.getItem('userSettings', 'local')).gender;
         this.completedWorkouts = (<TSettings>storageManager.getItem('userSettings', 'local')).completedWorkouts;
         this.caloriesBurned = (<TSettings>storageManager.getItem('userSettings', 'local')).caloriesBurned;
+        this.badgesActivated = (<TSettings>storageManager.getItem('userSettings', 'local')).badges;
     }
 
     public formAvatarSrc(): string {
