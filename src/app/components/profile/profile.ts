@@ -10,6 +10,7 @@ export class Profile {
   }
 
   public getTemplate(name: string, src:string, badges: Array<TBadge>): HTMLElement {
+    console.log('2', name);
     this.createHeader(name, src);
     this.createContent(badges);
 

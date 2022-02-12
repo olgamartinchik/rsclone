@@ -16,8 +16,6 @@ class UserDataManager {
         new DateManager().getArrayDate(this.userSettings);
         const numWeek = new DateManager().getNumWeek(this.userSettings);
         await new MealPageModel().getUserMealData();
-
-        console.log('numWeek', numWeek);
     }
 }
 export default UserDataManager;

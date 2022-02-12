@@ -84,11 +84,11 @@ export class AuthModel {
         StorageManager.addItem('token', this.clientManager.token, 'local');
         switch (type) {
             case 'auth/register':
-                StorageManager.addItem('user', this.form.userName.split('')[0], 'local');
+                StorageManager.addItem('user', this.form.userName, 'local');
                 this.navigate(type);
                 break;
             case 'auth/login':
-                StorageManager.addItem('user', userName.split('')[0], 'local');
+                StorageManager.addItem('user', userName, 'local');
                 this.saveUserSettings(type);
                 break;
         }

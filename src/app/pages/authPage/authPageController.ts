@@ -39,15 +39,6 @@ export class AuthPageController {
         const value = element.value;
         if (value === '') this.model.changeHandler({ [elementType]: value });
         this.handleValidation(elementType, element);
-
-        if ((<HTMLElement>e.target).id === 'confirm') {
-            const isPasswordConfirmed = this.model.checkPassword();
-            if (!isPasswordConfirmed) {
-                (<HTMLElement>e.target).className = 'invalid';
-            } else {
-                (<HTMLElement>e.target).className = 'valid';
-            }
-        }
     }
 
     private handleInput(e: Event): void {
@@ -60,7 +51,21 @@ export class AuthPageController {
         } else {
             this.model.changeHandler({ [elementType]: '' });
         }
+        this.handlePasswordConfirmation();
         this.model.checkUserData(this.isLogin);
+    }
+
+    private handlePasswordConfirmation(): void {
+        const passwordInput = <HTMLInputElement>document.querySelector('#password');
+        const confirmPasswordInput = <HTMLInputElement>document.querySelector('#confirm');
+        if (passwordInput.value && confirmPasswordInput.value) {
+            const isPasswordConfirmed = this.model.checkPassword();
+            if (!isPasswordConfirmed) {
+                confirmPasswordInput.className = 'invalid';
+            } else {
+                confirmPasswordInput.className = 'valid';
+            }
+        } 
     }
 
     private handleValidation(type: string, element: HTMLInputElement): void {
