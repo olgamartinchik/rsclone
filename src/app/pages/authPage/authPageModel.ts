@@ -2,7 +2,6 @@ import { TLoginForm, TLoginResponse, TSettings } from '../../services/types';
 import authManager from '../../services/authManager';
 import ClientManager from '../../services/clientManager';
 import StorageManager from '../../services/storageManager';
-import storageManager from '../../services/storageManager';
 import UserDataManager from '../../services/userDataManager';
 
 export class AuthModel {

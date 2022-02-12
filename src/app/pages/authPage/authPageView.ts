@@ -6,7 +6,7 @@ export class AuthView {
     private rootNode: HTMLElement;
 
     private auth: Auth;
-    
+
     private materializeHandler: MaterializeHandler;
 
     constructor() {

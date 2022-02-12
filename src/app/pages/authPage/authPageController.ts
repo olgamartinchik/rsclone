@@ -40,7 +40,7 @@ export class AuthPageController {
         if (value === '') this.model.changeHandler({ [elementType]: value });
         this.handleValidation(elementType, element);
 
-        if((<HTMLElement>e.target).id === 'confirm') {
+        if ((<HTMLElement>e.target).id === 'confirm') {
             const isPasswordConfirmed = this.model.checkPassword();
             if (!isPasswordConfirmed) {
                 (<HTMLElement>e.target).className = 'invalid';
@@ -54,7 +54,7 @@ export class AuthPageController {
         const element = <HTMLInputElement>e.target;
         const elementType = element.id;
         const value = element.value;
-        
+
         if (element.validity.valid) {
             this.model.changeHandler({ [elementType]: value });
         } else {
@@ -95,12 +95,12 @@ export class AuthPageController {
     private handleIconClick(e: Event): void {
         const clickedIcon = <HTMLElement>e.target;
         const input = <HTMLInputElement>clickedIcon.nextElementSibling;
-        const inputType = input.type; 
-        
-        input.type = (inputType === 'password') ? 'text' : 'password';
+        const inputType = input.type;
+
+        input.type = inputType === 'password' ? 'text' : 'password';
         clickedIcon.classList.toggle('eye');
         clickedIcon.classList.toggle('eye-closed');
-    } 
+    }
 
     private initPreloader(button: HTMLElement): void {
         const isLoading = this.model.isLoading;

@@ -9,7 +9,12 @@ export default class Auth {
         this.main = new Node(parentNode, 'main', 'login');
     }
 
-    public getTemplate(isLogin: boolean, onBackBtnClick: (e: Event) => void, onclick: (e: Event) => void, onIconClick: (e: Event) => void,): HTMLElement {
+    public getTemplate(
+        isLogin: boolean,
+        onBackBtnClick: (e: Event) => void,
+        onclick: (e: Event) => void,
+        onIconClick: (e: Event) => void
+    ): HTMLElement {
         this.main.node.textContent = '';
         this.addBackButton(this.main.node, onBackBtnClick);
         this.createForm(isLogin, onBackBtnClick, onclick, onIconClick);
@@ -23,14 +28,24 @@ export default class Auth {
         Node.setChild(backButton.node, 'i', 'icon arrow-left');
     }
 
-    private createForm(isLogin: boolean, onBackBtnClick: (e: Event) => void, onclick: (e: Event) => void, onIconClick: (e: Event) => void): void {
+    private createForm(
+        isLogin: boolean,
+        onBackBtnClick: (e: Event) => void,
+        onclick: (e: Event) => void,
+        onIconClick: (e: Event) => void
+    ): void {
         const form = new Node(this.main.node, 'form', 'login-content');
-        
+
         if (!isLogin) form.node.insertAdjacentHTML('beforeend', authTemplate('userName', 'text', 'Name'));
         form.node.insertAdjacentHTML('beforeend', authTemplate('email', 'email', 'Email'));
-        if (isLogin) form.node.insertAdjacentHTML('beforeend', loginPasswordTemplate('password', 'password', 'Password'));
+        if (isLogin)
+            form.node.insertAdjacentHTML('beforeend', loginPasswordTemplate('password', 'password', 'Password'));
         if (!isLogin) form.node.insertAdjacentHTML('beforeend', passwordTemplate('password', 'password', 'Password'));
-        if (!isLogin) form.node.insertAdjacentHTML('beforeend', confirmPasswordTemplate('confirm', 'password', 'Confirm password'));
+        if (!isLogin)
+            form.node.insertAdjacentHTML(
+                'beforeend',
+                confirmPasswordTemplate('confirm', 'password', 'Confirm password')
+            );
         if (isLogin) {
             const authLink = new Node(form.node, 'a', 'auth-link', 'Not Registered yet?');
             authLink.setAttribute('href', `#/register`);
