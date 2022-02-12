@@ -1,4 +1,4 @@
-export function profileHeaderTemplate(name: string, src: string): string {
+export function profileHeaderTemplate(name: string, src: string, completedWorkoutrs: number ,caloriesBurned: number): string {
   return `
   <div class="profile-decorative"></div>
   <div class="profile-decorative narrow"></div>
@@ -23,14 +23,14 @@ export function profileHeaderTemplate(name: string, src: string): string {
              <div class="profile-stats-block">
                  <div class="profile-stats-icon"><i class="icon medal"></i></div>
                  <div class="profile-stats-info">
-                     <p>0</p>
+                     <p data-statistics>${completedWorkoutrs}</p>
                      <p>Workouts</p>
                  </div>
              </div>           
              <div class="profile-stats-block">
                  <div class="profile-stats-icon"><i class="icon calories"></i></div>
                  <div class="profile-stats-info">
-                     <p>0</p>
+                     <p data-statistics>${caloriesBurned}</p>
                      <p>Calories</p>
                  </div>
              </div>

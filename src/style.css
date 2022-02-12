@@ -16406,6 +16406,10 @@ input:not([type]).select-dropdown {
   margin-top: 20px;
 }
 
+.profile.activated {
+  color: #666;
+}
+
 .achievement-card {
   width: 100px;
   height: 100px;

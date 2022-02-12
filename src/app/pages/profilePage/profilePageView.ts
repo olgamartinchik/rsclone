@@ -17,6 +17,10 @@ class ProfilePageView {
     private userName: string;
     
     private gender: string;
+    
+    private completedWorkouts: number;
+    
+    private caloriesBurned: number;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
@@ -24,6 +28,8 @@ class ProfilePageView {
         this.badges = Utils.getBadges();
         this.userName = '';
         this.gender = '';
+        this.completedWorkouts = 0;
+        this.caloriesBurned = 0;
     }
 
     public render(onchange: (e: Event) => void) {
@@ -53,16 +59,30 @@ class ProfilePageView {
     }
 
     public createProfileHeader(src: string): void {
-        this.rootNode.append(profile.getTemplate(this.userName, src, this.badges));
+        this.rootNode.append(profile.getTemplate(this.userName, src, this.badges, this.completedWorkouts, this.caloriesBurned));
+        this.colorStatistics();
     }
 
-    private createFooter(): void {
+    private colorStatistics(): void {
+        const statistics = <Array<HTMLElement>>Array.from(this.rootNode.querySelectorAll('[data-statistics]'));
+        statistics.forEach((statistic) => {
+            if (parseInt(statistic.innerHTML) > 0) {
+                (<HTMLElement>statistic.parentElement).className = 'profile-stats-info profile activated';
+            } else if (parseInt(statistic.innerHTML) === 0) {
+                (<HTMLElement>statistic.parentElement).className = 'profile-stats-info';
+            }
+        });
+    }
+         
+    private createFooter(): void {     
         this.rootNode.append(footer.getTemplate());
     }
 
     private getData(): void {
         this.userName = <string>storageManager.getItem('user', 'local');
         this.gender = (<TSettings>storageManager.getItem('userSettings', 'local')).gender;
+        this.completedWorkouts = (<TSettings>storageManager.getItem('userSettings', 'local')).completedWorkouts;
+        this.caloriesBurned = (<TSettings>storageManager.getItem('userSettings', 'local')).caloriesBurned;
     }
 
     public formAvatarSrc(): string {

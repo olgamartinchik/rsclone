@@ -9,17 +9,17 @@ export class Profile {
     this.rootNode = new Node(null, 'main',  'main-layout');
   }
 
-  public getTemplate(name: string, src:string, badges: Array<TBadge>): HTMLElement {
+  public getTemplate(name: string, src:string, badges: Array<TBadge>, completedWorkouts: number, caloriesBurned: number): HTMLElement {
     this.rootNode.node.textContent = '';
-    this.createHeader(name, src);
+    this.createHeader(name, src, completedWorkouts, caloriesBurned);
     this.createContent(badges);
 
     return this.rootNode.node;
   }
 
-  private createHeader(name: string, src:string): void {
+  private createHeader(name: string, src:string, completedWorkouts: number, caloriesBurned: number): void {
     const profileHeader = Node.setChild(this.rootNode.node, 'div', 'profile-header');
-    profileHeader.insertAdjacentHTML('afterbegin', profileHeaderTemplate(name, src));
+    profileHeader.insertAdjacentHTML('afterbegin', profileHeaderTemplate(name, src, completedWorkouts, caloriesBurned));
   }
 
   private createContent(badges: Array<TBadge>): void {
