@@ -20,8 +20,18 @@
   &-avatar {
     width: 150px;
     height: 150px;
+    object-fit: cover;
     border-radius: 50%;
     background-color: $color-primary;
+    &-input {
+      display: none;
+    }
+    &-label {
+      cursor: pointer;
+      &:hover .icon-upload {
+        opacity: 1;
+      }
+    }
   }
   &-name {
     display: block;

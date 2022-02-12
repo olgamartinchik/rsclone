@@ -141,6 +141,14 @@
             cursor: pointer;
         }
     }
+    &.delete {
+        margin: auto;
+        &:before {
+            content: fa-content($fa-var-trash);
+            color: $color-text-on-dark;
+            cursor: pointer;
+        }
+    }
     &.medal {
         margin: auto;
         &:before {
@@ -178,6 +186,7 @@
 .icon-upload {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     width: 30px;
     height: 30px;
     background-color: $color-settings-active;
@@ -185,6 +194,9 @@
     position: absolute;
     left: 115px;
     top: 105px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
 }
 
 .icon-select {

@@ -26,10 +26,21 @@ class ProfilePageView {
         this.gender = '';
     }
 
-    public render() {
+    public render(onchange: (e: Event) => void, onclick: (e: Event) => void) {
         this.rootNode.textContent = '';
-        this.rootNode.append(header.getTemplate());
         this.getData();
+        const src = this.formAvatarSrc();
+
+        this.createHeader();
+        this.createProfileHeader(src);
+        this.createFooter();
+
+        this.addEvents(onchange, onclick);
+        this.materializeHandler.initModal();
+    }
+
+    private createHeader(): void {
+        this.rootNode.append(header.getTemplate());
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -39,11 +50,14 @@ class ProfilePageView {
         ]);
         navbar.generateMenu();
         navbar.addProfileLink(this.userName.split('')[0], true);
+    }
 
-        this.rootNode.append(profile.getTemplate(this.userName, this.formAvatarSrc(), this.badges));
+    public createProfileHeader(src: string): void {
+        this.rootNode.append(profile.getTemplate(this.userName, src, this.badges));
+    }
 
+    private createFooter(): void {
         this.rootNode.append(footer.getTemplate());
-        this.materializeHandler.initModal();
     }
 
     private getData(): void {
@@ -69,6 +83,14 @@ class ProfilePageView {
             src = '../../../assets/img/avatar/male-avatar.png';
         }
         return src;
+    }
+
+    private addEvents(onchange: (e: Event) => void, onclick: (e: Event) => void): void {
+        const fileInput = <HTMLInputElement>this.rootNode.querySelector('#avatar');
+        if (fileInput) fileInput.onchange = (e: Event) => onchange(e);
+
+        const deleteIcon = <HTMLElement>this.rootNode.querySelector('.delete');
+        if(deleteIcon) deleteIcon.onclick = (e: Event) => onclick(e);
     }
 }
 

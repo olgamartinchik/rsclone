@@ -4,8 +4,11 @@ export function profileHeaderTemplate(name: string, src: string): string {
   <div class="profile-decorative narrow"></div>
   <div class="profile-header_info z-depth-1">
       <div class="avatar">
-          <img src=${src} class="profile-avatar"></img>
-          <span class="icon-upload"><i class="icon pencil"></i></span>
+          <input class="profile-avatar-input" type="file" accept="image/png, image/jpeg, image/jpg, image/gif" id="avatar" alt="Avatar">        
+          <label for="avatar" class="profile-avatar-label">
+            <img src=${src} class="profile-avatar"></img>
+          </label>
+          <i class="icon-upload icon pencil"></i>
       </div>        
       <p class="profile-name title">${name}</p>        
          <div class="profile-workout-info">
