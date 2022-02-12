@@ -71,7 +71,7 @@ class Config {
             {
                 path: /onboarding/,
                 callback: () => this.onboardingPageController.createPage(),
-                isAuth: true,
+                isAuth: false,
             },
             {
                 path: /login/,

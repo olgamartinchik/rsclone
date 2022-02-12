@@ -12,10 +12,8 @@ import {
     WorkoutsNumber,
     WorkoutType,
     ModalContents,
-    MinWorkoutLength,
-    MaxWorkoutLength,
 } from '../../services/constants';
-import { TSettings, TWorkoutLength } from '../../services/types';
+import { TSettings } from '../../services/types';
 
 class EditPlanPageView {
     private rootNode: HTMLElement;
@@ -69,7 +67,6 @@ class EditPlanPageView {
             'workoutsNumber',
             onchange
         );
-        this.createPlanItem(editPlanWrapper, 'Workouts Length', 'clock', userSettings, 'workoutLength', onchange);
         this.createPlanItem(editPlanWrapper, 'Favorite Types', 'heart', userSettings, 'favWorkouts', onchange);
 
         const buttonWrapper = Node.setChild(editPlanWrapper, 'div', 'btn-wrapper edit-plan');
@@ -102,7 +99,7 @@ class EditPlanPageView {
 
         planItemWrapper.insertAdjacentHTML('afterbegin', this.insertPlanItemTitle(title, icon));
 
-        let options = [] as Array<string | number | TWorkoutLength>;
+        let options = [] as Array<string | number>;
         switch (settingsType) {
             case 'goal':
                 options = [GoalTitles.muscle, GoalTitles.relax, GoalTitles.toned, GoalTitles.weight];
@@ -116,14 +113,6 @@ class EditPlanPageView {
             case 'desiredWeight':
                 this.createDesiredWeightInput(planItemWrapper, userSettings);
                 return;
-            case 'workoutLength':
-                options = [
-                    { min: MinWorkoutLength.small, max: MaxWorkoutLength.small },
-                    { min: MinWorkoutLength.medium, max: MaxWorkoutLength.medium },
-                    { min: MinWorkoutLength.large, max: MaxWorkoutLength.large },
-                    { min: MinWorkoutLength.huge },
-                ];
-                break;
             case 'favWorkouts':
                 this.createFavoriteTypesChoice(planItemWrapper, userSettings);
                 this.materializeHandler.initModal();
@@ -149,7 +138,7 @@ class EditPlanPageView {
 
     private createSelectBlock(
         parentNode: HTMLElement,
-        options: Array<string | number | TWorkoutLength>,
+        options: Array<string | number>,
         userSettings: TSettings | void,
         settingsType: string
     ): void {
@@ -158,32 +147,7 @@ class EditPlanPageView {
         selectTag.setAttribute('data-type', settingsType);
 
         options.forEach((option, index) => {
-            switch (settingsType) {
-                case 'goal':
-                case 'duration':
-                case 'workoutsNumber':
-                    this.renderOptions(userSettings, settingsType, selectTag, option.toString(), index);
-                    break;
-                case 'workoutLength':
-                    if (index !== 3) {
-                        this.renderOptions(
-                            userSettings,
-                            settingsType,
-                            selectTag,
-                            `${(<TWorkoutLength>option).min} - ${(<TWorkoutLength>option).max} min`,
-                            index
-                        );
-                    } else {
-                        this.renderOptions(
-                            userSettings,
-                            settingsType,
-                            selectTag,
-                            `${(<TWorkoutLength>option).min}+ min`,
-                            index
-                        );
-                    }
-                    break;
-            }
+            this.renderOptions(userSettings, settingsType, selectTag, option.toString(), index);
         });
     }
 
@@ -204,12 +168,6 @@ class EditPlanPageView {
             case 'duration':
             case 'workoutsNumber':
                 this.selectOption(+option === +(<TSettings>userSettings)[settingsType], selectOption);
-                break;
-            case 'workoutLength':
-                this.selectOption(
-                    <string>option.split(' ')[0] === (<TSettings>userSettings).workoutLength.min.toString(),
-                    selectOption
-                );
                 break;
         }
     }

@@ -1,7 +1,8 @@
 import Config from '../router/config';
-import StorageManager from './storageManager';
+import storageManager from './storageManager';
 import router, { Router } from '../router/router';
-import { RouteOption, TToken } from './types';
+import ClientManager from './clientManager';
+import { RouteOption, TToken, TSettings } from './types';
 
 export class AuthManager {
     private config: Config;
@@ -10,10 +11,13 @@ export class AuthManager {
 
     private router: Router;
 
+    private clientManager: ClientManager;
+
     constructor(isLogin: boolean) {
         this.router = router;
         this.config = new Config();
         this.isLogin = isLogin;
+        this.clientManager = new ClientManager();
     }
 
     public navigate(path?: string | undefined): void {
@@ -24,10 +28,23 @@ export class AuthManager {
 
     private checkAuth(): void {
         this.isLogin = false;
-        const token = StorageManager.getItem('token', 'local') as TToken;
-        if (token && token.jwtToken.length > 0) this.isLogin = true;
+        const token = <TToken>storageManager.getItem('token', 'local');
+        const userSettings = <TSettings>storageManager.getItem('userSettings', 'local');
+        if (token && !userSettings) {
+            this.saveUserSettings(token);
+        }
+        if (token && userSettings) {
+            this.isLogin = true;
+        }
 
         this.setRouter();
+    }
+
+    private async saveUserSettings(token: TToken): Promise<void> {
+        const userSettings = await this.clientManager.getUserSettings(token.userID);
+        if (userSettings) {
+            storageManager.addItem('userSettings', userSettings, 'local');
+        }
     }
 
     private setRouter(): void {

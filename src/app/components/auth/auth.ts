@@ -1,4 +1,4 @@
-import authTemplate from './template';
+import { authTemplate, passwordTemplate, confirmPasswordTemplate, loginPasswordTemplate } from './template';
 import Node from '../Node';
 import Button from '../Button';
 
@@ -9,10 +9,15 @@ export default class Auth {
         this.main = new Node(parentNode, 'main', 'login');
     }
 
-    public getTemplate(isLogin: boolean, onBackBtnClick: (e: Event) => void, onclick: (e: Event) => void): HTMLElement {
+    public getTemplate(
+        isLogin: boolean,
+        onBackBtnClick: (e: Event) => void,
+        onclick: (e: Event) => void,
+        onIconClick: (e: Event) => void
+    ): HTMLElement {
         this.main.node.textContent = '';
         this.addBackButton(this.main.node, onBackBtnClick);
-        this.createForm(isLogin, onBackBtnClick, onclick);
+        this.createForm(isLogin, onBackBtnClick, onclick, onIconClick);
         return this.main.node;
     }
 
@@ -23,17 +28,30 @@ export default class Auth {
         Node.setChild(backButton.node, 'i', 'icon arrow-left');
     }
 
-    private createForm(isLogin: boolean, onBackBtnClick: (e: Event) => void, onclick: (e: Event) => void): void {
+    private createForm(
+        isLogin: boolean,
+        onBackBtnClick: (e: Event) => void,
+        onclick: (e: Event) => void,
+        onIconClick: (e: Event) => void
+    ): void {
         const form = new Node(this.main.node, 'form', 'login-content');
+
         if (!isLogin) form.node.insertAdjacentHTML('beforeend', authTemplate('userName', 'text', 'Name'));
         form.node.insertAdjacentHTML('beforeend', authTemplate('email', 'email', 'Email'));
-        form.node.insertAdjacentHTML('beforeend', authTemplate('password', 'password', 'Password'));
+        if (isLogin)
+            form.node.insertAdjacentHTML('beforeend', loginPasswordTemplate('password', 'password', 'Password'));
+        if (!isLogin) form.node.insertAdjacentHTML('beforeend', passwordTemplate('password', 'password', 'Password'));
+        if (!isLogin)
+            form.node.insertAdjacentHTML(
+                'beforeend',
+                confirmPasswordTemplate('confirm', 'password', 'Confirm password')
+            );
         if (isLogin) {
             const authLink = new Node(form.node, 'a', 'auth-link', 'Not Registered yet?');
             authLink.setAttribute('href', `#/register`);
             authLink.node.onclick = (e: Event) => onBackBtnClick(e);
         }
-
+        this.addEvents(onIconClick);
         this.addButton(form.node, onclick);
     }
 
@@ -43,5 +61,12 @@ export default class Auth {
         button.addClass('btn-send');
         button.onclick(onclick);
         button.setDisabled();
+    }
+
+    private addEvents(onIconClick: (e: Event) => void): void {
+        const eyeIcons = <NodeListOf<HTMLElement>>this.main.node.querySelectorAll(`[data-type='eye-icon']`);
+        eyeIcons.forEach((eyeIcon) => {
+            eyeIcon.onclick = (e: Event) => onIconClick(e);
+        });
     }
 }

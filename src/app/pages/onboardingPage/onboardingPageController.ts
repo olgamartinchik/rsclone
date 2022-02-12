@@ -1,7 +1,9 @@
 import OnboardingPageView from './onboardingPageView';
-import OnboardingModel from './onboardingPageModel';
+import onboardingModel, { OnboardingModel } from './onboardingPageModel';
 import authManager from '../../services/authManager';
+import storageManager from '../../services/storageManager';
 import { Height, Weight, Colors, Coefficients, Goal, Message, WorkoutType } from '../../services/constants';
+import { TToken } from '../../services/types';
 
 class OnboardingPageController {
     private view: OnboardingPageView;
@@ -20,7 +22,7 @@ class OnboardingPageController {
 
     constructor() {
         this.view = new OnboardingPageView();
-        this.model = new OnboardingModel();
+        this.model = onboardingModel;
         this.isFeet = false;
         this.isPounds = false;
         this.blocks = [
@@ -28,7 +30,6 @@ class OnboardingPageController {
             `What's your goal?`,
             'How many workouts per week do you want?',
             'Select all your favorite type of classes:',
-            'How much time do you prefer to work out?',
             'How many weeks do you want to start with?',
         ];
         this.block = 0;
@@ -36,6 +37,13 @@ class OnboardingPageController {
     }
 
     public createPage() {
+        const token = <TToken>storageManager.getItem('token', 'local');
+        if (!token) {
+            authManager.navigate('/');
+            return;
+        }
+
+        this.birthday = this.model.dateOfBirth;
         this.view.render(
             this.blocks[this.block],
             this.model.settings,
@@ -66,8 +74,6 @@ class OnboardingPageController {
             this.handleGoalSelect(e);
         } else if (className.includes('classes')) {
             this.handleClassesSelect(e);
-        } else if (className.includes('length')) {
-            this.handleLengthSelect(e);
         }
     }
 
@@ -247,14 +253,6 @@ class OnboardingPageController {
         } else {
             this.model.settings.favWorkouts.push(clickedElement.textContent as WorkoutType);
         }
-    }
-
-    public handleLengthSelect(e: Event): void {
-        this.selectValue(e);
-
-        const min = +(<string>(<HTMLElement>e.target).dataset.min);
-        const max = +(<string>(<HTMLElement>e.target).dataset.max);
-        this.model.changeHandler({ workoutLength: { min: min, max: max } });
     }
 
     private registerSelectedValue(e: Event): void {
