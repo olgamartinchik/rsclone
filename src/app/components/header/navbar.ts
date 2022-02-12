@@ -62,8 +62,11 @@ export default class NavBar {
         const header = document.querySelector('header');
         const mobileMenu = new Node(header, 'ul', 'sidenav');
         mobileMenu.setAttribute('id', Id.mobileMenu);
-
         this.generateLinks(mobileMenu.node, false, this.icons);
+        if (this.needsButton) {
+            const signUpBtn = Node.setChild(mobileMenu.node, 'a', 'waves-effect waves-light btn-large sidenav-close', 'Signup');
+            signUpBtn.setAttribute('href', '#/register');
+        }
     }
 
     addProfileLink(user: string, isActive?: boolean | undefined): void {
