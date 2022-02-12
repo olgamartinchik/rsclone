@@ -1,6 +1,8 @@
 import Node from '../Node';
 import Button from '../Button';
 import { Id } from '../../services/constants';
+import { TToken } from '../../services/types';
+import storageManager from '../../services/storageManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
 
 export default class NavBar {
@@ -73,17 +75,32 @@ export default class NavBar {
     addProfileLink(user: string, isActive?: boolean | undefined): void {
         const menuItem = new Node(this.menu.node, 'li');
         if (isActive) menuItem.node.classList.add('active');
+        
         const menuLink = new Node(menuItem.node, 'a');
         menuLink.setAttribute('href', `#/profile`);
-        const iconContainer = new Node(menuLink.node, 'div', 'icon-container');
-        const profileIcon = new Node(iconContainer.node, 'span', 'profile');
-        profileIcon.node.innerHTML = `${user}`;
+        
+        this.generateProfileIcon(menuLink.node, user);
+
         menuLink.node.innerHTML += 'Profile';
+    }
+
+    generateProfileIcon(parentNode: HTMLElement, user: string): void {
+        const avatar = (<TToken>storageManager.getItem('token', 'local')).avatar;
+        
+        const iconContainer = new Node(parentNode, 'div', 'icon-container');
+        const profileIcon = new Node(iconContainer.node, 'span', 'profile');
+        
+        if (avatar) {
+            profileIcon.node.style.backgroundImage = `url(${avatar})`;
+        } else {
+            profileIcon.node.innerHTML = `${user}`;
+        }
     }
 
     addMobileProfileLink(parentNode: HTMLElement, activeLink?: string | undefined): void {
         const menuItem = new Node(parentNode, 'li');
         if (activeLink && activeLink === 'Profile') menuItem.node.classList.add('active');
+        
         const menuLink = new Node(menuItem.node, 'a', 'sidenav-close', 'Profile');
         menuLink.setAttribute('href', `#/profile`);
         Node.setChild(menuLink.node, 'i', `icon user`);

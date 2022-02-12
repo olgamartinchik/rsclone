@@ -16872,6 +16872,8 @@ select:-webkit-autofill:focus {
   height: 30px;
   border-radius: 50%;
   background-color: #816ffe;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .icon {
