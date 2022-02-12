@@ -24,6 +24,11 @@ class MaterializeHandler {
         const elems = document.querySelectorAll('.modal');
         M.Modal.init(elems, {});
     }
+
+    initTooltip() {
+        const elems = document.querySelectorAll('.tooltipped');
+        M.Tooltip.init(elems, {});
+    }
 }
 
 export default MaterializeHandler;

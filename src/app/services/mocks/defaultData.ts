@@ -11,7 +11,6 @@ const userSettings = {
     desiredWeight: 65,
     duration: WorkoutsProgramDuration.long,
     workoutsNumber: WorkoutsNumber.huge,
-    workoutLength: { min: 10, max: 35 },
     favWorkouts: [WorkoutType.dance],
 };
 

@@ -9,7 +9,7 @@ import { TBadge, TSettings } from '../../services/types';
 
 class ProfilePageView {
     private rootNode: HTMLElement;
-    
+
     private materializeHandler: MaterializeHandler;
     
     private badges: Array<TBadge>

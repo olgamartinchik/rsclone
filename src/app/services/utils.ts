@@ -1,4 +1,4 @@
-import { TBadge, TWorkoutLength } from './types';
+import { TBadge } from './types';
 import { WorkoutType, BadgeSrc, BadgeName, BadgeText } from './constants';
 
 export default class Utils {
@@ -83,7 +83,7 @@ export default class Utils {
 
         return `${minutes > 9 ? minutes : '0' + minutes}:${seconds > 9 ? seconds : '0' + seconds}`;
     }
-    
+
     static compareObjects<T>(object1: T, object2: T): boolean {
         const props1 = Object.getOwnPropertyNames(object1);
         const props2 = Object.getOwnPropertyNames(object2);
@@ -107,7 +107,7 @@ export default class Utils {
         return true;
     }
 
-    static getKeyByValue<T>(object: T, value: string | number | TWorkoutLength | Array<WorkoutType>) {
+    static getKeyByValue<T>(object: T, value: string | number | Array<WorkoutType>) {
         return Object.keys(object).find((key) => object[key] === value);
     }
 

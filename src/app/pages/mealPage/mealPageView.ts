@@ -18,11 +18,14 @@ class MealPageView {
 
     contentBlock!: Node<HTMLElement>;
 
+    count: number;
+
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
         this.rootNodeInput = <HTMLElement>document.createElement('input');
         this.rootNodeInput.className = 'search-meals';
         this.rootNodeBtn = <HTMLElement>document.createElement('button');
+        this.count = 0;
     }
 
     render(
@@ -54,18 +57,13 @@ class MealPageView {
         onchange: (e: Event) => void,
         onclickBtn: (e: Event) => void
     ) {
-        const main = new Node(this.rootNode, 'main', 'main-layout');
-        const sectionUserMeal = new Node(main.node, 'section', 'section meal-section');
-        const cardsUserMealContainer = new Node(sectionUserMeal.node, 'div', 'meal-card-container');
-        Node.setChild(cardsUserMealContainer.node, 'h5', 'title-meal', 'YOUR MEALS');
-        Node.setChild(cardsUserMealContainer.node, 'div', 'divider', '');
-
-        new Node(cardsUserMealContainer.node, 'div', 'day-meals');
+        const main = new Node(this.rootNode, 'main', 'main-layout main-meal');
+        main.node.insertAdjacentHTML('afterbegin', this.getSectionMeal());
 
         const sectionExplore = new Node(main.node, 'section', 'section meal-section');
         const mealExploreContainer = new Node(sectionExplore.node, 'div', 'meal-explore-container');
         const exploreContainer = new Node(mealExploreContainer.node, 'div', 'meal-explore');
-        Node.setChild(exploreContainer.node, 'h5', 'title-meal', 'EXPLORE');
+        Node.setChild(exploreContainer.node, 'h5', 'title-meal', 'EXPLORE DIETS');
         const cardsExploreContainer = new Node(exploreContainer.node, 'div', 'explore-container');
 
         const exploreCards = this.getExploreCards(exploreData, onclick);
@@ -89,30 +87,34 @@ class MealPageView {
     }
 
     getExploreCards(exploreData: Array<IDataExplore>, onclick: (e: Event) => void) {
-        const cards = exploreData.map((data) => new MealCard(data).getExploreTemplate(onclick));
+        const cards = exploreData.map((data, ind) => new MealCard(data).getExploreTemplate(onclick, ind));
         return cards;
     }
 
     getMealCards(mealData: Array<IDataExplore>, onclick: (e: Event) => void) {
-        const cards = mealData.map((data) => new MealCard(data).getMealTemplate(onclick));
+        const cards = mealData.map((data, ind) => new MealCard(data).getMealTemplate(onclick, ind));
         return cards;
     }
 
-    loadMealCard(mealData: Array<IDataExplore>, onclick: (e: Event) => void) {
+    loadMealCard(mealData: Array<IDataExplore>, onclick: (e: Event) => void): void {
         const mealContainer = document.getElementsByClassName('day-meals') as HTMLCollectionOf<Element>;
-        mealContainer[0].innerHTML = '';
-        const mealCards = this.getMealCards(mealData, onclick);
-        mealContainer[0].append(...mealCards);
+        for (let i = 0; i < mealContainer.length; i++) {
+            mealContainer[i].innerHTML = '';
+            const mealCards = this.getMealCards(mealData, onclick);
+            mealContainer[i].append(...mealCards);
+        }
     }
 
     getLoaderMealContainer() {
         const mealContainer = document.getElementsByClassName('day-meals') as HTMLCollectionOf<Element>;
-        mealContainer[0].innerHTML = '';
-        mealContainer[0].append(Preloader.getTemplate());
+        for (let i = 0; i < mealContainer.length; i++) {
+            mealContainer[i].innerHTML = '';
+            mealContainer[i].append(Preloader.getTemplate());
+        }
     }
 
     getSearchingCards(searchingData: Array<IDataExplore>, onclick: (e: Event) => void) {
-        const cards = searchingData.map((data) => new MealCard(data).getSearchingTemplate(onclick));
+        const cards = searchingData.map((data, ind) => new MealCard(data).getSearchingTemplate(onclick, ind));
         return cards;
     }
 
@@ -134,6 +136,18 @@ class MealPageView {
         this.rootNodeBtn.className = 'search-btn';
         this.rootNodeBtn.textContent = 'search';
         return this.rootNodeBtn;
+    }
+
+    getSectionMeal() {
+        return `
+        <section class ="section meal-section">
+            <div class = "meal-card-container">
+                <h5 class ="title-meal">YOUR MEALS</h5>
+                <div class="divider"></div>
+                <div class = "day-meals"></div>
+            </div>
+        </section>
+        `;
     }
 }
 

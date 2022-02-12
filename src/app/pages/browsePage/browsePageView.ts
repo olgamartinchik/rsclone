@@ -25,7 +25,7 @@ class BrowsePageView {
         navbar.addProfileLink(user);
         this.rootNode.insertAdjacentHTML(
             'beforeend',
-            `<main class="main-page"><span>This is Browse Page!</span></main>`
+            `<main class="main-layout"><span>This is Browse Page!</span></main>`
         );
 
         this.rootNode.append(footer.getTemplate());

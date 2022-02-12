@@ -37,19 +37,6 @@ export enum WorkoutsNumber {
     huge = 5,
 }
 
-export enum MinWorkoutLength {
-    small = 5,
-    medium = 15,
-    large = 25,
-    huge = 30,
-}
-
-export enum MaxWorkoutLength {
-    small = 10,
-    medium = 20,
-    large = 30,
-}
-
 export enum IntensityType {
     low = 'low',
     medium = 'medium',
@@ -86,6 +73,11 @@ export enum Height {
     max = '220',
 }
 
+export enum HeightUnit {
+    unitDefault = 'cm',
+    unit2 = 'ft',
+}
+
 export enum Weight {
     title = 'weight',
     desired = 'desired Weight',
@@ -95,6 +87,11 @@ export enum Weight {
     option2 = 'Kilograms',
     min = '40',
     max = '200',
+}
+
+export enum WeightUnit {
+    unitDefault = 'kg',
+    unit2 = 'pounds',
 }
 
 export enum Colors {
