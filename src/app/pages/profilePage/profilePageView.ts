@@ -5,7 +5,7 @@ import profile from '../../components/profile/profile';
 import storageManager from '../../services/storageManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
 import Utils from '../../services/utils';
-import { TBadge, TSettings } from '../../services/types';
+import { TBadge, TToken, TSettings } from '../../services/types';
 
 class ProfilePageView {
     private rootNode: HTMLElement;
@@ -90,24 +90,19 @@ class ProfilePageView {
     }
 
     public formAvatarSrc(): string {
-        let src = '';
-
-        // const avatar = (<TSettings>storageManager.getItem('userSettings', 'local')).avatar;
-        // const src = (avatar) ? avatar : {
-            // if (this.gender === 'female') {
-            //     src = '../../../assets/img/avatar/female-avatar.png';
-            // } else if (this.gender === 'male') {
-            //     src = '../../../assets/img/avatar/male-avatar.png';
-            // }   
-        // }
+        const avatar = (<TToken>storageManager.getItem('token', 'local')).avatar;
+        let defaultAvatar = '';
 
         if (this.gender === 'female') {
-            src = '../../../assets/img/avatar/female-avatar.png';
+            defaultAvatar = '../../../assets/img/avatar/female-avatar.png';
         } else if (this.gender === 'male') {
-            src = '../../../assets/img/avatar/male-avatar.png';
+            defaultAvatar = '../../../assets/img/avatar/male-avatar.png';
         } else if (this.gender === 'other') {
-            src = '../../../assets/img/avatar/other-avatar.png';
-        }
+            defaultAvatar = '../../../assets/img/avatar/other-avatar.png';
+        }  
+        
+        const src = (avatar) ? avatar : defaultAvatar;   
+
         return src;
     }
 

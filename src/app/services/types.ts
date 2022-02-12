@@ -71,8 +71,10 @@ export type TLoginResponse = {
 };
 
 export type TToken = {
+    userName?: string;
     userID: string;
     jwtToken: string;
+    avatar?: string | null;
 };
 
 export type RouteOption = {

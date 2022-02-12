@@ -1,12 +1,14 @@
 import ProfilePageView from './profilePageView';
-import storageManager from '../../services/storageManager';
+import ProfilePageModel from './profilePageModel';
 
 class ProfilePageController {
     private view: ProfilePageView;
     private files: Array<File>;
+    private model: ProfilePageModel;
 
     constructor() {
         this.view = new ProfilePageView();
+        this.model = new ProfilePageModel();
         this.files = [];
     }
 
@@ -41,7 +43,8 @@ class ProfilePageController {
             }
 
             reader.readAsDataURL(file);
-        });    
+        });
+        this.model.updateUserInfo(this.files[0]);    
     }
 
     private toggleEditIcon(element: HTMLElement): void {
@@ -67,6 +70,7 @@ class ProfilePageController {
         const src = this.view.formAvatarSrc();
         avatarImg.src = src;
         this.toggleEditIcon(element);
+        this.model.deleteAvatar(this.files[0]);
     }
 }
 

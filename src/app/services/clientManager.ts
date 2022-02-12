@@ -56,11 +56,7 @@ class ClientManager {
 
             return data;
         } catch (e: unknown) {
-            if (e instanceof Error) {
-                this.text = e.message;
-            } else {
-                this.text = String(e);
-            }
+            this.handleError(e);
         }
     }
 
@@ -79,11 +75,7 @@ class ClientManager {
             }
             return data;
         } catch (e: unknown) {
-            if (e instanceof Error) {
-                this.text = e.message;
-            } else {
-                this.text = String(e);
-            }
+            this.handleError(e);
         }
     }
 
@@ -189,6 +181,35 @@ class ClientManager {
             return data.hits;
         } catch (e) {
             console.log(e);
+        }
+    }
+
+    public async uploadAvatar(file: File) {
+        try {
+            const formData = new FormData()
+            formData.append('file', file)
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/`, {
+                method: 'POST',
+                body: formData,
+            });
+
+            return await res.json();
+        } catch (e: unknown) {
+            this.handleError(e);
+        }
+    }
+
+    public async deleteAvatar(file: File) {
+        try {
+            const formData = new FormData()
+            formData.append('file', file)
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/`, {
+                method: 'DELETE'
+            });
+
+            return await res.json();
+        } catch (e: unknown) {
+            this.handleError(e);
         }
     }
 
