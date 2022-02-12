@@ -37,10 +37,10 @@ class WorkoutPageController {
         }
     }
 
-    private async sendStatistics(id: string, time: TStatData): Promise<void> {
+    private async sendStatistics(id: string, statData: TStatData): Promise<void> {
         const workout = this.model.getCardById(id);
         if (workout) {
-            await this.model.updateSettingsData(time, workout);
+            await this.model.updateSettingsData(statData, workout);
             workout.completed = true;
             await this.model.updateWorkoutData(workout);
         }

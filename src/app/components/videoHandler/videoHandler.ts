@@ -45,7 +45,9 @@ class VideoHandler {
 
     private preloader: HTMLElement;
 
-    private tracker: StatTracker
+    private tracker: StatTracker;
+
+    private onEndVideo: (id: string, time: TStatData) => void;
 
     constructor() {
         this.timer = new Timer();
@@ -70,6 +72,7 @@ class VideoHandler {
         this.forward = null;
         this.currentVolumeValue = 1;
         this.isVideoInstalled = false;
+        this.onEndVideo = () => {};
     }
 
     public createVideo(
@@ -79,13 +82,15 @@ class VideoHandler {
         callback: (id: string, time: TStatData) => void,
         settings: TSettings
     ): void {
+        this.onEndVideo = callback;
         this.removeInnerContext();
         this.initVideo(parentElement, src, card.id);
+        this.tracker.reset();
+        this.tracker.startTracking(card.data.caloriesPerMinute, settings);
 
         this.video!.oncanplay = (e: Event): void => {
             e.stopPropagation();
             this.setFullTime();
-            this.tracker.startTracking(card.data.caloriesPerMinute, settings);
 
             if (this.currentTime > 0 && this.video!.paused) {
                 this.video!.pause();
@@ -95,13 +100,20 @@ class VideoHandler {
             }
             this.preloader.remove();
         };
-        this.video!.onended = () => callback(this.video!.id, this.tracker.getTrackData());
+        this.video!.onended = (): void => this.stopVideo();
+    }
+
+    private stopVideo(): void {
+        this.tracker.stopTracking();
+        if (this.onEndVideo) {
+            this.onEndVideo(this.video!.id, this.tracker.getTrackData());
+        }
     }
 
     private initVideo(parentElement: HTMLElement, src: string, id: string | void): void {
         this.video = document.createElement('video');
         this.video.className = 'video-player';
-        if(id) {
+        if (id) {
             this.video.id = id;
         }
 
@@ -121,7 +133,6 @@ class VideoHandler {
         this.video.volume = this.currentVolumeValue;
         this.changeTimelineBg();
         this.timer.createTimer(this.videoWrapper, 0);
-        this.tracker.reset();
     }
 
     private removeInnerContext(): void {
@@ -225,20 +236,22 @@ class VideoHandler {
 
     private initTimeline(): void {
         this.timeline = this.controls.querySelector('.timeline-js');
-        this.video!.ontimeupdate = (e: Event): void => {
-            e.stopPropagation();
-            this.timer.setTime(this.fullTime - this.currentTime, this.fullTime);
+        if (this.video) {
+            this.video.ontimeupdate = (e: Event): void => {
+                e.stopPropagation();
+                this.timer.setTime(this.fullTime - this.currentTime, this.fullTime);
 
-            if (this.timeline) {
-                this.timeline.value = String(this.currentTime);
-                this.changeTimelineBg();
-                this.setCurrentTime();
+                if (this.timeline) {
+                    this.timeline.value = String(this.currentTime);
+                    this.changeTimelineBg();
+                    this.setCurrentTime();
 
-                if (this.video!.ended) {
-                    this.playBtn?.classList.add('paused');
+                    if (this.video!.ended) {
+                        this.playBtn?.classList.add('paused');
+                    }
                 }
-            }
-        };
+            };
+        }
 
         if (this.timeline) {
             this.timeline.addEventListener('click', this.stopPropClick.bind(this));
@@ -249,6 +262,9 @@ class VideoHandler {
                     this.currentTime = parseFloat(this.timeline.value);
                     this.timeline.blur();
                     this.changeTimelineBg();
+                    if(this.currentTime === this.fullTime) {
+                        this.stopVideo();
+                    }
                 }
             };
         }
@@ -425,7 +441,6 @@ class VideoHandler {
 
     public destroy(): void {
         if (this.video) {
-            this.video.currentTime = 0;
             this.video.pause();
             this.video.volume = 0;
         }
