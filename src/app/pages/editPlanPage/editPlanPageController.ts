@@ -5,6 +5,7 @@ import authManager from '../../services/authManager';
 import Utils from '../../services/utils';
 import { TSettings } from '../../services/types';
 import { GoalTitles, WorkoutType, Message } from '../../services/constants';
+import UserDataManager from '../../services/userDataManager';
 
 class EditPlanPageController {
     private view: EditPlanPageView;
@@ -123,6 +124,8 @@ class EditPlanPageController {
             input.value = '0';
         } else {
             this.model.saveSettings(this.modifiedUserSettings);
+
+            new UserDataManager(this.modifiedUserSettings!).createUserData();
             authManager.navigate('/settings');
         }
     }

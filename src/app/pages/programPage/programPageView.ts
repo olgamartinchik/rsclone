@@ -4,6 +4,7 @@ import Header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 import storageManager from '../../services/storageManager';
+import MealPageView from '../mealPage/mealPageView';
 
 class ProgramPageView {
     private rootNode: HTMLElement;
@@ -45,6 +46,7 @@ class ProgramPageView {
         this.getContentBlockTitle(week);
         this.getCards(data, onclick);
         this.cardsWrapper.node.insertAdjacentHTML('beforeend', this.getAddWorkoutBlock());
+        Program.node.insertAdjacentHTML('beforeend', new MealPageView().getSectionMeal());
     }
 
     getContentBlockTitle(week: number): void {
@@ -78,7 +80,7 @@ class ProgramPageView {
                     <li>Select <span class="bold-text">Add to Program</span></li>
                 </ol>
             </div>
-        </div>
+        </div>        
         `;
     }
 }

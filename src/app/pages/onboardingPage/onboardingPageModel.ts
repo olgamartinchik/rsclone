@@ -12,6 +12,7 @@ import {
     WeightUnit,
     HeightUnit,
 } from '../../services/constants';
+import UserDataManager from '../../services/userDataManager';
 
 export class OnboardingModel {
     form: TSettings;
@@ -55,10 +56,11 @@ export class OnboardingModel {
         if (setting.duration) this.form.duration = +setting.duration;
     }
 
-    public saveSettings() {
+    public async saveSettings() {
         const clientManager = new ClientManager();
         StorageManager.addItem('userSettings', this.form, 'local');
         clientManager.postData(Endpoints.userSettings, this.form);
+        await new UserDataManager(this.form).createUserData();
     }
 
     public calculateAge(dateOfBirth: string): number {

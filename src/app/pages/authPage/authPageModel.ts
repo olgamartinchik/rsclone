@@ -2,6 +2,8 @@ import { TLoginForm, TLoginResponse, TSettings } from '../../services/types';
 import authManager from '../../services/authManager';
 import ClientManager from '../../services/clientManager';
 import StorageManager from '../../services/storageManager';
+import storageManager from '../../services/storageManager';
+import UserDataManager from '../../services/userDataManager';
 
 export class AuthModel {
     private form: TLoginForm;
@@ -102,6 +104,7 @@ export class AuthModel {
         const userSettings = await this.clientManager.getUserSettings(this.clientManager.token.userID);
         if (userSettings) {
             StorageManager.addItem('userSettings', userSettings, 'local');
+            new UserDataManager(userSettings!).createUserData();
         }
         this.navigate(type);
     }
