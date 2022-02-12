@@ -10,7 +10,7 @@ export function profileHeaderTemplate(name: string, src: string, completedWorkou
             <i class="icon-upload icon pencil"></i>
           </label>
       </div>
-      <div id="modal1" class="modal avatar-modal">
+      <div id="modal7" class="modal avatar-modal">
         <div class="modal-content">
           <p>Delete avatar?</p>
         </div>

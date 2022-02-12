@@ -48,7 +48,7 @@ class ProfilePageController {
         const editIcon = <HTMLElement>(<HTMLElement>element.nextElementSibling).querySelector('.icon-upload');
         if (editIcon && editIcon.className.includes('pencil')) {
             editIcon.className = 'icon-upload icon delete modal-trigger';
-            editIcon.setAttribute('data-target', 'modal1');
+            editIcon.setAttribute('data-target', 'modal7');
         } else {
             editIcon.className = 'icon-upload icon pencil';
             editIcon.removeAttribute('data-target');
