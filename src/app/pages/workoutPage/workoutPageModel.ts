@@ -1,7 +1,7 @@
 import Card from '../../components/card/card';
 import storageManager from '../../services/storageManager';
 import CloudinaryManager from '../../services/cloudinarySDK';
-import { TSettings, TToken, TWorkoutProgram } from '../../services/types';
+import { TSettings, TStatData, TToken, TWorkoutProgram } from '../../services/types';
 import ClientManager from '../../services/clientManager';
 
 class WorkoutPageModel {
@@ -22,6 +22,22 @@ class WorkoutPageModel {
         if (data) {
             this.cards = data;
         }
+    }
+
+    public async getSettingsData(): Promise<void | TSettings> {
+        let settings = storageManager.getItem<TSettings>('userSettings', 'local');
+        if (!settings) {
+            const userData = this.getUserData();
+            if (userData) {
+                settings = await this.client.getUserSettings(userData.userID);
+            }
+        }
+
+        return settings;
+    }
+
+    public getUserData(): TToken | void {
+        return storageManager.getItem<TToken>('token', 'local');
     }
 
     public getCardById(id: string): Card | void {
@@ -58,7 +74,7 @@ class WorkoutPageModel {
                 });
             });
             storageManager.addItem('workout-program', program, 'local');
-            const userData = storageManager.getItem<TToken>('token', 'local');
+            const userData = this.getUserData();
             if (userData) {
                 await this.client.updateProgram(program, userData.userID);
             }
@@ -66,20 +82,20 @@ class WorkoutPageModel {
         storageManager.addItem('workout-cards', this.cards, 'local');
     }
 
-    public async updateSettingsData(time: number, card: Card): Promise<void> {
+    public async updateSettingsData(dataStat: TStatData, card: Card): Promise<void> {
         const settings = storageManager.getItem<TSettings>('userSettings', 'local');
-        if(settings) {
-            settings.weekProgress.minutes += Math.ceil(time / 60);
+        console.log(dataStat);
+        if (settings) {
+            settings.weekProgress.minutes += dataStat.time;
             settings.weekProgress.workoutsCompleted += 1;
             settings.completedWorkouts += 1;
             storageManager.addItem('userSettings', settings, 'local');
 
-            const userData = storageManager.getItem<TToken>('token', 'local');
+            const userData = this.getUserData();
             if (userData) {
-                await this.client.changeData('userSettings', userData.userID, settings);
+                this.client.changeData('userSettings', userData.userID, settings);
             }
         }
-        
     }
 }
 

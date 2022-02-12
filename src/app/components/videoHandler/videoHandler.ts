@@ -2,6 +2,9 @@ import Utils from '../../services/utils';
 import videoControls from './templateControls';
 import Timer from '../timer/timer';
 import preloader from '../preloader/preloader';
+import Card from '../card/card';
+import { TSettings, TStatData } from '../../services/types';
+import StatTracker from '../../services/statTracker/statTracker';
 
 class VideoHandler {
     private video: HTMLVideoElement | null;
@@ -42,10 +45,11 @@ class VideoHandler {
 
     private preloader: HTMLElement;
 
-    private startTime: number;
+    private tracker: StatTracker
 
     constructor() {
         this.timer = new Timer();
+        this.tracker = new StatTracker();
         this.preloader = preloader.getTemplate();
         this.videoWrapper = document.createElement('div');
         this.videoWrapper.className = 'video-wrapper';
@@ -66,16 +70,22 @@ class VideoHandler {
         this.forward = null;
         this.currentVolumeValue = 1;
         this.isVideoInstalled = false;
-        this.startTime = 0;
     }
 
-    public createVideo(parentElement: HTMLElement, src: string, id: string, callback: (id: string, time: number) => void): void {
+    public createVideo(
+        parentElement: HTMLElement,
+        src: string,
+        card: Card,
+        callback: (id: string, time: TStatData) => void,
+        settings: TSettings
+    ): void {
         this.removeInnerContext();
-        this.initVideo(parentElement, src, id);
+        this.initVideo(parentElement, src, card.id);
 
         this.video!.oncanplay = (e: Event): void => {
             e.stopPropagation();
             this.setFullTime();
+            this.tracker.startTracking(card.data.caloriesPerMinute, settings);
 
             if (this.currentTime > 0 && this.video!.paused) {
                 this.video!.pause();
@@ -85,13 +95,15 @@ class VideoHandler {
             }
             this.preloader.remove();
         };
-        this.video!.onended = () => callback(this.video!.id, Utils.getTimeDiffInSeconds(this.startTime));
+        this.video!.onended = () => callback(this.video!.id, this.tracker.getTrackData());
     }
 
-    private initVideo(parentElement: HTMLElement, src: string, id: string): void {
+    private initVideo(parentElement: HTMLElement, src: string, id: string | void): void {
         this.video = document.createElement('video');
         this.video.className = 'video-player';
-        this.video.id = id;
+        if(id) {
+            this.video.id = id;
+        }
 
         this.src = document.createElement('source');
         this.src.setAttribute('type', 'video/mp4');
@@ -109,7 +121,7 @@ class VideoHandler {
         this.video.volume = this.currentVolumeValue;
         this.changeTimelineBg();
         this.timer.createTimer(this.videoWrapper, 0);
-        this.startTime = Date.now();
+        this.tracker.reset();
     }
 
     private removeInnerContext(): void {
@@ -138,8 +150,10 @@ class VideoHandler {
     public toggle(): void {
         if (!this.video!.paused) {
             this.video!.pause();
+            this.tracker.stopTracking();
         } else {
             this.play();
+            this.tracker.continueTracking();
         }
 
         this.togglePlayIcon();
@@ -410,12 +424,12 @@ class VideoHandler {
     }
 
     public destroy(): void {
-        if(this.video) {
+        if (this.video) {
             this.video.currentTime = 0;
             this.video.pause();
             this.video.volume = 0;
         }
-        
+
         this.removeInnerContext();
         this.preloader.remove();
         this.videoWrapper.remove();

@@ -109,3 +109,8 @@ export type TWeekProgress = {
     workoutsCompleted: number;
     minutes: number;
 };
+
+export type TStatData = {
+    calories: number,
+    time: number,
+}

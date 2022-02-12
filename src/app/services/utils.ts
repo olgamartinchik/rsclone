@@ -111,8 +111,10 @@ export default class Utils {
     }
 
     static getTimeDiffInSeconds(startTime: number): number {
-        const diff = Date.now() - startTime;
+        return Math.round((Date.now() - startTime) / 60000);
+    }
 
-        return new Date(diff).getSeconds();
+    static getCaloriesPerSecond(weight: number, mets: number): number {
+        return +((weight * mets) / 60).toFixed(2);
     }
 }
