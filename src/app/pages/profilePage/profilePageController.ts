@@ -1,4 +1,5 @@
 import ProfilePageView from './profilePageView';
+import storageManager from '../../services/storageManager';
 
 class ProfilePageController {
     private view: ProfilePageView;
@@ -10,7 +11,7 @@ class ProfilePageController {
     }
 
     public createPage() {
-        this.view.render(this.handleAvatarChange.bind(this), this.handleDeleteIconClick.bind(this));
+        this.view.render(this.handleAvatarChange.bind(this));
     }
 
     private handleAvatarChange(e: Event): void {
@@ -22,6 +23,7 @@ class ProfilePageController {
 
         this.getAvatarSrc(clickedElement);
         this.toggleEditIcon(clickedElement);
+        this.handleAvatarDelete(clickedElement);
     }
 
     private getAvatarSrc(element: HTMLInputElement): void {
@@ -30,11 +32,11 @@ class ProfilePageController {
             if (!file.type.match('image')) {
               return
             }
-      
+            
             const reader = new FileReader();
             reader.onload = e => {
-                const src = <string>(<FileReader>e.target).result;
                 const avatarImg = <HTMLImageElement>document.querySelector('.profile-avatar');
+                const src = <string>(<FileReader>e.target).result;
                 avatarImg.src = src;
             }
 
@@ -45,14 +47,26 @@ class ProfilePageController {
     private toggleEditIcon(element: HTMLElement): void {
         const editIcon = <HTMLElement>(<HTMLElement>element.nextElementSibling).querySelector('.icon-upload');
         if (editIcon && editIcon.className.includes('pencil')) {
-            editIcon.className = 'icon-upload icon delete';
+            editIcon.className = 'icon-upload icon delete modal-trigger';
+            editIcon.setAttribute('data-target', 'modal1');
         } else {
             editIcon.className = 'icon-upload icon pencil';
+            editIcon.removeAttribute('data-target');
         }
     }
 
-    handleDeleteIconClick(): void {
-        console.log('click');
+    private handleAvatarDelete(element: HTMLElement): void {
+        const agreeToDeleteBtn = <HTMLElement>document.querySelector('.modal-close');
+        if (agreeToDeleteBtn) {
+            agreeToDeleteBtn.onclick = () => this.deleteAvatar(element);
+        }
+    }
+
+    private deleteAvatar(element: HTMLElement): void {
+        const avatarImg = <HTMLImageElement>document.querySelector('.profile-avatar');
+        const src = this.view.formAvatarSrc();
+        avatarImg.src = src;
+        this.toggleEditIcon(element);
     }
 }
 

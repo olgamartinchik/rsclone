@@ -23,14 +23,14 @@
     object-fit: cover;
     border-radius: 50%;
     background-color: $color-primary;
+    &:hover .icon-upload {
+      opacity: 1;
+    }
     &-input {
       display: none;
     }
     &-label {
       cursor: pointer;
-      &:hover .icon-upload {
-        opacity: 1;
-      }
     }
   }
   &-name {
@@ -127,6 +127,18 @@
     width: 90%;
     text-align: center;
     margin: 10px auto;
+  }
+}
+
+.modal.avatar-modal {
+  width: 50%;
+  .modal-content {
+    text-align: center;
+    font-size: 18px;
+    margin: 0;
+  }
+  .modal-footer {
+    text-align: center;
   }
 }
 

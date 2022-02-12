@@ -4,11 +4,19 @@ export function profileHeaderTemplate(name: string, src: string): string {
   <div class="profile-decorative narrow"></div>
   <div class="profile-header_info z-depth-1">
       <div class="avatar">
-          <input class="profile-avatar-input" type="file" accept="image/png, image/jpeg, image/jpg, image/gif" id="avatar" alt="Avatar">        
+          <input class="profile-avatar-input" type="file" accept="image/*" id="avatar" alt="Avatar">        
           <label for="avatar" class="profile-avatar-label">
             <img src=${src} class="profile-avatar"></img>
+            <i class="icon-upload icon pencil"></i>
           </label>
-          <i class="icon-upload icon pencil"></i>
+      </div>
+      <div id="modal1" class="modal avatar-modal">
+        <div class="modal-content">
+          <p>Delete avatar?</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#/profile" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
       </div>        
       <p class="profile-name title">${name}</p>        
          <div class="profile-workout-info">

@@ -26,7 +26,7 @@ class ProfilePageView {
         this.gender = '';
     }
 
-    public render(onchange: (e: Event) => void, onclick: (e: Event) => void) {
+    public render(onchange: (e: Event) => void) {
         this.rootNode.textContent = '';
         this.getData();
         const src = this.formAvatarSrc();
@@ -35,7 +35,7 @@ class ProfilePageView {
         this.createProfileHeader(src);
         this.createFooter();
 
-        this.addEvents(onchange, onclick);
+        this.addEvents(onchange);
         this.materializeHandler.initModal();
     }
 
@@ -65,7 +65,7 @@ class ProfilePageView {
         this.gender = (<TSettings>storageManager.getItem('userSettings', 'local')).gender;
     }
 
-    private formAvatarSrc(): string {
+    public formAvatarSrc(): string {
         let src = '';
 
         // const avatar = (<TSettings>storageManager.getItem('userSettings', 'local')).avatar;
@@ -81,16 +81,15 @@ class ProfilePageView {
             src = '../../../assets/img/avatar/female-avatar.png';
         } else if (this.gender === 'male') {
             src = '../../../assets/img/avatar/male-avatar.png';
+        } else if (this.gender === 'other') {
+            src = '../../../assets/img/avatar/other-avatar.png';
         }
         return src;
     }
 
-    private addEvents(onchange: (e: Event) => void, onclick: (e: Event) => void): void {
+    private addEvents(onchange: (e: Event) => void): void {
         const fileInput = <HTMLInputElement>this.rootNode.querySelector('#avatar');
         if (fileInput) fileInput.onchange = (e: Event) => onchange(e);
-
-        const deleteIcon = <HTMLElement>this.rootNode.querySelector('.delete');
-        if(deleteIcon) deleteIcon.onclick = (e: Event) => onclick(e);
     }
 }
 

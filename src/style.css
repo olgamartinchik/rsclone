@@ -16125,14 +16125,14 @@ input:not([type]).select-dropdown {
   border-radius: 50%;
   background-color: #ff8a80;
 }
+.profile-avatar:hover .icon-upload {
+  opacity: 1;
+}
 .profile-avatar-input {
   display: none;
 }
 .profile-avatar-label {
   cursor: pointer;
-}
-.profile-avatar-label:hover .icon-upload {
-  opacity: 1;
 }
 .profile-name {
   display: block;
@@ -16226,6 +16226,18 @@ input:not([type]).select-dropdown {
   width: 90%;
   text-align: center;
   margin: 10px auto;
+}
+
+.modal.avatar-modal {
+  width: 50%;
+}
+.modal.avatar-modal .modal-content {
+  text-align: center;
+  font-size: 18px;
+  margin: 0;
+}
+.modal.avatar-modal .modal-footer {
+  text-align: center;
 }
 
 @media (max-width: 850px) {
@@ -16777,8 +16789,7 @@ input[type=password]:not(.browser-default).invalid {
   left: 115px;
   top: 105px;
   cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.25s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .icon-select.down:before {
