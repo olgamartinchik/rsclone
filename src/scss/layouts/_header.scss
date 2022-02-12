@@ -29,6 +29,10 @@ nav {
     }
 }
 
+ul li.active a {
+    color: $color-active-on-light;
+}
+
 nav .brand-logo {
     padding-left: 30px;
 }

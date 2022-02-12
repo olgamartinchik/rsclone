@@ -57,7 +57,7 @@ class ProfilePageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu();
+        navbar.generateMenu(true, 'Profile');
         navbar.addProfileLink(this.userName.split('')[0], true);
     }
 

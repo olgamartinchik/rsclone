@@ -28,7 +28,7 @@ class ProgramPageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu('Program');
+        navbar.generateMenu(true, 'Program');
         navbar.addProfileLink(user);
 
         this.setContents(data, onclick, week);

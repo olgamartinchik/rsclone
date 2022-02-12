@@ -14300,6 +14300,10 @@ nav ul a:hover {
   color: #fc6f00;
 }
 
+ul li.active a {
+  color: #fc6f00;
+}
+
 nav .brand-logo {
   padding-left: 30px;
 }

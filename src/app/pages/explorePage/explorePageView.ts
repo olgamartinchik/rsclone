@@ -26,7 +26,7 @@ class ExplorePageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu('');
+        navbar.generateMenu(true);
         navbar.addProfileLink('O');
 
         this.createContentExplore(diet);

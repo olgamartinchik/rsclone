@@ -24,7 +24,7 @@ class SettingsPageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu('Settings');
+        navbar.generateMenu(true, 'Settings');
         navbar.addProfileLink(user);
 
         this.createMainLayout(onclick, onclickButton);

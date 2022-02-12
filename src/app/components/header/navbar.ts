@@ -29,11 +29,11 @@ export default class NavBar {
         Node.setChild(menuMobile.node, 'i', 'material-icons', 'menu');
     }
 
-    generateMenu(activeLink?: string | undefined, attributeName = Id.menu): void {
+    generateMenu(isLogin: boolean, activeLink?: string | undefined, attributeName = Id.menu): void {
         this.menu.node.textContent = '';
         this.menu.setAttribute('id', attributeName);
         this.generateLinks(this.menu.node, this.needsButton, this.icons, activeLink);
-        this.generateMobileMenu();
+        this.generateMobileMenu(isLogin, activeLink);
         this.materializeHandler.initSidenav();
     }
 
@@ -58,11 +58,12 @@ export default class NavBar {
         }
     }
 
-    generateMobileMenu() {
+    generateMobileMenu(isLogin: boolean, activeLink?: string | undefined) {
         const header = document.querySelector('header');
         const mobileMenu = new Node(header, 'ul', 'sidenav');
         mobileMenu.setAttribute('id', Id.mobileMenu);
-        this.generateLinks(mobileMenu.node, false, this.icons);
+        this.generateLinks(mobileMenu.node, false, this.icons, activeLink);
+        if (isLogin) this.addMobileProfileLink(mobileMenu.node, activeLink);
         if (this.needsButton) {
             const signUpBtn = Node.setChild(mobileMenu.node, 'a', 'waves-effect waves-light btn-large sidenav-close', 'Signup');
             signUpBtn.setAttribute('href', '#/register');
@@ -78,6 +79,14 @@ export default class NavBar {
         const profileIcon = new Node(iconContainer.node, 'span', 'profile');
         profileIcon.node.innerHTML = `${user}`;
         menuLink.node.innerHTML += 'Profile';
+    }
+
+    addMobileProfileLink(parentNode: HTMLElement, activeLink?: string | undefined): void {
+        const menuItem = new Node(parentNode, 'li');
+        if (activeLink && activeLink === 'Profile') menuItem.node.classList.add('active');
+        const menuLink = new Node(menuItem.node, 'a', 'sidenav-close', 'Profile');
+        menuLink.setAttribute('href', `#/profile`);
+        Node.setChild(menuLink.node, 'i', `icon user`);
     }
 
     public get button() {

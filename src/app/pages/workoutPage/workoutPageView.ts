@@ -26,7 +26,7 @@ class WorkoutPageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu();
+        navbar.generateMenu(true);
         navbar.addProfileLink(user);
         this.createMainBlockLayout(card, startVideo);
 

@@ -21,7 +21,7 @@ class EditProfilePageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu();
+        navbar.generateMenu(true);
         navbar.addProfileLink(user);
         this.rootNode.insertAdjacentHTML(
             'beforeend',

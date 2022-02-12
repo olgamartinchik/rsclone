@@ -43,7 +43,7 @@ class EditPlanPageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu();
+        navbar.generateMenu(true);
         navbar.addProfileLink(user);
     }
 
