@@ -2,22 +2,25 @@ import { TSettings } from '../../services/types';
 import StorageManager from '../../services/storageManager';
 import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';
-import { TToken } from '../../services/types';
+import { TToken, TConvertedValues } from '../../services/types';
 import {
     Goal,
     Gender,
     WorkoutsProgramDuration,
     WorkoutsNumber,
     Endpoints,
-    WeightUnit,
-    HeightUnit,
+    Height,
+    Weight,
 } from '../../services/constants';
 import UserDataManager from '../../services/userDataManager';
 
 export class OnboardingModel {
-    form: TSettings;
+    private form: TSettings;
 
-    birthday: string;
+    private birthday: string;
+    
+    private converted: TConvertedValues;
+    
 
     constructor() {
         this.form = {
@@ -34,12 +37,17 @@ export class OnboardingModel {
             favWorkouts: [],
             caloriesBurned: 0,
             badges: [],
-            heightUnit: HeightUnit.unitDefault,
-            weightUnit: WeightUnit.unitDefault,
+            heightUnit: Height.units,
+            weightUnit: Weight.units,
             completedWorkouts: 0,
             liked: [],
         };
         this.birthday = '';
+        this.converted = {
+            height: 0,
+            weight: 0,
+            desiredWeight: 0,
+        }
     }
 
     public changeHandler(...args: Array<Partial<TSettings>>) {
@@ -50,10 +58,21 @@ export class OnboardingModel {
         if (setting.height) this.form.height = setting.height;
         if (setting.weight) this.form.weight = setting.weight;
         if (setting.goal) this.form.goal = setting.goal;
-        if (setting.desiredWeight) this.form.desiredWeight = setting.desiredWeight;
+        if (setting.desiredWeight || setting.desiredWeight === 0) this.form.desiredWeight = setting.desiredWeight;
         if (setting.workoutsNumber) this.form.workoutsNumber = +setting.workoutsNumber;
         if (setting.favWorkouts) this.form.favWorkouts = setting.favWorkouts;
         if (setting.duration) this.form.duration = +setting.duration;
+        if (setting.heightUnit) this.form.heightUnit = setting.heightUnit;
+        if (setting.weightUnit) this.form.weightUnit = setting.weightUnit;
+        // console.log(this.form);
+    }
+
+    public saveConvertedValues(...args: Array<Partial<TConvertedValues>>): void {
+        const convertedValues = Array.from(args)[0];
+        if (convertedValues.height) this.converted.height = convertedValues.height;
+        if (convertedValues.weight) this.converted.weight = convertedValues.weight;
+        if (convertedValues.desiredWeight) this.converted.desiredWeight = convertedValues.desiredWeight;
+        console.log(this.converted);
     }
 
     public async saveSettings() {
@@ -100,8 +119,8 @@ export class OnboardingModel {
         this.form.favWorkouts = [];
         this.form.caloriesBurned = 0;
         this.form.badges = [];
-        this.form.heightUnit = HeightUnit.unitDefault;
-        this.form.weightUnit = WeightUnit.unitDefault;
+        this.form.heightUnit = Height.units;
+        this.form.weightUnit = Weight.units;
         this.form.completedWorkouts = 0;
         this.form.liked = [];
         this.birthday = '';
@@ -113,6 +132,10 @@ export class OnboardingModel {
 
     public get dateOfBirth(): string {
         return this.birthday;
+    }
+
+    public get convertedValues(): TConvertedValues {
+        return this.converted;
     }
 }
 

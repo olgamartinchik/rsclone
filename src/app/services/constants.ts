@@ -55,7 +55,7 @@ export enum Id {
 
 export enum Message {
     registerSuccess = 'User created',
-    valueMissing = 'Please, choose a value',
+    valueMissing = 'Please, choose all values',
     invalidWeightValue = 'Please, select desired weight less than actual one',
     desiredWeightmissing = 'Please, choose desired weight',
     invalidName = 'Please enter a valid name consisting only of letters',
@@ -66,32 +66,26 @@ export enum Message {
 export enum Height {
     title = 'height',
     units = 'cm',
-    units2 = 'ft & in',
-    option1 = 'Feet & Inches',
+    units2 = 'ft',
+    option1 = 'Feet',
     option2 = 'Centimeters',
     min = '120',
     max = '220',
-}
-
-export enum HeightUnit {
-    unitDefault = 'cm',
-    unit2 = 'ft',
+    min2 = '4',
+    max2 = '7',
 }
 
 export enum Weight {
     title = 'weight',
     desired = 'desired Weight',
     units = 'kg',
-    units2 = 'pounds',
+    units2 = 'lbs',
     option1 = 'Pounds',
     option2 = 'Kilograms',
     min = '40',
     max = '200',
-}
-
-export enum WeightUnit {
-    unitDefault = 'kg',
-    unit2 = 'pounds',
+    min2 = '88',
+    max2 = '440',
 }
 
 export enum Colors {
@@ -104,6 +98,8 @@ export enum Coefficients {
     percent = 100,
     toFeet = 0.032808398950131,
     toPounds = 2.20462262185,
+    toCentimeters = 31,
+    toKilograms = 0.45,
 }
 
 export enum Endpoints {

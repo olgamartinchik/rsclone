@@ -16,13 +16,17 @@ import {
     WorkoutsProgramDuration,
     Colors,
 } from '../../services/constants';
+import onboardingModel, { OnboardingModel } from './onboardingPageModel';
 
 class OnboardingPageView {
     private materializeHandler: MaterializeHandler;
 
     private rootNode: HTMLElement;
+    
+    private model: OnboardingModel;
 
     constructor() {
+        this.model = onboardingModel;
         this.materializeHandler = new MaterializeHandler();
         this.rootNode = <HTMLElement>document.getElementById('app');
     }
@@ -111,6 +115,7 @@ class OnboardingPageView {
             Parameters.getTemplate(
                 Height.title,
                 Height.units,
+                Height.units2,
                 Height.option1,
                 Height.option2,
                 Height.min,
@@ -125,6 +130,7 @@ class OnboardingPageView {
             Parameters.getTemplate(
                 Weight.title,
                 Weight.units,
+                Weight.units2,
                 Weight.option1,
                 Weight.option2,
                 Weight.min,
@@ -137,6 +143,7 @@ class OnboardingPageView {
 
         if (settings.height > 0) this.getParameters('height', settings);
         if (settings.weight > 0) this.getParameters('weight', settings);
+        this.colorActiveUnit(settings);
     }
 
     private renderGoalsBlock(
@@ -170,6 +177,7 @@ class OnboardingPageView {
                 const weightChoiceBlock = Parameters.getTemplate(
                     Weight.desired,
                     Weight.units,
+                    Weight.units2,
                     Weight.option1,
                     Weight.option2,
                     Weight.min,
@@ -178,14 +186,84 @@ class OnboardingPageView {
                     oninput,
                     onchange
                 );
+                
                 weightChoiceBlock.classList.add('hidden');
 
                 form.append(weightChoiceBlock);
+
+                const valueInput = <HTMLInputElement>document.querySelector('.value-select');
+                const unitValue = <HTMLElement>document.querySelector('.value > span');
+                this.colorActiveUnit(settings);
+                valueInput.placeholder = (settings.weightUnit === Weight.units) ? Weight.min : Weight.min2;
+                unitValue.textContent = settings.weightUnit;
             }
         });
 
         if (settings.desiredWeight > 0) this.getParameters('desiredweight', settings);
         this.colorSelectedOption(settings, 'goal');
+        const weightChoiceBlock = <HTMLElement>document.querySelector('.input-group');
+        if (!(<HTMLElement>document.querySelector(`[data-value='weight']`)).className.includes('active')) {
+            weightChoiceBlock.classList.add('hidden');
+        } else {
+            weightChoiceBlock.classList.remove('hidden');
+        }
+    }
+
+    private getParameters(type: string, settings: TSettings) {
+        const elementsWrapper = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[0];
+
+        const input = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[1];
+        const value = <HTMLInputElement>elementsWrapper.children[0];
+        
+        value.value = this.getConvertedValue(type).toString();
+        this.getUnits(settings);
+        elementsWrapper.style.color = Colors.textOnLight;
+        input.style.color = Colors.textOnLight;
+    }
+
+    private getConvertedValue(type: string): number {
+        let value = 0;
+        switch(type) {
+            case 'height':
+                value = this.model.convertedValues.height;
+                break;
+            case 'weight':
+                value = this.model.convertedValues.weight;
+                break;
+            case 'desiredweight':
+                value = this.model.convertedValues.desiredWeight;
+                break;
+        }
+        return value;
+    }
+
+    private getUnits(settings: TSettings): void {
+        const unitValues = <NodeListOf<HTMLElement>>document.querySelectorAll('.value > span');
+        unitValues.forEach((unitValue) => {
+            switch(unitValue.dataset.title) {
+                case 'heightUnit':
+                   unitValue.textContent = settings.heightUnit;
+                     break;
+                case 'weightUnit':
+                   unitValue.textContent = settings.weightUnit;
+                   break;
+                case 'desiredWeightUnit':
+                   unitValue.textContent = settings.weightUnit;
+                   break;
+             }
+        });
+
+    }
+
+    private colorActiveUnit(settings: TSettings) {
+        const unitOptions = <NodeListOf<HTMLElement>>document.querySelectorAll('.unit');
+        unitOptions.forEach((unitOption) => {
+            if (unitOption.dataset.value === settings.weightUnit || unitOption.dataset.value === settings.heightUnit) {
+                unitOption.classList.add('active');
+            } else {
+                unitOption.classList.remove('active');
+            }
+        });
     }
 
     private renderFrequencyBlock(form: HTMLElement, settings: TSettings, onselect: (e: Event) => void): void {
@@ -272,27 +350,6 @@ class OnboardingPageView {
                     break;
             }
         });
-    }
-
-    private getParameters(type: string, settings: TSettings) {
-        const elementsWrapper = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[0];
-
-        const input = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[1];
-        const value = <HTMLInputElement>elementsWrapper.children[0];
-        switch (type) {
-            case 'height':
-                value.value = settings.height.toString();
-                break;
-            case 'weight':
-                value.value = settings.weight.toString();
-                break;
-            case 'desiredweight':
-                value.textContent = settings.desiredWeight.toString();
-                value.value = settings.desiredWeight.toString();
-                break;
-        }
-        elementsWrapper.style.color = Colors.textOnLight;
-        input.style.color = Colors.textOnLight;
     }
 
     public renderCongratulations(programDuration: number, onclick: (e: Event) => void): void {

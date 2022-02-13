@@ -6,8 +6,6 @@ import {
     WorkoutsProgramDuration,
     WorkoutsNumber,
     BadgeName,
-    HeightUnit,
-    WeightUnit,
 } from './constants';
 
 export type TWorkout = {
@@ -45,11 +43,17 @@ export type TSettings = {
     favWorkouts: Array<WorkoutType>;
     caloriesBurned: number;
     badges: Array<BadgeName>;
-    heightUnit: HeightUnit;
-    weightUnit: WeightUnit;
+    heightUnit: string;
+    weightUnit: string;
     completedWorkouts: number;
     liked: Array<string>;
 };
+
+export type TConvertedValues = {
+    weight: number;
+    height: number;
+    desiredWeight: number;
+}
 
 export type TWorkoutProgram = Array<TWorkout[]>;
 
@@ -113,4 +117,14 @@ export type TBadge = {
     name: string;
     text: string;
     modalId: string;
+}
+
+export type TParameter = {
+    minValue: number;
+    maxValue: number;
+    minValueDefault: number;
+    maxValueDefault: number;
+    coefficient: number;
+    unit: string,
+    value: string,
 }

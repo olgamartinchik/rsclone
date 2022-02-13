@@ -4,6 +4,7 @@ class Parameters {
     public getTemplate(
         title: string,
         units: string,
+        units2: string,
         option1: string,
         option2: string,
         min: string,
@@ -16,9 +17,9 @@ class Parameters {
         rootNode.className = 'input-group';
         rootNode.id = title.split(' ').join('');
         rootNode.onclick = (e: Event) => onselect(e);
-        rootNode.oninput = (e: Event) => oninput(e);
         rootNode.onchange = (e: Event) => onchange(e);
-        rootNode.insertAdjacentHTML('afterbegin', paramsTemplate(title, units, option1, option2, min, max));
+        rootNode.insertAdjacentHTML('afterbegin', paramsTemplate(title, units, units2, option1, option2, min, max));
+        (<HTMLInputElement>rootNode.querySelector('#play-bar')).oninput = (e: Event) => oninput(e);
 
         return rootNode;
     }
