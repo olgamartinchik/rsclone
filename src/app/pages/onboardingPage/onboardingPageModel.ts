@@ -52,7 +52,7 @@ export class OnboardingModel {
 
     public changeHandler(...args: Array<Partial<TSettings>>) {
         const setting = Array.from(args)[0];
-        this.form.userId = (StorageManager.getItem('token', 'local') as TToken).userID;
+        this.form.userId = (<TToken>StorageManager.getItem('token', 'local')).userID;
         if (setting.gender) this.form.gender = setting.gender;
         if (setting.age) this.form.age = setting.age;
         if (setting.height) this.form.height = setting.height;
@@ -64,7 +64,7 @@ export class OnboardingModel {
         if (setting.duration) this.form.duration = +setting.duration;
         if (setting.heightUnit) this.form.heightUnit = setting.heightUnit;
         if (setting.weightUnit) this.form.weightUnit = setting.weightUnit;
-        // console.log(this.form);
+
     }
 
     public saveConvertedValues(...args: Array<Partial<TConvertedValues>>): void {
@@ -72,7 +72,6 @@ export class OnboardingModel {
         if (convertedValues.height) this.converted.height = convertedValues.height;
         if (convertedValues.weight) this.converted.weight = convertedValues.weight;
         if (convertedValues.desiredWeight) this.converted.desiredWeight = convertedValues.desiredWeight;
-        console.log(this.converted);
     }
 
     public async saveSettings() {

@@ -16512,6 +16512,12 @@ input:not([type]).select-dropdown {
     font-size: 22px;
   }
 }
+.editprofile-decorative {
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(-180deg, #3680e0 -8.99%, #53e9f4 109.7%);
+}
+
 html,
 body,
 #app {

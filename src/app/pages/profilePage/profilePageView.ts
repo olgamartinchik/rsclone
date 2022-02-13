@@ -4,6 +4,7 @@ import NavBar from '../../components/header/navbar';
 import profile from '../../components/profile/profile';
 import storageManager from '../../services/storageManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
+import avatarManager from '../../services/avatarManager';
 import Utils from '../../services/utils';
 import { TBadge, TToken, TSettings } from '../../services/types';
 
@@ -15,8 +16,6 @@ class ProfilePageView {
     private badges: Array<TBadge>
     
     private userName: string;
-    
-    private gender: string;
     
     private completedWorkouts: number;
     
@@ -30,7 +29,6 @@ class ProfilePageView {
         this.badges = Utils.getBadges();
         this.badgesActivated = [];
         this.userName = '';
-        this.gender = '';
         this.completedWorkouts = 0;
         this.caloriesBurned = 0;
     }
@@ -38,7 +36,7 @@ class ProfilePageView {
     public render(onchange: (e: Event) => void) {
         this.rootNode.textContent = '';
         this.getData();
-        const src = this.formAvatarSrc();
+        const src = avatarManager.formAvatarSrc();
 
         this.createHeader();
         this.createProfileHeader(src);
@@ -83,27 +81,9 @@ class ProfilePageView {
 
     private getData(): void {
         this.userName = <string>storageManager.getItem('user', 'local');
-        this.gender = (<TSettings>storageManager.getItem('userSettings', 'local')).gender;
         this.completedWorkouts = (<TSettings>storageManager.getItem('userSettings', 'local')).completedWorkouts;
         this.caloriesBurned = (<TSettings>storageManager.getItem('userSettings', 'local')).caloriesBurned;
         this.badgesActivated = (<TSettings>storageManager.getItem('userSettings', 'local')).badges;
-    }
-
-    public formAvatarSrc(): string {
-        const avatar = (<TToken>storageManager.getItem('token', 'local')).avatar;
-        let defaultAvatar = '';
-
-        if (this.gender === 'female') {
-            defaultAvatar = '../../../assets/img/avatar/female-avatar.png';
-        } else if (this.gender === 'male') {
-            defaultAvatar = '../../../assets/img/avatar/male-avatar.png';
-        } else if (this.gender === 'other') {
-            defaultAvatar = '../../../assets/img/avatar/other-avatar.png';
-        }  
-        
-        const src = (avatar) ? avatar : defaultAvatar;   
-
-        return src;
     }
 
     private addEvents(onchange: (e: Event) => void): void {

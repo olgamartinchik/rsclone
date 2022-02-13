@@ -1,5 +1,5 @@
 import Node from "../Node";
-import { profileHeaderTemplate, achievementCardTemplate } from "./template";
+import { profileHeaderTemplate, achievementCardTemplate, editProfileTemplate } from "./template";
 import { TBadge } from "../../services/types";
 
 export class Profile {
@@ -33,6 +33,14 @@ export class Profile {
         contentWrapper.insertAdjacentHTML('beforeend', achievementCardTemplate(badge.src, badge.name, badge.text, badge.modalId));
       }
     });
+  }
+
+  public getEditProfileTemplate(src: string): HTMLElement {
+    this.rootNode.node.textContent = '';
+    const editProfileHeader = Node.setChild(this.rootNode.node, 'div', 'profile-header');
+    editProfileHeader.insertAdjacentHTML('afterbegin', editProfileTemplate(src));
+
+    return this.rootNode.node;
   }
 }
 

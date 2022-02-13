@@ -54,3 +54,24 @@ export function achievementCardTemplate(src: string, badge: string, text: string
   </div>
   `
 }
+
+export function editProfileTemplate(src: string): string {
+  return `
+  <div class="editprofile-decorative"></div>
+  <div class="avatar">
+      <input class="profile-avatar-input" type="file" accept="image/*" id="avatar" alt="Avatar">        
+      <label for="avatar" class="profile-avatar-label">
+        <img src=${src} class="profile-avatar"></img>
+        <i class="icon-upload icon pencil"></i>
+      </label>
+  </div>
+  <div id="modal7" class="modal avatar-modal">
+    <div class="modal-content">
+      <p>Delete avatar?</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#/editprofile" class="modal-close waves-effect waves-red btn-flat">Agree</a>
+    </div>
+  </div>
+  `
+}

@@ -1,14 +1,12 @@
 import ProfilePageView from './profilePageView';
-import ProfilePageModel from './profilePageModel';
+import avatarManager from '../../services/avatarManager';
 
 class ProfilePageController {
     private view: ProfilePageView;
     private files: Array<File>;
-    private model: ProfilePageModel;
 
     constructor() {
         this.view = new ProfilePageView();
-        this.model = new ProfilePageModel();
         this.files = [];
     }
 
@@ -23,28 +21,9 @@ class ProfilePageController {
             return;
         }
 
-        this.getAvatarSrc(clickedElement);
-        this.toggleEditIcon(clickedElement);
+        this.files = avatarManager.getAvatarFile(clickedElement);
+        avatarManager.toggleEditIcon(clickedElement);
         this.handleAvatarDelete(clickedElement);
-    }
-
-    private getAvatarSrc(element: HTMLInputElement): void {
-        this.files = Array.from(<FileList>element.files);
-        this.files.forEach((file) => {
-            if (!file.type.match('image')) {
-              return
-            }
-            
-            const reader = new FileReader();
-            reader.onload = e => {
-                const avatarImg = <HTMLImageElement>document.querySelector('.profile-avatar');
-                const src = <string>(<FileReader>e.target).result;
-                avatarImg.src = src;
-            }
-
-            reader.readAsDataURL(file);
-        });
-        this.model.updateUserInfo(this.files[0]);    
     }
 
     private toggleEditIcon(element: HTMLElement): void {
@@ -67,10 +46,10 @@ class ProfilePageController {
 
     private deleteAvatar(element: HTMLElement): void {
         const avatarImg = <HTMLImageElement>document.querySelector('.profile-avatar');
-        const src = this.view.formAvatarSrc();
+        const src = avatarManager.formAvatarSrc();
         avatarImg.src = src;
         this.toggleEditIcon(element);
-        this.model.deleteAvatar(this.files[0]);
+        avatarManager.deleteAvatar(this.files[0]);
     }
 }
 
