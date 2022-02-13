@@ -14789,15 +14789,16 @@ button:focus {
   background-size: cover;
 }
 .login-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 400px;
-  color: #fff;
-  margin: 0 auto;
-  padding: 80px 0 40px;
-  text-align: center;
-  position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 400px;
+    max-height: 60%;
+    color: #fff;
+    margin: 0 auto;
+    padding: 60px 0 40px;
+    text-align: center;
+    position: relative;
 }
 
 .input-field > label {
@@ -14960,6 +14961,10 @@ input[type=text]:not(.browser-default) {
   cursor: pointer;
 }
 
+.subtitle.list {
+    margin-bottom: 0;
+}
+
 .gradient-text {
   background: linear-gradient(270deg, #e03694, #f47253 70%);
   -webkit-background-clip: text;
@@ -14986,28 +14991,35 @@ input[type=text]:not(.browser-default) {
 }
 
 .program-card {
-  width: 350px;
-  height: 300px;
-  margin-right: 25px;
-  border-radius: 12px;
-  text-align: left;
-  position: relative;
-  cursor: pointer;
+    width: 370px;
+    height: 300px;
+    margin-right: 25px;
+    padding: 10px;
+    border: 0.5px solid rgba(194, 190, 190, 0.5);
+    border-radius: 12px;
+    text-align: left;
+    position: relative;
+    cursor: pointer;
 }
 .program-card:nth-last-child(-n+1) {
   margin-right: 0;
 }
 .program-card .title {
-  margin: 0;
-  margin-bottom: 10px;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 24px;
-  overflow-x: auto;
-  overflow-y: hidden;
+    height: 40px;
+    margin: 0;
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 .program-card .title::-webkit-scrollbar {
   width: 5px;
+}
+.program-card .title.add {
+    margin-top: 10px;
+    font-size: 24px;
 }
 .program-card .image {
   width: 317px;
@@ -15022,18 +15034,23 @@ input[type=text]:not(.browser-default) {
   transition: background-size 0.3s ease-in-out;
 }
 .program-card .image.lighthen {
-  opacity: 0.3;
+    opacity: 0.3;
+    background-position: left 50% top 18%;
 }
 .program-card .card-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 6px 15px;
-  height: 78px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 6px 15px;
+    height: 72px;
 }
 .program-card .card-info.description {
   flex-wrap: nowrap;
+}
+.program-card .card-info.add {
+    justify-content: center;
+    height: 120px;
 }
 .program-card .card-info .btn-large {
   height: 36px;
@@ -15068,18 +15085,18 @@ input[type=text]:not(.browser-default) {
   margin-left: -13px;
 }
 .program-card .card-info .list {
-  width: 100%;
-  font-size: 14px;
-  padding-left: 8px;
+    width: 100%;
+    font-size: 14px;
+    padding-left: 20px;
 }
 .program-card .add-block {
-  width: 160px;
-  height: 160px;
-  box-sizing: border-box;
-  position: absolute;
-  left: 50%;
-  top: 35px;
-  transform: translateX(-50%);
+    width: 160px;
+    height: 160px;
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 .program-card .add-block .red-plus {
   width: 40px;
@@ -15099,6 +15116,10 @@ input[type=text]:not(.browser-default) {
 
 .title-container {
   padding: 6px;
+}
+
+span.bold-text {
+    font-weight: 700;
 }
 
 .parameters {
@@ -16453,8 +16474,7 @@ input:not([type]).select-dropdown {
 }
 
 .modal.profile {
-  width: 55%;
-  min-height: 80%;
+    width: 55%;
 }
 
 .modal.profile .badge-title,
@@ -16691,8 +16711,8 @@ footer {
 }
 
 *::-webkit-scrollbar {
-  height: 6px;
-  width: 0;
+    height: 4px;
+    width: 0;
 }
 
 *::-webkit-scrollbar-track {
@@ -16855,9 +16875,11 @@ input[type=text].datepicker::placeholder {
 
 #userName,
 #email,
-#password {
-  padding-left: 12px;
-  color: white;
+#password,
+#confirm {
+    box-sizing: border-box;
+    padding-left: 12px;
+    color: white;
 }
 
 .datepicker-table td.is-selected {
@@ -16976,6 +16998,21 @@ input[type=password]:not(.browser-default).invalid {
   color: #f44336;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-text-fill-color: white !important;
+    box-shadow: 0 0 0px 1000px rgba(120, 161, 217, 0.1) inset !important;
+    -webkit-box-shadow: 0 0 0px 1000px rgba(120, 161, 217, 0.1) inset !important;
+    transition: background-color 5000s ease-in-out 0s !important;
+}
+
 @media (max-width: 400px) {
   .select-block .options p {
     flex-basis: 45%;
@@ -17058,6 +17095,30 @@ input[type=password]:not(.browser-default).invalid {
 }
 .icon.clock:before {
   content: "\f017";
+}
+.icon.eye {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    font-size: 22px;
+    color: #c2bebe;
+    z-index: 1;
+    cursor: pointer;
+}
+.icon.eye:before {
+    content: '\f06e';
+}
+.icon.eye-closed {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    font-size: 22px;
+    color: #c2bebe;
+    z-index: 1;
+    cursor: pointer;
+}
+.icon.eye-closed:before {
+    content: '\f070';
 }
 .icon.select-up:before {
   content: "\f077";

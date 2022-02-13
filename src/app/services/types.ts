@@ -1,4 +1,14 @@
-import { WorkoutType, IntensityType, Goal, Gender, WorkoutsProgramDuration, WorkoutsNumber } from './constants';
+import {
+    WorkoutType,
+    IntensityType,
+    Goal,
+    Gender,
+    WorkoutsProgramDuration,
+    WorkoutsNumber,
+    BadgeName,
+    HeightUnit,
+    WeightUnit,
+} from './constants';
 
 export type TWorkout = {
     title: string;
@@ -35,17 +45,11 @@ export type TSettings = {
     weekProgress: TWeekProgress;
     favWorkouts: Array<WorkoutType>;
     caloriesBurned: number;
-    badges: string[];
-    heightUnit: string;
-    weightUnit: string;
+    badges: Array<BadgeName>;
+    heightUnit: HeightUnit;
+    weightUnit: WeightUnit;
     completedWorkouts: number;
-    liked: TWorkout[];
-    workoutLength: TWorkoutLength;
-};
-
-export type TWorkoutLength = {
-    min: number;
-    max?: number | undefined;
+    liked: Array<string>;
 };
 
 export type TWorkoutProgram = Array<TWorkout[]>;

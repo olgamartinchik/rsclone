@@ -32,7 +32,6 @@ class ProfilePageView {
 
         this.rootNode.append(footer.getTemplate());
         this.materializeHandler.initModal();
-        console.log(document.querySelectorAll('.modal'));
     }
 
     private template(): string {

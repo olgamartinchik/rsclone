@@ -3,11 +3,21 @@ import StorageManager from '../../services/storageManager';
 import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';
 import { TToken } from '../../services/types';
-import { Goal, Gender, WorkoutsProgramDuration, WorkoutsNumber, Endpoints } from '../../services/constants';
+import {
+    Goal,
+    Gender,
+    WorkoutsProgramDuration,
+    WorkoutsNumber,
+    Endpoints,
+    WeightUnit,
+    HeightUnit,
+} from '../../services/constants';
 import UserDataManager from '../../services/userDataManager';
 
-export default class OnboardingModel {
+export class OnboardingModel {
     form: TSettings;
+
+    birthday: string;
 
     constructor() {
         this.form = {
@@ -21,7 +31,6 @@ export default class OnboardingModel {
             desiredWeight: 0,
             duration: WorkoutsProgramDuration.short,
             workoutsNumber: WorkoutsNumber.small,
-            workoutLength: { min: 5, max: 10 },
             favWorkouts: [],
             weekProgress: {
                 currentWeek: 0,
@@ -32,11 +41,12 @@ export default class OnboardingModel {
             },
             caloriesBurned: 0,
             badges: [],
-            heightUnit: '',
-            weightUnit: '',
+            heightUnit: HeightUnit.unitDefault,
+            weightUnit: WeightUnit.unitDefault,
             completedWorkouts: 0,
             liked: [],
         };
+        this.birthday = '';
     }
 
     public changeHandler(...args: Array<Partial<TSettings>>) {
@@ -48,9 +58,11 @@ export default class OnboardingModel {
         if (setting.weight) this.form.weight = setting.weight;
         if (setting.goal) this.form.goal = setting.goal;
         if (setting.desiredWeight) this.form.desiredWeight = setting.desiredWeight;
-        if (setting.workoutsNumber) this.form.workoutsNumber = +setting.workoutsNumber;
+        if (setting.workoutsNumber) {
+            this.form.workoutsNumber = +setting.workoutsNumber;
+            this.form.weekProgress.workoutsNumber = +setting.workoutsNumber;
+        }
         if (setting.favWorkouts) this.form.favWorkouts = setting.favWorkouts;
-        if (setting.workoutLength) this.form.workoutLength = setting.workoutLength;
         if (setting.duration) this.form.duration = +setting.duration;
     }
 
@@ -62,6 +74,7 @@ export default class OnboardingModel {
     }
 
     public calculateAge(dateOfBirth: string): number {
+        this.birthday = dateOfBirth;
         const date = new Date();
         const currentDay = date.getDate();
         const currentMonth = date.getMonth();
@@ -83,7 +96,35 @@ export default class OnboardingModel {
         return age;
     }
 
+    public resetData(): void {
+        this.form.userId = '';
+        this.form.startDate = Date.now().toString();
+        this.form.goal = Goal.muscle;
+        this.form.weight = 0;
+        this.form.height = 0;
+        this.form.age = 0;
+        this.form.gender = Gender.female;
+        this.form.desiredWeight = 0;
+        this.form.duration = WorkoutsProgramDuration.short;
+        this.form.workoutsNumber = WorkoutsNumber.small;
+        this.form.weekProgress.workoutsNumber = WorkoutsNumber.small;
+        this.form.favWorkouts = [];
+        this.form.caloriesBurned = 0;
+        this.form.badges = [];
+        this.form.heightUnit = HeightUnit.unitDefault;
+        this.form.weightUnit = WeightUnit.unitDefault;
+        this.form.completedWorkouts = 0;
+        this.form.liked = [];
+        this.birthday = '';
+    }
+
     public get settings(): TSettings {
         return this.form;
     }
+
+    public get dateOfBirth(): string {
+        return this.birthday;
+    }
 }
+
+export default new OnboardingModel();

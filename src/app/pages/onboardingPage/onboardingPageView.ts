@@ -78,9 +78,6 @@ class OnboardingPageView {
             case 'Select all your favorite type of classes:':
                 this.renderClassesBlock(form, settings, onselect);
                 break;
-            case 'How much time do you prefer to work out?':
-                this.renderWorkoutLengthBlock(form, settings, onselect);
-                break;
             case 'How many weeks do you want to start with?':
                 this.renderDurationBlock(form, settings, onselect);
                 break;
@@ -235,23 +232,6 @@ class OnboardingPageView {
         });
     }
 
-    private renderWorkoutLengthBlock(form: HTMLElement, settings: TSettings, onselect: (e: Event) => void): void {
-        const lengthWrapper = Node.setChild(form, 'div', 'parameters-options');
-        lengthWrapper.onclick = (e: Event) => onselect(e);
-        const lengths = [{ min: 5, max: 10 }, { min: 15, max: 20 }, { min: 25, max: 30 }, { min: 30 }];
-        lengths.forEach((length) => {
-            const workoutLength = length.max
-                ? Node.setChild(lengthWrapper, 'div', 'length option z-depth-1', `${length.min} - ${length.max}`)
-                : Node.setChild(lengthWrapper, 'div', 'length option z-depth-1', `${length.min}+`);
-            workoutLength.setAttribute('data-title', 'workoutLength');
-            workoutLength.setAttribute('data-min', `${length.min}`);
-            workoutLength.setAttribute('data-value', `${length.min}`);
-            if (length.max) workoutLength.setAttribute('data-max', `${length.max}`);
-        });
-
-        this.colorSelectedOption(settings, 'length');
-    }
-
     private renderDurationBlock(form: HTMLElement, settings: TSettings, onselect: (e: Event) => void): void {
         const durationWrapper = Node.setChild(form, 'div', 'parameters-options');
         durationWrapper.onclick = (e: Event) => onselect(e);
@@ -289,9 +269,6 @@ class OnboardingPageView {
                     break;
                 case 'duration':
                     if (selectedOption === settings.duration.toString()) option.classList.add('active');
-                    break;
-                case 'length':
-                    if (selectedOption === settings.workoutLength.min.toString()) option.classList.add('active');
                     break;
             }
         });

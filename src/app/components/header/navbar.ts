@@ -46,7 +46,7 @@ export default class NavBar {
         this.links.forEach((link, index) => {
             const menuItem = new Node(parentNode, 'li');
             if (activeLink && link === activeLink) menuItem.node.classList.add('active');
-            const menuLink = new Node(menuItem.node, 'a');
+            const menuLink = new Node(menuItem.node, 'a', 'sidenav-close');
             menuLink.setAttribute('href', `#/${link.toLowerCase()}`);
             if (icons) {
                 Node.setChild(menuLink.node, 'i', `icon ${(this.icons as Array<string>)[index]}`);

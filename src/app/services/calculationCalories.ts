@@ -99,12 +99,11 @@ class CalculationCalories {
     }
 
     async createUserMeal() {
-
         const periodUserMeal = {};
         const dayMeals = ['breakfast', 'lunch/dinner', 'snack'];
         const arrayDates = new DateManager().getArrayDate(this.userSettings);
         const allRecipe =
-        (StorageManager.getItem('allRecipe', 'local') as IDataExplore[]) ?? (await this.getRecipeDate());
+            (StorageManager.getItem('allRecipe', 'local') as IDataExplore[]) ?? (await this.getRecipeDate());
 
         arrayDates.forEach((date) => {
             periodUserMeal[date] = [];

@@ -1,8 +1,7 @@
-import { TLoginForm, TLoginResponse } from '../../services/types';
+import { TLoginForm, TLoginResponse, TSettings } from '../../services/types';
 import authManager from '../../services/authManager';
 import ClientManager from '../../services/clientManager';
 import StorageManager from '../../services/storageManager';
-import storageManager from '../../services/storageManager';
 import UserDataManager from '../../services/userDataManager';
 
 export class AuthModel {
@@ -27,11 +26,11 @@ export class AuthModel {
         if (authData.userName || authData.userName === '') this.form.userName = authData.userName;
         if (authData.email || authData.email === '') this.form.email = authData.email;
         if (authData.password || authData.password === '') this.form.password = authData.password;
-        console.log(this.form);
     }
 
-    public checkUserData(isExistingUser: boolean): void {
-        const type = isExistingUser ? 'auth/login' : 'auth/register';
+    public checkUserData(isLogin: boolean): void {
+        const type = isLogin ? 'auth/login' : 'auth/register';
+
         switch (type) {
             case 'auth/login':
                 if (this.form.email && this.form.password) {
@@ -41,13 +40,19 @@ export class AuthModel {
                 }
                 break;
             case 'auth/register':
-                if (this.form.userName && this.form.email && this.form.password) {
+                if (this.form.userName && this.form.email && this.form.password && this.checkPassword()) {
                     this.activateSendBtn();
                 } else {
                     this.deactivateSendBtn();
                 }
                 break;
         }
+    }
+
+    public checkPassword(): boolean {
+        const passwordInput = <HTMLInputElement>document.querySelector('#password');
+        const confirmPasswordInput = <HTMLInputElement>document.querySelector('#confirm');
+        return passwordInput.value === confirmPasswordInput.value;
     }
 
     private activateSendBtn(): void {
@@ -68,10 +73,9 @@ export class AuthModel {
         this.isLoading = false;
         if (this.clientManager.result) {
             this.saveData(type, (<TLoginResponse>data).userName);
-            this.navigate(type);
         } else {
             this.createMessage(this.clientManager.text);
-            this.destroyData();
+            StorageManager.deleteItem('token', 'local');
         }
     }
 
@@ -80,10 +84,11 @@ export class AuthModel {
         switch (type) {
             case 'auth/register':
                 StorageManager.addItem('user', this.form.userName.split('')[0], 'local');
+                this.navigate(type);
                 break;
             case 'auth/login':
                 StorageManager.addItem('user', userName.split('')[0], 'local');
-                this.saveUserSettings();
+                this.saveUserSettings(type);
                 break;
         }
     }
@@ -92,13 +97,15 @@ export class AuthModel {
         this.form.userName = '';
         this.form.email = '';
         this.form.password = '';
-        StorageManager.deleteItem('token', 'local');
     }
 
-    private async saveUserSettings(): Promise<void> {
+    private async saveUserSettings(type: string): Promise<void> {
         const userSettings = await this.clientManager.getUserSettings(this.clientManager.token.userID);
-        storageManager.addItem('userSettings', userSettings, 'local');
-        new UserDataManager(userSettings!).createUserData();
+        if (userSettings) {
+            StorageManager.addItem('userSettings', userSettings, 'local');
+            new UserDataManager(userSettings!).createUserData();
+        }
+        this.navigate(type);
     }
 
     public createMessage(text: string) {
@@ -108,12 +115,17 @@ export class AuthModel {
     }
 
     private navigate(type: string) {
+        const userSettings = <TSettings>StorageManager.getItem('userSettings', 'local');
         switch (type) {
             case 'auth/register':
                 authManager.navigate('/onboarding');
                 break;
             case 'auth/login':
-                authManager.navigate('/program');
+                if (!userSettings) {
+                    authManager.navigate('/onboarding');
+                } else {
+                    authManager.navigate('/program');
+                }
                 break;
         }
     }
