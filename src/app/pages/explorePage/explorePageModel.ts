@@ -10,7 +10,7 @@ class ExplorePageModel {
             });
             })  
         }
-        console.log('tabs',tabs)
+        console
     }
 
     getActiveClassTabs(diet: string) {
