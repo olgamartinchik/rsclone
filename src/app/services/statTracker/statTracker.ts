@@ -42,7 +42,6 @@ class StatTracker {
             this.calories += Utils.getCaloriesPerSecond(this.weight, this.caloriesPerMinute);
         }, 1000);
         this.startTime = Date.now();
-        console.log(this.startTime)
     }
 
     public getCalories(): number {
@@ -56,20 +55,19 @@ class StatTracker {
         this.startTime = Date.now();
     }
 
-    public stopTracking(): void {
+    public stopTracking(): void {        
         if (this.caloriesTimerId) {
             clearInterval(this.caloriesTimerId);
             this.caloriesTimerId = null;
         }
-        console.log('time',this.startTime, Utils.getTimeDiffInSeconds(this.startTime));
+
         this.time += Utils.getTimeDiffInSeconds(this.startTime);
-        this.startTime = 0;
     }
 
     public getTrackData(): TStatData {
         return {
             calories: this.getCalories(),
-            time: this.time || Utils.getTimeDiffInSeconds(this.startTime),
+            time: this.time || 1,
         };
     }
 }

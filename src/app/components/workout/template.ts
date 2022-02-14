@@ -6,7 +6,7 @@ export default function workoutHeaderTemplate(card: Card): string {
                     <div class="workout-info">
                         <h1 class="workout-title">${card.data.title}</h1>
                         <div class="workout-types">
-                            <span class="workout-type">${card.data.type}</span>
+                            <span class="workout-type">${(card.data.type).toUpperCase()}</span>
                         </div>
                         <div class="parameters">
                             <span>${Math.round(card.data.duration / 60)} min</span>

@@ -214,6 +214,25 @@
         opacity: 0.8;
     }
 }
+.left-block {
+    .meal-card-container {
+        width: 100%;
+    }
+    .day-meals {
+        justify-content: flex-start;
+        padding: 30px 10px;
+        text-align-last: auto;
+        gap: 25px;
+    }
+
+    .meal-card {
+        .card {
+            border: 0.5px solid rgba(194, 190, 190, 0.5);
+            box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+        }
+    }
+}
+
 @media (max-width: 830px) {
     .explore-container {
         gap: 35px;

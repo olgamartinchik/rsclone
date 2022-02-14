@@ -1,5 +1,5 @@
 import Utils from '../../services/utils';
-
+import Node from '../Node';
 export default class Timer {
     private readonly root: HTMLCanvasElement;
 
@@ -17,6 +17,12 @@ export default class Timer {
 
     private startTime: number;
 
+    private caloriesTimerWrapper: Node<HTMLElement> | null;
+
+    private caloriesTimer: Node<HTMLElement> | null;
+
+    private caloriesTimerCounter: Node<HTMLElement> | null;
+
     constructor() {
         this.root = document.createElement('canvas');
         this.root.id = 'count-down';
@@ -29,9 +35,33 @@ export default class Timer {
         this.timeCurrent = 0;
         this.isTimerRun = true;
         this.startTime = 0;
+        this.caloriesTimerWrapper = null;
+        this.caloriesTimer = null;
+        this.caloriesTimerCounter = null;
     }
 
-    createTimer(parentNode: HTMLElement, time: number): void {
+    public createCaloriesTimer(parent: HTMLElement): void {
+        this.caloriesTimerWrapper = new Node(parent, 'div', 'calories-timer-wrapper');
+        this.caloriesTimer = new Node(this.caloriesTimerWrapper.node, 'div', 'icon icon-calories');
+        this.caloriesTimer.node.insertAdjacentHTML(
+            'afterbegin',
+            '<img src="./assets/img/svg/calorie.svg" alt="calorie counter">'
+        );
+        this.caloriesTimerCounter = new Node(this.caloriesTimerWrapper.node, 'span', 'calories-counter', '0');
+    }
+
+    public updateCaloriesTimer(number: number): void {
+        const prevValue = this.caloriesTimerCounter?.node.textContent;
+        if (prevValue && +prevValue === number) {
+            return;
+        }
+
+        if (prevValue && this.caloriesTimerCounter) {
+            this.caloriesTimerCounter.node.textContent = String(number);
+        }
+    }
+
+    public createTimer(parentNode: HTMLElement, time: number): void {
         this.clearCtx();
         parentNode.append(this.root, this.timerElement);
         this.timeFull = time;
@@ -39,25 +69,6 @@ export default class Timer {
         this.setTrack();
         this.startTime = Date.now();
         this.drawLine();
-    }
-
-    startTimer(time: number) {
-        this.timeCurrent = time;
-
-        if (this.isTimerRun) {
-            if (this.timeCurrent >= 0) {
-                this.drawTime(this.timeCurrent);
-                this.timeCurrent -= 1;
-
-                this.id = setTimeout(() => {
-                    this.startTimer(this.timeCurrent);
-                }, 1000);
-            } else {
-                if (this.id) {
-                    clearTimeout(this.id);
-                }
-            }
-        }
     }
 
     private drawLine(): void {
@@ -89,7 +100,7 @@ export default class Timer {
         }
     }
 
-    setTime(until: number, total: number): void {
+    public setTime(until: number, total: number): void {
         if (this.ctx) {
             const start = Math.PI * 2 - (Math.PI * 2) / 4;
             const end = (until / total) * Math.PI * 2;
@@ -108,15 +119,18 @@ export default class Timer {
         }
     }
 
-    drawTime(time: number) {
+    private drawTime(time: number) {
         this.timerElement.innerText = Utils.getTime(time);
     }
 
-    destroy(): void {
+    public destroy(): void {
         this.root.remove();
+        if(this.caloriesTimerWrapper) {
+            this.caloriesTimerWrapper.node.remove();
+        }
     }
 
-    pause() {
+    public pause() {
         this.isTimerRun = false;
     }
 }

@@ -89,6 +89,7 @@ class WorkoutPageModel {
             settings.weekProgress.minutes += dataStat.time;
             settings.weekProgress.workoutsCompleted += 1;
             settings.weekProgress.calories += dataStat.calories;
+            settings.caloriesBurned += dataStat.calories;
             settings.completedWorkouts += 1;
             storageManager.addItem('userSettings', settings, 'local');
 

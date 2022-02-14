@@ -61,18 +61,18 @@ class ProgramPageView {
             handleStatBlockClick
         );
         containerWidget.node.append(widget);
-        const Program = new Node(this.rootNode, 'main', 'main-layout');
-        Node.setChild(Program.node, 'div', 'decorative');
-        const contentWrapper = new Node(Program.node, 'div', 'main-content');
-        const ProgramContent = new Node(contentWrapper.node, 'div', 'left-block');
-        this.contentBlock = new Node(ProgramContent.node, 'section', 'content-block z-depth-1');
+        const program = new Node(this.rootNode, 'main', 'main-layout');
+        Node.setChild(program.node, 'div', 'decorative');
+        const contentWrapper = new Node(program.node, 'div', 'main-content');
+        const programContent = new Node(contentWrapper.node, 'div', 'left-block');
+        this.contentBlock = new Node(programContent.node, 'section', 'content-block z-depth-1');
         contentWrapper.node.append(containerWidget.node);
         Node.setChild(this.contentBlock.node, 'h2', 'hidden', 'Program');
 
         this.getContentBlockTitle(week);
         this.getCards(data, onclick);
         this.cardsWrapper.node.insertAdjacentHTML('beforeend', this.getAddWorkoutBlock());
-        Program.node.insertAdjacentHTML('beforeend', new MealPageView().getSectionMeal());
+        programContent.node.insertAdjacentHTML('beforeend', new MealPageView().getSectionMeal());
     }
 
     private getContentBlockTitle(week: number): void {

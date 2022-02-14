@@ -133,6 +133,7 @@ class VideoHandler {
         this.video.volume = this.currentVolumeValue;
         this.changeTimelineBg();
         this.timer.createTimer(this.videoWrapper, 0);
+        this.timer.createCaloriesTimer(this.videoWrapper);
     }
 
     private removeInnerContext(): void {
@@ -240,6 +241,7 @@ class VideoHandler {
             this.video.ontimeupdate = (e: Event): void => {
                 e.stopPropagation();
                 this.timer.setTime(this.fullTime - this.currentTime, this.fullTime);
+                this.timer.updateCaloriesTimer(this.tracker.getCalories());
 
                 if (this.timeline) {
                     this.timeline.value = String(this.currentTime);
@@ -257,14 +259,12 @@ class VideoHandler {
             this.timeline.addEventListener('click', this.stopPropClick.bind(this));
 
             this.timeline.oninput = (e: Event): void => {
+                this.videoWrapper.append(this.preloader);
                 e.stopPropagation();
                 if (this.timeline) {
                     this.currentTime = parseFloat(this.timeline.value);
                     this.timeline.blur();
                     this.changeTimelineBg();
-                    if(this.currentTime === this.fullTime) {
-                        this.stopVideo();
-                    }
                 }
             };
         }
