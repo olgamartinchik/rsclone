@@ -80,7 +80,9 @@ export type RouteOption = {
     callback: () => void;
     isAuth: boolean | null;
 };
-
+export type TIngredients={
+    image:string
+}
 export interface IDataExplore {
     recipe: {
         image?: string;
@@ -91,6 +93,12 @@ export interface IDataExplore {
         yield?: number;
         diet?: string;
         dietLabels?: string;
+        ingredients?:Array<TIngredients>
+        url?:string,
+        ingredientLines?:Array<string>,
+        totalTime?:string,
+        totalWeight?:string,
+        healthLabels?:Array<string>
     };
 }
 
