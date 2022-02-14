@@ -26,6 +26,10 @@ export default class Button {
         this.button.node.classList.add(text);
     }
 
+    addAttribute(text: string, value: string): void {
+        this.button.node.setAttribute(text, value);
+    }
+
     onclick(onclick: (e: Event) => void): void {
         this.button.node.onclick = (e: Event) => onclick(e);
     }

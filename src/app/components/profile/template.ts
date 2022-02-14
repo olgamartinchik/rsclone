@@ -61,7 +61,7 @@ export function editProfileTemplate(src: string): string {
   <div class="avatar">
       <input class="profile-avatar-input" type="file" accept="image/*" id="avatar" alt="Avatar">        
       <label for="avatar" class="profile-avatar-label">
-        <img src=${src} class="profile-avatar"></img>
+        <img src=${src} class="profile-avatar editprofile"></img>
         <i class="icon-upload icon pencil"></i>
       </label>
   </div>

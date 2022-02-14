@@ -15,6 +15,7 @@ import {
     WorkoutType,
     WorkoutsProgramDuration,
     Colors,
+    ClassNames
 } from '../../services/constants';
 import onboardingModel, { OnboardingModel } from './onboardingPageModel';
 
@@ -113,6 +114,7 @@ class OnboardingPageView {
 
         form.append(
             Parameters.getTemplate(
+                ClassNames.onboarding,
                 Height.title,
                 Height.units,
                 Height.units2,
@@ -128,6 +130,7 @@ class OnboardingPageView {
 
         form.append(
             Parameters.getTemplate(
+                ClassNames.onboarding,
                 Weight.title,
                 Weight.units,
                 Weight.units2,
@@ -175,6 +178,7 @@ class OnboardingPageView {
             }
             if (goal === GoalTitles.weight) {
                 const weightChoiceBlock = Parameters.getTemplate(
+                    ClassNames.onboarding,
                     Weight.desired,
                     Weight.units,
                     Weight.units2,

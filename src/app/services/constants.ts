@@ -145,3 +145,8 @@ export enum BadgeText {
     fiftyWorkouts = 'Awarded for completing 50 workouts on FitOn.',
     hundredWorkouts = 'Awarded for completing 100 workouts on FitOn.',
 }
+
+export enum ClassNames {
+    onboarding = 'title title-tablet',
+    editProfile = 'settings-link',
+}

@@ -11,7 +11,7 @@ class EditProfilePageController {
     }
 
     public createPage() {
-        this.view.render(this.handleAvatarChange.bind(this));
+        this.view.render(this.handleAvatarChange.bind(this), this.handleCalenderClick.bind(this));
     }
 
     private handleAvatarChange(e: Event): void {
@@ -50,6 +50,10 @@ class EditProfilePageController {
         avatarImg.src = src;
         this.toggleEditIcon(element);
         avatarManager.deleteAvatar(this.files[0]);
+    }
+
+    private handleCalenderClick(): void {
+        
     }
 }
 

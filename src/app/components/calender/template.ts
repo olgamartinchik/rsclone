@@ -5,3 +5,13 @@ export default function calenderTemplate(): string {
   <span class="calender"></span>
   `;
 }
+
+export function editcalenderTemplate(text: string): string {
+  return `
+<p class="settings-link">Birthday</p>
+<div class="profile-item-input">
+  <input type="text" class="datepicker" name="datepicker" value="${text}" autocomplete="off"/>
+  <span><i class="icon calendar"></i></span>
+</div>
+`;
+}

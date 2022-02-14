@@ -1,4 +1,5 @@
 export function paramsTemplate(
+    className: string,
     title: string,
     units: string,
     units2: string,
@@ -9,7 +10,7 @@ export function paramsTemplate(
 ): string {
     const dataAttribute = title === 'desired Weight' ? 'desiredWeight' : title;
     return `
-  <span class="title title-tablet">${title}</span>
+  <span class="${className}">${title}</span>
   <span class="value" data-${dataAttribute}>
       <input type="text" class="value-select" placeholder="${min}" data-title="${dataAttribute}Unit" data-type='parameter' data-${dataAttribute} data-value=${dataAttribute}> 
       <span data-title="${dataAttribute}Unit">${units}</span>

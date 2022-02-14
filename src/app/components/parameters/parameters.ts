@@ -2,6 +2,7 @@ import { paramsTemplate } from './template';
 
 class Parameters {
     public getTemplate(
+        className: string,
         title: string,
         units: string,
         units2: string,
@@ -18,7 +19,7 @@ class Parameters {
         rootNode.id = title.split(' ').join('');
         rootNode.onclick = (e: Event) => onselect(e);
         rootNode.onchange = (e: Event) => onchange(e);
-        rootNode.insertAdjacentHTML('afterbegin', paramsTemplate(title, units, units2, option1, option2, min, max));
+        rootNode.insertAdjacentHTML('afterbegin', paramsTemplate(className, title, units, units2, option1, option2, min, max));
         (<HTMLInputElement>rootNode.querySelector('#play-bar')).oninput = (e: Event) => oninput(e);
 
         return rootNode;
