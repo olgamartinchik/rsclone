@@ -3,8 +3,8 @@ import EditPlanPageModel from './editPlanPageModel';
 import storageManager from '../../services/storageManager';
 import authManager from '../../services/authManager';
 import Utils from '../../services/utils';
-import { TSettings, TWorkoutLength } from '../../services/types';
-import { GoalTitles, MinWorkoutLength, MaxWorkoutLength, WorkoutType, Message } from '../../services/constants';
+import { TSettings } from '../../services/types';
+import { GoalTitles, WorkoutType, Message } from '../../services/constants';
 import UserDataManager from '../../services/userDataManager';
 
 class EditPlanPageController {
@@ -55,15 +55,8 @@ class EditPlanPageController {
                 break;
             case 'duration':
             case 'workoutsNumber':
-                this.updateUserSettings(settingsType, +settingValueChosen);
-                this.handleSaveButtonStatus(saveButton);
-                break;
             case 'desiredWeight':
                 this.updateUserSettings(settingsType, +settingValueChosen);
-                this.handleSaveButtonStatus(saveButton);
-                break;
-            case 'workoutLength':
-                this.formWorkoutLengthValue(+settingValueChosen.split(' ')[0]);
                 this.handleSaveButtonStatus(saveButton);
                 break;
             case 'favWorkouts':
@@ -76,27 +69,7 @@ class EditPlanPageController {
         }
     }
 
-    private formWorkoutLengthValue(min: number): void {
-        switch (min) {
-            case MinWorkoutLength.small:
-                this.updateUserSettings('workoutLength', { min: MinWorkoutLength.small, max: MaxWorkoutLength.small });
-                break;
-            case MinWorkoutLength.medium:
-                this.updateUserSettings('workoutLength', {
-                    min: MinWorkoutLength.medium,
-                    max: MaxWorkoutLength.medium,
-                });
-                break;
-            case MinWorkoutLength.large:
-                this.updateUserSettings('workoutLength', { min: MinWorkoutLength.large, max: MaxWorkoutLength.large });
-                break;
-            case MinWorkoutLength.huge:
-                this.updateUserSettings('workoutLength', { min: MinWorkoutLength.huge });
-                break;
-        }
-    }
-
-    private updateUserSettings(key: string, value: string | number | TWorkoutLength | Array<WorkoutType>): void {
+    private updateUserSettings(key: string, value: string | number | Array<WorkoutType>): void {
         switch (key) {
             case 'goal':
                 this.modifiedUserSettings[key] = Utils.getKeyByValue(GoalTitles, value);

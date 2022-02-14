@@ -5,7 +5,6 @@ class DateManager {
     arrayDates: Array<string>;
 
     constructor() {
-      
         this.arrayDates = [];
     }
 
@@ -14,7 +13,6 @@ class DateManager {
         const allDaysProgramme = userSettings.duration * allDaysWeek;
         const startDate = new Date(Number(userSettings.startDate));
         const lastDay = this.getLastDay(startDate, allDaysProgramme);
-       
 
         while (startDate.getTime() < lastDay.getTime()) {
             this.arrayDates.push(
