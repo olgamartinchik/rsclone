@@ -294,7 +294,7 @@ class OnboardingPageController {
 
         const weightChoiceBlock = <HTMLElement>document.querySelector('.input-group');
         const selectBlock = <HTMLElement>document.querySelector('.select-block');
-
+        console.log(this.parameter);
         if ((<HTMLElement>e.target).dataset.value === Goal.weight) {
             weightChoiceBlock.classList.remove('hidden');
             selectBlock.classList.add('active');

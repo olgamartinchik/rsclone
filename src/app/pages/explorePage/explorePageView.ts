@@ -3,7 +3,8 @@ import footer from '../../components/footer/footer';
 import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
-import { IDataExplore } from '../../services/types';
+import storageManager from '../../services/storageManager';
+import { IDataExplore, TUser } from '../../services/types';
 
 class ExplorePageView {
     private rootNode: HTMLElement;
@@ -18,6 +19,7 @@ class ExplorePageView {
     render(diet: string) {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
+        const user = <TUser>storageManager.getItem('user', 'local');
 
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
@@ -27,7 +29,7 @@ class ExplorePageView {
             'settings',
         ]);
         navbar.generateMenu(true);
-        navbar.addProfileLink('O');
+        navbar.addProfileLink(user.userName.split('')[0]);
 
         this.createContentExplore(diet);
         this.rootNode.append(footer.getTemplate());

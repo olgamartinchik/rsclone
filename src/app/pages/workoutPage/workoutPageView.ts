@@ -7,6 +7,7 @@ import Node from '../../components/Node';
 import workoutHeaderTemplate from '../../components/workout/template';
 import workoutDesc from '../../components/workout/workoutDescription';
 import storageManager from '../../services/storageManager';
+import { TUser } from '../../services/types';
 
 class WorkoutPageView {
     public readonly rootNode: HTMLElement;
@@ -18,7 +19,7 @@ class WorkoutPageView {
     render(card: Card, startVideo: (e: Event) => void): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-        const user = (<string>storageManager.getItem('user', 'local')).split('')[0];
+        const user = <TUser>storageManager.getItem('user', 'local');
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -27,7 +28,7 @@ class WorkoutPageView {
             'settings',
         ]);
         navbar.generateMenu(true);
-        navbar.addProfileLink(user);
+        navbar.addProfileLink(user.userName.split('')[0]);
         this.createMainBlockLayout(card, startVideo);
 
         this.rootNode.append(footer.getTemplate());

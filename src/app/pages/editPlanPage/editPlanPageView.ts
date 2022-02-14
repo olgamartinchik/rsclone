@@ -13,7 +13,7 @@ import {
     WorkoutType,
     ModalContents,
 } from '../../services/constants';
-import { TSettings } from '../../services/types';
+import { TSettings, TUser } from '../../services/types';
 
 class EditPlanPageView {
     private rootNode: HTMLElement;
@@ -34,7 +34,7 @@ class EditPlanPageView {
     }
 
     private createHeader(): void {
-        const user = (<string>storageManager.getItem('user', 'local')).split('')[0];
+        const user = <TUser>storageManager.getItem('user', 'local');
         this.rootNode.append(header.getTemplate());
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
@@ -44,7 +44,7 @@ class EditPlanPageView {
             'settings',
         ]);
         navbar.generateMenu(true);
-        navbar.addProfileLink(user);
+        navbar.addProfileLink(user.userName.split('')[0]);
     }
 
     private createMainLayout(

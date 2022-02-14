@@ -58,7 +58,7 @@ export class AuthPageController {
     private handlePasswordConfirmation(): void {
         const passwordInput = <HTMLInputElement>document.querySelector('#password');
         const confirmPasswordInput = <HTMLInputElement>document.querySelector('#confirm');
-        if (passwordInput.value && confirmPasswordInput.value) {
+        if (confirmPasswordInput && passwordInput.value && confirmPasswordInput.value) {
             const isPasswordConfirmed = this.model.checkPassword();
             if (!isPasswordConfirmed) {
                 confirmPasswordInput.className = 'invalid';

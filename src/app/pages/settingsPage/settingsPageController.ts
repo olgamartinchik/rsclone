@@ -17,12 +17,12 @@ class SettingsPageController {
     constructor() {
         this.view = new SettingsPageView();
         this.model = new SettingsPageModel();
-        this.settings = this.model.userSettings;
+        this.settings = this.model.getData();
         this.modifiedUserSettings = this.getModifiedUserSettings();
     }
 
     public createPage() {
-        this.settings = this.model.userSettings;
+        this.settings = this.model.getData();
         this.view.render(<TSettings>this.settings, this.handleClick.bind(this), this.handleButtonClick.bind(this));
     }
 

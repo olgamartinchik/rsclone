@@ -31,7 +31,7 @@
 .editprofile.gender-selection {
   width: 230px;
   height: 30px;
-  margin-bottom: 0;
+  margin-bottom: 10px;
   line-height: 30px;
 }
 
@@ -50,6 +50,7 @@
 
 .modal-trigger.change-password {
   height: 30px;
+  margin-bottom: 10px;
   font-size: 14px;
   text-transform: none;
   background-color: transparent;
@@ -59,4 +60,8 @@
 
 .edit-profile .btn-large {
   width: 130px;
+}
+
+.settings-wrapper.editprofile {
+  padding-top: 0;
 }

@@ -1,7 +1,8 @@
 import footer from '../../components/footer/footer';
 import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
-import Node from '../../components/Node';
+import storageManager from '../../services/storageManager';
+import { TUser } from '../../services/types';
 
 class RecipePageView {
     private rootNode: HTMLElement;
@@ -13,6 +14,7 @@ class RecipePageView {
     render() {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
+        const user = <TUser>storageManager.getItem('user', 'local');
 
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
@@ -22,7 +24,7 @@ class RecipePageView {
             'settings',
         ]);
         navbar.generateMenu(true);
-        navbar.addProfileLink('O');
+        navbar.addProfileLink(user.userName.split('')[0]);
 
         this.rootNode.insertAdjacentHTML('beforeend', this.createContentExplore());
         this.rootNode.append(footer.getTemplate());

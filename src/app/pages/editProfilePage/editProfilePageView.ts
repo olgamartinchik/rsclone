@@ -10,6 +10,7 @@ import Button from '../../components/Button';
 import storageManager from '../../services/storageManager';
 import avatarManager from '../../services/avatarManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
+import { TUser } from '../../services/types';
 import { Height, Weight, ClassNames } from '../../services/constants';
 
 class EditProfilePageView {
@@ -58,7 +59,7 @@ class EditProfilePageView {
 
     private createContentForm(onclickCalender: (e: Event) => void): void {
         const main = <HTMLElement>this.rootNode.querySelector('.main-layout');
-        const profileInfoWrapper = new Node(main, 'div', 'settings-wrapper');
+        const profileInfoWrapper = new Node(main, 'div', 'settings-wrapper editprofile');
         profileInfoWrapper.append(profileItem.getTemplate('Name', 'Olga'));
         profileInfoWrapper.append(profileItem.getTemplate('Email', 'olga@mail.ru'));
         profileInfoWrapper.append(calender.getEditTemplate('Jan 01, 1990', onclickCalender));
@@ -128,7 +129,7 @@ class EditProfilePageView {
     }
 
     private getData(): void {
-        this.userName = <string>storageManager.getItem('user', 'local');
+        this.userName = (<TUser>storageManager.getItem('user', 'local')).userName;
     }
 
     private addEvents(onchange: (e: Event) => void, onclick: (e: Event) => void): void {

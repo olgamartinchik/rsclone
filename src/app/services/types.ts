@@ -128,3 +128,8 @@ export type TParameter = {
     unit: string,
     value: string,
 }
+
+export type TUser = {
+    userName: string;
+    email: string;
+}

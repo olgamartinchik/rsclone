@@ -1,4 +1,4 @@
-import { TLoginForm, TLoginResponse, TSettings } from '../../services/types';
+import { TLoginForm, TLoginResponse, TSettings, TUser } from '../../services/types';
 import authManager from '../../services/authManager';
 import ClientManager from '../../services/clientManager';
 import StorageManager from '../../services/storageManager';
@@ -10,6 +10,7 @@ export class AuthModel {
     public isLoading: boolean;
 
     private clientManager: ClientManager;
+    private user: TUser;
 
     constructor() {
         this.clientManager = new ClientManager();
@@ -19,6 +20,10 @@ export class AuthModel {
             email: '',
             password: '',
         };
+        this.user = {
+            userName: '',
+            email: '',
+        }
     }
 
     public changeHandler(...args: Array<Partial<TLoginForm>>) {
@@ -26,6 +31,7 @@ export class AuthModel {
         if (authData.userName || authData.userName === '') this.form.userName = authData.userName;
         if (authData.email || authData.email === '') this.form.email = authData.email;
         if (authData.password || authData.password === '') this.form.password = authData.password;
+        console.log(this.form);
     }
 
     public checkUserData(isLogin: boolean): void {
@@ -73,24 +79,21 @@ export class AuthModel {
         this.isLoading = false;
         
         if (this.clientManager.result) {
-            this.saveData(type, (<TLoginResponse>data).userName);
+            this.user.userName = (<TLoginResponse>data).userName;
+            this.user.email = (<TLoginResponse>data).email;
+            await this.saveData(type);
+            this.navigate(type);
         } else {
             this.createMessage(this.clientManager.text);
             StorageManager.deleteItem('token', 'local');
         }
     }
 
-    private saveData(type: string, userName: string): void {
+    private async saveData(type: string): Promise<void> {
         StorageManager.addItem('token', this.clientManager.token, 'local');
-        switch (type) {
-            case 'auth/register':
-                StorageManager.addItem('user', this.form.userName, 'local');
-                this.navigate(type);
-                break;
-            case 'auth/login':
-                StorageManager.addItem('user', userName, 'local');
-                this.saveUserSettings(type);
-                break;
+        StorageManager.addItem('user', this.user, 'local');
+        if (type === 'auth/login') {
+            await this.saveUserSettings();
         }
     }
 
@@ -100,13 +103,12 @@ export class AuthModel {
         this.form.password = '';
     }
 
-    private async saveUserSettings(type: string): Promise<void> {
+    private async saveUserSettings(): Promise<void> {
         const userSettings = await this.clientManager.getUserSettings(this.clientManager.token.userID);
         if (userSettings) {
             StorageManager.addItem('userSettings', userSettings, 'local');
             new UserDataManager(userSettings!).createUserData();
         }
-        this.navigate(type);
     }
 
     public createMessage(text: string) {

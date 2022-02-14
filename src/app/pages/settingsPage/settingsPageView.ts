@@ -5,7 +5,7 @@ import settings from '../../components/settings/settings';
 import Node from '../../components/Node';
 import Button from '../../components/Button';
 import storageManager from '../../services/storageManager';
-import { TSettings } from '../../services/types';
+import { TSettings, TUser } from '../../services/types';
 
 class SettingsPageView {
     private rootNode: HTMLElement;
@@ -17,7 +17,7 @@ class SettingsPageView {
     render(settings: TSettings, onclick: (e: Event) => void, onclickButton: (e: Event) => void): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-        const user = (<string>storageManager.getItem('user', 'local')).split('')[0];
+        const user = <TUser>storageManager.getItem('user', 'local');
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -26,7 +26,7 @@ class SettingsPageView {
             'settings',
         ]);
         navbar.generateMenu(true, 'Settings');
-        navbar.addProfileLink(user);
+        navbar.addProfileLink(user.userName.split('')[0]);
 
         this.createMainLayout(settings, onclick, onclickButton);
 
@@ -61,6 +61,7 @@ class SettingsPageView {
     }
 
     private colorSelectedUnit(settings: TSettings): void {
+        console.log(settings);
         const units = <NodeListOf<HTMLElement>>this.rootNode.querySelectorAll('.unit-item');
         units.forEach((unit) => {
             if (unit.dataset.value === settings.heightUnit || unit.dataset.value === settings.weightUnit) {

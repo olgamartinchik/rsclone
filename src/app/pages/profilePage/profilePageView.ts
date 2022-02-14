@@ -6,7 +6,7 @@ import storageManager from '../../services/storageManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
 import avatarManager from '../../services/avatarManager';
 import Utils from '../../services/utils';
-import { TBadge, TToken, TSettings } from '../../services/types';
+import { TBadge, TToken, TSettings, TUser } from '../../services/types';
 
 class ProfilePageView {
     private rootNode: HTMLElement;
@@ -82,7 +82,7 @@ class ProfilePageView {
     }
 
     private getData(): void {
-        this.userName = <string>storageManager.getItem('user', 'local');
+        this.userName = (<TUser>storageManager.getItem('user', 'local')).userName;
         this.completedWorkouts = (<TSettings>storageManager.getItem('userSettings', 'local')).completedWorkouts;
         this.caloriesBurned = (<TSettings>storageManager.getItem('userSettings', 'local')).caloriesBurned;
         this.badgesActivated = (<TSettings>storageManager.getItem('userSettings', 'local')).badges;

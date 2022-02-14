@@ -10,8 +10,8 @@ class SettingsPageModel {
         this.settings = storageManager.getItem('userSettings', 'local');
     }
 
-    public getData() {
-        this.settings = storageManager.getItem('userSettings', 'local');
+    public getData(): TSettings | void {
+        return this.settings = storageManager.getItem('userSettings', 'local');
     }
 
     public async saveSettings(modifiedSettings: TSettings | void) {
@@ -23,11 +23,6 @@ class SettingsPageModel {
             <TSettings>modifiedSettings
         );
     }
-
-    public get userSettings(): TSettings | void {
-        return this.settings;
-    }
-    
 }
 
 export default SettingsPageModel;

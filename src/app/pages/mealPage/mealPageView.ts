@@ -3,7 +3,7 @@ import footer from '../../components/footer/footer';
 import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
-import { IDataExplore } from '../../services/types';
+import { IDataExplore, TUser } from '../../services/types';
 import Preloader from '../../components/preloader/preloader';
 import storageManager from '../../services/storageManager';
 
@@ -36,7 +36,7 @@ class MealPageView {
     ) {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-        const user = (<string>storageManager.getItem('user', 'local')).split('')[0];
+        const user = <TUser>storageManager.getItem('user', 'local');
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -45,7 +45,7 @@ class MealPageView {
             'settings',
         ]);
         navbar.generateMenu(true, 'Meal');
-        navbar.addProfileLink(user);
+        navbar.addProfileLink(user.userName.split('')[0]);
         this.createContentMeal(exploreData, onclick, onchange, onclickBtn);
 
         this.rootNode.append(footer.getTemplate());

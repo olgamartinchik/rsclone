@@ -2,6 +2,7 @@ import footer from '../../components/footer/footer';
 import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import storageManager from '../../services/storageManager';
+import { TUser } from '../../services/types';
 
 class BrowsePageView {
     private rootNode: HTMLElement;
@@ -13,7 +14,9 @@ class BrowsePageView {
     render() {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-        const user = (<string>storageManager.getItem('user', 'local')).split('')[0];
+
+        const user = <TUser>storageManager.getItem('user', 'local');
+
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -22,7 +25,7 @@ class BrowsePageView {
             'settings',
         ]);
         navbar.generateMenu(true, 'Browse');
-        navbar.addProfileLink(user);
+        navbar.addProfileLink(user.userName.split('')[0]);
         this.rootNode.insertAdjacentHTML(
             'beforeend',
             `<main class="main-layout"><span>This is Browse Page!</span></main>`

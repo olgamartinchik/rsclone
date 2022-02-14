@@ -5,6 +5,7 @@ import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 import storageManager from '../../services/storageManager';
 import MealPageView from '../mealPage/mealPageView';
+import { TUser } from '../../services/types';
 
 class ProgramPageView {
     private rootNode: HTMLElement;
@@ -20,7 +21,8 @@ class ProgramPageView {
     render(data: Card[], onclick: (e: Event) => void, week: number): void {
         this.rootNode.textContent = '';
         this.rootNode.append(Header.getTemplate());
-        const user = (<string>storageManager.getItem('user', 'local')).split('')[0];
+        const user = <TUser>storageManager.getItem('user', 'local');
+
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -29,7 +31,7 @@ class ProgramPageView {
             'settings',
         ]);
         navbar.generateMenu(true, 'Program');
-        navbar.addProfileLink(user);
+        navbar.addProfileLink(user.userName.split('')[0]);
 
         this.setContents(data, onclick, week);
         this.rootNode.append(Footer.getTemplate());
