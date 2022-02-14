@@ -5,6 +5,7 @@ import settings from '../../components/settings/settings';
 import Node from '../../components/Node';
 import Button from '../../components/Button';
 import storageManager from '../../services/storageManager';
+import { TSettings } from '../../services/types';
 
 class SettingsPageView {
     private rootNode: HTMLElement;
@@ -13,7 +14,7 @@ class SettingsPageView {
         this.rootNode = <HTMLElement>document.getElementById('app');
     }
 
-    render(onclick: (e: Event) => void, onclickButton: (e: Event) => void): void {
+    render(settings: TSettings, onclick: (e: Event) => void, onclickButton: (e: Event) => void): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
         const user = (<string>storageManager.getItem('user', 'local')).split('')[0];
@@ -27,18 +28,19 @@ class SettingsPageView {
         navbar.generateMenu(true, 'Settings');
         navbar.addProfileLink(user);
 
-        this.createMainLayout(onclick, onclickButton);
+        this.createMainLayout(settings, onclick, onclickButton);
 
         this.rootNode.append(footer.getTemplate());
     }
 
-    private createMainLayout(onclick: (e: Event) => void, onclickButton: (e: Event) => void): void {
+    private createMainLayout(settings: TSettings, onclick: (e: Event) => void, onclickButton: (e: Event) => void): void {
         const main = new Node(this.rootNode, 'main', 'main-layout');
         const settingsWrapper = Node.setChild(main.node, 'div', 'settings-wrapper');
         Node.setChild(settingsWrapper, 'h2', 'title settings-title', 'Settings');
 
         this.createSettingsBlock(settingsWrapper, 'Account', ['Edit Profile', 'Edit Plan'], false, onclick);
         this.createSettingsBlock(settingsWrapper, 'Unit', ['Weight', 'Height'], true, onclick);
+        this.colorSelectedUnit(settings);
 
         const buttonWrapper = Node.setChild(settingsWrapper, 'div', 'btn-wrapper settings');
         const logoutButton = new Button(buttonWrapper, 'Log out');
@@ -56,6 +58,15 @@ class SettingsPageView {
         Node.setChild(settingsBlockWrapper, 'h3', 'title settings-subtitle', `${title}`);
 
         settingsBlockWrapper.append(settings.getTemplate(subtitles, hasChips, onclick));
+    }
+
+    private colorSelectedUnit(settings: TSettings): void {
+        const units = <NodeListOf<HTMLElement>>this.rootNode.querySelectorAll('.unit-item');
+        units.forEach((unit) => {
+            if (unit.dataset.value === settings.heightUnit || unit.dataset.value === settings.weightUnit) {
+                unit.classList.add('active');
+            }
+        })
     }
 }
 

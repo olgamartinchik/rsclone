@@ -1,17 +1,33 @@
 import SettingsPageView from './settingsPageView';
+import SettingsPageModel from './settingsPageModel';
 import authManager from '../../services/authManager';
 import authModel from '../authPage/authPageModel';
 import onboardingModel from '../onboardingPage/onboardingPageModel';
+import { TSettings } from '../../services/types';
 
 class SettingsPageController {
     private view: SettingsPageView;
+    
+    private model: SettingsPageModel;
+    
+    private settings: void | TSettings;
+    
+    private modifiedUserSettings: void | TSettings;
 
     constructor() {
         this.view = new SettingsPageView();
+        this.model = new SettingsPageModel();
+        this.settings = this.model.userSettings;
+        this.modifiedUserSettings = this.getModifiedUserSettings();
     }
 
     public createPage() {
-        this.view.render(this.handleClick.bind(this), this.handleButtonClick.bind(this));
+        this.settings = this.model.userSettings;
+        this.view.render(<TSettings>this.settings, this.handleClick.bind(this), this.handleButtonClick.bind(this));
+    }
+
+    private getModifiedUserSettings(): TSettings | void {
+        return Object.assign({}, this.settings);
     }
 
     private handleClick(e: Event): void {
@@ -33,6 +49,15 @@ class SettingsPageController {
         if (nextElement) nextElement.classList.remove('active');
         if (previousElement) previousElement.classList.remove('active');
         (<HTMLElement>e.target).classList.add('active');
+        this.updateUserSettings(e);
+        this.model.saveSettings(this.modifiedUserSettings);
+    }
+
+    private updateUserSettings(e: Event): void {
+        const chosenUnit = <HTMLElement>e.target;
+        const chosenUnitType = <string>chosenUnit.dataset.title;
+        const chosenUnitValue = <string>chosenUnit.dataset.value;
+        this.modifiedUserSettings[chosenUnitType] = chosenUnitValue;
     }
 
     private navigate(e: Event): void {
