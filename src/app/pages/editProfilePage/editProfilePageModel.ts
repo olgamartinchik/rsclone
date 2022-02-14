@@ -1,6 +1,15 @@
+import storageManager from '../../services/storageManager';
+import { TSettings, TUser } from '../../services/types';
+
 class EditProfilePageModel {
-    getData() {
-        console.log('data is being loaded');
+    
+    
+    public getSettingsData(): TSettings | void {
+        return storageManager.getItem('userSettings', 'local');
+    }
+
+    public getUserData(): TUser | void {
+        return storageManager.getItem('user', 'local');
     }
 }
 

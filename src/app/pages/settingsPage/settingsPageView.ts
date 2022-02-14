@@ -61,7 +61,6 @@ class SettingsPageView {
     }
 
     private colorSelectedUnit(settings: TSettings): void {
-        console.log(settings);
         const units = <NodeListOf<HTMLElement>>this.rootNode.querySelectorAll('.unit-item');
         units.forEach((unit) => {
             if (unit.dataset.value === settings.heightUnit || unit.dataset.value === settings.weightUnit) {

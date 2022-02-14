@@ -3,7 +3,7 @@ import onboardingModel, { OnboardingModel } from './onboardingPageModel';
 import authManager from '../../services/authManager';
 import storageManager from '../../services/storageManager';
 import { Height, Weight, Colors, Coefficients, Goal, Message, WorkoutType } from '../../services/constants';
-import { TToken, TParameter } from '../../services/types';
+import { TToken, TParameter, TUser } from '../../services/types';
 
 class OnboardingPageController {
     private view: OnboardingPageView;
@@ -14,12 +14,12 @@ class OnboardingPageController {
 
     private block: number;
 
-    private birthday: string;
     
     private parameter: TParameter;
     private heightUnit: string;
     private weightUnit: string;
     private desiredWeightUnit: string;
+    private user: TUser;
 
     constructor() {
         this.view = new OnboardingPageView();
@@ -32,7 +32,6 @@ class OnboardingPageController {
             'How many weeks do you want to start with?',
         ];
         this.block = 0;
-        this.birthday = '';
         this.heightUnit = 'cm';
         this.weightUnit = 'kg';
         this.desiredWeightUnit = 'kg';
@@ -45,6 +44,10 @@ class OnboardingPageController {
             unit: '',
             value: '',
         }
+        this.user = {
+            userName: '',
+            email: '',
+        }
     }
 
     public createPage() {
@@ -53,12 +56,11 @@ class OnboardingPageController {
             authManager.navigate('/');
             return;
         }
-
-        this.birthday = this.model.dateOfBirth;
+        this.user = <TUser>this.model.getUserData();
+        
         this.view.render(
             this.blocks[this.block],
             this.model.settings,
-            this.birthday,
             this.handleValueSelect.bind(this),
             this.handleRangeSliderInput.bind(this),
             this.handleInputChange.bind(this),
@@ -96,8 +98,7 @@ class OnboardingPageController {
     private handleDayBirthSelect(e: Event): void {
         const currentTarget = <HTMLElement>e.currentTarget;
         const calenderInput = <HTMLInputElement>currentTarget.children.namedItem('datepicker');
-        this.birthday = calenderInput.value;
-        storageManager.addItem('birthday', this.birthday, 'local');
+        storageManager.addItem('user', this.user, 'local');
         const age = this.model.calculateAge(calenderInput.value);
         this.model.changeHandler({ age: age });
     }
@@ -350,7 +351,7 @@ class OnboardingPageController {
         e.preventDefault();
 
         if (this.blocks[this.block] === 'About you') {
-            if (this.model.settings.height === 0 || this.model.settings.weight === 0 || this.birthday === '') {
+            if (this.model.settings.height === 0 || this.model.settings.weight === 0 || this.model.settings.birthday === '') {
                 this.createMessage(Message.valueMissing);
                 return;
             }

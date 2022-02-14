@@ -35,7 +35,6 @@ class OnboardingPageView {
     render(
         block: string,
         settings: TSettings,
-        birthday: string,
         onselect: (e: Event) => void,
         oninput: (e: Event) => void,
         onchange: (e: Event) => void,
@@ -52,7 +51,7 @@ class OnboardingPageView {
         form.setAttribute('action', '#');
         form.setAttribute('method', 'post');
 
-        this.renderForm(block, form, settings, birthday, onselect, oninput, onchange, onclick, onBackClick);
+        this.renderForm(block, form, settings, onselect, oninput, onchange, onclick, onBackClick);
 
         this.rootNode.append(Footer.getTemplate());
     }
@@ -61,7 +60,6 @@ class OnboardingPageView {
         block: string,
         form: HTMLElement,
         settings: TSettings,
-        birthday: string,
         onselect: (e: Event) => void,
         oninput: (e: Event) => void,
         onchange: (e: Event) => void,
@@ -72,7 +70,7 @@ class OnboardingPageView {
 
         switch (block) {
             case 'About you':
-                this.renderAboutBlock(form, settings, birthday, onselect, oninput, onchange);
+                this.renderAboutBlock(form, settings, onselect, oninput, onchange);
                 break;
             case `What's your goal?`:
                 this.renderGoalsBlock(form, settings, onselect, oninput, onchange);
@@ -100,7 +98,6 @@ class OnboardingPageView {
     private renderAboutBlock(
         form: HTMLElement,
         settings: TSettings,
-        birthday: string,
         onselect: (e: Event) => void,
         oninput: (e: Event) => void,
         onchange: (e: Event) => void
@@ -109,7 +106,7 @@ class OnboardingPageView {
         this.colorSelectedOption(settings, 'gender');
 
         form.append(Calender.getTemplate(onselect));
-        (<HTMLInputElement>document.querySelector('.datepicker')).value = birthday;
+        (<HTMLInputElement>document.querySelector('.datepicker')).value = settings.birthday;
         this.materializeHandler.initDatePicker();
 
         form.append(

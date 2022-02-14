@@ -188,7 +188,7 @@ class ClientManager {
         try {
             const formData = new FormData()
             formData.append('file', file)
-            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/auth/avatar/${id}`, {
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/avatar/${id}`, {
                 method: 'POST',
                 body: formData,
             });
@@ -203,7 +203,7 @@ class ClientManager {
         try {
             const formData = new FormData()
             formData.append('file', file)
-            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/auth/avatar/${id}`, {
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/avatar/${id}`, {
                 method: 'DELETE'
             });
             

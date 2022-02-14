@@ -31,7 +31,6 @@ export class AuthModel {
         if (authData.userName || authData.userName === '') this.form.userName = authData.userName;
         if (authData.email || authData.email === '') this.form.email = authData.email;
         if (authData.password || authData.password === '') this.form.password = authData.password;
-        console.log(this.form);
     }
 
     public checkUserData(isLogin: boolean): void {

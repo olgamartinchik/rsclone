@@ -58,8 +58,10 @@
   color: $color-text-navbar;
 }
 
-.edit-profile .btn-large {
-  width: 130px;
+.edit-profile {
+  .btn-large {
+    width: 130px;
+  }
 }
 
 .settings-wrapper.editprofile {

@@ -86,12 +86,13 @@ export default class NavBar {
 
     generateProfileIcon(parentNode: HTMLElement, user: string): void {
         const avatar = (<TToken>storageManager.getItem('token', 'local')).avatar;
+        const userId = (<TToken>storageManager.getItem('token', 'local')).userID;
         
         const iconContainer = new Node(parentNode, 'div', 'icon-container');
         const profileIcon = new Node(iconContainer.node, 'span', 'profile');
         
         if (avatar) {
-            profileIcon.node.style.backgroundImage = `url(${avatar})`;
+            profileIcon.node.style.backgroundImage = `url(https://rsclonebackend.herokuapp.com/api/avatar/${userId})`;
         } else {
             profileIcon.node.innerHTML = `${user}`;
         }

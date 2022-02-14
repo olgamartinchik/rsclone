@@ -44,10 +44,17 @@ export class AvatarManager {
       }
   }
 
-  public formAvatarSrc(): string {
+  public formAvatarSrc(userId: string): string {
     const avatar = (<TToken>storageManager.getItem('token', 'local')).avatar;
-    const gender = (<TSettings>storageManager.getItem('userSettings', 'local')).gender;
+    const defaultAvatar = this.chooseDefaultAvatar();
+    const src = (avatar) ? `https://rsclonebackend.herokuapp.com/api/avatar/${userId}` : defaultAvatar;   
+
+    return src;
+  }
+
+  public chooseDefaultAvatar(): string {
     let defaultAvatar = '';
+    const gender = (<TSettings>storageManager.getItem('userSettings', 'local')).gender;
 
     if (gender === 'female') {
         defaultAvatar = '../../../assets/img/avatar/female-avatar.png';
@@ -55,11 +62,9 @@ export class AvatarManager {
         defaultAvatar = '../../../assets/img/avatar/male-avatar.png';
     } else if (gender === 'other') {
         defaultAvatar = '../../../assets/img/avatar/other-avatar.png';
-    }  
-    
-    const src = (avatar) ? avatar : defaultAvatar;   
+    }
 
-    return src;
+    return defaultAvatar;  
   }
 
   public async updateUserInfo(file: File): Promise<void> {
@@ -74,7 +79,6 @@ export class AvatarManager {
       const userData = <TToken>storageManager.getItem('token', 'local');
       const userId = (<TToken>storageManager.getItem('token', 'local')).userID;
       userData.avatar = null;
-      console.log(userData);
       await this.clientManager.deleteAvatar(file, userId);
       storageManager.addItem('token', userData, 'local');
   }

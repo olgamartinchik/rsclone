@@ -33,10 +33,11 @@ class ProfilePageView {
         this.caloriesBurned = 0;
     }
 
-    public render(onchange: (e: Event) => void, onclick: (e: Event) => void) {
+    public async render(onchange: (e: Event) => void, onclick: (e: Event) => void) {
         this.rootNode.textContent = '';
         this.getData();
-        const src = avatarManager.formAvatarSrc();
+        const userId = (<TToken>storageManager.getItem('token', 'local')).userID;
+        const src = avatarManager.formAvatarSrc(userId);
 
         this.createHeader();
         this.createProfileHeader(src);
@@ -60,9 +61,8 @@ class ProfilePageView {
     }
 
     public createProfileHeader(src: string): void {
-        const avatar = (<TToken>storageManager.getItem('token', 'local')).avatar;
         this.rootNode.append(profile.getTemplate(this.userName, src, this.badges, this.badgesActivated ,this.completedWorkouts, this.caloriesBurned));
-        if (avatar) avatarManager.toggleEditIcon();
+        if (src) avatarManager.toggleEditIcon();
         this.colorStatistics();
     }
 

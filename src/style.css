@@ -16769,6 +16769,12 @@ input {
   width: 75px;
 }
 
+.settings-wrapper .input-group .value,
+.settings-wrapper .input-group .value input {
+  color: #666;
+  font-size: 18px;
+}
+
 input[type=text].datepicker {
   margin-bottom: 0;
   color: #666;

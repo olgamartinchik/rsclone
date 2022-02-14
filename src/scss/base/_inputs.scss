@@ -33,6 +33,12 @@ input {
     }
 }
 
+.settings-wrapper .input-group .value,
+.settings-wrapper .input-group .value input {
+    color: $color-text-navbar;
+    font-size: 18px;
+} 
+
 input[type='text'].datepicker {
     margin-bottom: 0;
     color: $color-text-navbar;

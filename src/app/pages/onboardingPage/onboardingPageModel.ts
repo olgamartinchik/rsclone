@@ -1,8 +1,7 @@
-import { TSettings } from '../../services/types';
 import StorageManager from '../../services/storageManager';
 import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';
-import { TToken, TConvertedValues } from '../../services/types';
+import { TToken, TConvertedValues, TSettings, TUser } from '../../services/types';
 import {
     Goal,
     Gender,
@@ -13,11 +12,10 @@ import {
     Weight,
 } from '../../services/constants';
 import UserDataManager from '../../services/userDataManager';
+import storageManager from '../../services/storageManager';
 
 export class OnboardingModel {
     private form: TSettings;
-
-    private birthday: string;
     
     private converted: TConvertedValues;
     
@@ -25,6 +23,7 @@ export class OnboardingModel {
     constructor() {
         this.form = {
             userId: '',
+            birthday: '',
             startDate: Date.now().toString(),
             goal: Goal.muscle,
             weight: 0,
@@ -42,12 +41,15 @@ export class OnboardingModel {
             completedWorkouts: 0,
             liked: [],
         };
-        this.birthday = '';
         this.converted = {
             height: 0,
             weight: 0,
             desiredWeight: 0,
         }
+    }
+
+    public getUserData(): TUser | void {
+        return storageManager.getItem('user', 'local');
     }
 
     public changeHandler(...args: Array<Partial<TSettings>>) {
@@ -82,7 +84,7 @@ export class OnboardingModel {
     }
 
     public calculateAge(dateOfBirth: string): number {
-        this.birthday = dateOfBirth;
+        this.form.birthday = dateOfBirth;
         const date = new Date();
         const currentDay = date.getDate();
         const currentMonth = date.getMonth();
@@ -122,15 +124,11 @@ export class OnboardingModel {
         this.form.weightUnit = Weight.units;
         this.form.completedWorkouts = 0;
         this.form.liked = [];
-        this.birthday = '';
+        this.form.birthday = '';
     }
 
     public get settings(): TSettings {
         return this.form;
-    }
-
-    public get dateOfBirth(): string {
-        return this.birthday;
     }
 
     public get convertedValues(): TConvertedValues {

@@ -32,7 +32,7 @@ class ProfilePageController {
         await avatarManager.deleteAvatar(this.files[0]);
 
         const avatarImg = <HTMLImageElement>document.querySelector('.profile-avatar');
-        const src = avatarManager.formAvatarSrc();
+        const src = avatarManager.chooseDefaultAvatar();
         avatarImg.src = src;
         avatarManager.toggleEditIcon();
     }
