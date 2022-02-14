@@ -79,6 +79,21 @@
     margin-right: 28px;
     width: calc(100% - 262px);
     min-width: calc(100% - 262px);
+
+    .meal-card-container {
+        .title-meal {
+            opacity: 0.8;
+        }
+        .day-meals {
+            padding: 30px 13px;
+        }
+        .meal-card,
+        .card {
+            max-width: 100%;
+            width: 340px;
+        }
+    }
+    
 }
 
 .content-block {
@@ -143,6 +158,7 @@
 }
 
 .program-card {
+    min-width: 370px;
     width: 370px;
     height: 300px;
     margin-right: 25px;
@@ -178,7 +194,7 @@
         overflow: hidden;
         margin: 0 auto;
         background-image: url('../../assets/img/workout1.jpg');
-        background-size: 100%;
+        background-size: cover;
         background-position: 50%;
         background-repeat: no-repeat;
         border-radius: 10px;
@@ -339,10 +355,87 @@ span.bold-text {
     .main-content {
         flex-direction: column-reverse;
         .container-stat {
+            padding: 26px 0 0;
             max-width: 100%;
+            background-color: transparent;
+            .content-block {
+                background-color: transparent;
+            }
+            .title-block {
+                height: 58px;
+                background-color: rgba(207, 90, 115, 0.6);
+                border-radius: 10px;
+                border: 1px solid #bf5567;
+                .material-icons {
+                    position: absolute;
+                    top: 25%;
+                    right: 3%;
+                    color: $color-text-on-dark;
+                }
+            }
             .summary-block {
+                height: 0;
                 grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(2, 1fr);
+                grid-template-rows: repeat(1, 1fr);
+                background-color: transparent;
+                &-item {
+                    height: 0;
+                    pointer-events: none;
+                    &:nth-of-type(odd) {
+                        border: none;
+                    }
+                    &:nth-of-type(1),
+                    &:nth-of-type(2) {
+                        margin-top: -63px;
+                        border-bottom: none;
+                    }
+                    &:nth-of-type(3),
+                    &:nth-of-type(4) {
+                        display: none;
+                        border-bottom: none;
+                    }
+                    &:nth-of-type(1) {
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            top: 25%;
+                            left: 50%;
+                            width: 1px;
+                            height: 30px;
+                            background-color: #bf5567;
+                        }
+                    }
+                }
+                &-info {
+                    height: 0;
+                    flex-direction: row;
+                    display: grid;
+                    grid-auto-flow: column;
+                    grid-template-areas:
+                        "A B"
+                        "A C";
+                    margin-right: 13px;
+                    grid-gap: 8px;
+                    .icon {
+                        margin: 0;
+                        width: 35px;
+                        height: 35px;
+                        grid-area: A;
+                    }
+                }
+                &-title,
+                &-text {
+                    font-size: 14px;
+                    color: $color-text-on-dark;
+                }
+                &-title {
+                    margin: 0;
+                    grid-area: B;
+                }
+                &-text {
+                    grid-area: C;
+                    font-size: 12px;
+                }
             }
         }
     }
@@ -354,8 +447,10 @@ span.bold-text {
     }
 
     .program-card {
+        min-width: 295px;
         width: 295px;
         height: 270px;
+        max-width: 100%;
         .card-info.description {
             justify-content: space-between;
         }
@@ -376,5 +471,105 @@ span.bold-text {
 
     .program-card .card-info {
         justify-content: center;
+        .parameters {
+            &:nth-child(1) {
+                grid-area: A;
+            }
+            .separator {
+                visibility: hidden;
+                pointer-events: none;
+                grid-area: B;
+            }
+            .right-space {
+                grid-area: C;
+            }
+            align-items: center;
+            margin-right: 6px;
+            display: grid;
+            grid-template-areas:
+                "A B B B"
+                "C D E F";
+            .middle-dot {
+                margin: 1px;
+                &:nth-of-type(1) {
+                    grid-area: D;
+
+                }
+                &:nth-of-type(2) {
+                    grid-area: E;
+
+                }
+                &:nth-of-type(3) {
+                    grid-area: F;
+
+                }
+            }
+        }
+        .btn-large {
+            font-size: 12px
+        }
+        .btn-completed {
+            .material-icons {
+                display: none;
+            }
+        }
+    }
+
+    .separator {
+        margin: 0 4px;
+    }
+
+    .left-block .meal-section {
+        .meal-card .card {
+            width: 295px;
+            max-width: 100%;
+        }
+        .day-meals {
+            gap: 20px;
+        }
+        .meal-card-container {
+            padding: 0 8px 0;
+        }
+    } 
+
+    .meal-card-container .title-meal {
+        font-size: 16px;
+        line-height: 16px;
+    }
+}
+
+@media (max-width: 356px) {
+    .program-card {
+        min-width: auto;
+    }
+    .main-content .container-stat .summary-block-info .icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .left-block {
+        min-width: 100%;
+        .meal-section {
+            .day-meals {
+                gap: 20px;
+            }
+            .meal-card .card {
+                width: 250px;
+            }
+        }
+
+        .meal-card-container {
+            padding: 0 8px 20px;
+            .subtitle-day-meal {
+                font-size: 14px;
+            }
+        }
+    }
+    .program-card .card-info {
+        .btn-completed {
+            .material-icons {
+                display: none;
+            }
+        }
     }
 }
