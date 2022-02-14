@@ -11,7 +11,7 @@ class EditProfilePageController {
     }
 
     public createPage() {
-        this.view.render(this.handleAvatarChange.bind(this), this.handleCalenderClick.bind(this));
+        this.view.render(this.handleAvatarChange.bind(this), this.handleAvatarDelete.bind(this), this.handleCalenderClick.bind(this));
     }
 
     private handleAvatarChange(e: Event): void {
@@ -22,34 +22,20 @@ class EditProfilePageController {
         }
 
         this.files = avatarManager.getAvatarFile(clickedElement);
-        avatarManager.toggleEditIcon(clickedElement);
-        this.handleAvatarDelete(clickedElement);
+        avatarManager.toggleEditIcon();
     }
 
-    private toggleEditIcon(element: HTMLElement): void {
-        const editIcon = <HTMLElement>(<HTMLElement>element.nextElementSibling).querySelector('.icon-upload');
-        if (editIcon && editIcon.className.includes('pencil')) {
-            editIcon.className = 'icon-upload icon delete modal-trigger';
-            editIcon.setAttribute('data-target', 'modal7');
-        } else {
-            editIcon.className = 'icon-upload icon pencil';
-            editIcon.removeAttribute('data-target');
-        }
+    private handleAvatarDelete(): void { 
+        this.deleteAvatar();
     }
 
-    private handleAvatarDelete(element: HTMLElement): void {
-        const agreeToDeleteBtn = <HTMLElement>document.querySelector('.modal-close');
-        if (agreeToDeleteBtn) {
-            agreeToDeleteBtn.onclick = () => this.deleteAvatar(element);
-        }
-    }
+    private async deleteAvatar(): Promise<void> {
+        await avatarManager.deleteAvatar(this.files[0]);
 
-    private deleteAvatar(element: HTMLElement): void {
         const avatarImg = <HTMLImageElement>document.querySelector('.profile-avatar');
         const src = avatarManager.formAvatarSrc();
         avatarImg.src = src;
-        this.toggleEditIcon(element);
-        avatarManager.deleteAvatar(this.files[0]);
+        avatarManager.toggleEditIcon();
     }
 
     private handleCalenderClick(): void {

@@ -32,8 +32,9 @@ export class AvatarManager {
     return this.files;    
   }
 
-  public toggleEditIcon(element: HTMLElement): void {
-      const editIcon = <HTMLElement>(<HTMLElement>element.nextElementSibling).querySelector('.icon-upload');
+  public toggleEditIcon(): void {
+      const editIcon = <HTMLElement>document.querySelector('.icon-upload');
+      
       if (editIcon && editIcon.className.includes('pencil')) {
           editIcon.className = 'icon-upload icon delete modal-trigger';
           editIcon.setAttribute('data-target', 'modal7');
@@ -69,11 +70,12 @@ export class AvatarManager {
     storageManager.addItem('token', userData, 'local');
   }
 
-  public deleteAvatar(file: File) {
+  public async deleteAvatar(file: File) {
       const userData = <TToken>storageManager.getItem('token', 'local');
-      const userId = (<TToken>storageManager.getItem('token', 'local')).userID
+      const userId = (<TToken>storageManager.getItem('token', 'local')).userID;
       userData.avatar = null;
-      this.clientManager.deleteAvatar(file);
+      console.log(userData);
+      await this.clientManager.deleteAvatar(file, userId);
       storageManager.addItem('token', userData, 'local');
   }
 }

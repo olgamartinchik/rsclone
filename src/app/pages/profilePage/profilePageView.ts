@@ -33,7 +33,7 @@ class ProfilePageView {
         this.caloriesBurned = 0;
     }
 
-    public render(onchange: (e: Event) => void) {
+    public render(onchange: (e: Event) => void, onclick: (e: Event) => void) {
         this.rootNode.textContent = '';
         this.getData();
         const src = avatarManager.formAvatarSrc();
@@ -42,7 +42,7 @@ class ProfilePageView {
         this.createProfileHeader(src);
         this.createFooter();
 
-        this.addEvents(onchange);
+        this.addEvents(onchange, onclick);
         this.materializeHandler.initModal();
     }
 
@@ -60,7 +60,9 @@ class ProfilePageView {
     }
 
     public createProfileHeader(src: string): void {
+        const avatar = (<TToken>storageManager.getItem('token', 'local')).avatar;
         this.rootNode.append(profile.getTemplate(this.userName, src, this.badges, this.badgesActivated ,this.completedWorkouts, this.caloriesBurned));
+        if (avatar) avatarManager.toggleEditIcon();
         this.colorStatistics();
     }
 
@@ -86,9 +88,14 @@ class ProfilePageView {
         this.badgesActivated = (<TSettings>storageManager.getItem('userSettings', 'local')).badges;
     }
 
-    private addEvents(onchange: (e: Event) => void): void {
+    private addEvents(onchange: (e: Event) => void, onclick: (e: Event) => void): void {
         const fileInput = <HTMLInputElement>this.rootNode.querySelector('#avatar');
         if (fileInput) fileInput.onchange = (e: Event) => onchange(e);
+
+        const agreeToDeleteBtn = <HTMLElement>document.querySelector('.modal-close');
+        if (agreeToDeleteBtn) {
+            agreeToDeleteBtn.onclick = (e: Event) => onclick(e);
+        }
     }
 }
 

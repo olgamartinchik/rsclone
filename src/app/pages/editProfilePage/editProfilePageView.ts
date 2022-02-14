@@ -25,7 +25,7 @@ class EditProfilePageView {
         this.userName = '';
     }
 
-    render(onchange: (e: Event) => void, onclickCalender: (e: Event) => void) {
+    render(onchange: (e: Event) => void, onclick: (e: Event) => void, onclickCalender: (e: Event) => void) {
         this.rootNode.textContent = '';
         this.getData();
         const src = avatarManager.formAvatarSrc();
@@ -35,7 +35,7 @@ class EditProfilePageView {
         this.createContentForm(onclickCalender);
         this.createFooter();
 
-        this.addEvents(onchange);
+        this.addEvents(onchange, onclick);
         this.initMaterialize();
     }
 
@@ -131,9 +131,14 @@ class EditProfilePageView {
         this.userName = <string>storageManager.getItem('user', 'local');
     }
 
-    private addEvents(onchange: (e: Event) => void): void {
+    private addEvents(onchange: (e: Event) => void, onclick: (e: Event) => void): void {
         const fileInput = <HTMLInputElement>this.rootNode.querySelector('#avatar');
         if (fileInput) fileInput.onchange = (e: Event) => onchange(e);
+
+        const agreeToDeleteBtn = <HTMLElement>document.querySelector('.modal-close');
+        if (agreeToDeleteBtn) {
+            agreeToDeleteBtn.onclick = (e: Event) => onclick(e);
+        }
     }
 
     private initMaterialize(): void {

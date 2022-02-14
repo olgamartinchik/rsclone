@@ -199,14 +199,14 @@ class ClientManager {
         }
     }
 
-    public async deleteAvatar(file: File) {
+    public async deleteAvatar(file: File, id: string) {
         try {
             const formData = new FormData()
             formData.append('file', file)
-            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/`, {
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/auth/avatar/${id}`, {
                 method: 'DELETE'
             });
-
+            
             return await res.json();
         } catch (e: unknown) {
             this.handleError(e);
