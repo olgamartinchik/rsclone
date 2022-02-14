@@ -221,6 +221,7 @@ class OnboardingPageView {
         
         value.value = this.getConvertedValue(type).toString();
         this.getUnits(settings);
+        this.getSliderValue(settings);
         elementsWrapper.style.color = Colors.textOnLight;
         input.style.color = Colors.textOnLight;
     }
@@ -257,6 +258,24 @@ class OnboardingPageView {
              }
         });
 
+    }
+
+    private getSliderValue(settings: TSettings): void {
+        const sliders = <NodeListOf<HTMLInputElement>>document.querySelectorAll('#play-bar');
+        sliders.forEach((slider) => {
+            switch (slider.dataset.type) {
+                case 'height':
+                    slider.value = settings.height.toString();
+                    break;
+                case 'weight':
+                    slider.value = settings.weight.toString();
+                    break;
+                case 'desiredWeight':
+                    slider.value = settings.desiredWeight.toString();
+                    break;
+
+            }
+        });
     }
 
     private colorActiveUnit(settings: TSettings) {

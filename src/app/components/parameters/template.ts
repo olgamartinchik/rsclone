@@ -23,7 +23,7 @@ export function paramsTemplate(
     </div>
     <div class="range">
         <p class="range-field">
-            <input type="range" id="play-bar" step="1" value=${min} min=${min} max=${max} data-${dataAttribute}/>
+            <input type="range" id="play-bar" step="1" value=${min} min=${min} max=${max} data-${dataAttribute} data-type="${dataAttribute}"/>
         </p>
     </div>
   </div>

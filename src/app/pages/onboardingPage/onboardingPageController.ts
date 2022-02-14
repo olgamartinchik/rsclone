@@ -97,6 +97,7 @@ class OnboardingPageController {
         const currentTarget = <HTMLElement>e.currentTarget;
         const calenderInput = <HTMLInputElement>currentTarget.children.namedItem('datepicker');
         this.birthday = calenderInput.value;
+        storageManager.addItem('birthday', this.birthday, 'local');
         const age = this.model.calculateAge(calenderInput.value);
         this.model.changeHandler({ age: age });
     }
@@ -273,6 +274,7 @@ class OnboardingPageController {
         const slider = <HTMLInputElement>e.target;
         const valueInput = <HTMLInputElement>inputGroup.querySelector('.value-select');
         const valueGroup = <HTMLElement>inputGroup.querySelector('.value');
+
         this.model.saveConvertedValues({ [parametersType]: parseInt(this.parameter.value) });
         this.getConvertedValues(slider);
         valueInput.value = this.parameter.value;
@@ -358,7 +360,7 @@ class OnboardingPageController {
             if (this.model.settings.desiredWeight >= this.model.settings.weight) {
                 this.updateDesiredWeight();
                 return;
-            } else if (this.model.settings.desiredWeight === 0) {
+            } else if (this.model.settings.goal === Goal.weight && this.model.settings.desiredWeight === 0) {
                 this.createMessage(Message.valueMissing);
                 return;
             }
