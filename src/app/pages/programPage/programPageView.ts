@@ -84,7 +84,7 @@ class ProgramPageView {
     }
 
     private getCards(data: Card[], onclick: (e: Event) => void): void {
-        const cardElems = data.map((card) => card.getTemplate(onclick));
+        const cardElems = data.map((card: Card, index: number) => card.getTemplate(onclick, index));
 
         this.cardsWrapper = new Node(this.contentBlock.node, 'div', 'workout-list');
         this.cardsWrapper.node.append(...cardElems);

@@ -1,6 +1,6 @@
 import { TWorkout } from '../../services/types';
 
-export default function cardTemplate(data: TWorkout): string {
+export default function cardTemplate(data: TWorkout, index?: number): string {
     return `
     <h3 class="title card-title title-container">${data.title}</h3>
     <div class="image-container">

@@ -4,12 +4,13 @@
         justify-content: center;
         position: relative;
         background: top / cover no-repeat url('../../assets/trainings/08.webp');
+        animation: slide-up-main 0.5s ease-in forwards;
         &::before {
             content: '';
             height: 260px;
             width: 100%;
             position: absolute;
-            bottom: 8px;
+            bottom: 0;
             left: 0;
             background: linear-gradient(
                 180deg,
@@ -21,11 +22,12 @@
         &::after {
             content: '';
             height: 10px;
-            width: 100%;
+            width: 0;
             position: absolute;
             bottom: 0;
             left: 0;
             background: linear-gradient(270deg, #e03694, #f47253);
+            animation: line-grow 1s ease-in forwards;
         }
     }
     &-container {
@@ -99,6 +101,7 @@
         }
         &:hover {
             color: $color-primary;
+            transform: scale(1.08);
         }
     }
 

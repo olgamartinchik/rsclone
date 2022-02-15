@@ -26,8 +26,8 @@ class ProgramPageController {
     }
 
     public async createPage() {
-        const trainings = await this.model.getWeekTrainings();
         const settings = await this.model.getSettingsData();
+        const trainings = await this.model.getWeekTrainings(settings!);
         this.view.render(
             trainings,
             this.handleCardClick.bind(this),

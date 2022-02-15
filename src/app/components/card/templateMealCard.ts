@@ -4,7 +4,7 @@ export const userMealCardTemplate = function (data: IDataExplore, position: numb
     return `
     <div class="meal-card" data-num=${position} data-diet=${
         data.recipe.dietLabels
-    } data-mealType=${data.recipe.mealType![0].toString()}>
+    } data-mealType=${data.recipe.mealType![0].toString()} style="animation-delay: ${position / 10}s">
         <div class="col s12 m6">
             <div class="card">
                 <div class="card-image">
