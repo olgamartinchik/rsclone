@@ -4,6 +4,7 @@ import Header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 import storageManager from '../../services/storageManager';
+import animationManager, { Animation } from '../../services/animationManager';
 import MealPageView from '../mealPage/mealPageView';
 import { TUser } from '../../services/types';
 
@@ -13,12 +14,18 @@ class ProgramPageView {
     contentBlock!: Node<HTMLElement>;
 
     cardsWrapper!: Node<HTMLElement>;
+    
+    private animationManager: Animation;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
+        this.animationManager = animationManager;
     }
 
     render(data: Card[], onclick: (e: Event) => void, week: number): void {
+
+        this.animationManager.initPageTransition();
+
         this.rootNode.textContent = '';
         this.rootNode.append(Header.getTemplate());
         const user = <TUser>storageManager.getItem('user', 'local');
@@ -31,14 +38,17 @@ class ProgramPageView {
             'settings',
         ]);
         navbar.generateMenu(true, 'Program');
-        navbar.addProfileLink(user.name.split('')[0]);
+        navbar.addProfileLink(user.name.split('')[0]);   
 
         this.setContents(data, onclick, week);
+
         this.rootNode.append(Footer.getTemplate());
     }
 
     setContents(data: Card[], onclick: (e: Event) => void, week: number): void {
         const Program = new Node(this.rootNode, 'main', 'main-layout');
+        this.animationManager.initContentFadeout(Program.node);
+
         Node.setChild(Program.node, 'div', 'decorative');
         const contentWrapper = new Node(Program.node, 'div', 'main-content');
         const ProgramContent = new Node(contentWrapper.node, 'div', 'left-block');

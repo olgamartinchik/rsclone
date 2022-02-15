@@ -5,16 +5,20 @@ import settings from '../../components/settings/settings';
 import Node from '../../components/Node';
 import Button from '../../components/Button';
 import storageManager from '../../services/storageManager';
+import animationManager, { Animation } from '../../services/animationManager';
 import { TSettings, TUser } from '../../services/types';
 
 class SettingsPageView {
     private rootNode: HTMLElement;
+    private animationManager: Animation;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
+        this.animationManager = animationManager;
     }
 
     render(settings: TSettings, onclick: (e: Event) => void, onclickButton: (e: Event) => void): void {
+        // animationManager.initPageTransition();
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
         const user = <TUser>storageManager.getItem('user', 'local');
@@ -30,11 +34,12 @@ class SettingsPageView {
 
         this.createMainLayout(settings, onclick, onclickButton);
 
-        this.rootNode.append(footer.getTemplate());
+        this.createFooter();
     }
 
     private createMainLayout(settings: TSettings, onclick: (e: Event) => void, onclickButton: (e: Event) => void): void {
         const main = new Node(this.rootNode, 'main', 'main-layout');
+        // this.animationManager.initContentFadeout(main.node);
         const settingsWrapper = Node.setChild(main.node, 'div', 'settings-wrapper');
         Node.setChild(settingsWrapper, 'h2', 'title settings-title', 'Settings');
 
@@ -67,6 +72,12 @@ class SettingsPageView {
                 unit.classList.add('active');
             }
         })
+    }
+
+    private createFooter(): void {     
+        this.rootNode.append(footer.getTemplate());
+        // const footerLayout = <HTMLElement>this.rootNode.querySelector('footer');
+        // this.animationManager.initContentFadeout(footerLayout);
     }
 }
 

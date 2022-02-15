@@ -6,6 +6,7 @@ import modal from '../../components/modal/modal';
 import Node from '../../components/Node';
 import Button from '../../components/Button';
 import storageManager from '../../services/storageManager';
+import animationManager, { Animation } from '../../services/animationManager';
 import {
     GoalTitles,
     WorkoutsProgramDuration,
@@ -20,12 +21,16 @@ class EditPlanPageView {
 
     private materializeHandler: MaterializeHandler;
 
+    private animationManager: Animation;
+
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
         this.materializeHandler = new MaterializeHandler();
+        this.animationManager = animationManager;
     }
 
     public render(userSettings: TSettings | void, onchange: (e: Event) => void, onclick: (e: Event) => void): void {
+        this.animationManager.initPageTransition();
         this.rootNode.textContent = '';
 
         this.createHeader();
@@ -53,6 +58,7 @@ class EditPlanPageView {
         onclick: (e: Event) => void
     ): void {
         const main = new Node(this.rootNode, 'main', 'main-layout');
+        this.animationManager.initContentFadeout(main.node);
         this.insertDecorativeBlock(main.node);
         const editPlanWrapper = Node.setChild(main.node, 'div', 'settings-wrapper');
 
@@ -216,6 +222,8 @@ class EditPlanPageView {
 
     private createFooter(): void {
         this.rootNode.append(footer.getTemplate());
+        const footerLayout = <HTMLElement>this.rootNode.querySelector('footer');
+        this.animationManager.initContentFadeout(footerLayout);
     }
 }
 

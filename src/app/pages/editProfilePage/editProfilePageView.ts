@@ -10,6 +10,7 @@ import Button from '../../components/Button';
 import Preloader from '../../components/preloader/preloader';
 import avatarManager from '../../services/avatarManager';
 import storageManager from '../../services/storageManager';
+import animationManager, { Animation } from '../../services/animationManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
 import { TSettings, TUser, TToken } from '../../services/types';
 import { Height, Weight, ClassNames, Coefficients } from '../../services/constants';
@@ -19,15 +20,19 @@ class EditProfilePageView {
 
     private materializeHandler: MaterializeHandler;
 
+    private animationManager: Animation;
+
     private avatar: string | null | undefined;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
         this.materializeHandler = new MaterializeHandler();
+        this.animationManager = animationManager;
         this.avatar = '';
     }
 
     async render(settings: TSettings, userData: TUser, onchange: (e: Event) => void, onclick: (e: Event) => void, onchangeValue: (e: Event) => void, onchangeBirthday: (e: Event) => void, onchangeGender: (e: Event) => void, onclickSaveBtn: (e: Event) => void, onclickDeleteBtn: (e: Event) => void) {
+        this.animationManager.initPageTransition()
         this.rootNode.textContent = '';
         this.getData();
 
@@ -65,6 +70,7 @@ class EditProfilePageView {
 
     private createContentForm(settings: TSettings, userData: TUser, onchangeValue: (e: Event) => void, onchangeBirthday: (e: Event) => void, onchangeGender: (e: Event) => void, onclickSaveBtn: (e: Event) => void, onclickDeleteBtn: (e: Event) => void): void {
         const main = <HTMLElement>this.rootNode.querySelector('.main-layout');
+        this.animationManager.initContentFadeout(main);
         const profileInfoWrapper = new Node(main, 'div', 'settings-wrapper editprofile');
         profileInfoWrapper.append(profileItem.getTemplate('text','Name', userData.name, onchangeValue));
         profileInfoWrapper.append(profileItem.getTemplate('email','Email', userData.email, onchangeValue));
@@ -168,6 +174,8 @@ class EditProfilePageView {
 
     private createFooter(): void {     
         this.rootNode.append(footer.getTemplate());
+        const footerLayout = <HTMLElement>this.rootNode.querySelector('footer');
+        this.animationManager.initContentFadeout(footerLayout);
     }
 
     private addEvents(onchange: (e: Event) => void, onclick: (e: Event) => void, onDeleteAvatar: (e: Event) => void): void {

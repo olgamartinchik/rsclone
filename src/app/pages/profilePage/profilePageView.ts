@@ -5,6 +5,7 @@ import profile from '../../components/profile/profile';
 import storageManager from '../../services/storageManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
 import avatarManager from '../../services/avatarManager';
+import animationManager, { Animation } from '../../services/animationManager';
 import Utils from '../../services/utils';
 import { TBadge, TToken, TSettings, TUser } from '../../services/types';
 
@@ -25,6 +26,8 @@ class ProfilePageView {
     
     private avatar: string | null | undefined;
 
+    private animationManager: Animation;
+
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
         this.materializeHandler = new MaterializeHandler();
@@ -34,9 +37,11 @@ class ProfilePageView {
         this.completedWorkouts = 0;
         this.caloriesBurned = 0;
         this.avatar = '';
+        this.animationManager = animationManager;
     }
 
     public async render(onchange: (e: Event) => void, onclick: (e: Event) => void) {
+        // this.animationManager.initPageTransition();
         this.rootNode.textContent = '';
         this.getData();
         const userId = (<TToken>storageManager.getItem('token', 'local')).userID;
@@ -69,6 +74,8 @@ class ProfilePageView {
 
     public createProfileHeader(src: string): void {
         this.rootNode.append(profile.getTemplate(this.userName, src, this.badges, this.badgesActivated ,this.completedWorkouts, this.caloriesBurned));
+        // const main = <HTMLElement>this.rootNode.querySelector('main');
+        // this.animationManager.initContentFadeout(main);
         this.colorStatistics();
     }
 
@@ -85,6 +92,8 @@ class ProfilePageView {
          
     private createFooter(): void {     
         this.rootNode.append(footer.getTemplate());
+        // const footerLayout = <HTMLElement>this.rootNode.querySelector('footer');
+        // this.animationManager.initContentFadeout(footerLayout);
     }
 
     private getData(): void {
