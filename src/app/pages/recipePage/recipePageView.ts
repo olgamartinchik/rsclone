@@ -24,7 +24,7 @@ class RecipePageView {
             'settings',
         ]);
         navbar.generateMenu(true);
-        navbar.addProfileLink(user.userName.split('')[0]);
+        navbar.addProfileLink(user.name.split('')[0]);
 
         this.rootNode.insertAdjacentHTML('beforeend', this.createContentExplore());
         this.rootNode.append(footer.getTemplate());

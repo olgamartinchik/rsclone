@@ -21,7 +21,7 @@ export class AuthModel {
             password: '',
         };
         this.user = {
-            userName: '',
+            name: '',
             email: '',
         }
     }
@@ -78,7 +78,7 @@ export class AuthModel {
         this.isLoading = false;
         
         if (this.clientManager.result) {
-            this.user.userName = (<TLoginResponse>data).userName;
+            this.user.name = (<TLoginResponse>data).userName;
             this.user.email = (<TLoginResponse>data).email;
             await this.saveData(type);
             this.navigate(type);

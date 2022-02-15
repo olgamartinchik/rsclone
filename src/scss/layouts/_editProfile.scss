@@ -14,7 +14,9 @@
   align-items: center;
   flex-basis: 60%;
   height: 100%;
-  input[type=text]:not(.browser-default) {
+  input[type=text]:not(.browser-default),
+  input[type=email]:not(.browser-default),
+  input[type=password]:not(.browser-default) {
     width: 100%;
     height: 95%;
     box-sizing: border-box;

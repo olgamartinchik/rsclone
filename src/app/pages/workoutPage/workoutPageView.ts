@@ -28,7 +28,7 @@ class WorkoutPageView {
             'settings',
         ]);
         navbar.generateMenu(true);
-        navbar.addProfileLink(user.userName.split('')[0]);
+        navbar.addProfileLink(user.name.split('')[0]);
         this.createMainBlockLayout(card, startVideo);
 
         this.rootNode.append(footer.getTemplate());

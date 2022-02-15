@@ -2,16 +2,18 @@ import { profileInputItemTemplate, profileGenderItemTemplate, changePasswordTemp
 
 export class ProfileItem {
 
-  public getTemplate(title: string, text: string): HTMLElement {
+  public getTemplate(type: string, title: string, text: string, onchangeValue: (e: Event) => void): HTMLElement {
     const rootNode = document.createElement('div');
+    rootNode.onchange = (e: Event) => onchangeValue(e);
     rootNode.className = 'plan-item wrapper';
-    rootNode.insertAdjacentHTML('afterbegin', profileInputItemTemplate(title, text));
+    rootNode.insertAdjacentHTML('afterbegin', profileInputItemTemplate(type, title, text));
 
     return rootNode;
   }
 
-  public getGenderTemplate(title: string): HTMLElement {
+  public getGenderTemplate(title: string, onclick: (e: Event) => void): HTMLElement {
     const rootNode = document.createElement('div');
+    rootNode.onclick = (e: Event) => onclick(e);
     rootNode.className = 'plan-item wrapper';
     rootNode.insertAdjacentHTML('afterbegin', profileGenderItemTemplate(title));
 

@@ -45,7 +45,7 @@ class MealPageView {
             'settings',
         ]);
         navbar.generateMenu(true, 'Meal');
-        navbar.addProfileLink(user.userName.split('')[0]);
+        navbar.addProfileLink(user.name.split('')[0]);
         this.createContentMeal(exploreData, onclick, onchange, onclickBtn);
 
         this.rootNode.append(footer.getTemplate());

@@ -17,9 +17,16 @@ input {
     & .value {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin-right: 35px;
         width: 71px;
         color: $color-placeholder;
+        &.editprofile {
+            margin-right: 10px;
+            span {
+                flex-basis: 50%;
+            }
+        }
     }
     & > span.title {
         width: 130px;
@@ -191,6 +198,21 @@ select:-webkit-autofill:focus {
     box-shadow: 0 0 0px 1000px $color-autocomplete inset !important;
     -webkit-box-shadow: 0 0 0px 1000px $color-autocomplete inset !important;
     transition: background-color 5000s ease-in-out 0s !important;
+}
+
+.settings-wrapper.editprofile{
+    .input-group .value::placeholder,
+    input[type=text]:not(.browser-default)::placeholder,
+    input[type=email]:not(.browser-default)::placeholder,
+    input[type=password]:not(.browser-default)::placeholder {
+        color: $color-text-navbar;
+    }
+    .input-group .value:focus::placeholder,
+    input[type=text]:not(.browser-default):focus::placeholder,
+    input[type=email]:not(.browser-default):focus::placeholder,
+    input[type=password]:not(.browser-default):focus::placeholder {
+        opacity: 0;
+    }
 }
 
 @media (max-width: 400px) {

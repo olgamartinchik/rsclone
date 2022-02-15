@@ -45,7 +45,7 @@ class OnboardingPageController {
             value: '',
         }
         this.user = {
-            userName: '',
+            name: '',
             email: '',
         }
     }
@@ -98,7 +98,6 @@ class OnboardingPageController {
     private handleDayBirthSelect(e: Event): void {
         const currentTarget = <HTMLElement>e.currentTarget;
         const calenderInput = <HTMLInputElement>currentTarget.children.namedItem('datepicker');
-        storageManager.addItem('user', this.user, 'local');
         const age = this.model.calculateAge(calenderInput.value);
         this.model.changeHandler({ age: age });
     }
@@ -295,7 +294,6 @@ class OnboardingPageController {
 
         const weightChoiceBlock = <HTMLElement>document.querySelector('.input-group');
         const selectBlock = <HTMLElement>document.querySelector('.select-block');
-        console.log(this.parameter);
         if ((<HTMLElement>e.target).dataset.value === Goal.weight) {
             weightChoiceBlock.classList.remove('hidden');
             selectBlock.classList.add('active');

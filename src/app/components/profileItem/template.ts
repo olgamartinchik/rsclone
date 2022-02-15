@@ -1,8 +1,8 @@
-export function profileInputItemTemplate(title: string, text: string): string {
+export function profileInputItemTemplate(type: string, title: string, text: string): string {
   return `
   <p class="settings-link">${title}</p>
   <div class="profile-item-input">
-    <input type="text" value="${text}">
+    <input type="${type}" class="validate" placeholder="${text}" id="${title.toLowerCase()}" data-value="${title.toLowerCase()}">
   </div>
   `
 }

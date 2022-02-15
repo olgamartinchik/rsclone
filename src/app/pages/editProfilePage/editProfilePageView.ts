@@ -11,7 +11,7 @@ import storageManager from '../../services/storageManager';
 import avatarManager from '../../services/avatarManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
 import { TSettings, TUser } from '../../services/types';
-import { Height, Weight, ClassNames } from '../../services/constants';
+import { Height, Weight, ClassNames, Coefficients } from '../../services/constants';
 
 class EditProfilePageView {
     private rootNode: HTMLElement;
@@ -23,14 +23,16 @@ class EditProfilePageView {
         this.materializeHandler = new MaterializeHandler();
     }
 
-    async render(settings: TSettings, userData: TUser, onchange: (e: Event) => void, onclick: (e: Event) => void, onclickCalender: (e: Event) => void) {
+    async render(settings: TSettings, userData: TUser, onchange: (e: Event) => void, onclick: (e: Event) => void, onchangeValue: (e: Event) => void, onchangeBirthday: (e: Event) => void, onchangeGender: (e: Event) => void, onclickSaveBtn: (e: Event) => void, onclickDeleteBtn: (e: Event) => void) {
         this.rootNode.textContent = '';
 
+        const src = avatarManager.formAvatarSrc(settings.userId);
         this.createHeader(userData);
-        this.createContentHeader(`https://rsclonebackend.herokuapp.com/api/avatar/${settings.userId}`);
-        this.createContentForm(settings, userData, onclickCalender);
+        this.createContentHeader(src);
+        this.createContentForm(settings, userData, onchangeValue, onchangeBirthday, onchangeGender,onclickSaveBtn, onclickDeleteBtn);
         this.createFooter();
 
+        this.activateValidation();
         this.addEvents(onchange, onclick);
         this.initMaterialize();
     }
@@ -45,66 +47,52 @@ class EditProfilePageView {
             'settings',
         ]);
         navbar.generateMenu(true);
-        navbar.addProfileLink(userData.userName.split('')[0], false);
+        navbar.addProfileLink(userData.name.split('')[0], false);
     }
 
     private createContentHeader(src: string): void {
         this.rootNode.append(profile.getEditProfileTemplate(src));
     }
 
-    private createContentForm(settings: TSettings, userData: TUser,onclickCalender: (e: Event) => void): void {
+    private createContentForm(settings: TSettings, userData: TUser, onchangeValue: (e: Event) => void, onchangeBirthday: (e: Event) => void, onchangeGender: (e: Event) => void, onclickSaveBtn: (e: Event) => void, onclickDeleteBtn: (e: Event) => void): void {
         const main = <HTMLElement>this.rootNode.querySelector('.main-layout');
         const profileInfoWrapper = new Node(main, 'div', 'settings-wrapper editprofile');
-        profileInfoWrapper.append(profileItem.getTemplate('Name', userData.userName));
-        profileInfoWrapper.append(profileItem.getTemplate('Email', userData.email));
-        profileInfoWrapper.append(calender.getEditTemplate('Jan 01, 1990', onclickCalender));
+        profileInfoWrapper.append(profileItem.getTemplate('text','Name', userData.name, onchangeValue));
+        profileInfoWrapper.append(profileItem.getTemplate('email','Email', userData.email, onchangeValue));
+        profileInfoWrapper.append(calender.getEditTemplate(settings.birthday, onchangeBirthday));
         profileInfoWrapper.append(
-            parameters.getTemplate(
+            parameters.getShortTemplate(
                 ClassNames.editProfile,
                 Height.title,
-                Height.units,
-                Height.units2,
-                Height.option1,
-                Height.option2,
-                Height.min,
-                Height.max,
-                onclickCalender,
-                onclickCalender,
-                onclickCalender
+                onchangeValue,
             )
         );
         this.getParameters('height', settings);
 
         profileInfoWrapper.append(
-            parameters.getTemplate(
+            parameters.getShortTemplate(
                 ClassNames.editProfile,
                 Weight.title,
-                Weight.units,
-                Weight.units2,
-                Weight.option1,
-                Weight.option2,
-                Weight.min,
-                Weight.max,
-                onclickCalender,
-                onclickCalender,
-                onclickCalender
+                onchangeValue,
             )
         );
         this.getParameters('weight', settings);
+        this.getUnits(settings);
 
-        profileInfoWrapper.append(profileItem.getGenderTemplate('Gender'));
+        profileInfoWrapper.append(profileItem.getGenderTemplate('Gender', onchangeGender));
         this.colorSelectedGender(settings);
         profileInfoWrapper.append(profileItem.getConfirmPasswordTemplate('Password'));
 
         const buttonWrapper = Node.setChild(profileInfoWrapper.node, 'div', 'btn-wrapper edit-profile');
         const saveButton = new Button(buttonWrapper, 'Save');
-        saveButton.onclick(onclickCalender);
+        saveButton.addClass('btn-save');
+        saveButton.onclick(onclickSaveBtn);
         saveButton.setDisabled();
 
         const deleteButton = new Button(buttonWrapper, 'Delete');
         deleteButton.addAttribute('data-target', 'modal10')
         deleteButton.addClass('modal-trigger');
-        deleteButton.onclick(onclickCalender);
+        deleteButton.onclick(onclickDeleteBtn);
 
         buttonWrapper.insertAdjacentHTML('beforeend', this.addModal());
     }
@@ -119,11 +107,30 @@ class EditProfilePageView {
     }
 
     private getParameters(type: string, settings: TSettings): void {
-        const valueInputs = <NodeListOf<HTMLInputElement>>this.rootNode.querySelectorAll('.value-select');
-        valueInputs.forEach((valueInput) => {
-            if (valueInput.dataset.value === type) {
-                valueInput.value = settings[type];
-            } 
+        const input = <HTMLInputElement>document.querySelectorAll(`[data-${type}]`)[1];
+        switch(type) {
+            case 'height':
+                if(settings.heightUnit === Height.units) {
+                    input.placeholder = settings[type].toString();
+                } else {
+                    input.placeholder = Math.round(settings.height / Coefficients.toCentimeters).toString();
+                }
+                break;
+            case 'weight':
+                if(settings.weightUnit === Weight.units) {
+                    input.placeholder = settings[type].toString();
+                } else {
+                    input.placeholder = Math.round(settings.weight * Coefficients.toPounds).toString();
+                }
+                break;
+        }
+    }
+
+    private getUnits(settings: TSettings): void {
+        const units = <NodeListOf<HTMLInputElement>>this.rootNode.querySelectorAll('.value > span');
+        units.forEach((unit) => {
+            const key = <string>unit.dataset.title;
+            unit.textContent = settings[key];
         });
     }
 
@@ -138,6 +145,13 @@ class EditProfilePageView {
         </div>
       </div>
         `
+    }
+
+    private activateValidation(): void {
+        const nameInput = <HTMLInputElement>this.rootNode.querySelector(`#name`);
+        const emailInput = <HTMLInputElement>this.rootNode.querySelector('#email');
+        if (nameInput) nameInput.setAttribute('pattern', '^[a-zA-Zа-яА-Я].*');
+        if (emailInput) emailInput.setAttribute('pattern', '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}');
     }
 
     private createFooter(): void {     

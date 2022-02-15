@@ -1,7 +1,9 @@
 import EditProfilePageView from './editProfilePageView';
 import EditProfilePageModel from './editProfilePageModel';
 import avatarManager from '../../services/avatarManager';
+import Utils from '../../services/utils';
 import { TSettings, TUser } from '../../services/types';
+import { Height, Weight, Coefficients, Message } from '../../services/constants';
 
 class EditProfilePageController {
     private view: EditProfilePageView;
@@ -27,7 +29,7 @@ class EditProfilePageController {
         this.user = <TUser>this.model.getUserData();
         this.modifiedUserSettings = this.getModifiedUserSettings();
         this.modifiedUser = this.getModifiedUser();
-        this.view.render(this.settings, this.user, this.handleAvatarChange.bind(this), this.handleAvatarDelete.bind(this), this.handleCalenderClick.bind(this));
+        this.view.render(this.settings, this.user, this.handleAvatarChange.bind(this), this.handleAvatarDelete.bind(this), this.handleInputValueChange.bind(this), this.handleBirthdayChange.bind(this), this.handleGenderSelect.bind(this), this.handleSaveBtnClick.bind(this), this.handleDeleteBtnClick.bind(this));
     }
 
     private getModifiedUserSettings(): TSettings | void {
@@ -62,7 +64,103 @@ class EditProfilePageController {
         avatarManager.toggleEditIcon();
     }
 
-    private handleCalenderClick(): void {
+    private handleInputValueChange(e: Event): void {
+        const settingValue = <HTMLInputElement>e.target;
+        const settingsType = <string>settingValue.dataset.value;
+        const settingsValueChosen = <string>settingValue.value;
+        this.handleValidation(settingsType, settingValue);
+        this.updateUserSettings(settingValue, settingsType, settingsValueChosen);
+    }
+
+    private updateUserSettings(element: HTMLInputElement, key: string, value: string): void {
+        if (key === 'height' || key === 'weight') {
+            switch(key) {
+                case 'height':
+                    if(this.settings['heightUnit'] === Height.units) {
+                        this.modifiedUserSettings[key] = value;
+                    } else {
+                        this.modifiedUserSettings[key] = Math.round(parseInt(value) * Coefficients.toCentimeters).toString();
+                    }
+                    break;
+                case 'weight':
+                    if(this.settings['weightUnit'] === Weight.units) {
+                        this.modifiedUserSettings[key] = value;
+                    } else {
+                        this.modifiedUserSettings[key] = Math.round(parseInt(value) / Coefficients.toPounds).toString();
+                    }
+                    break;
+            }
+        } else if (key === 'name' || key === 'email') {
+            if (element.validity.valid) {
+                this.modifiedUser[key] = value;
+            } else {
+                this.modifiedUser[key] = this.user[key];
+                element.value = '';
+                element.placeholder = this.user[key];
+            }
+        }
+        this.handleSaveButtonStatus();
+        console.log(this.modifiedUserSettings, this.modifiedUser);
+    }
+
+    private handleValidation(type: string, element: HTMLInputElement): void {
+        if (!element.validity.valid) {
+            switch (type) {
+                case 'name':
+                    this.model.createMessage(Message.invalidName);
+                    break;
+                case 'email':
+                    this.model.createMessage(Message.invalidValue);
+                    break;
+            }
+        }
+    }
+
+    private handleBirthdayChange(e: Event): void {
+        const currentTarget = <HTMLElement>e.currentTarget;
+        const calenderInput = <HTMLInputElement>currentTarget.querySelector('.datepicker');
+        const age = this.model.calculateAge(calenderInput.value);
+        this.modifiedUserSettings['age'] = age;
+        this.modifiedUserSettings['birthday'] = calenderInput.value;
+        this.handleSaveButtonStatus();
+        console.log(this.modifiedUserSettings);
+    }
+
+    private handleGenderSelect(e: Event): void {
+        this.selectValue(e);
+        const settingItem = <HTMLElement>e.target;
+        const settingTitle = <string>settingItem.dataset.title;
+        const settingValue = <string>settingItem.dataset.value;
+        this.modifiedUserSettings[settingTitle] = settingValue;
+        this.handleSaveButtonStatus();
+        console.log(this.modifiedUserSettings);
+    }
+
+    private selectValue(e: Event): void {
+        Array.from(<HTMLCollection>(<HTMLElement>(<HTMLElement>e.target).parentElement).children).forEach((element) => {
+            element.classList.remove('active');
+        });
+        (<HTMLElement>e.target).classList.add('active');
+    }
+
+    private handleSaveButtonStatus(): void {
+        const saveButton = <HTMLButtonElement>document.querySelector('.btn-save');
+        const haveSettingsChanged = !Utils.compareObjects(this.settings, this.modifiedUserSettings);
+        const hasUserInfoChanged = !Utils.compareObjects(this.user, this.modifiedUser);
+        if (haveSettingsChanged || hasUserInfoChanged) {
+            saveButton.classList.remove('btn-disabled');
+            saveButton.removeAttribute('disabled');
+        } else {
+            saveButton.className = 'waves-effect waves-light btn-large btn-disabled';
+            if (!saveButton.disabled) saveButton.setAttribute('disabled', 'disabled');
+        }
+    }
+
+    private handleSaveBtnClick(): void {
+
+    }
+
+    private handleDeleteBtnClick(): void {
         
     }
 }

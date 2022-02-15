@@ -29,7 +29,7 @@ class ExplorePageView {
             'settings',
         ]);
         navbar.generateMenu(true);
-        navbar.addProfileLink(user.userName.split('')[0]);
+        navbar.addProfileLink(user.name.split('')[0]);
 
         this.createContentExplore(diet);
         this.rootNode.append(footer.getTemplate());

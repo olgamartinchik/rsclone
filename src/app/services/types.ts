@@ -131,6 +131,6 @@ export type TParameter = {
 }
 
 export type TUser = {
-    userName: string;
+    name: string;
     email: string;
 }

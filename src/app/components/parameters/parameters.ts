@@ -1,4 +1,4 @@
-import { paramsTemplate } from './template';
+import { paramsTemplate, paramsShortTemplate } from './template';
 
 class Parameters {
     public getTemplate(
@@ -21,6 +21,20 @@ class Parameters {
         rootNode.onchange = (e: Event) => onchange(e);
         rootNode.insertAdjacentHTML('afterbegin', paramsTemplate(className, title, units, units2, option1, option2, min, max));
         (<HTMLInputElement>rootNode.querySelector('#play-bar')).oninput = (e: Event) => oninput(e);
+
+        return rootNode;
+    }
+
+    public getShortTemplate(
+        className: string,
+        title: string,
+        onchange: (e: Event) => void
+    ): HTMLElement {
+        const rootNode = document.createElement('div');
+        rootNode.className = 'input-group';
+        rootNode.id = title.split(' ').join('');
+        rootNode.onchange = (e: Event) => onchange(e);
+        rootNode.insertAdjacentHTML('afterbegin', paramsShortTemplate(className, title));
 
         return rootNode;
     }

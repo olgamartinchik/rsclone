@@ -29,3 +29,17 @@ export function paramsTemplate(
   </div>
   `;
 }
+
+export function paramsShortTemplate(
+    className: string,
+    title: string,
+): string {
+    const dataAttribute = title === 'desired Weight' ? 'desiredWeight' : title;
+    return `
+  <span class="${className}">${title}</span>
+  <span class="value editprofile" data-${dataAttribute}>
+      <input type="text" class="value-select" data-title="${dataAttribute}Unit" data-type='parameter' data-${dataAttribute} data-value=${dataAttribute}> 
+      <span data-title="${dataAttribute}Unit"></span>
+  </span>
+  `;
+}

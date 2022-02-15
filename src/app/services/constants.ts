@@ -58,7 +58,7 @@ export enum Message {
     valueMissing = 'Please, choose all values',
     invalidWeightValue = 'Please, select desired weight less than actual one',
     desiredWeightmissing = 'Please, choose desired weight',
-    invalidName = 'Please enter a valid name consisting only of letters',
+    invalidName = 'Please enter a valid name starting from letter',
     invalidPassword = 'Password should not be less than 6 symbols',
     invalidValue = 'Please enter a valid value',
 }
@@ -100,6 +100,7 @@ export enum Coefficients {
     toPounds = 2.20462262185,
     toCentimeters = 31,
     toKilograms = 0.45,
+    
 }
 
 export enum Endpoints {

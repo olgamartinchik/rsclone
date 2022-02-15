@@ -16531,7 +16531,9 @@ input:not([type]).select-dropdown {
   flex-basis: 60%;
   height: 100%;
 }
-.profile-item-input input[type=text]:not(.browser-default) {
+.profile-item-input input[type=text]:not(.browser-default),
+.profile-item-input input[type=email]:not(.browser-default),
+.profile-item-input input[type=password]:not(.browser-default) {
   width: 100%;
   height: 95%;
   box-sizing: border-box;
@@ -16540,7 +16542,9 @@ input:not([type]).select-dropdown {
   color: #666;
   font-size: 18px;
 }
-.profile-item-input input[type=text]:not(.browser-default)::placeholder {
+.profile-item-input input[type=text]:not(.browser-default)::placeholder,
+.profile-item-input input[type=email]:not(.browser-default)::placeholder,
+.profile-item-input input[type=password]:not(.browser-default)::placeholder {
   text-align: right;
 }
 
@@ -16754,9 +16758,16 @@ input {
 .input-group .value {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-right: 35px;
   width: 71px;
   color: #b4b4b4;
+}
+.input-group .value.editprofile {
+  margin-right: 10px;
+}
+.input-group .value.editprofile span {
+  flex-basis: 50%;
 }
 .input-group > span.title {
   width: 130px;
@@ -16927,6 +16938,19 @@ select:-webkit-autofill:focus {
   box-shadow: 0 0 0px 1000px rgba(120, 161, 217, 0.1) inset !important;
   -webkit-box-shadow: 0 0 0px 1000px rgba(120, 161, 217, 0.1) inset !important;
   transition: background-color 5000s ease-in-out 0s !important;
+}
+
+.settings-wrapper.editprofile .input-group .value::placeholder,
+.settings-wrapper.editprofile input[type=text]:not(.browser-default)::placeholder,
+.settings-wrapper.editprofile input[type=email]:not(.browser-default)::placeholder,
+.settings-wrapper.editprofile input[type=password]:not(.browser-default)::placeholder {
+  color: #666;
+}
+.settings-wrapper.editprofile .input-group .value:focus::placeholder,
+.settings-wrapper.editprofile input[type=text]:not(.browser-default):focus::placeholder,
+.settings-wrapper.editprofile input[type=email]:not(.browser-default):focus::placeholder,
+.settings-wrapper.editprofile input[type=password]:not(.browser-default):focus::placeholder {
+  opacity: 0;
 }
 
 @media (max-width: 400px) {

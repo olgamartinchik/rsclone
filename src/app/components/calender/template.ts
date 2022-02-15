@@ -10,7 +10,7 @@ export function editcalenderTemplate(text: string): string {
   return `
 <p class="settings-link">Birthday</p>
 <div class="profile-item-input">
-  <input type="text" class="datepicker" name="datepicker" value="${text}" autocomplete="off"/>
+  <input type="text" class="datepicker" name="datepicker" value="${text}" autocomplete="off" data-value="birthday"/>
   <span><i class="icon calendar"></i></span>
 </div>
 `;

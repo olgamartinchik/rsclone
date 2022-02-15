@@ -82,7 +82,7 @@ class ProfilePageView {
     }
 
     private getData(): void {
-        this.userName = (<TUser>storageManager.getItem('user', 'local')).userName;
+        this.userName = (<TUser>storageManager.getItem('user', 'local')).name;
         this.completedWorkouts = (<TSettings>storageManager.getItem('userSettings', 'local')).completedWorkouts;
         this.caloriesBurned = (<TSettings>storageManager.getItem('userSettings', 'local')).caloriesBurned;
         this.badgesActivated = (<TSettings>storageManager.getItem('userSettings', 'local')).badges;

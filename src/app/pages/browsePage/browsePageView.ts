@@ -25,7 +25,7 @@ class BrowsePageView {
             'settings',
         ]);
         navbar.generateMenu(true, 'Browse');
-        navbar.addProfileLink(user.userName.split('')[0]);
+        navbar.addProfileLink(user.name.split('')[0]);
         this.rootNode.insertAdjacentHTML(
             'beforeend',
             `<main class="main-layout"><span>This is Browse Page!</span></main>`
