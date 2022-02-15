@@ -55,7 +55,7 @@ export enum Id {
 
 export enum Message {
     registerSuccess = 'User created',
-    valueMissing = 'Please, choose all values',
+    valueMissing = 'Please, choose values',
     invalidWeightValue = 'Please, select desired weight less than actual one',
     desiredWeightmissing = 'Please, choose desired weight',
     invalidName = 'Please enter a valid name starting from letter',

@@ -1,6 +1,6 @@
 import ClientManager from "./clientManager";
 import storageManager from "./storageManager";
-import { TToken, TSettings } from "./types";
+import { TToken, TSettings, TUser } from "./types";
 
 export class AvatarManager {
   private clientManager: ClientManager;
@@ -28,20 +28,39 @@ export class AvatarManager {
         reader.readAsDataURL(file);
     });
     this.updateUserInfo(this.files[0]);
+    this.setDeleteIcon();
     
     return this.files;    
   }
 
-  public toggleEditIcon(): void {
-      const editIcon = <HTMLElement>document.querySelector('.icon-upload');
+  // public toggleEditIcon(): void {
+  //     const editIcon = <HTMLElement>document.querySelector('.icon-upload');
       
-      if (editIcon && editIcon.className.includes('pencil')) {
-          editIcon.className = 'icon-upload icon delete modal-trigger';
-          editIcon.setAttribute('data-target', 'modal7');
-      } else {
-          editIcon.className = 'icon-upload icon pencil';
-          editIcon.removeAttribute('data-target');
-      }
+  //     if (editIcon && editIcon.className.includes('pencil')) {
+  //         editIcon.className = 'icon-upload icon delete modal-trigger';
+  //         editIcon.setAttribute('data-target', 'modal7');
+  //     } else {
+  //         editIcon.className = 'icon-upload icon pencil';
+  //         editIcon.removeAttribute('data-target');
+  //     }
+  // }
+
+  public setDeleteIcon(): void {
+    const editIcon = <HTMLElement>document.querySelector('.icon-upload');
+    
+    if (editIcon && editIcon.className.includes('pencil')) {
+        editIcon.className = 'icon-upload icon delete modal-trigger';
+        editIcon.setAttribute('data-target', 'modal7');
+    }
+  }
+
+  public setUploadIcon(): void {
+    const editIcon = <HTMLElement>document.querySelector('.icon-upload');
+    
+    if (editIcon && editIcon.className.includes('delete')) {
+        editIcon.className = 'icon-upload icon pencil';
+        editIcon.removeAttribute('data-target');
+    }
   }
 
   public formAvatarSrc(userId: string): string {
@@ -69,18 +88,34 @@ export class AvatarManager {
 
   public async updateUserInfo(file: File): Promise<void> {
     const userData = <TToken>storageManager.getItem('token', 'local');
-    const userId = (<TToken>storageManager.getItem('token', 'local')).userID
-    const avatarSrc = await this.clientManager.uploadAvatar(file, userId);
-    userData.avatar = avatarSrc;
+    const userId = (<TToken>storageManager.getItem('token', 'local')).userID;
+    const userName = (<TUser>storageManager.getItem('user', 'local')).name;
+    await this.clientManager.uploadAvatar(file, userId);
+    userData.avatar = 'uploaded';
     storageManager.addItem('token', userData, 'local');
+    this.updateProfileIcon(userData.avatar, userName, userData.userID);
+  }
+
+  private updateProfileIcon(avatar: string | null, name: string, userId: string): void {
+    const profileIcon = <HTMLElement>document.querySelector('.profile');
+    if (avatar) {
+      profileIcon.style.backgroundImage = `url(https://rsclonebackend.herokuapp.com/api/avatar/${userId})`;
+      profileIcon.innerHTML = '';
+    } else {
+        profileIcon.innerHTML = name.split('')[0];
+        profileIcon.style.backgroundImage = '';
+    }
   }
 
   public async deleteAvatar(file: File) {
       const userData = <TToken>storageManager.getItem('token', 'local');
       const userId = (<TToken>storageManager.getItem('token', 'local')).userID;
+      const userName = (<TUser>storageManager.getItem('user', 'local')).name;
       userData.avatar = null;
       await this.clientManager.deleteAvatar(file, userId);
       storageManager.addItem('token', userData, 'local');
+      this.setUploadIcon();
+      this.updateProfileIcon(userData.avatar, userName, userData.userID);
   }
 }
 

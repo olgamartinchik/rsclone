@@ -9,8 +9,9 @@ import Node from '../../components/Node';
 import Button from '../../components/Button';
 import Preloader from '../../components/preloader/preloader';
 import avatarManager from '../../services/avatarManager';
+import storageManager from '../../services/storageManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
-import { TSettings, TUser } from '../../services/types';
+import { TSettings, TUser, TToken } from '../../services/types';
 import { Height, Weight, ClassNames, Coefficients } from '../../services/constants';
 
 class EditProfilePageView {
@@ -18,26 +19,34 @@ class EditProfilePageView {
 
     private materializeHandler: MaterializeHandler;
 
+    private avatar: string | null | undefined;
+
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
         this.materializeHandler = new MaterializeHandler();
+        this.avatar = '';
     }
 
     async render(settings: TSettings, userData: TUser, onchange: (e: Event) => void, onclick: (e: Event) => void, onchangeValue: (e: Event) => void, onchangeBirthday: (e: Event) => void, onchangeGender: (e: Event) => void, onclickSaveBtn: (e: Event) => void, onclickDeleteBtn: (e: Event) => void) {
         this.rootNode.textContent = '';
+        this.getData();
 
         const src = avatarManager.formAvatarSrc(settings.userId);
         this.createHeader(userData);
         this.createContentHeader(src);
+
+        const avatar = (<TToken>storageManager.getItem('token', 'local')).avatar;
+        if (avatar) avatarManager.setDeleteIcon();
+        
         this.createContentForm(settings, userData, onchangeValue, onchangeBirthday, onchangeGender,onclickSaveBtn, onclickDeleteBtn);
         this.createFooter();
 
         this.activateValidation();
-        this.addEvents(onchange, onclickDeleteBtn);
+        this.addEvents(onchange, onclickDeleteBtn, onclick);
         this.initMaterialize();
     }
 
-    private createHeader(userData: TUser): void {
+    public createHeader(userData: TUser): void {
         this.rootNode.append(header.getTemplate());
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
@@ -133,6 +142,10 @@ class EditProfilePageView {
         });
     }
 
+    private getData(): void {
+        this.avatar = (<TToken>storageManager.getItem('token', 'local')).avatar;
+    }
+
     private addModal(): string {
         return `
         <div id="modal10" class="modal">
@@ -157,13 +170,18 @@ class EditProfilePageView {
         this.rootNode.append(footer.getTemplate());
     }
 
-    private addEvents(onchange: (e: Event) => void, onclick: (e: Event) => void): void {
+    private addEvents(onchange: (e: Event) => void, onclick: (e: Event) => void, onDeleteAvatar: (e: Event) => void): void {
         const fileInput = <HTMLInputElement>this.rootNode.querySelector('#avatar');
         if (fileInput) fileInput.onchange = (e: Event) => onchange(e);
 
         const agreeToDeleteBtn = <HTMLElement>document.querySelector('#confirmToDelete');
         if (agreeToDeleteBtn) {
             agreeToDeleteBtn.onclick = (e: Event) => onclick(e);
+        }
+
+        const agreeToDeleteAvatarBtn = <HTMLElement>document.querySelector('#deleteAvatar');
+        if (agreeToDeleteAvatarBtn) {
+            agreeToDeleteAvatarBtn.onclick = (e: Event) => onDeleteAvatar(e);
         }
     }
 

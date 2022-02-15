@@ -4,7 +4,8 @@ import avatarManager from '../../services/avatarManager';
 import authManager from '../../services/authManager';
 import UserDataManager from '../../services/userDataManager';
 import Utils from '../../services/utils';
-import { TSettings, TUser } from '../../services/types';
+import storageManager from '../../services/storageManager';
+import { TSettings, TUser, TToken } from '../../services/types';
 import { Height, Weight, Coefficients, Message } from '../../services/constants';
 
 class EditProfilePageController {
@@ -50,20 +51,19 @@ class EditProfilePageController {
         }
 
         this.files = avatarManager.getAvatarFile(clickedElement);
-        avatarManager.toggleEditIcon();
     }
 
-    private handleAvatarDelete(): void { 
+    private handleAvatarDelete(e: Event): void { 
         this.deleteAvatar();
+        console.log('avatar deleted', this.files);
     }
 
     private async deleteAvatar(): Promise<void> {
         await avatarManager.deleteAvatar(this.files[0]);
-
+        this.files = [];
         const avatarImg = <HTMLImageElement>document.querySelector('.profile-avatar');
         const src = avatarManager.chooseDefaultAvatar();
         avatarImg.src = src;
-        avatarManager.toggleEditIcon();
     }
 
     private handleInputValueChange(e: Event): void {

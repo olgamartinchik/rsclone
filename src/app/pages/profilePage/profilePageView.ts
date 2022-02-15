@@ -22,6 +22,8 @@ class ProfilePageView {
     private caloriesBurned: number;
     
     private badgesActivated: Array<string>;
+    
+    private avatar: string | null | undefined;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
@@ -31,6 +33,7 @@ class ProfilePageView {
         this.userName = '';
         this.completedWorkouts = 0;
         this.caloriesBurned = 0;
+        this.avatar = '';
     }
 
     public async render(onchange: (e: Event) => void, onclick: (e: Event) => void) {
@@ -41,6 +44,10 @@ class ProfilePageView {
 
         this.createHeader();
         this.createProfileHeader(src);
+
+        const avatar = (<TToken>storageManager.getItem('token', 'local')).avatar;
+        if (avatar) avatarManager.setDeleteIcon();
+        
         this.createFooter();
 
         this.addEvents(onchange, onclick);
@@ -62,7 +69,6 @@ class ProfilePageView {
 
     public createProfileHeader(src: string): void {
         this.rootNode.append(profile.getTemplate(this.userName, src, this.badges, this.badgesActivated ,this.completedWorkouts, this.caloriesBurned));
-        if (src) avatarManager.toggleEditIcon();
         this.colorStatistics();
     }
 
@@ -83,6 +89,7 @@ class ProfilePageView {
 
     private getData(): void {
         this.userName = (<TUser>storageManager.getItem('user', 'local')).name;
+        this.avatar = (<TToken>storageManager.getItem('token', 'local')).avatar;
         this.completedWorkouts = (<TSettings>storageManager.getItem('userSettings', 'local')).completedWorkouts;
         this.caloriesBurned = (<TSettings>storageManager.getItem('userSettings', 'local')).caloriesBurned;
         this.badgesActivated = (<TSettings>storageManager.getItem('userSettings', 'local')).badges;
@@ -92,7 +99,7 @@ class ProfilePageView {
         const fileInput = <HTMLInputElement>this.rootNode.querySelector('#avatar');
         if (fileInput) fileInput.onchange = (e: Event) => onchange(e);
 
-        const agreeToDeleteBtn = <HTMLElement>document.querySelector('.modal-close');
+        const agreeToDeleteBtn = <HTMLElement>document.querySelector('#deleteAvatar');
         if (agreeToDeleteBtn) {
             agreeToDeleteBtn.onclick = (e: Event) => onclick(e);
         }

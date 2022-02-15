@@ -15,7 +15,7 @@ export function profileHeaderTemplate(name: string, src: string, completedWorkou
           <p>Delete avatar?</p>
         </div>
         <div class="modal-footer">
-          <a href="#/profile" class="modal-close waves-effect waves-red btn-flat">Agree</a>
+          <a href="#/profile" class="modal-close waves-effect waves-red btn-flat" id="deleteAvatar">Agree</a>
         </div>
       </div>        
       <p class="profile-name title">${name}</p>        
@@ -70,7 +70,7 @@ export function editProfileTemplate(src: string): string {
       <p>Delete avatar?</p>
     </div>
     <div class="modal-footer">
-      <a href="#/editprofile" class="modal-close waves-effect waves-red btn-flat">Agree</a>
+      <a href="#/editprofile" class="modal-close waves-effect waves-red btn-flat" id="deleteAvatar">Agree</a>
     </div>
   </div>
   `

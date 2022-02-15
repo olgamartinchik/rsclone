@@ -93,8 +93,10 @@ export default class NavBar {
         
         if (avatar) {
             profileIcon.node.style.backgroundImage = `url(https://rsclonebackend.herokuapp.com/api/avatar/${userId})`;
+            profileIcon.node.innerHTML = '';
         } else {
             profileIcon.node.innerHTML = `${user}`;
+            profileIcon.node.style.backgroundImage = '';
         }
     }
 
