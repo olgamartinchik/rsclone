@@ -1,4 +1,14 @@
-import { WorkoutType, IntensityType, Goal, Gender, WorkoutsProgramDuration, WorkoutsNumber } from './constants';
+import {
+    WorkoutType,
+    IntensityType,
+    Goal,
+    Gender,
+    WorkoutsProgramDuration,
+    WorkoutsNumber,
+    BadgeName,
+    HeightUnit,
+    WeightUnit,
+} from './constants';
 
 export type TWorkout = {
     title: string;
@@ -32,13 +42,13 @@ export type TSettings = {
     desiredWeight: number;
     duration: WorkoutsProgramDuration;
     workoutsNumber: WorkoutsNumber;
-    workoutLength: { min: number; max: number };
     favWorkouts: Array<WorkoutType>;
-};
-
-export type TWorkoutLength = {
-    min: number;
-    max?: number | undefined;
+    caloriesBurned: number;
+    badges: Array<BadgeName>;
+    heightUnit: HeightUnit;
+    weightUnit: WeightUnit;
+    completedWorkouts: number;
+    liked: Array<string>;
 };
 
 export type TWorkoutProgram = Array<TWorkout[]>;
@@ -70,7 +80,9 @@ export type RouteOption = {
     callback: () => void;
     isAuth: boolean | null;
 };
-
+export type TIngredients={
+    image:string
+}
 export interface IDataExplore {
     recipe: {
         image?: string;
@@ -81,6 +93,12 @@ export interface IDataExplore {
         yield?: number;
         diet?: string;
         dietLabels?: string;
+        ingredients?:Array<TIngredients>
+        url?:string,
+        ingredientLines?:Array<string>,
+        totalTime?:string,
+        totalWeight?:string,
+        healthLabels?:Array<string>
     };
 }
 

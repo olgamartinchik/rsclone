@@ -17,6 +17,7 @@ class MealPageController {
     searchingData: IDataExplore[] | null;
 
     numFrom: number;
+    backPage:string|null
 
     constructor() {
         this.view = new MealPageView();
@@ -25,6 +26,7 @@ class MealPageController {
         this.inputValue = '';
         this.mealData = null;
         this.searchingData = null;
+        this.backPage=null
 
         if (StorageApiManager.getItem('mealData', 'local')) {
             const mealData = StorageApiManager.getItem('mealData', 'local') as IDataExplore[];
@@ -79,6 +81,8 @@ class MealPageController {
             ];
             StorageApiManager.addItem('recipePageData', recipePageData, 'local');
         }
+        this.backPage='#meal'
+            StorageApiManager.addItem('backPage', this.backPage, 'local');
     }
 
     handlerExploreCard(e: Event) {
@@ -86,6 +90,8 @@ class MealPageController {
         if (dietCard) {
             StorageApiManager.addItem('diet', dietCard.getAttribute('data-edamam'), 'local');
         }
+        this.backPage='#explore'
+            StorageApiManager.addItem('backPage', this.backPage, 'local');
     }
 
     handlerSearchingCard(e: Event) {
@@ -95,6 +101,8 @@ class MealPageController {
                 Number(cardNum)
             ];
             StorageApiManager.addItem('recipePageData', recipePageData, 'local');
+            this.backPage='#meal'
+            StorageApiManager.addItem('backPage', this.backPage, 'local');
         }
     }
 

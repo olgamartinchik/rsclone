@@ -37,19 +37,6 @@ export enum WorkoutsNumber {
     huge = 5,
 }
 
-export enum MinWorkoutLength {
-    small = 5,
-    medium = 15,
-    large = 25,
-    huge = 30,
-}
-
-export enum MaxWorkoutLength {
-    small = 10,
-    medium = 20,
-    large = 30,
-}
-
 export enum IntensityType {
     low = 'low',
     medium = 'medium',
@@ -86,6 +73,11 @@ export enum Height {
     max = '220',
 }
 
+export enum HeightUnit {
+    unitDefault = 'cm',
+    unit2 = 'ft',
+}
+
 export enum Weight {
     title = 'weight',
     desired = 'desired Weight',
@@ -95,6 +87,11 @@ export enum Weight {
     option2 = 'Kilograms',
     min = '40',
     max = '200',
+}
+
+export enum WeightUnit {
+    unitDefault = 'kg',
+    unit2 = 'pounds',
 }
 
 export enum Colors {
@@ -115,4 +112,31 @@ export enum Endpoints {
 
 export enum ModalContents {
     options = 'checkbox',
+}
+
+export enum BadgeSrc {
+    oneWorkout = '../../../assets/img/badges/1.png',
+    fiveWorkouts = '../../../assets/img/badges/2.png',
+    tenWorkouts = '../../../assets/img/badges/3.png',
+    twentyWorkouts = '../../../assets/img/badges/4.png',
+    fiftyWorkouts = '../../../assets/img/badges/5.png',
+    hundredWorkouts = '../../../assets/img/badges/6.png',
+}
+
+export enum BadgeName {
+    oneWorkout = 'GameOn Badge',
+    fiveWorkouts = 'TakeOn Badge',
+    tenWorkouts = 'RightOn Badge',
+    twentyWorkouts = 'ConquerOn Badge',
+    fiftyWorkouts = 'RoarOn Badge',
+    hundredWorkouts = 'RockOn Badge',
+}
+
+export enum BadgeText {
+    oneWorkout = 'Awarded for completing a 1st workout on FitOn.',
+    fiveWorkouts = 'Awarded for completing 5 workouts on FitOn.',
+    tenWorkouts = 'Awarded for completing 10 workouts on FitOn.',
+    twentyWorkouts = 'Awarded for completing 20 workouts on FitOn.',
+    fiftyWorkouts = 'Awarded for completing 50 workouts on FitOn.',
+    hundredWorkouts = 'Awarded for completing 100 workouts on FitOn.',
 }

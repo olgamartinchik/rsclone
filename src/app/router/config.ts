@@ -12,6 +12,7 @@ import EditProfilePageController from '../pages/editProfilePage/editProfilePageC
 import { RouteOption } from '../services/types';
 import ExploreController from '../pages/explorePage/explorePageController';
 import RecipePageController from '../pages/recipePage/recipePageController';
+import PeriodMealPageController from '../pages/periodMealPage.ts/periodMealPageController';
 
 class Config {
     public programPageController: ProgramPageController;
@@ -40,6 +41,8 @@ class Config {
 
     public recipePageController: RecipePageController;
 
+    public PeriodMealPageController: PeriodMealPageController
+
     constructor() {
         this.programPageController = new ProgramPageController();
         this.mainPageController = new MainPageController();
@@ -54,6 +57,7 @@ class Config {
         this.editProfilePageController = new EditProfilePageController();
         this.exploreController = new ExploreController();
         this.recipePageController = new RecipePageController();
+        this.PeriodMealPageController=new PeriodMealPageController()
     }
 
     public getRoutes(): RouteOption[] {
@@ -71,7 +75,7 @@ class Config {
             {
                 path: /onboarding/,
                 callback: () => this.onboardingPageController.createPage(),
-                isAuth: true,
+                isAuth: false,
             },
             {
                 path: /login/,
@@ -136,6 +140,11 @@ class Config {
             {
                 path: /recipe/,
                 callback: () => this.recipePageController.createPage(),
+                isAuth: true,
+            },
+            {
+                path: /period/,
+                callback: () => this.PeriodMealPageController.createPage(),
                 isAuth: true,
             },
         ];
