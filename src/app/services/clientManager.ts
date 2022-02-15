@@ -79,6 +79,18 @@ class ClientManager {
         }
     }
 
+    public async deleteUserData(path: string, id: string): Promise<void> {
+        try {
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/${path}/${id}`, {
+                method: 'DELETE'
+            });
+            
+            return await res.json();
+        } catch (e: unknown) {
+            this.handleError(e);
+        }
+    }
+
     public async getWorkouts(): Promise<void | TWorkout[]> {
         try {
             const res = await fetch(`https://rsclonebackend.herokuapp.com/api/workouts`);

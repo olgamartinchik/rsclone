@@ -7,7 +7,7 @@ import calender from '../../components/calender/calender';
 import parameters from '../../components/parameters/parameters';
 import Node from '../../components/Node';
 import Button from '../../components/Button';
-import storageManager from '../../services/storageManager';
+import Preloader from '../../components/preloader/preloader';
 import avatarManager from '../../services/avatarManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
 import { TSettings, TUser } from '../../services/types';
@@ -33,7 +33,7 @@ class EditProfilePageView {
         this.createFooter();
 
         this.activateValidation();
-        this.addEvents(onchange, onclick);
+        this.addEvents(onchange, onclickDeleteBtn);
         this.initMaterialize();
     }
 
@@ -92,7 +92,6 @@ class EditProfilePageView {
         const deleteButton = new Button(buttonWrapper, 'Delete');
         deleteButton.addAttribute('data-target', 'modal10')
         deleteButton.addClass('modal-trigger');
-        deleteButton.onclick(onclickDeleteBtn);
 
         buttonWrapper.insertAdjacentHTML('beforeend', this.addModal());
     }
@@ -141,7 +140,7 @@ class EditProfilePageView {
           <p>Are you sure you want to delete your profile?</p>
         </div>
         <div class="modal-footer">
-          <a href="#!" class="modal-close waves-effect waves-red btn-flat">Confirm</a>
+          <a href="#/" id="confirmToDelete" class="modal-close waves-effect waves-red btn-flat">Confirm</a>
         </div>
       </div>
         `
@@ -162,7 +161,7 @@ class EditProfilePageView {
         const fileInput = <HTMLInputElement>this.rootNode.querySelector('#avatar');
         if (fileInput) fileInput.onchange = (e: Event) => onchange(e);
 
-        const agreeToDeleteBtn = <HTMLElement>document.querySelector('.modal-close');
+        const agreeToDeleteBtn = <HTMLElement>document.querySelector('#confirmToDelete');
         if (agreeToDeleteBtn) {
             agreeToDeleteBtn.onclick = (e: Event) => onclick(e);
         }
@@ -171,6 +170,15 @@ class EditProfilePageView {
     private initMaterialize(): void {
         this.materializeHandler.initModal();
         this.materializeHandler.initDatePicker();
+    }
+
+    public handlePreloader(isLoading: boolean): void {
+        const settingsWrapper = <HTMLElement>this.rootNode.querySelector('.settings-wrapper');
+        if (isLoading) {
+            settingsWrapper.append(Preloader.getTemplate());
+        } else {
+            Preloader.getTemplate().remove();
+        }
     }
 }
 

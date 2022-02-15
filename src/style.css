@@ -16532,7 +16532,7 @@ input:not([type]).select-dropdown {
   height: 100%;
 }
 .profile-item-input input[type=text]:not(.browser-default),
-.profile-item-input input[type=email]:not(.browser-default),
+.profile-item-input input[type=email]:not(.browser-default)#email,
 .profile-item-input input[type=password]:not(.browser-default) {
   width: 100%;
   height: 95%;
@@ -16543,7 +16543,7 @@ input:not([type]).select-dropdown {
   font-size: 18px;
 }
 .profile-item-input input[type=text]:not(.browser-default)::placeholder,
-.profile-item-input input[type=email]:not(.browser-default)::placeholder,
+.profile-item-input input[type=email]:not(.browser-default)#email::placeholder,
 .profile-item-input input[type=password]:not(.browser-default)::placeholder {
   text-align: right;
 }
@@ -16938,6 +16938,18 @@ select:-webkit-autofill:focus {
   box-shadow: 0 0 0px 1000px rgba(120, 161, 217, 0.1) inset !important;
   -webkit-box-shadow: 0 0 0px 1000px rgba(120, 161, 217, 0.1) inset !important;
   transition: background-color 5000s ease-in-out 0s !important;
+}
+
+.profile-item-input input:-webkit-autofill,
+.profile-item-input input:-webkit-autofill:hover,
+.profile-item-input input:-webkit-autofill:focus,
+.profile-item-input textarea:-webkit-autofill,
+.profile-item-input textarea:-webkit-autofill:hover,
+.profile-item-input textarea:-webkit-autofill:focus,
+.profile-item-input select:-webkit-autofill,
+.profile-item-input select:-webkit-autofill:hover,
+.profile-item-input select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #666 !important;
 }
 
 .settings-wrapper.editprofile .input-group .value::placeholder,

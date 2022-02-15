@@ -80,6 +80,7 @@ export class AuthModel {
         if (this.clientManager.result) {
             this.user.name = (<TLoginResponse>data).userName;
             this.user.email = (<TLoginResponse>data).email;
+            console.log(data, this.user);
             await this.saveData(type);
             this.navigate(type);
         } else {
@@ -89,11 +90,11 @@ export class AuthModel {
     }
 
     private async saveData(type: string): Promise<void> {
-        StorageManager.addItem('token', this.clientManager.token, 'local');
-        StorageManager.addItem('user', this.user, 'local');
         if (type === 'auth/login') {
             await this.saveUserSettings();
         }
+        StorageManager.addItem('token', this.clientManager.token, 'local');
+        StorageManager.addItem('user', this.user, 'local');
     }
 
     public destroyData(): void {

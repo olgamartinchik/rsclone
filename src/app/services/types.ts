@@ -65,7 +65,7 @@ export interface IWorkoutManager {
 export type TLoginForm = {
     userName: string;
     email: string;
-    password: string;
+    password?: string;
 };
 
 export type TLoginResponse = {

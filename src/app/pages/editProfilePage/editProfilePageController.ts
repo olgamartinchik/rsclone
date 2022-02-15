@@ -1,6 +1,8 @@
 import EditProfilePageView from './editProfilePageView';
 import EditProfilePageModel from './editProfilePageModel';
 import avatarManager from '../../services/avatarManager';
+import authManager from '../../services/authManager';
+import UserDataManager from '../../services/userDataManager';
 import Utils from '../../services/utils';
 import { TSettings, TUser } from '../../services/types';
 import { Height, Weight, Coefficients, Message } from '../../services/constants';
@@ -100,7 +102,6 @@ class EditProfilePageController {
             }
         }
         this.handleSaveButtonStatus();
-        console.log(this.modifiedUserSettings, this.modifiedUser);
     }
 
     private handleValidation(type: string, element: HTMLInputElement): void {
@@ -123,7 +124,6 @@ class EditProfilePageController {
         this.modifiedUserSettings['age'] = age;
         this.modifiedUserSettings['birthday'] = calenderInput.value;
         this.handleSaveButtonStatus();
-        console.log(this.modifiedUserSettings);
     }
 
     private handleGenderSelect(e: Event): void {
@@ -133,7 +133,6 @@ class EditProfilePageController {
         const settingValue = <string>settingItem.dataset.value;
         this.modifiedUserSettings[settingTitle] = settingValue;
         this.handleSaveButtonStatus();
-        console.log(this.modifiedUserSettings);
     }
 
     private selectValue(e: Event): void {
@@ -151,17 +150,43 @@ class EditProfilePageController {
             saveButton.classList.remove('btn-disabled');
             saveButton.removeAttribute('disabled');
         } else {
-            saveButton.className = 'waves-effect waves-light btn-large btn-disabled';
+            saveButton.className = 'waves-effect waves-light btn-save btn-large btn-disabled';
             if (!saveButton.disabled) saveButton.setAttribute('disabled', 'disabled');
         }
     }
 
-    private handleSaveBtnClick(): void {
-
+    private async handleSaveBtnClick(e: Event): Promise<void> {
+        const haveSettingsChanged = !Utils.compareObjects(this.settings, this.modifiedUserSettings);
+        const hasUserInfoChanged = !Utils.compareObjects(this.user, this.modifiedUser);
+        this.initPreloader(<HTMLElement>e.target);
+        if (haveSettingsChanged) {
+            await this.model.updateSettings(this.modifiedUserSettings);
+            new UserDataManager(this.modifiedUserSettings!).createUserData();
+        }
+        if (hasUserInfoChanged) {
+            await this.model.updateAuthForm(<TUser>this.modifiedUser);
+        }
+        this.destroyPreloader(<HTMLElement>e.target);
     }
 
-    private handleDeleteBtnClick(): void {
-        
+    private async handleDeleteBtnClick(e: Event): Promise<void> {
+        e.preventDefault();
+        this.initPreloader(<HTMLElement>e.target);
+        await this.model.deleteUser();
+        this.destroyPreloader(<HTMLElement>e.target);
+        authManager.navigate('/');
+    }
+
+    private initPreloader(button: HTMLElement): void {
+        const isLoading = this.model.loadingStatus;
+        this.view.handlePreloader(isLoading);
+        button.setAttribute('disabled', 'true');
+    }
+
+    private destroyPreloader(button: HTMLElement): void {
+        const isLoading = this.model.loadingStatus;
+        this.view.handlePreloader(isLoading);
+        button.removeAttribute('disabled');
     }
 }
 

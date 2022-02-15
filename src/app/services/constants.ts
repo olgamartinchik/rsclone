@@ -104,7 +104,9 @@ export enum Coefficients {
 }
 
 export enum Endpoints {
+    auth = 'auth',
     userSettings = 'userSettings',
+    workoutSettings = 'workoutSettings',
 }
 
 export enum ModalContents {
