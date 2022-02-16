@@ -76,7 +76,7 @@ class ClientManager {
                 },
             });
             const data = await response.json();
-            console.log(data);
+
             if (!response.ok) {
                 this.isSuccess = false;
                 throw new Error(data.message || 'Something went wrong');
@@ -199,7 +199,7 @@ class ClientManager {
                 body: formData,
             });
             const data = await res.json();
-            console.log(data);
+
             return data;
         } catch (e: unknown) {
             this.handleError(e);
@@ -213,7 +213,7 @@ class ClientManager {
                 body: publicId,
             });
             const data = await res.json();
-            console.log(data);
+
             return data;
         } catch (e: unknown) {
             this.handleError(e);

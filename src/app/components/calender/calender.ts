@@ -19,7 +19,7 @@ class Calender {
     public getEditTemplate(text: string, onclick: (e: Event) => void): HTMLElement {
         const rootNode = document.createElement('div');
         rootNode.className = 'plan-item wrapper';
-        rootNode.onclick = (e: Event) => onclick(e);
+        rootNode.onchange = (e: Event) => onclick(e);
         rootNode.insertAdjacentHTML('afterbegin', editcalenderTemplate(text));
 
         return rootNode;
