@@ -50,6 +50,7 @@ export type TSettings = {
     weightUnit: WeightUnit;
     completedWorkouts: number;
     liked: Array<string>;
+    progress: TProgress[];
 };
 
 export type TWorkoutProgram = Array<TWorkout[]>;
@@ -118,3 +119,12 @@ export type TStatData = {
     calories: number,
     time: number,
 }
+
+export type TProgressData = {
+    [index: string]: number;
+};
+
+export type TProgress = {
+    minutes: TProgressData[];
+    calories: TProgressData[];
+};

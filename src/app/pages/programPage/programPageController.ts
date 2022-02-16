@@ -51,7 +51,7 @@ class ProgramPageController {
     }
 
     private handleStatBlockClick(): void {
-        console.log('go to stat');
+        authManager.navigate('weeklyprogress');
     }
 }
 

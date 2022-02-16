@@ -1,8 +1,9 @@
 import Card from '../../components/card/card';
 import storageManager from '../../services/storageManager';
 import CloudinaryManager from '../../services/cloudinarySDK';
-import { TSettings, TStatData, TToken, TWorkoutProgram } from '../../services/types';
+import { TProgress, TProgressData, TSettings, TStatData, TToken, TWorkoutProgram } from '../../services/types';
 import ClientManager from '../../services/clientManager';
+import Utils from '../../services/utils';
 
 class WorkoutPageModel {
     private cards: Array<Card[]>;
@@ -82,21 +83,49 @@ class WorkoutPageModel {
         storageManager.addItem('workout-cards', this.cards, 'local');
     }
 
-    public async updateSettingsData(dataStat: TStatData, card: Card): Promise<void> {
+    public async updateSettingsData(dataStat: TStatData): Promise<void> {
         const settings = storageManager.getItem<TSettings>('userSettings', 'local');
-        console.log(dataStat);
         if (settings) {
-            settings.weekProgress.minutes += dataStat.time;
-            settings.weekProgress.workoutsCompleted += 1;
-            settings.weekProgress.calories += dataStat.calories;
-            settings.caloriesBurned += dataStat.calories;
-            settings.completedWorkouts += 1;
+            this.setStatData(settings, dataStat);
             storageManager.addItem('userSettings', settings, 'local');
 
             const userData = this.getUserData();
             if (userData) {
                 this.client.changeData('userSettings', userData.userID, settings);
             }
+        }
+    }
+
+    private setStatData(settings: TSettings, dataStat: TStatData): void {
+        settings.weekProgress.minutes += dataStat.time;
+        settings.weekProgress.workoutsCompleted += 1;
+        settings.weekProgress.calories += dataStat.calories;
+        settings.caloriesBurned += dataStat.calories;
+        settings.completedWorkouts += 1;
+        const date = Utils.getCurrentISODate();
+        const weekIndex = storageManager.getItem<number>('numWeek', 'local');
+
+        if (weekIndex !== undefined) {
+            if (!settings.progress[weekIndex]) {
+                settings.progress.push({ minutes: [], calories: [] });
+            }
+            const currWeek = settings.progress[weekIndex];
+            const currDate = currWeek.minutes.find((weekItem) => weekItem[date]);
+            const currCalories = currWeek.calories.find((weekItem) => weekItem[date]);
+            this.setData(currDate, date, dataStat.time, currWeek, 'minutes');
+            this.setData(currCalories, date, dataStat.calories, currWeek, 'calories');
+        }
+    }
+
+    private setData(data: TProgressData | void, key: string, value: number, progress: TProgress, type: string): void {
+        if (data) {
+            if (data[key]) {
+                data[key] += value;
+            } else {
+                data[key] = value;
+            }
+        } else {
+            progress[type].push({ [key]: value });
         }
     }
 }

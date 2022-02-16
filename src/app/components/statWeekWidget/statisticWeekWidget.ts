@@ -10,8 +10,8 @@ class StatisticWeekWidget {
         if(isExtendedFunctionality) {
             const arrow = new Node(null, 'i', 'small material-icons', 'chevron_right');
             titleBlock.node.append(arrow.node);
+            titleBlock.node.onclick = () => callback();
         }
-        if (isExtendedFunctionality) titleBlock.node.onclick = () => callback();
         contentBlock.node.insertAdjacentHTML(
             'beforeend',
             statTemplate(weekProgress, startDate, isExtendedFunctionality)

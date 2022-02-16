@@ -80,7 +80,6 @@ class ProgramPageView {
         const titleWrapper = new Node(titleBlock.node, 'div');
         Node.setChild(titleWrapper.node, 'p', 'title card-title gradient-text', 'Kick start');
         Node.setChild(titleWrapper.node, 'p', 'subtitle', `Week ${week + 1}`);
-        Node.setChild(titleBlock.node, 'span', '', 'See all');
     }
 
     private getCards(data: Card[], onclick: (e: Event) => void): void {

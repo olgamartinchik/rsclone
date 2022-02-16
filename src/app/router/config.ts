@@ -13,6 +13,7 @@ import { RouteOption } from '../services/types';
 import StatisticPageController from '../pages/statistic/statisticPageController';
 import ExploreController from '../pages/explorePage/explorePageController';
 import RecipePageController from '../pages/recipePage/recipePageController';
+import ProgressPageController from '../pages/weeklyProgressPage/progressPageController';
 
 class Config {
     public programPageController: ProgramPageController;
@@ -38,10 +39,12 @@ class Config {
     public editProfilePageController: EditProfilePageController;
 
     public statisticPageController: StatisticPageController;
-    
+
     public exploreController: ExploreController;
 
     public recipePageController: RecipePageController;
+
+    public progressPageController: ProgressPageController;
 
     constructor() {
         this.programPageController = new ProgramPageController();
@@ -58,6 +61,7 @@ class Config {
         this.statisticPageController = new StatisticPageController();
         this.exploreController = new ExploreController();
         this.recipePageController = new RecipePageController();
+        this.progressPageController = new ProgressPageController();
     }
 
     public getRoutes(): RouteOption[] {
@@ -145,6 +149,11 @@ class Config {
             {
                 path: /recipe/,
                 callback: () => this.recipePageController.createPage(),
+                isAuth: true,
+            },
+            {
+                path: /weeklyprogress/,
+                callback: () => this.progressPageController.createPage(),
                 isAuth: true,
             },
         ];
