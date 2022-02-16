@@ -58,7 +58,6 @@ class EditPlanPageView {
         onclick: (e: Event) => void
     ): void {
         const main = new Node(this.rootNode, 'main', 'main-layout');
-        this.animationManager.initContentFadeout(main.node);
         this.insertDecorativeBlock(main.node);
         const editPlanWrapper = Node.setChild(main.node, 'div', 'settings-wrapper');
 
@@ -222,8 +221,6 @@ class EditPlanPageView {
 
     private createFooter(): void {
         this.rootNode.append(footer.getTemplate());
-        const footerLayout = <HTMLElement>this.rootNode.querySelector('footer');
-        this.animationManager.initContentFadeout(footerLayout);
     }
 }
 

@@ -231,14 +231,12 @@ class EditProfilePageController {
             this.changeUserDataForm.password = '';
             this.changeUserDataForm.newPassword = '';
         }
-        console.log(this.changeUserDataForm);
     }
 
     private handleSaveButtonStatus(): void {
         const saveButton = <HTMLButtonElement>document.querySelector('.btn-save');
         const haveSettingsChanged = !Utils.compareObjects(this.settings, this.modifiedUserSettings);
         const hasUserInfoChanged = !Utils.compareObjects(this.user, this.modifiedUser);
-        console.log(this.changeUserDataForm.password);
         if (haveSettingsChanged || hasUserInfoChanged || this.changeUserDataForm.password !== '') {
             saveButton.classList.remove('btn-disabled');
             saveButton.removeAttribute('disabled');
@@ -259,13 +257,11 @@ class EditProfilePageController {
     }
 
     private handleConfirmButtonClick(): void {
-        console.log('confirm button clicked');
         const currentPasswordInput = <HTMLInputElement>document.querySelector('#password');
         const passwordInput = <HTMLInputElement>document.querySelector('#newPassword');
         this.changeUserDataForm.password = currentPasswordInput.value;
         this.changeUserDataForm.newPassword = passwordInput.value;
         this.handleSaveButtonStatus();
-        console.log(this.changeUserDataForm);
     }
 
     private async handleSaveBtnClick(e: Event): Promise<void> {

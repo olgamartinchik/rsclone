@@ -81,7 +81,6 @@ export class AuthModel {
         if (this.clientManager.result) {
             this.user.name = (<TLoginResponse>data).userName;
             this.user.email = (<TLoginResponse>data).email;
-            console.log(data, this.user);
             await this.saveData(type);
             this.navigate(type);
         } else {

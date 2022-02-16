@@ -54,7 +54,6 @@ class EditProfilePageModel {
     }
 
     public async updateUserData(modifiedUserData: TUser) {
-        console.log('form sent to back', this.editProfileForm);
         const userId = (<TSettings>this.getSettingsData()).userId;
         this.isLoading = true;
         await this.clientManager.changeData(
@@ -68,7 +67,6 @@ class EditProfilePageModel {
             this.disableSaveButton();
             this.saveUpdatedUserData(modifiedUserData);
         } else {
-            console.log('update failed', this.clientManager.result);
             this.createMessage(this.clientManager.message);
             this.disableSaveButton();
             this.resetInputFields();
