@@ -160,27 +160,7 @@ class ClientManager {
     public get token(): TToken {
         return this.tokenInfo;
     }
-    // public async userData(from: string, to: string, mealType: string, calories: string) {
-    //     try {
-    //         const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&imageSize=LARGE&mealType=${mealType}&calories=${calories}&dishType=Main course`;
-    //         const response = await fetch(url);
-    //         const data = await response.json();
-    //         return data.hits;
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
-    // public async mealExploreData(from: string, to: string, diet = 'balanced',mealType='Breakfast') {
-    //     try {
-    //         const url = `https://api.edamam.com/search?q=all&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&diet=${diet}&dishType=Main course&mealType=${mealType}&imageSize=LARGE`;
 
-    //         const response = await fetch(url);
-    //         const data = await response.json();
-    //         return data.hits;
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
 
     public async searchingData(from: string, to: string, meal = 'Salad') {
         try {
