@@ -12,7 +12,6 @@ import EditProfilePageController from '../pages/editProfilePage/editProfilePageC
 import { RouteOption } from '../services/types';
 import ExploreController from '../pages/explorePage/explorePageController';
 import RecipePageController from '../pages/recipePage/recipePageController';
-import PeriodMealPageController from '../pages/periodMealPage.ts/periodMealPageController';
 
 class Config {
     public programPageController: ProgramPageController;
