@@ -4,6 +4,7 @@ import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 import { IDataExplore } from '../../services/types';
+import storageManager from '../../services/storageManager';
 
 class ExplorePageView {
     private rootNode: HTMLElement;
@@ -18,7 +19,7 @@ class ExplorePageView {
     render(diet: string) {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-
+        const user = <string>storageManager.getItem('user', 'local');
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -27,7 +28,7 @@ class ExplorePageView {
             'settings',
         ]);
         navbar.generateMenu('');
-        navbar.addProfileLink('O');
+        navbar.addProfileLink(user);
 
         this.createContentExplore(diet);
         this.rootNode.append(footer.getTemplate());

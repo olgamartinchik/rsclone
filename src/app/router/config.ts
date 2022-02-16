@@ -41,7 +41,7 @@ class Config {
 
     public recipePageController: RecipePageController;
 
-    public PeriodMealPageController: PeriodMealPageController
+   
 
     constructor() {
         this.programPageController = new ProgramPageController();
@@ -57,7 +57,7 @@ class Config {
         this.editProfilePageController = new EditProfilePageController();
         this.exploreController = new ExploreController();
         this.recipePageController = new RecipePageController();
-        this.PeriodMealPageController=new PeriodMealPageController()
+        
     }
 
     public getRoutes(): RouteOption[] {
@@ -142,11 +142,7 @@ class Config {
                 callback: () => this.recipePageController.createPage(),
                 isAuth: true,
             },
-            {
-                path: /period/,
-                callback: () => this.PeriodMealPageController.createPage(),
-                isAuth: true,
-            },
+           
         ];
 
         return currRoutes;
