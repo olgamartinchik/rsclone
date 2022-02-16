@@ -4,8 +4,7 @@ import avatarManager from '../../services/avatarManager';
 import authManager from '../../services/authManager';
 import UserDataManager from '../../services/userDataManager';
 import Utils from '../../services/utils';
-import storageManager from '../../services/storageManager';
-import { TSettings, TUser, TToken } from '../../services/types';
+import { TSettings, TUser, TChangeUserDataForm } from '../../services/types';
 import { Height, Weight, Coefficients, Message } from '../../services/constants';
 
 class EditProfilePageController {
@@ -16,6 +15,7 @@ class EditProfilePageController {
     private modifiedUserSettings: void | TSettings;
     private user: void | TUser;
     private modifiedUser: void | TUser;
+    private changeUserDataForm: TChangeUserDataForm;
 
     constructor() {
         this.view = new EditProfilePageView();
@@ -25,6 +25,12 @@ class EditProfilePageController {
         this.modifiedUserSettings = this.getModifiedUserSettings();
         this.user = this.model.getUserData();
         this.modifiedUser = this.getModifiedUser();
+        this.changeUserDataForm = {
+            userName: '',
+            email: '',
+            password: '',
+            newPassword: '',
+        }
     }
 
     public createPage() {
@@ -32,7 +38,7 @@ class EditProfilePageController {
         this.user = <TUser>this.model.getUserData();
         this.modifiedUserSettings = this.getModifiedUserSettings();
         this.modifiedUser = this.getModifiedUser();
-        this.view.render(this.settings, this.user, this.handleAvatarChange.bind(this), this.handleAvatarDelete.bind(this), this.handleInputValueChange.bind(this), this.handleBirthdayChange.bind(this), this.handleGenderSelect.bind(this), this.handleSaveBtnClick.bind(this), this.handleDeleteBtnClick.bind(this));
+        this.view.render(this.settings, this.user, this.handleAvatarChange.bind(this), this.handleAvatarDelete.bind(this), this.handleInputValueChange.bind(this), this.handleBirthdayChange.bind(this), this.handleGenderSelect.bind(this), this.handleSaveBtnClick.bind(this), this.handleDeleteBtnClick.bind(this), this.handleIconClick.bind(this), this.handlePasswordInput.bind(this), this.handleConfirmButtonClick.bind(this));
     }
 
     private getModifiedUserSettings(): TSettings | void {
@@ -72,6 +78,7 @@ class EditProfilePageController {
         const settingsValueChosen = <string>settingValue.value;
         this.handleValidation(settingsType, settingValue);
         this.updateUserSettings(settingValue, settingsType, settingsValueChosen);
+        this.handlePasswordDifference();
     }
 
     private updateUserSettings(element: HTMLInputElement, key: string, value: string): void {
@@ -94,13 +101,14 @@ class EditProfilePageController {
             }
         } else if (key === 'name' || key === 'email') {
             if (element.validity.valid) {
-                this.modifiedUser[key] = value;
+                this.modifiedUser[key] = value;  
             } else {
                 this.modifiedUser[key] = this.user[key];
                 element.value = '';
                 element.placeholder = this.user[key];
             }
         }
+        console.log(this.changeUserDataForm);
         this.handleSaveButtonStatus();
     }
 
@@ -142,17 +150,98 @@ class EditProfilePageController {
         (<HTMLElement>e.target).classList.add('active');
     }
 
+    private handlePasswordInput(): void {
+        const isPasswordEqual = this.handlePasswordDifference();
+        if (isPasswordEqual) this.model.createMessage(Message.passwordEqual);
+        this.handlePasswordConfirmation();
+        this.handleConfirmButtonStatus();
+    }
+
+    private handlePasswordDifference(): boolean {
+        const currentPasswordInput = <HTMLInputElement>document.querySelector('#password');
+        const passwordInput = <HTMLInputElement>document.querySelector('#newPassword');
+        const confirmPasswordInput = <HTMLInputElement>document.querySelector('#confirm');
+        let isPasswordsEqual = false;
+        if (passwordInput && currentPasswordInput) {
+            isPasswordsEqual = currentPasswordInput.value === passwordInput.value;
+            if(currentPasswordInput.value && passwordInput.value && isPasswordsEqual) {
+                passwordInput.className = 'invalid';
+                confirmPasswordInput.setAttribute('disabled', 'disabled');
+            } else {
+                passwordInput.className = 'validate';
+                confirmPasswordInput.removeAttribute('disabled');
+            }
+        }
+        return isPasswordsEqual;   
+    }
+
+    private handlePasswordConfirmation(): boolean {
+        const passwordInput = <HTMLInputElement>document.querySelector('#newPassword');
+        const confirmPasswordInput = <HTMLInputElement>document.querySelector('#confirm');
+        let isPasswordConfirmed = false;
+        if (confirmPasswordInput && passwordInput.value && confirmPasswordInput.value) {
+            isPasswordConfirmed = this.model.checkPassword();
+            if (!isPasswordConfirmed) {
+                confirmPasswordInput.className = 'invalid';
+            } else {
+                confirmPasswordInput.className = 'valid';
+            }
+        }
+        return isPasswordConfirmed; 
+    }
+
+    private handleConfirmButtonStatus(): void {
+        const confirmButton = <HTMLButtonElement>document.querySelector('#confirmPasswordChange');
+        const currentPasswordInput = <HTMLInputElement>document.querySelector('#password');
+        const passwordInput = <HTMLInputElement>document.querySelector('#newPassword');
+        const confirmPasswordInput = <HTMLInputElement>document.querySelector('#confirm');
+        const isPasswordConfirmed = this.handlePasswordConfirmation();
+        const isPasswordEqual = this.handlePasswordDifference();
+        
+        if (currentPasswordInput.value && passwordInput.value && confirmPasswordInput.value && isPasswordConfirmed && !isPasswordEqual) {
+            confirmButton.removeAttribute('disabled');
+            confirmButton.classList.remove('btn-disabled');
+        } else {
+            confirmButton.setAttribute('disabled', 'disabled');
+            confirmButton.classList.add('btn-disabled');
+            this.changeUserDataForm.password = '';
+            this.changeUserDataForm.newPassword = '';
+        }
+        console.log(this.changeUserDataForm);
+    }
+
     private handleSaveButtonStatus(): void {
         const saveButton = <HTMLButtonElement>document.querySelector('.btn-save');
         const haveSettingsChanged = !Utils.compareObjects(this.settings, this.modifiedUserSettings);
         const hasUserInfoChanged = !Utils.compareObjects(this.user, this.modifiedUser);
-        if (haveSettingsChanged || hasUserInfoChanged) {
+        console.log(this.changeUserDataForm.password);
+        if (haveSettingsChanged || hasUserInfoChanged || this.changeUserDataForm.password !== '') {
             saveButton.classList.remove('btn-disabled');
             saveButton.removeAttribute('disabled');
         } else {
             saveButton.className = 'waves-effect waves-light btn-save btn-large btn-disabled';
             if (!saveButton.disabled) saveButton.setAttribute('disabled', 'disabled');
         }
+    }
+
+    private handleIconClick(e: Event): void {
+        const clickedIcon = <HTMLElement>e.target;
+        const input = <HTMLInputElement>clickedIcon.nextElementSibling;
+        const inputType = input.type;
+
+        input.type = inputType === 'password' ? 'text' : 'password';
+        clickedIcon.classList.toggle('eye');
+        clickedIcon.classList.toggle('eye-closed');
+    }
+
+    private handleConfirmButtonClick(): void {
+        console.log('confirm button clicked');
+        const currentPasswordInput = <HTMLInputElement>document.querySelector('#password');
+        const passwordInput = <HTMLInputElement>document.querySelector('#newPassword');
+        this.changeUserDataForm.password = currentPasswordInput.value;
+        this.changeUserDataForm.newPassword = passwordInput.value;
+        this.handleSaveButtonStatus();
+        console.log(this.changeUserDataForm);
     }
 
     private async handleSaveBtnClick(e: Event): Promise<void> {
@@ -163,8 +252,8 @@ class EditProfilePageController {
             await this.model.updateSettings(this.modifiedUserSettings);
             new UserDataManager(this.modifiedUserSettings!).createUserData();
         }
-        if (hasUserInfoChanged) {
-            await this.model.updateAuthForm(<TUser>this.modifiedUser);
+        if (hasUserInfoChanged || this.changeUserDataForm.password !== '') {
+            await this.model.updateUserDataForm(<TChangeUserDataForm>this.changeUserDataForm, <TUser>this.modifiedUser);
         }
         this.destroyPreloader(<HTMLElement>e.target);
     }

@@ -9,6 +9,7 @@ class EditPlanPageModel {
         StorageManager.addItem('userSettings', modifiedSettings, 'local');
         await clientManager.changeData(
             Endpoints.userSettings,
+            'PATCH',
             (<TSettings>modifiedSettings).userId,
             <TSettings>modifiedSettings
         );

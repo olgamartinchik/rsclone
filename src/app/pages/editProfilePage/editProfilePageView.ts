@@ -31,8 +31,8 @@ class EditProfilePageView {
         this.avatar = '';
     }
 
-    async render(settings: TSettings, userData: TUser, onchange: (e: Event) => void, onclick: (e: Event) => void, onchangeValue: (e: Event) => void, onchangeBirthday: (e: Event) => void, onchangeGender: (e: Event) => void, onclickSaveBtn: (e: Event) => void, onclickDeleteBtn: (e: Event) => void) {
-        this.animationManager.initPageTransition()
+    async render(settings: TSettings, userData: TUser, onchange: (e: Event) => void, onclick: (e: Event) => void, onchangeValue: (e: Event) => void, onchangeBirthday: (e: Event) => void, onchangeGender: (e: Event) => void, onclickSaveBtn: (e: Event) => void, onclickDeleteBtn: (e: Event) => void, onIconClick: (e: Event) => void, onPasswordInput: (e: Event) => void, onConfirmButtonClick: (e: Event) => void) {
+        // this.animationManager.initPageTransition()
         this.rootNode.textContent = '';
         this.getData();
 
@@ -47,7 +47,7 @@ class EditProfilePageView {
         this.createFooter();
 
         this.activateValidation();
-        this.addEvents(onchange, onclickDeleteBtn, onclick);
+        this.addEvents(onchange, onclickDeleteBtn, onclick, onIconClick, onPasswordInput, onchangeValue, onConfirmButtonClick);
         this.initMaterialize();
     }
 
@@ -70,7 +70,7 @@ class EditProfilePageView {
 
     private createContentForm(settings: TSettings, userData: TUser, onchangeValue: (e: Event) => void, onchangeBirthday: (e: Event) => void, onchangeGender: (e: Event) => void, onclickSaveBtn: (e: Event) => void, onclickDeleteBtn: (e: Event) => void): void {
         const main = <HTMLElement>this.rootNode.querySelector('.main-layout');
-        this.animationManager.initContentFadeout(main);
+        // this.animationManager.initContentFadeout(main);
         const profileInfoWrapper = new Node(main, 'div', 'settings-wrapper editprofile');
         profileInfoWrapper.append(profileItem.getTemplate('text','Name', userData.name, onchangeValue));
         profileInfoWrapper.append(profileItem.getTemplate('email','Email', userData.email, onchangeValue));
@@ -174,11 +174,11 @@ class EditProfilePageView {
 
     private createFooter(): void {     
         this.rootNode.append(footer.getTemplate());
-        const footerLayout = <HTMLElement>this.rootNode.querySelector('footer');
-        this.animationManager.initContentFadeout(footerLayout);
+        // const footerLayout = <HTMLElement>this.rootNode.querySelector('footer');
+        // this.animationManager.initContentFadeout(footerLayout);
     }
 
-    private addEvents(onchange: (e: Event) => void, onclick: (e: Event) => void, onDeleteAvatar: (e: Event) => void): void {
+    private addEvents(onchange: (e: Event) => void, onclick: (e: Event) => void, onDeleteAvatar: (e: Event) => void, onIconClick: (e: Event) => void, onPasswordInput: (e: Event) => void, onChangeValue: (e: Event) => void, onConfirmButtonClick: (e: Event) => void): void {
         const fileInput = <HTMLInputElement>this.rootNode.querySelector('#avatar');
         if (fileInput) fileInput.onchange = (e: Event) => onchange(e);
 
@@ -191,11 +191,26 @@ class EditProfilePageView {
         if (agreeToDeleteAvatarBtn) {
             agreeToDeleteAvatarBtn.onclick = (e: Event) => onDeleteAvatar(e);
         }
+
+        const eyeIcons = <NodeListOf<HTMLElement>>document.querySelectorAll(`[data-type='eye-icon']`);
+        eyeIcons.forEach((eyeIcon) => {
+            eyeIcon.onclick = (e: Event) => onIconClick(e);
+        });
+
+        const passwordInputs = <NodeListOf<HTMLElement>>document.querySelectorAll('input[type = password]');
+        passwordInputs.forEach((passwordInput) => {
+            passwordInput.oninput = (e: Event) => onPasswordInput(e);
+            passwordInput.onchange = (e: Event) => onChangeValue(e);
+        });
+
+        const confirmButton = <HTMLButtonElement>document.querySelector('#confirmPasswordChange');
+        confirmButton.onclick = (e: Event) => onConfirmButtonClick(e);
     }
 
     private initMaterialize(): void {
         this.materializeHandler.initModal();
         this.materializeHandler.initDatePicker();
+        this.materializeHandler.initTooltip();
     }
 
     public handlePreloader(isLoading: boolean): void {

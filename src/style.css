@@ -16562,7 +16562,7 @@ input:not([type]).select-dropdown {
   align-items: center;
   justify-content: center;
 }
-.password-input input[type=text]:not(.browser-default) {
+.password-input input[type=password]:not(.browser-default) {
   width: 100%;
   box-sizing: border-box;
   padding-left: 10px;
@@ -16680,6 +16680,10 @@ footer {
 .btn-completed {
   padding: 0 10px;
   background: linear-gradient(270deg, #3680e0 -24.77%, #53e9f4 95.41%);
+}
+
+.btn-flat.disabled, .btn-flat.btn-flat[disabled] {
+  color: white !important;
 }
 
 .btn-disabled {
@@ -16804,10 +16808,23 @@ input[type=text].datepicker::placeholder {
 #userName,
 #email,
 #password,
-#confirm {
+#confirm,
+#newPassword {
   box-sizing: border-box;
   padding-left: 12px;
   color: white;
+}
+
+.modal-content > .input-field > #confirm,
+.modal-content > .input-field > #newPassword,
+.modal-content > .input-field > #password {
+  border-bottom: 1px solid #c2bebe;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.modal-content > .input-field > label {
+  color: #666;
 }
 
 .datepicker-table td.is-selected {
@@ -16951,6 +16968,15 @@ select:-webkit-autofill:focus {
 .profile-item-input select:-webkit-autofill:hover,
 .profile-item-input select:-webkit-autofill:focus {
   -webkit-text-fill-color: #666 !important;
+}
+.profile-item-input input[type=text]:not(.browser-default).valid,
+.profile-item-input input[type=email]:not(.browser-default).valid,
+.profile-item-input input[type=password]:not(.browser-default).valid,
+.profile-item-input input[type=text]:not(.browser-default).invalid,
+.profile-item-input input[type=email]:not(.browser-default).invalid,
+.profile-item-input input[type=password]:not(.browser-default).invalid {
+  border-bottom: none;
+  box-shadow: none;
 }
 
 .settings-wrapper.editprofile .input-group .value::placeholder,

@@ -61,6 +61,7 @@ export enum Message {
     invalidName = 'Please enter a valid name starting from letter',
     invalidPassword = 'Password should not be less than 6 symbols',
     invalidValue = 'Please enter a valid value',
+    passwordEqual = 'Please choose a password different from a last one',
 }
 
 export enum Height {
@@ -107,6 +108,7 @@ export enum Endpoints {
     auth = 'auth',
     userSettings = 'userSettings',
     workoutSettings = 'workoutSettings',
+    changeUserData = 'editProfile',
 }
 
 export enum ModalContents {

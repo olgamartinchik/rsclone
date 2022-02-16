@@ -134,3 +134,10 @@ export type TUser = {
     name: string;
     email: string;
 }
+
+export type TChangeUserDataForm = {
+    userName: string,
+    email: string,
+    password: string,
+    newPassword: string,
+}

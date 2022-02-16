@@ -3,19 +3,21 @@ import onboardingModel from '../onboardingPage/onboardingPageModel';
 import storageManager from '../../services/storageManager';
 import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';
-import { TLoginForm, TSettings, TUser } from '../../services/types';
+import { TChangeUserDataForm, TToken, TSettings, TUser } from '../../services/types';
 import { Endpoints } from '../../services/constants';
 
 class EditProfilePageModel {
     private clientManager: ClientManager;
-    private authForm: TLoginForm;
+    private editProfileForm: TChangeUserDataForm;
     private isLoading: boolean;
 
     constructor() {
         this.clientManager = new ClientManager();
-        this.authForm = {
+        this.editProfileForm = {
             userName: '',
             email: '',
+            password: '',
+            newPassword: '',
         }
         this.isLoading = true;
     }
@@ -28,9 +30,10 @@ class EditProfilePageModel {
         return storageManager.getItem('user', 'local');
     }
 
-    public async updateAuthForm(modifiedUserData: TUser): Promise<void> {
-        this.authForm.userName = modifiedUserData.name;
-        this.authForm.email = modifiedUserData.email;
+    public async updateUserDataForm(changeUserDataForm: TChangeUserDataForm, modifiedUserData: TUser): Promise<void> {
+        this.editProfileForm = changeUserDataForm;
+        this.editProfileForm.userName = modifiedUserData.name;
+        this.editProfileForm.email = modifiedUserData.email;
         await this.updateUserData(modifiedUserData);
     }
 
@@ -39,30 +42,74 @@ class EditProfilePageModel {
         storageManager.addItem('userSettings', modifiedSettings, 'local');
         await this.clientManager.changeData(
             Endpoints.userSettings,
+            'PATCH',
             (<TSettings>modifiedSettings).userId,
             <TSettings>modifiedSettings
         );
         this.isLoading = false;
+        this.disableSaveButton();
         this.updateWorkoutProgram();
     }
 
     public async updateUserData(modifiedUserData: TUser) {
+        console.log('form sent to back', this.editProfileForm);
         const userId = (<TSettings>this.getSettingsData()).userId;
         this.isLoading = true;
         await this.clientManager.changeData(
-            Endpoints.auth,
+            Endpoints.changeUserData,
+            'POST',
             userId,
-            <TLoginForm>this.authForm
+            <TChangeUserDataForm>this.editProfileForm
         );
         this.isLoading = false;
         if (this.clientManager.result) {
-            storageManager.addItem('user', modifiedUserData, 'local');
+            this.disableSaveButton();
+            this.saveUpdatedUserData(modifiedUserData);
+        } else {
+            console.log('update failed', this.clientManager.result);
+            this.createMessage(this.clientManager.message);
+            this.disableSaveButton();
+            this.resetInputFields();
         }
+        this.resetPasswordFields();
+    }
+
+    private saveUpdatedUserData(modifiedUserData: TUser): void {
+        storageManager.addItem('user', modifiedUserData, 'local');
+        storageManager.addItem('token', this.clientManager.token, 'local');
     }
 
     private updateWorkoutProgram(): void {
         storageManager.deleteItem('workout-cards', 'local');
         storageManager.deleteItem('workout-program', 'local');
+    }
+
+    private disableSaveButton(): void {
+        const saveButton = <HTMLButtonElement>document.querySelector('.btn-save');
+        saveButton.className = 'waves-effect waves-light btn-save btn-large btn-disabled';
+        if (!saveButton.disabled) saveButton.setAttribute('disabled', 'disabled');
+    }
+
+    private resetInputFields(): void {
+        const nameInputField = <HTMLInputElement>document.querySelector('#name');
+        const emailInputField = <HTMLInputElement>document.querySelector('#email');
+        nameInputField.value = '';
+        emailInputField.value = ''; 
+    }
+
+    private resetPasswordFields(): void {
+        const currentPasswordInput = <HTMLInputElement>document.querySelector('#password');
+        const passwordInput = <HTMLInputElement>document.querySelector('#newPassword');
+        const confirmPasswordInput = <HTMLInputElement>document.querySelector('#confirm');
+        currentPasswordInput.value = '';
+        passwordInput.value = '';
+        confirmPasswordInput.value = '';
+    }
+
+    public checkPassword(): boolean {
+        const passwordInput = <HTMLInputElement>document.querySelector('#newPassword');
+        const confirmPasswordInput = <HTMLInputElement>document.querySelector('#confirm');
+        return passwordInput.value === confirmPasswordInput.value;
     }
 
     public async deleteUser(): Promise<void> {
