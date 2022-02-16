@@ -50,6 +50,7 @@
     "dependencies": {
         "@cloudinary/url-gen": "^1.5.1",
         "dotenv": "^16.0.0",
+        "chart.js": "^3.7.1",
         "eslint-config-airbnb-typescript": "^16.1.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-prettier": "^4.0.0",

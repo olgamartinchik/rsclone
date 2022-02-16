@@ -41,6 +41,7 @@ export type TSettings = {
     desiredWeight: number;
     duration: WorkoutsProgramDuration;
     workoutsNumber: WorkoutsNumber;
+    weekProgress: TWeekProgress;
     favWorkouts: Array<WorkoutType>;
     caloriesBurned: number;
     badges: Array<BadgeName>;
@@ -48,6 +49,7 @@ export type TSettings = {
     weightUnit: string;
     completedWorkouts: number;
     liked: Array<string>;
+    progress: TProgress[];
 };
 
 export type TConvertedValues = {
@@ -87,9 +89,9 @@ export type RouteOption = {
     callback: () => void;
     isAuth: boolean | null;
 };
-export type TIngredients={
-    image:string
-}
+export type TIngredients = {
+    image: string;
+};
 export interface IDataExplore {
     recipe: {
         image?: string;
@@ -100,12 +102,12 @@ export interface IDataExplore {
         yield?: number;
         diet?: string;
         dietLabels?: string;
-        ingredients?:Array<TIngredients>
-        url?:string,
-        ingredientLines?:Array<string>,
-        totalTime?:string,
-        totalWeight?:string,
-        healthLabels?:Array<string>
+        ingredients?: Array<TIngredients>;
+        url?: string;
+        ingredientLines?: Array<string>;
+        totalTime?: string;
+        totalWeight?: string;
+        healthLabels?: Array<string>;
     };
 }
 
@@ -149,4 +151,26 @@ export type TChangeUserDataForm = {
     email: string;
     password: string;
     newPassword: string;
+}
+
+export type TWeekProgress = {
+    currentWeek: number;
+    calories: number;
+    workoutsNumber: number;
+    workoutsCompleted: number;
+    minutes: number;
+};
+
+export type TStatData = {
+    calories: number;
+    time: number;
+};
+
+export type TProgressData = {
+    [index: string]: number;
+};
+
+export type TProgress = {
+    minutes: TProgressData[];
+    calories: TProgressData[];
 };

@@ -123,7 +123,7 @@ export class AvatarManager {
         const publicId = <string>storageManager.getItem('public_id', 'local');
         const userName = (<TUser>storageManager.getItem('user', 'local')).name;
         user.avatar = '';
-        await this.clientManager.deleteAvatar(publicId);
+        // await this.clientManager.deleteAvatar(publicId);
         storageManager.deleteItem('public_id', 'local');
         storageManager.addItem('user', user, 'local');
         this.setUploadIcon();

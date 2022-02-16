@@ -45,7 +45,6 @@ class EditProfilePageView {
         onPasswordInput: (e: Event) => void,
         onConfirmButtonClick: (e: Event) => void
     ) {
-        // this.animationManager.initPageTransition()
         this.rootNode.textContent = '';
         this.getData();
         const src = avatarManager.formAvatarSrc();
@@ -97,7 +96,6 @@ class EditProfilePageView {
         onclickSaveBtn: (e: Event) => void
     ): void {
         const main = <HTMLElement>this.rootNode.querySelector('.main-layout');
-        // this.animationManager.initContentFadeout(main);
         const profileInfoWrapper = new Node(main, 'div', 'settings-wrapper editprofile');
         profileInfoWrapper.append(profileItem.getTemplate('text', 'Name', userData.name, onchangeValue));
         profileInfoWrapper.append(profileItem.getTemplate('email', 'Email', userData.email, onchangeValue));

@@ -14,9 +14,8 @@ export default class CloudinaryManager {
     }
 
     public getVideoUrl(name: string): string {
-        let currName = name.replace(/[()&,]/, '');
+        let currName = name.replace(/[()&,]/gm, '');
         currName = currName.replace(/\s{1,2}|'/gm, '_');
-        console.log(currName);
 
         const video = this.cld.video(`fitOn-clone/${currName}`);
 
