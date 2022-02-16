@@ -1,5 +1,5 @@
 import { WorkoutType } from './constants';
-import { TProgress, TProgressData } from './types';
+import { TProgressData } from './types';
 export default class Utils {
     static getChunks<T>(dataArr: T[], chunk: number): Array<T[]> {
         return dataArr.reduce((resultArray: Array<T[]>, item: T, index: number) => {
@@ -151,8 +151,8 @@ export default class Utils {
 
     static getWeekValues(keys: string[], values: TProgressData[]): number[] {
         return keys.map((key: string) => {
-            const currValue = values.find(val => val[key]);
-            if(currValue) {
+            const currValue = values.find((val) => val[key]);
+            if (currValue) {
                 return currValue[key];
             } else {
                 return 0;

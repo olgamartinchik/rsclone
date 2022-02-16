@@ -21,7 +21,7 @@ class Card {
 
     public getTemplate(onclick: (e: Event) => void, index?: number): HTMLElement {
         this.rootNode.onclick = (e: Event) => onclick(e);
-        if(index) {
+        if (index) {
             this.rootNode.style.animationDelay = `${index / 10}s`;
         }
         this.rootNode.insertAdjacentHTML('afterbegin', cardTemplate(this.data));

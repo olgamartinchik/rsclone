@@ -19,12 +19,11 @@ class StatisticPageModel {
         } else {
             const userData = storageManager.getItem<TToken>('token', 'local');
             if (userData) {
-                  const data = await this.client.getUserSettings(userData.userID);
-                 if(data) {
+                const data = await this.client.getUserSettings(userData.userID);
+                if (data) {
                     this.settings = data;
                 }
             }
-            
         }
 
         return this.settings;

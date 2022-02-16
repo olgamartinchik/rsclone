@@ -135,13 +135,13 @@ class ClientManager {
 
     public async updateProgram(program: TWorkoutProgram, id: string): Promise<TWorkoutProgram | void> {
         try {
-             const res = await fetch(`https://rsclonebackend.herokuapp.com/api/workoutSettings/${id}`, {
-                 method: 'PATCH',
-                 body: JSON.stringify({ _id: id, program }),
-                 headers: {
-                     'Content-Type': 'application/json',
-                 },
-             });
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/workoutSettings/${id}`, {
+                method: 'PATCH',
+                body: JSON.stringify({ _id: id, program }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
             return (await res.json()).program as TWorkoutProgram;
         } catch (e: unknown) {
@@ -160,7 +160,6 @@ class ClientManager {
     public get token(): TToken {
         return this.tokenInfo;
     }
-
 
     public async searchingData(from: string, to: string, meal = 'Salad') {
         try {

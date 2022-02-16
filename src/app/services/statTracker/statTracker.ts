@@ -55,7 +55,7 @@ class StatTracker {
         this.startTime = Date.now();
     }
 
-    public stopTracking(): void {        
+    public stopTracking(): void {
         if (this.caloriesTimerId) {
             clearInterval(this.caloriesTimerId);
             this.caloriesTimerId = null;

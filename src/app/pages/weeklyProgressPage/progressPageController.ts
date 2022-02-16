@@ -25,9 +25,9 @@ class ProgressPageController {
     }
 
     public async createCharts(set?: TSettings) {
-        const settings = set || await this.model.getSettings();
+        const settings = set || (await this.model.getSettings());
         const weekIndex = this.model.getCurrentWeek();
-        if(settings) {
+        if (settings) {
             const currentProgressData = settings.progress[weekIndex];
 
             const [weekKeys, datesKeys] = Utils.getWeekDays(settings.startDate, weekIndex);
@@ -36,8 +36,6 @@ class ProgressPageController {
 
             this.view.renderCharts(datesKeys, valuesMinutes, valuesCalories, settings.weekProgress);
         }
-        
-
     }
 
     private handleClick(): void {

@@ -4,7 +4,7 @@ import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 import StatisticWeekWidget from '../../components/statWeekWidget/statisticWeekWidget';
 import StatisticWorkoutWidget from '../../components/statWorkoutWidget/statisticWorkoutWidget';
-import { TProgress, TSettings, TWeekProgress } from '../../services/types';
+import { TSettings, TWeekProgress } from '../../services/types';
 import chartsManager from '../../services/chartsManager';
 import chartOptions from '../../components/chartOptions/template';
 
@@ -62,7 +62,7 @@ class ProgressPageView {
     }
 
     public renderCharts(labels: string[], minutes: number[], calories: number[], weekProgress: TWeekProgress) {
-        if(this.mainBlock) {
+        if (this.mainBlock) {
             chartsManager.resetCharts();
             const wrapper = new Node(this.mainBlock.node, 'div', 'charts-wrapper');
             const minutesChartWrapper = new Node(wrapper.node, 'div', 'chart-wrapper');
@@ -75,12 +75,7 @@ class ProgressPageView {
             );
             optCalories.node.insertAdjacentHTML(
                 'afterbegin',
-                chartOptions(
-                    weekProgress.calories,
-                    'cals',
-                    'Calories',
-                    'svg/icon-cal-fire.svg'
-                )
+                chartOptions(weekProgress.calories, 'cals', 'Calories', 'svg/icon-cal-fire.svg')
             );
 
             const minutesChart = new Node(minutesChartWrapper.node, 'canvas', 'chart chart-minutes');
@@ -89,7 +84,6 @@ class ProgressPageView {
             chartsManager.createChart(<HTMLCanvasElement>minutesChart.node, labels, minutes);
             chartsManager.createChart(<HTMLCanvasElement>caloriesChart.node, labels, calories);
         }
-        
     }
 }
 

@@ -16,7 +16,6 @@ class ChartsManager {
     }
 
     public createChart(element: HTMLCanvasElement, labels: string[], data: number[]): void {
-        
         const ctx = element.getContext('2d');
         if (ctx) {
             this.chartMinutes = new Chart(ctx, {
@@ -30,13 +29,12 @@ class ChartsManager {
                             borderRadius: 4,
                             backgroundColor: ['rgb(95, 75, 222)'],
                             borderWidth: 0,
-                            
                         },
                     ],
                 },
                 options: {
                     aspectRatio: 1.5,
-                    
+
                     plugins: {
                         legend: {
                             position: 'top',
@@ -47,16 +45,16 @@ class ChartsManager {
                         },
                     },
                     scales: {
-                         yAxes: {
+                        yAxes: {
                             ticks: {
                                 precision: 0,
-                            }
+                            },
                         },
                         xAxes: {
                             grid: {
-                                display: false
-                            }
-                        }
+                                display: false,
+                            },
+                        },
                     },
                 },
             });

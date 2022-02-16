@@ -1,4 +1,4 @@
-import { TSettings, TProgressData } from '../../services/types';
+import { TSettings } from '../../services/types';
 import StorageManager from '../../services/storageManager';
 import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';
@@ -45,10 +45,12 @@ export class OnboardingModel {
             weightUnit: WeightUnit.unitDefault,
             completedWorkouts: 0,
             liked: [],
-            progress: [{
-                minutes: [],
-                calories: []
-            }]
+            progress: [
+                {
+                    minutes: [],
+                    calories: [],
+                },
+            ],
         };
         this.birthday = '';
     }
@@ -119,10 +121,12 @@ export class OnboardingModel {
         this.form.weightUnit = WeightUnit.unitDefault;
         this.form.completedWorkouts = 0;
         this.form.liked = [];
-        this.form.progress = [{
+        this.form.progress = [
+            {
                 minutes: [],
-                calories: []
-            }];
+                calories: [],
+            },
+        ];
         this.birthday = '';
     }
 

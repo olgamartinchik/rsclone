@@ -33,7 +33,8 @@ class ProgramPageController {
             this.handleCardClick.bind(this),
             this.model.week,
             settings!,
-            this.handleStatBlockClick.bind(this));
+            this.handleStatBlockClick.bind(this)
+        );
 
         this.mealSection.getLoaderMealContainer();
         this.mealSection.loadMealCard(

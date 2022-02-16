@@ -1,5 +1,5 @@
-export default function statTemplate(minutes: number = 0, calories: number = 0): string {
-        return `<div class="workout-summary">
+export default function statTemplate(minutes = 0, calories = 0): string {
+    return `<div class="workout-summary">
                 <div class="container-stat">
                     <div class="workout-summary-item">
                         <p class="summary-item-title">${minutes}</p>
@@ -12,4 +12,4 @@ export default function statTemplate(minutes: number = 0, calories: number = 0):
                 </div>
             </div>
         `;
-    }
+}

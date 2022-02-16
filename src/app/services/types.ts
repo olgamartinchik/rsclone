@@ -82,9 +82,9 @@ export type RouteOption = {
     callback: () => void;
     isAuth: boolean | null;
 };
-export type TIngredients={
-    image:string
-}
+export type TIngredients = {
+    image: string;
+};
 export interface IDataExplore {
     recipe: {
         image?: string;
@@ -95,12 +95,12 @@ export interface IDataExplore {
         yield?: number;
         diet?: string;
         dietLabels?: string;
-        ingredients?:Array<TIngredients>
-        url?:string,
-        ingredientLines?:Array<string>,
-        totalTime?:string,
-        totalWeight?:string,
-        healthLabels?:Array<string>
+        ingredients?: Array<TIngredients>;
+        url?: string;
+        ingredientLines?: Array<string>;
+        totalTime?: string;
+        totalWeight?: string;
+        healthLabels?: Array<string>;
     };
 }
 
@@ -124,9 +124,9 @@ export type TWeekProgress = {
 };
 
 export type TStatData = {
-    calories: number,
-    time: number,
-}
+    calories: number;
+    time: number;
+};
 
 export type TProgressData = {
     [index: string]: number;

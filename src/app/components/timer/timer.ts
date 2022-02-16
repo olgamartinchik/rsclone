@@ -125,7 +125,7 @@ export default class Timer {
 
     public destroy(): void {
         this.root.remove();
-        if(this.caloriesTimerWrapper) {
+        if (this.caloriesTimerWrapper) {
             this.caloriesTimerWrapper.node.remove();
         }
     }

@@ -24,7 +24,7 @@ class ExploreController {
             this.setBgExplorePage(diet);
             this.handlerTabs();
             this.model.getActiveClassTabs(diet);
-          
+
             this.model.activeTabs();
             this.setCards(diet);
         }
