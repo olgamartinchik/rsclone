@@ -32,12 +32,25 @@ export class OnboardingModel {
             duration: WorkoutsProgramDuration.short,
             workoutsNumber: WorkoutsNumber.small,
             favWorkouts: [],
+            weekProgress: {
+                currentWeek: 0,
+                calories: 0,
+                workoutsNumber: WorkoutsNumber.small,
+                workoutsCompleted: 0,
+                minutes: 0,
+            },
             caloriesBurned: 0,
             badges: [],
             heightUnit: HeightUnit.unitDefault,
             weightUnit: WeightUnit.unitDefault,
             completedWorkouts: 0,
             liked: [],
+            progress: [
+                {
+                    minutes: [],
+                    calories: [],
+                },
+            ],
         };
         this.birthday = '';
     }
@@ -51,7 +64,10 @@ export class OnboardingModel {
         if (setting.weight) this.form.weight = setting.weight;
         if (setting.goal) this.form.goal = setting.goal;
         if (setting.desiredWeight) this.form.desiredWeight = setting.desiredWeight;
-        if (setting.workoutsNumber) this.form.workoutsNumber = +setting.workoutsNumber;
+        if (setting.workoutsNumber) {
+            this.form.workoutsNumber = +setting.workoutsNumber;
+            this.form.weekProgress.workoutsNumber = +setting.workoutsNumber;
+        }
         if (setting.favWorkouts) this.form.favWorkouts = setting.favWorkouts;
         if (setting.duration) this.form.duration = +setting.duration;
     }
@@ -97,6 +113,7 @@ export class OnboardingModel {
         this.form.desiredWeight = 0;
         this.form.duration = WorkoutsProgramDuration.short;
         this.form.workoutsNumber = WorkoutsNumber.small;
+        this.form.weekProgress.workoutsNumber = WorkoutsNumber.small;
         this.form.favWorkouts = [];
         this.form.caloriesBurned = 0;
         this.form.badges = [];
@@ -104,6 +121,12 @@ export class OnboardingModel {
         this.form.weightUnit = WeightUnit.unitDefault;
         this.form.completedWorkouts = 0;
         this.form.liked = [];
+        this.form.progress = [
+            {
+                minutes: [],
+                calories: [],
+            },
+        ];
         this.birthday = '';
     }
 

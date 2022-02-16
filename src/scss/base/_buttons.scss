@@ -54,6 +54,23 @@
     }
 }
 
+.btn-back {
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    transition: 0.5s;
+    cursor: pointer;
+    &:hover {
+        color: $color-primary;
+    }
+    &:focus {
+        background-color: transparent;
+    }
+    &:active {
+        color: $color-background-linear-3;
+    }
+}
+
 @media (max-width: 768px) {
     .btn-large.header-tablet {
         visibility: visible;

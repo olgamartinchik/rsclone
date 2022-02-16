@@ -19,8 +19,11 @@ class Card {
         this.completed = data.completed;
     }
 
-    public getTemplate(onclick: (e: Event) => void): HTMLElement {
+    public getTemplate(onclick: (e: Event) => void, index?: number): HTMLElement {
         this.rootNode.onclick = (e: Event) => onclick(e);
+        if (index) {
+            this.rootNode.style.animationDelay = `${index / 10}s`;
+        }
         this.rootNode.insertAdjacentHTML('afterbegin', cardTemplate(this.data));
         return this.rootNode;
     }

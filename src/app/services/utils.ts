@@ -1,4 +1,5 @@
 import { WorkoutType } from './constants';
+import { TProgressData } from './types';
 export default class Utils {
     static getChunks<T>(dataArr: T[], chunk: number): Array<T[]> {
         return dataArr.reduce((resultArray: Array<T[]>, item: T, index: number) => {
@@ -107,5 +108,55 @@ export default class Utils {
 
     static getKeyByValue<T>(object: T, value: string | number | Array<WorkoutType>) {
         return Object.keys(object).find((key) => object[key] === value);
+    }
+
+    static getTimeDiffInSeconds(startTime: number): number {
+        return Math.round((Date.now() - startTime) / 60000);
+    }
+
+    static getCaloriesPerSecond(weight: number, mets: number): number {
+        return +((weight * mets) / 60).toFixed(2);
+    }
+
+    static getCurrentISODate(): string {
+        const date = new Date().toISOString();
+        return date.slice(0, date.indexOf('T'));
+    }
+
+    static getISODate(dateNum: number): string {
+        const date = new Date(dateNum).toISOString();
+        return date.slice(0, date.indexOf('T'));
+    }
+
+    static getWeekDays(startDate: string, weekIndex: number): [string[], string[]] {
+        const DAYS_NUMBER = 7;
+        const DAY_MILLISECONDS = 1000 * 60 * 60 * 24;
+        const WEEK_MILLISECONDS = DAY_MILLISECONDS * DAYS_NUMBER;
+        let start = new Date(Number(startDate)).getTime();
+        const res = new Array(DAYS_NUMBER);
+        const weekDays: string[] = [];
+        let i = 0;
+        while (i < weekIndex) {
+            start += WEEK_MILLISECONDS;
+            i += 1;
+        }
+        for (let k = 0; k < res.length; k += 1) {
+            weekDays.push(new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(new Date(start)).slice(0, 3));
+            res[k] = Utils.getISODate(start);
+            start += DAY_MILLISECONDS;
+        }
+
+        return [<string[]>res, weekDays];
+    }
+
+    static getWeekValues(keys: string[], values: TProgressData[]): number[] {
+        return keys.map((key: string) => {
+            const currValue = values.find((val) => val[key]);
+            if (currValue) {
+                return currValue[key];
+            } else {
+                return 0;
+            }
+        });
     }
 }

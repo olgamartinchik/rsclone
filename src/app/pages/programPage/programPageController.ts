@@ -26,8 +26,15 @@ class ProgramPageController {
     }
 
     public async createPage() {
-        const trainings = await this.model.getWeekTrainings();
-        this.view.render(trainings, this.handleCardClick.bind(this), this.model.week);
+        const settings = await this.model.getSettingsData();
+        const trainings = await this.model.getWeekTrainings(settings!);
+        this.view.render(
+            trainings,
+            this.handleCardClick.bind(this),
+            this.model.week,
+            settings!,
+            this.handleStatBlockClick.bind(this)
+        );
 
         this.mealSection.getLoaderMealContainer();
         this.mealSection.loadMealCard(
@@ -42,6 +49,10 @@ class ProgramPageController {
         if (workout) {
             authManager.navigate(`workout/${workout.id}`);
         }
+    }
+
+    private handleStatBlockClick(): void {
+        authManager.navigate('weeklyprogress');
     }
 }
 

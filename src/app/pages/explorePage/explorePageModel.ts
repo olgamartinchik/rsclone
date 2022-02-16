@@ -1,16 +1,15 @@
 class ExplorePageModel {
     activeTabs() {
         const tabs = document.getElementsByClassName('tabs') as HTMLCollectionOf<Element>;
-        Array.from(tabs)
+        Array.from(tabs);
         if (tabs) {
-            Array.from(tabs).forEach(tab=>{
-                 M.Tabs.init(tab, {
-                swipeable: true,
-                duration: 300,
+            Array.from(tabs).forEach((tab) => {
+                M.Tabs.init(tab, {
+                    swipeable: true,
+                    duration: 300,
+                });
             });
-            })  
         }
-        console
     }
 
     getActiveClassTabs(diet: string) {

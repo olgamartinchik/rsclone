@@ -84,7 +84,6 @@ class CalculationCalories {
         } else if (this.goal === 'muscle') {
             this.calories = Math.floor(baseCalories * this.muscleCalCoefficient);
         }
-       
 
         return this.calories;
     }
@@ -113,7 +112,6 @@ class CalculationCalories {
                             Utils.shuffleArr(array);
                             return meal!.recipe.mealType!;
                         }
-                        
                     })
                 );
             });

@@ -3,9 +3,12 @@ import { TSettings, TToken, TWorkoutProgram } from '../../services/types';
 import Card from '../../components/card/card';
 import storageManager from '../../services/storageManager';
 import ClientManager from '../../services/clientManager';
+import DateManager from '../../services/datesManager';
 
 class ProgramPageModel {
     private wrManager: WorkoutManager;
+
+    private dateMr: DateManager;
 
     private currentWeek: number;
 
@@ -18,12 +21,14 @@ class ProgramPageModel {
     constructor() {
         this.wrManager = new WorkoutManager();
         this.client = new ClientManager();
+        this.dateMr = new DateManager();
         this.currentWeek = 0;
         this.program = [];
         this.cards = [];
     }
 
-    public async getWeekTrainings(): Promise<Card[]> {
+    public async getWeekTrainings(settings: TSettings): Promise<Card[]> {
+        this.currentWeek = this.dateMr.getNumWeek(settings);
         const data = await this.getSettingsData();
         const program = await this.getProgram();
 
@@ -60,7 +65,7 @@ class ProgramPageModel {
         storageManager.addItem('workout-program', this.program, 'local');
     }
 
-    private async getSettingsData(): Promise<TSettings | void> {
+    public async getSettingsData(): Promise<TSettings | void> {
         let settings = storageManager.getItem<TSettings>('userSettings', 'local');
         if (!settings) {
             const userData = storageManager.getItem<TToken>('token', 'local');

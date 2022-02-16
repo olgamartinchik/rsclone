@@ -4,6 +4,8 @@ import Header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 import storageManager from '../../services/storageManager';
+import { TSettings } from '../../services/types';
+import StatisticWeekWidget from '../../components/statWeekWidget/statisticWeekWidget';
 import MealPageView from '../mealPage/mealPageView';
 
 class ProgramPageView {
@@ -13,11 +15,20 @@ class ProgramPageView {
 
     cardsWrapper!: Node<HTMLElement>;
 
+    private weekWidget: StatisticWeekWidget;
+
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
+        this.weekWidget = new StatisticWeekWidget();
     }
 
-    render(data: Card[], onclick: (e: Event) => void, week: number): void {
+    public render(
+        data: Card[],
+        onclick: (e: Event) => void,
+        week: number,
+        settings: TSettings,
+        handleStatBlockClick: () => void
+    ): void {
         this.rootNode.textContent = '';
         this.rootNode.append(Header.getTemplate());
         const user = <string>storageManager.getItem('user', 'local');
@@ -31,40 +42,54 @@ class ProgramPageView {
         navbar.generateMenu('Program');
         navbar.addProfileLink(user);
 
-        this.setContents(data, onclick, week);
+        this.setContents(data, onclick, week, settings, handleStatBlockClick);
         this.rootNode.append(Footer.getTemplate());
     }
 
-    setContents(data: Card[], onclick: (e: Event) => void, week: number): void {
-        const Program = new Node(this.rootNode, 'main', 'main-layout');
-        Node.setChild(Program.node, 'div', 'decorative');
-        const contentWrapper = new Node(Program.node, 'div', 'main-content');
-        const ProgramContent = new Node(contentWrapper.node, 'div', 'left-block');
-        this.contentBlock = new Node(ProgramContent.node, 'section', 'content-block z-depth-1');
+    private setContents(
+        data: Card[],
+        onclick: (e: Event) => void,
+        week: number,
+        settings: TSettings,
+        handleStatBlockClick: () => void
+    ): void {
+        const containerWidget = new Node(null, 'div', 'container-stat');
+        const widget = this.weekWidget.getTemplate(
+            settings.weekProgress,
+            settings.startDate,
+            true,
+            handleStatBlockClick
+        );
+        containerWidget.node.append(widget);
+        const program = new Node(this.rootNode, 'main', 'main-layout');
+        Node.setChild(program.node, 'div', 'decorative');
+        const contentWrapper = new Node(program.node, 'div', 'main-content');
+        const programContent = new Node(contentWrapper.node, 'div', 'left-block');
+        this.contentBlock = new Node(programContent.node, 'section', 'content-block z-depth-1');
+        contentWrapper.node.append(containerWidget.node);
         Node.setChild(this.contentBlock.node, 'h2', 'hidden', 'Program');
 
         this.getContentBlockTitle(week);
         this.getCards(data, onclick);
         this.cardsWrapper.node.insertAdjacentHTML('beforeend', this.getAddWorkoutBlock());
-        Program.node.insertAdjacentHTML('beforeend', new MealPageView().getSectionMeal());
+        programContent.node.insertAdjacentHTML('beforeend', new MealPageView().getSectionMeal());
     }
 
-    getContentBlockTitle(week: number): void {
+    private getContentBlockTitle(week: number): void {
         const titleBlock = new Node(this.contentBlock.node, 'div', 'title-block');
         const titleWrapper = new Node(titleBlock.node, 'div');
         Node.setChild(titleWrapper.node, 'p', 'title card-title gradient-text', 'Kick start');
         Node.setChild(titleWrapper.node, 'p', 'subtitle', `Week ${week + 1}`);
-        Node.setChild(titleBlock.node, 'span', '', 'See all');
     }
 
-    getCards(data: Card[], onclick: (e: Event) => void): void {
-        const cardElems = data.map((card) => card.getTemplate(onclick));
+    private getCards(data: Card[], onclick: (e: Event) => void): void {
+        const cardElems = data.map((card: Card, index: number) => card.getTemplate(onclick, index));
 
         this.cardsWrapper = new Node(this.contentBlock.node, 'div', 'workout-list');
         this.cardsWrapper.node.append(...cardElems);
     }
 
-    getAddWorkoutBlock(): string {
+    private getAddWorkoutBlock(): string {
         return `
         <div class="program-card z-depth-1">
             <h3 class="title card-title title-container">Add Workout</h3>
