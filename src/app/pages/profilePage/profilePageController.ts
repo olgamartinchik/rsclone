@@ -18,21 +18,18 @@ class ProfilePageController {
 
     private handleAvatarChange(e: Event): void {
         const clickedElement = <HTMLInputElement>e.target; 
-        const avatar = (<TToken>storageManager.getItem('token', 'local')).avatar; 
-
         if (!(<FileList>clickedElement.files).length) {
             return;
         }
-
         this.files = avatarManager.getAvatarFile(clickedElement);
     }
 
-    private handleAvatarDelete(e: Event): void { 
+    private handleAvatarDelete(): void { 
         this.deleteAvatar();
     }
 
-    private async deleteAvatar(): Promise<void> {
-        await avatarManager.deleteAvatar(this.files[0]);
+    private deleteAvatar(): void {
+        avatarManager.deleteAvatar(this.files[0]);
 
         const avatarImg = <HTMLImageElement>document.querySelector('.profile-avatar');
         const src = avatarManager.chooseDefaultAvatar();

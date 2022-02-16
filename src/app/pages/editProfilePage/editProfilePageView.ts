@@ -35,12 +35,11 @@ class EditProfilePageView {
         // this.animationManager.initPageTransition()
         this.rootNode.textContent = '';
         this.getData();
-
-        const src = avatarManager.formAvatarSrc(settings.userId);
+        const src = avatarManager.formAvatarSrc();
         this.createHeader(userData);
         this.createContentHeader(src);
 
-        const avatar = (<TToken>storageManager.getItem('token', 'local')).avatar;
+        const avatar = (<TUser>storageManager.getItem('user', 'local')).avatar;
         if (avatar) avatarManager.setDeleteIcon();
         
         this.createContentForm(settings, userData, onchangeValue, onchangeBirthday, onchangeGender,onclickSaveBtn, onclickDeleteBtn);

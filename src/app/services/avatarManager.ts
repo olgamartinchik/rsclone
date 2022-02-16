@@ -1,13 +1,16 @@
 import ClientManager from "./clientManager";
+import CloudinaryManager from "./cloudinarySDK";
 import storageManager from "./storageManager";
 import { TToken, TSettings, TUser } from "./types";
 
 export class AvatarManager {
   private clientManager: ClientManager;
   private files: Array<File>;
+  private cloudinaryManager: CloudinaryManager;
 
   constructor() {
       this.clientManager = new ClientManager();
+      this.cloudinaryManager = new CloudinaryManager();
       this.files = [];
   }
 
@@ -48,7 +51,7 @@ export class AvatarManager {
   public setDeleteIcon(): void {
     const editIcon = <HTMLElement>document.querySelector('.icon-upload');
     
-    if (editIcon && editIcon.className.includes('pencil')) {
+    if (editIcon) {
         editIcon.className = 'icon-upload icon delete modal-trigger';
         editIcon.setAttribute('data-target', 'modal7');
     }
@@ -63,10 +66,10 @@ export class AvatarManager {
     }
   }
 
-  public formAvatarSrc(userId: string): string {
-    const avatar = (<TToken>storageManager.getItem('token', 'local')).avatar;
+  public formAvatarSrc(): string {
+    const avatar = (<TUser>storageManager.getItem('user', 'local')).avatar;
     const defaultAvatar = this.chooseDefaultAvatar();
-    const src = (avatar) ? `https://rsclonebackend.herokuapp.com/api/avatar/${userId}` : defaultAvatar;   
+    const src = (avatar) ? avatar : defaultAvatar;   
 
     return src;
   }
@@ -87,20 +90,21 @@ export class AvatarManager {
   }
 
   public async updateUserInfo(file: File): Promise<void> {
-    const userData = <TToken>storageManager.getItem('token', 'local');
+    const user = <TUser>storageManager.getItem('user', 'local');
     const userId = (<TToken>storageManager.getItem('token', 'local')).userID;
     const userName = (<TUser>storageManager.getItem('user', 'local')).name;
-    await this.clientManager.uploadAvatar(file, userId);
-    userData.avatar = 'uploaded';
-    storageManager.addItem('token', userData, 'local');
-    this.updateProfileIcon(userData.avatar, userName, userData.userID);
+   
+    const avatar = await this.clientManager.uploadAvatar(file, userId);
+    user.avatar = avatar.secure_url;
+    storageManager.addItem('user', user, 'local');
+    this.updateProfileIcon(user.avatar, userName);
   }
 
-  private updateProfileIcon(avatar: string | null, name: string, userId: string): void {
+  public updateProfileIcon(avatar: string | undefined, name: string): void {
     const profileIcon = <HTMLElement>document.querySelector('.profile');
     if (avatar) {
-      profileIcon.style.backgroundImage = `url(https://rsclonebackend.herokuapp.com/api/avatar/${userId})`;
-      profileIcon.innerHTML = '';
+        profileIcon.style.backgroundImage = `url(${avatar})`;
+        profileIcon.innerHTML = '';
     } else {
         profileIcon.innerHTML = name.split('')[0];
         profileIcon.style.backgroundImage = '';
@@ -108,14 +112,14 @@ export class AvatarManager {
   }
 
   public async deleteAvatar(file: File) {
-      const userData = <TToken>storageManager.getItem('token', 'local');
+      const user = <TUser>storageManager.getItem('user', 'local');
       const userId = (<TToken>storageManager.getItem('token', 'local')).userID;
       const userName = (<TUser>storageManager.getItem('user', 'local')).name;
-      userData.avatar = null;
-      await this.clientManager.deleteAvatar(file, userId);
-      storageManager.addItem('token', userData, 'local');
+      user.avatar = '';
+      // await this.clientManager.deleteAvatar(file, userId);
+      storageManager.addItem('user', user, 'local');
       this.setUploadIcon();
-      this.updateProfileIcon(userData.avatar, userName, userData.userID);
+      this.updateProfileIcon(user.avatar, userName);
   }
 }
 

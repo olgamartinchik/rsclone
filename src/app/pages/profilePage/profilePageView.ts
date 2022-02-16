@@ -44,13 +44,12 @@ class ProfilePageView {
         // this.animationManager.initPageTransition();
         this.rootNode.textContent = '';
         this.getData();
-        const userId = (<TToken>storageManager.getItem('token', 'local')).userID;
-        const src = avatarManager.formAvatarSrc(userId);
+        const src = avatarManager.formAvatarSrc();
 
         this.createHeader();
         this.createProfileHeader(src);
 
-        const avatar = (<TToken>storageManager.getItem('token', 'local')).avatar;
+        const avatar = (<TUser>storageManager.getItem('user', 'local')).avatar;
         if (avatar) avatarManager.setDeleteIcon();
         
         this.createFooter();

@@ -51,22 +51,19 @@ class EditProfilePageController {
 
     private handleAvatarChange(e: Event): void {
         const clickedElement = <HTMLInputElement>e.target; 
-
         if (!(<FileList>clickedElement.files).length) {
             return;
         }
-
         this.files = avatarManager.getAvatarFile(clickedElement);
     }
 
-    private handleAvatarDelete(e: Event): void { 
+    private handleAvatarDelete(): void { 
         this.deleteAvatar();
-        console.log('avatar deleted', this.files);
     }
 
-    private async deleteAvatar(): Promise<void> {
-        await avatarManager.deleteAvatar(this.files[0]);
-        this.files = [];
+    private deleteAvatar(): void {
+        avatarManager.deleteAvatar(this.files[0]);
+
         const avatarImg = <HTMLImageElement>document.querySelector('.profile-avatar');
         const src = avatarManager.chooseDefaultAvatar();
         avatarImg.src = src;

@@ -24,7 +24,7 @@ class ProgramPageView {
 
     render(data: Card[], onclick: (e: Event) => void, week: number): void {
 
-        this.animationManager.initPageTransition();
+        // this.animationManager.initPageTransition();
 
         this.rootNode.textContent = '';
         this.rootNode.append(Header.getTemplate());
@@ -47,7 +47,7 @@ class ProgramPageView {
 
     setContents(data: Card[], onclick: (e: Event) => void, week: number): void {
         const Program = new Node(this.rootNode, 'main', 'main-layout');
-        this.animationManager.initContentFadeout(Program.node);
+        // this.animationManager.initContentFadeout(Program.node);
 
         Node.setChild(Program.node, 'div', 'decorative');
         const contentWrapper = new Node(Program.node, 'div', 'main-content');

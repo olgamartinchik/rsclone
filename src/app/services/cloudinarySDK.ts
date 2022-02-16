@@ -22,4 +22,14 @@ export default class CloudinaryManager {
 
         return video.toURL();
     }
+
+    public getImageUrl(id: string, name: string): string {
+        // let currName = name.replace(/[()&,]/, '');
+        // currName = currName.replace(/\s{1,2}|'/gm, '_');
+        console.log(name);
+
+        const image = this.cld.video(`fitOn-clone/avatar/${id}/${name}`);
+        console.log(image.toURL());
+        return image.toURL();
+    }
 }

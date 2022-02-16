@@ -133,6 +133,7 @@ export type TParameter = {
 export type TUser = {
     name: string;
     email: string;
+    avatar?: string | undefined;
 }
 
 export type TChangeUserDataForm = {

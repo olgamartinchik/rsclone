@@ -1,7 +1,7 @@
 import Node from '../Node';
 import Button from '../Button';
 import { Id } from '../../services/constants';
-import { TToken } from '../../services/types';
+import { TToken, TUser } from '../../services/types';
 import storageManager from '../../services/storageManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
 
@@ -85,14 +85,12 @@ export default class NavBar {
     }
 
     generateProfileIcon(parentNode: HTMLElement, user: string): void {
-        const avatar = (<TToken>storageManager.getItem('token', 'local')).avatar;
-        const userId = (<TToken>storageManager.getItem('token', 'local')).userID;
-        
+        const avatar = (<TUser>storageManager.getItem('user', 'local')).avatar;
         const iconContainer = new Node(parentNode, 'div', 'icon-container');
         const profileIcon = new Node(iconContainer.node, 'span', 'profile');
         
         if (avatar) {
-            profileIcon.node.style.backgroundImage = `url(https://rsclonebackend.herokuapp.com/api/avatar/${userId})`;
+            profileIcon.node.style.backgroundImage = `url("${avatar}")`;
             profileIcon.node.innerHTML = '';
         } else {
             profileIcon.node.innerHTML = `${user}`;

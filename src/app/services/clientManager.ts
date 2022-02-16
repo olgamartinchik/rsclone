@@ -8,6 +8,7 @@ import {
     TWorkoutProgram,
     TChangeUserDataForm,
 } from '../services/types';
+import { Endpoints } from './constants';
 import { API_ID, KEY_API } from '../configs/edamamConfig';
 
 class ClientManager {
@@ -205,32 +206,51 @@ class ClientManager {
 
     public async uploadAvatar(file: File, id: string) {
         try {
-            const formData = new FormData()
-            formData.append('file', file)
-            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/avatar/${id}`, {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", "upload-avatar");
+
+            const res = await fetch(`${Endpoints.cloudinary}`, {
                 method: 'POST',
                 body: formData,
             });
-
-            return await res.json();
-        } catch (e: unknown) {
+            const data = await res.json(); 
+            console.log(data);
+            return  data;
+        }  catch (e: unknown) {
             this.handleError(e);
         }
     }
 
-    public async deleteAvatar(file: File, id: string) {
-        try {
-            const formData = new FormData()
-            formData.append('file', file)
-            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/avatar/${id}`, {
-                method: 'DELETE'
-            });
+    // public async uploadAvatar(file: File, id: string) {
+    //     try {
+    //         const formData = new FormData();
+    //         formData.append('file', file);
+    //         
+    //         const res = await fetch(`https://rsclonebackend.herokuapp.com/api/avatar/${id}`, {
+    //             method: 'POST',
+    //             body: formData,
+    //         });
+
+    //         return await res.json();
+    //     } catch (e: unknown) {
+    //         this.handleError(e);
+    //     }
+    // }
+
+    // public async deleteAvatar(file: File, id: string) {
+    //     try {
+    //         const formData = new FormData()
+    //         formData.append('file', file)
+    //         const res = await fetch(`https://rsclonebackend.herokuapp.com/api/avatar/${id}`, {
+    //             method: 'DELETE'
+    //         });
             
-            return await res.json();
-        } catch (e: unknown) {
-            this.handleError(e);
-        }
-    }
+    //         return await res.json();
+    //     } catch (e: unknown) {
+    //         this.handleError(e);
+    //     }
+    // }
 
     private handleError(e: unknown) {
         if (e instanceof Error) {

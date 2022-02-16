@@ -21,7 +21,7 @@ class ExplorePageView {
     }
 
     render(diet: string) {
-        this.animationManager.initPageTransition();
+        // this.animationManager.initPageTransition();
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
         const user = <TUser>storageManager.getItem('user', 'local');
@@ -43,7 +43,7 @@ class ExplorePageView {
 
     createContentExplore(diet: string) {
         const main = new Node(this.rootNode, 'main', 'main-layout main-diet');
-        this.animationManager.initContentFadeout(main.node);
+        // this.animationManager.initContentFadeout(main.node);
         const mealTypeSection = new Node(main.node, 'section', 'meal-type-section');
         const linkBack = new Node(mealTypeSection.node, 'a', 'arrow-back');
         linkBack.setAttribute('href', '#meal');
