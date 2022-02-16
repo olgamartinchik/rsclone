@@ -22,7 +22,7 @@ class MealPageModel {
         this.numTo = this.numFrom + 1;
         this.mealData = new ClientManager();
         this.dishType = [
-            { recipe: { diet: 'balanced', image: 'balanced' } },
+            { recipe!: { diet!: 'balanced', image!: 'balanced' } },
             { recipe: { diet: 'high-fiber', image: 'high-fiber' } },
             { recipe: { diet: 'low-carb', image: 'low-carb' } },
             { recipe: { diet: 'low-fat', image: 'low-fat' } },

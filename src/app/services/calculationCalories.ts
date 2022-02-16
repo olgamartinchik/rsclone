@@ -84,7 +84,7 @@ class CalculationCalories {
         } else if (this.goal === 'muscle') {
             this.calories = Math.floor(baseCalories * this.muscleCalCoefficient);
         }
-        console.log('result', this.calories, this.goal, baseCalories);
+       
 
         return this.calories;
     }
@@ -93,7 +93,6 @@ class CalculationCalories {
         const calories = this.getCalories();
         const recipeData = await new ClientManager().getRecipe(calories);
         StorageManager.addItem('allRecipe', recipeData, 'local');
-        console.log('recipe', StorageManager.getItem('allRecipe', 'local'));
         this.createUserMeal();
         return recipeData;
     }
@@ -111,9 +110,10 @@ class CalculationCalories {
                 periodUserMeal[date].push(
                     allRecipe!.find((meal, ind, array) => {
                         if ((meal!.recipe.mealType! as [])!.includes(day as never)) {
+                            Utils.shuffleArr(array);
                             return meal!.recipe.mealType!;
                         }
-                        Utils.shuffleArr(array);
+                        
                     })
                 );
             });
