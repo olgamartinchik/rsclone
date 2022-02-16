@@ -43,7 +43,8 @@ class EditProfilePageView {
         onclickDeleteBtn: (e: Event) => void,
         onIconClick: (e: Event) => void,
         onPasswordInput: (e: Event) => void,
-        onConfirmButtonClick: (e: Event) => void
+        onConfirmButtonClick: (e: Event) => void,
+        onCurrentPasswordBlur: (e: Event) => void
     ) {
         this.rootNode.textContent = '';
         this.getData();
@@ -65,7 +66,8 @@ class EditProfilePageView {
             onIconClick,
             onPasswordInput,
             onchangeValue,
-            onConfirmButtonClick
+            onConfirmButtonClick,
+            onCurrentPasswordBlur
         );
         this.initMaterialize();
     }
@@ -187,8 +189,6 @@ class EditProfilePageView {
 
     private createFooter(): void {
         this.rootNode.append(footer.getTemplate());
-        // const footerLayout = <HTMLElement>this.rootNode.querySelector('footer');
-        // this.animationManager.initContentFadeout(footerLayout);
     }
 
     private addEvents(
@@ -198,7 +198,8 @@ class EditProfilePageView {
         onIconClick: (e: Event) => void,
         onPasswordInput: (e: Event) => void,
         onChangeValue: (e: Event) => void,
-        onConfirmButtonClick: (e: Event) => void
+        onConfirmButtonClick: (e: Event) => void,
+        onCurrentPasswordBlur: (e: Event) => void
     ): void {
         const fileInput = <HTMLInputElement>this.rootNode.querySelector('#avatar');
         if (fileInput) fileInput.onchange = (e: Event) => onchange(e);
@@ -226,6 +227,9 @@ class EditProfilePageView {
 
         const confirmButton = <HTMLButtonElement>document.querySelector('#confirmPasswordChange');
         confirmButton.onclick = (e: Event) => onConfirmButtonClick(e);
+
+        const currentPasswordInput = <HTMLInputElement>document.querySelector('#password');
+        currentPasswordInput.onblur = (e: Event) => onCurrentPasswordBlur(e);
     }
 
     private initMaterialize(): void {

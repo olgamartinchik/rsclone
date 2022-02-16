@@ -72,6 +72,23 @@ class EditProfilePageModel {
             this.resetInputFields();
         }
         this.resetPasswordFields();
+        this.resetEditProfileForm();
+    }
+    
+    public async checkCurrentPassword(changeUserDataForm: TChangeUserDataForm): Promise<boolean> {
+        this.editProfileForm = changeUserDataForm;
+        const userId = (<TSettings>this.getSettingsData()).userId;
+        this.isLoading = true;
+        await this.clientManager.changeData(
+            Endpoints.changeUserData,
+            'POST',
+            userId,
+            <TChangeUserDataForm>this.editProfileForm
+        );
+        this.isLoading = false;
+        if(!this.clientManager.result) this.createMessage(this.clientManager.message);
+        this.resetEditProfileForm();
+        return this.clientManager.result;
     }
 
     private saveUpdatedUserData(modifiedUserData: TUser): void {
@@ -106,6 +123,13 @@ class EditProfilePageModel {
         confirmPasswordInput.value = '';
     }
 
+    private resetEditProfileForm(): void {
+        this.editProfileForm.userName = '';
+        this.editProfileForm.email = '';
+        this.editProfileForm.password = '';
+        this.editProfileForm.newPassword = '';
+    }
+
     public checkPassword(): boolean {
         const passwordInput = <HTMLInputElement>document.querySelector('#newPassword');
         const confirmPasswordInput = <HTMLInputElement>document.querySelector('#confirm');
@@ -129,11 +153,16 @@ class EditProfilePageModel {
         const currentDay = date.getDate();
         const currentMonth = date.getMonth();
         const currentYear = date.getFullYear();
-
-        const dayofBirth = +dateOfBirth.split(' ')[1].split('').splice(0, 2).join('');
-        const month = dateOfBirth.split(' ')[0];
-        const monthOfBirth = Utils.getMonth(month);
-        const yearOfBirth = +dateOfBirth.split(' ')[2];
+        let dayofBirth = 0;
+        let month = '';
+        let monthOfBirth = 0;
+        let yearOfBirth = 0;
+        if (dateOfBirth) {
+            dayofBirth = +dateOfBirth.split(' ')[1].split('').splice(0, 2).join('');
+            month = dateOfBirth.split(' ')[0];
+            monthOfBirth = Utils.getMonth(month);
+            yearOfBirth = +dateOfBirth.split(' ')[2];
+        }
 
         let age = currentYear - yearOfBirth;
         if (monthOfBirth > currentMonth) {
@@ -141,6 +170,11 @@ class EditProfilePageModel {
             return age;
         } else if (dayofBirth > currentDay) {
             age -= 1;
+        }
+
+        if (!dateOfBirth) {
+            age = (<TSettings>this.getSettingsData()).age;
+            console.log('Errrrrroorrrr!!!!!');
         }
 
         return age;

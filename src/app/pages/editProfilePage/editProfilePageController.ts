@@ -10,8 +10,6 @@ import { Height, Weight, Coefficients, Message } from '../../services/constants'
 class EditProfilePageController {
     private view: EditProfilePageView;
 
-    private files: Array<File>;
-
     private model: EditProfilePageModel;
 
     private settings: void | TSettings;
@@ -23,16 +21,26 @@ class EditProfilePageController {
     private modifiedUser: void | TUser;
 
     private changeUserDataForm: TChangeUserDataForm;
+    
+    private confirmCurrentPasswordForm: TChangeUserDataForm;
+    
+    private files: Array<File>;
 
     constructor() {
         this.view = new EditProfilePageView();
         this.model = new EditProfilePageModel();
-        this.files = [];
         this.settings = this.model.getSettingsData();
         this.modifiedUserSettings = this.getModifiedUserSettings();
         this.user = this.model.getUserData();
         this.modifiedUser = this.getModifiedUser();
+        this.files = [];
         this.changeUserDataForm = {
+            userName: '',
+            email: '',
+            password: '',
+            newPassword: '',
+        };
+        this.confirmCurrentPasswordForm = {
             userName: '',
             email: '',
             password: '',
@@ -57,7 +65,8 @@ class EditProfilePageController {
             this.handleDeleteBtnClick.bind(this),
             this.handleIconClick.bind(this),
             this.handlePasswordInput.bind(this),
-            this.handleConfirmButtonClick.bind(this)
+            this.handleConfirmButtonClick.bind(this),
+            this.handleCurrentPasswordBlur.bind(this)
         );
     }
 
@@ -161,6 +170,12 @@ class EditProfilePageController {
         this.handleSaveButtonStatus();
     }
 
+    private handleAvatarImageChange(): void {
+        const avatarImg = <HTMLImageElement>document.querySelector('.profile-avatar');
+        const src = avatarManager.formAvatarSrc();
+        avatarImg.src = src;
+    }
+
     private selectValue(e: Event): void {
         Array.from(<HTMLCollection>(<HTMLElement>(<HTMLElement>e.target).parentElement).children).forEach((element) => {
             element.classList.remove('active');
@@ -175,6 +190,23 @@ class EditProfilePageController {
         this.handleConfirmButtonStatus();
     }
 
+    private  async handleCurrentPasswordBlur(e: Event): Promise<void> {
+        const passwordInput = <HTMLInputElement>document.querySelector('#newPassword');
+        const confirmPasswordInput = <HTMLInputElement>document.querySelector('#confirm');
+        const currentPasswordPrinted = (<HTMLInputElement>e.target).value;
+        this.confirmCurrentPasswordForm.password = currentPasswordPrinted;
+        let isCurrentPasswordCorrect = false;
+        isCurrentPasswordCorrect = await this.model.checkCurrentPassword(<TChangeUserDataForm>this.confirmCurrentPasswordForm);
+
+        if (isCurrentPasswordCorrect) {
+            passwordInput.removeAttribute('disabled');
+            confirmPasswordInput.removeAttribute('disabled');
+            (<HTMLInputElement>e.target).classList.remove('invalid');
+        } else {
+            (<HTMLInputElement>e.target).classList.add('invalid');
+        }
+    }
+
     private handlePasswordDifference(): boolean {
         const currentPasswordInput = <HTMLInputElement>document.querySelector('#password');
         const passwordInput = <HTMLInputElement>document.querySelector('#newPassword');
@@ -184,8 +216,7 @@ class EditProfilePageController {
             isPasswordsEqual = currentPasswordInput.value === passwordInput.value;
             if (currentPasswordInput.value && passwordInput.value && isPasswordsEqual) {
                 passwordInput.className = 'invalid';
-                confirmPasswordInput.setAttribute('disabled', 'disabled');
-            } else {
+            } else if (currentPasswordInput.value && passwordInput.value && !isPasswordsEqual) {
                 passwordInput.className = 'validate';
                 confirmPasswordInput.removeAttribute('disabled');
             }
@@ -271,6 +302,7 @@ class EditProfilePageController {
         if (haveSettingsChanged) {
             await this.model.updateSettings(this.modifiedUserSettings);
             new UserDataManager(this.modifiedUserSettings!).createUserData();
+            this.handleAvatarImageChange();
         }
         if (hasUserInfoChanged || this.changeUserDataForm.password !== '') {
             await this.model.updateUserDataForm(<TChangeUserDataForm>this.changeUserDataForm, <TUser>this.modifiedUser);

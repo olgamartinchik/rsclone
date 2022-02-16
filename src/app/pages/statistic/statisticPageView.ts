@@ -4,7 +4,8 @@ import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 import StatisticWeekWidget from '../../components/statWeekWidget/statisticWeekWidget';
 import StatisticWorkoutWidget from '../../components/statWorkoutWidget/statisticWorkoutWidget';
-import { TSettings } from '../../services/types';
+import storageManager from '../../services/storageManager';
+import { TSettings, TUser } from '../../services/types';
 
 class StatisticPageView {
     public readonly rootNode: HTMLElement;
@@ -22,7 +23,7 @@ class StatisticPageView {
     render(settings: TSettings, callbackClick: () => void): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-
+        const user = <TUser>storageManager.getItem('user', 'local');
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -31,7 +32,7 @@ class StatisticPageView {
             'settings',
         ]);
         navbar.generateMenu(true);
-        navbar.addProfileLink('O');
+        navbar.addProfileLink(user.name.split('')[0]);
         this.createMainBlockLayout(settings, callbackClick);
 
         this.rootNode.append(footer.getTemplate());

@@ -32,12 +32,12 @@ export function changePasswordTemplate(title: string): string {
       </div>
       <div class="input-field col s12 auth-field tooltipped" data-position="bottom" data-tooltip="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
         <i class="icon eye-closed" data-type="eye-icon"></i>
-        <input id="newPassword" type="password" class='validate' value= '' maxlength="40" data-value="newPassword" pattern="^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\\d]{8,}$"/>
+        <input id="newPassword" type="password" class='validate' value= '' maxlength="40" data-value="newPassword" pattern="^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\\d]{8,}$" disabled/>
         <label for="newPassword">Enter new password</label>
       </div>
       <div class="input-field col s12 auth-field">
         <i class="icon eye-closed" data-type="eye-icon"></i>
-        <input id="confirm" type="password" value= '' maxlength="40" data-value="confirmPassword"/>
+        <input id="confirm" type="password" value= '' maxlength="40" data-value="confirmPassword" disabled/>
         <label for="confirm">Confirm new password</label>
       </div>
     </div>
