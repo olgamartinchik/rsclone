@@ -54,7 +54,7 @@ export type TConvertedValues = {
     weight: number;
     height: number;
     desiredWeight: number;
-}
+};
 
 export type TWorkoutProgram = Array<TWorkout[]>;
 
@@ -118,7 +118,7 @@ export type TBadge = {
     name: string;
     text: string;
     modalId: string;
-}
+};
 
 export type TParameter = {
     minValue: number;
@@ -126,19 +126,19 @@ export type TParameter = {
     minValueDefault: number;
     maxValueDefault: number;
     coefficient: number;
-    unit: string,
-    value: string,
-}
+    unit: string;
+    value: string;
+};
 
 export type TUser = {
     name: string;
     email: string;
     avatar?: string | undefined;
-}
+};
 
 export type TChangeUserDataForm = {
-    userName: string,
-    email: string,
-    password: string,
-    newPassword: string,
-}
+    userName: string;
+    email: string;
+    password: string;
+    newPassword: string;
+};

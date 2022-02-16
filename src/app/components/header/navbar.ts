@@ -1,7 +1,7 @@
 import Node from '../Node';
 import Button from '../Button';
 import { Id } from '../../services/constants';
-import { TToken, TUser } from '../../services/types';
+import { TUser } from '../../services/types';
 import storageManager from '../../services/storageManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
 
@@ -67,7 +67,12 @@ export default class NavBar {
         this.generateLinks(mobileMenu.node, false, this.icons, activeLink);
         if (isLogin) this.addMobileProfileLink(mobileMenu.node, activeLink);
         if (this.needsButton) {
-            const signUpBtn = Node.setChild(mobileMenu.node, 'a', 'waves-effect waves-light btn-large sidenav-close', 'Signup');
+            const signUpBtn = Node.setChild(
+                mobileMenu.node,
+                'a',
+                'waves-effect waves-light btn-large sidenav-close',
+                'Signup'
+            );
             signUpBtn.setAttribute('href', '#/register');
         }
     }
@@ -75,10 +80,10 @@ export default class NavBar {
     addProfileLink(user: string, isActive?: boolean | undefined): void {
         const menuItem = new Node(this.menu.node, 'li');
         if (isActive) menuItem.node.classList.add('active');
-        
+
         const menuLink = new Node(menuItem.node, 'a');
         menuLink.setAttribute('href', `#/profile`);
-        
+
         this.generateProfileIcon(menuLink.node, user);
 
         menuLink.node.innerHTML += 'Profile';
@@ -88,7 +93,7 @@ export default class NavBar {
         const avatar = (<TUser>storageManager.getItem('user', 'local')).avatar;
         const iconContainer = new Node(parentNode, 'div', 'icon-container');
         const profileIcon = new Node(iconContainer.node, 'span', 'profile');
-        
+
         if (avatar) {
             profileIcon.node.style.backgroundImage = `url("${avatar}")`;
             profileIcon.node.innerHTML = '';
@@ -101,7 +106,7 @@ export default class NavBar {
     addMobileProfileLink(parentNode: HTMLElement, activeLink?: string | undefined): void {
         const menuItem = new Node(parentNode, 'li');
         if (activeLink && activeLink === 'Profile') menuItem.node.classList.add('active');
-        
+
         const menuLink = new Node(menuItem.node, 'a', 'sidenav-close', 'Profile');
         menuLink.setAttribute('href', `#/profile`);
         Node.setChild(menuLink.node, 'i', `icon user`);

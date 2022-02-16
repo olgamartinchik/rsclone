@@ -3,12 +3,14 @@ import onboardingModel from '../onboardingPage/onboardingPageModel';
 import storageManager from '../../services/storageManager';
 import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';
-import { TChangeUserDataForm, TToken, TSettings, TUser } from '../../services/types';
+import { TChangeUserDataForm, TSettings, TUser } from '../../services/types';
 import { Endpoints } from '../../services/constants';
 
 class EditProfilePageModel {
     private clientManager: ClientManager;
+
     private editProfileForm: TChangeUserDataForm;
+
     private isLoading: boolean;
 
     constructor() {
@@ -18,10 +20,10 @@ class EditProfilePageModel {
             email: '',
             password: '',
             newPassword: '',
-        }
+        };
         this.isLoading = true;
     }
-    
+
     public getSettingsData(): TSettings | void {
         return storageManager.getItem('userSettings', 'local');
     }
@@ -94,7 +96,7 @@ class EditProfilePageModel {
         const nameInputField = <HTMLInputElement>document.querySelector('#name');
         const emailInputField = <HTMLInputElement>document.querySelector('#email');
         nameInputField.value = '';
-        emailInputField.value = ''; 
+        emailInputField.value = '';
     }
 
     private resetPasswordFields(): void {

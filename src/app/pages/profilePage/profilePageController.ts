@@ -1,10 +1,9 @@
 import ProfilePageView from './profilePageView';
 import avatarManager from '../../services/avatarManager';
-import storageManager from '../../services/storageManager';
-import { TToken } from '../../services/types';
 
 class ProfilePageController {
     private view: ProfilePageView;
+
     private files: Array<File>;
 
     constructor() {
@@ -17,19 +16,19 @@ class ProfilePageController {
     }
 
     private handleAvatarChange(e: Event): void {
-        const clickedElement = <HTMLInputElement>e.target; 
+        const clickedElement = <HTMLInputElement>e.target;
         if (!(<FileList>clickedElement.files).length) {
             return;
         }
         this.files = avatarManager.getAvatarFile(clickedElement);
     }
 
-    private handleAvatarDelete(): void { 
+    private handleAvatarDelete(): void {
         this.deleteAvatar();
     }
 
     private deleteAvatar(): void {
-        avatarManager.deleteAvatar(this.files[0]);
+        avatarManager.deleteAvatar();
 
         const avatarImg = <HTMLImageElement>document.querySelector('.profile-avatar');
         const src = avatarManager.chooseDefaultAvatar();

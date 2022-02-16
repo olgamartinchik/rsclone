@@ -18,7 +18,9 @@ export function paramsTemplate(
   </span>
   <div class="select-block" id=${title.split(' ').join('')}>
     <div class="options" data-select>
-        <p class="unit ${option1.split(' ')[0].toLowerCase()}" data-title="${dataAttribute}Unit" data-value="${units2.split(' ')[0]}">${option1}</p>
+        <p class="unit ${option1.split(' ')[0].toLowerCase()}" data-title="${dataAttribute}Unit" data-value="${
+        units2.split(' ')[0]
+    }">${option1}</p>
         <p class="unit ${option2.toLowerCase()} active" data-title="${dataAttribute}Unit" data-value="${units}">${option2}</p>
     </div>
     <div class="range">
@@ -30,10 +32,7 @@ export function paramsTemplate(
   `;
 }
 
-export function paramsShortTemplate(
-    className: string,
-    title: string,
-): string {
+export function paramsShortTemplate(className: string, title: string): string {
     const dataAttribute = title === 'desired Weight' ? 'desiredWeight' : title;
     return `
   <span class="${className}">${title}</span>

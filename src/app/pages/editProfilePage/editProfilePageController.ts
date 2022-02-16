@@ -9,12 +9,19 @@ import { Height, Weight, Coefficients, Message } from '../../services/constants'
 
 class EditProfilePageController {
     private view: EditProfilePageView;
+
     private files: Array<File>;
+
     private model: EditProfilePageModel;
+
     private settings: void | TSettings;
+
     private modifiedUserSettings: void | TSettings;
+
     private user: void | TUser;
+
     private modifiedUser: void | TUser;
+
     private changeUserDataForm: TChangeUserDataForm;
 
     constructor() {
@@ -30,7 +37,7 @@ class EditProfilePageController {
             email: '',
             password: '',
             newPassword: '',
-        }
+        };
     }
 
     public createPage() {
@@ -38,7 +45,20 @@ class EditProfilePageController {
         this.user = <TUser>this.model.getUserData();
         this.modifiedUserSettings = this.getModifiedUserSettings();
         this.modifiedUser = this.getModifiedUser();
-        this.view.render(this.settings, this.user, this.handleAvatarChange.bind(this), this.handleAvatarDelete.bind(this), this.handleInputValueChange.bind(this), this.handleBirthdayChange.bind(this), this.handleGenderSelect.bind(this), this.handleSaveBtnClick.bind(this), this.handleDeleteBtnClick.bind(this), this.handleIconClick.bind(this), this.handlePasswordInput.bind(this), this.handleConfirmButtonClick.bind(this));
+        this.view.render(
+            this.settings,
+            this.user,
+            this.handleAvatarChange.bind(this),
+            this.handleAvatarDelete.bind(this),
+            this.handleInputValueChange.bind(this),
+            this.handleBirthdayChange.bind(this),
+            this.handleGenderSelect.bind(this),
+            this.handleSaveBtnClick.bind(this),
+            this.handleDeleteBtnClick.bind(this),
+            this.handleIconClick.bind(this),
+            this.handlePasswordInput.bind(this),
+            this.handleConfirmButtonClick.bind(this)
+        );
     }
 
     private getModifiedUserSettings(): TSettings | void {
@@ -50,19 +70,19 @@ class EditProfilePageController {
     }
 
     private handleAvatarChange(e: Event): void {
-        const clickedElement = <HTMLInputElement>e.target; 
+        const clickedElement = <HTMLInputElement>e.target;
         if (!(<FileList>clickedElement.files).length) {
             return;
         }
         this.files = avatarManager.getAvatarFile(clickedElement);
     }
 
-    private handleAvatarDelete(): void { 
+    private handleAvatarDelete(): void {
         this.deleteAvatar();
     }
 
     private deleteAvatar(): void {
-        avatarManager.deleteAvatar(this.files[0]);
+        avatarManager.deleteAvatar();
 
         const avatarImg = <HTMLImageElement>document.querySelector('.profile-avatar');
         const src = avatarManager.chooseDefaultAvatar();
@@ -80,16 +100,18 @@ class EditProfilePageController {
 
     private updateUserSettings(element: HTMLInputElement, key: string, value: string): void {
         if (key === 'height' || key === 'weight') {
-            switch(key) {
+            switch (key) {
                 case 'height':
-                    if(this.settings['heightUnit'] === Height.units) {
+                    if ((<TSettings>this.settings).heightUnit === Height.units) {
                         this.modifiedUserSettings[key] = value;
                     } else {
-                        this.modifiedUserSettings[key] = Math.round(parseInt(value) * Coefficients.toCentimeters).toString();
+                        this.modifiedUserSettings[key] = Math.round(
+                            parseInt(value) * Coefficients.toCentimeters
+                        ).toString();
                     }
                     break;
                 case 'weight':
-                    if(this.settings['weightUnit'] === Weight.units) {
+                    if ((<TSettings>this.settings).weightUnit === Weight.units) {
                         this.modifiedUserSettings[key] = value;
                     } else {
                         this.modifiedUserSettings[key] = Math.round(parseInt(value) / Coefficients.toPounds).toString();
@@ -98,14 +120,13 @@ class EditProfilePageController {
             }
         } else if (key === 'name' || key === 'email') {
             if (element.validity.valid) {
-                this.modifiedUser[key] = value;  
+                this.modifiedUser[key] = value;
             } else {
                 this.modifiedUser[key] = this.user[key];
                 element.value = '';
                 element.placeholder = this.user[key];
             }
         }
-        console.log(this.changeUserDataForm);
         this.handleSaveButtonStatus();
     }
 
@@ -126,8 +147,8 @@ class EditProfilePageController {
         const currentTarget = <HTMLElement>e.currentTarget;
         const calenderInput = <HTMLInputElement>currentTarget.querySelector('.datepicker');
         const age = this.model.calculateAge(calenderInput.value);
-        this.modifiedUserSettings['age'] = age;
-        this.modifiedUserSettings['birthday'] = calenderInput.value;
+        (<TSettings>this.modifiedUserSettings).age = age;
+        (<TSettings>this.modifiedUserSettings).birthday = calenderInput.value;
         this.handleSaveButtonStatus();
     }
 
@@ -161,7 +182,7 @@ class EditProfilePageController {
         let isPasswordsEqual = false;
         if (passwordInput && currentPasswordInput) {
             isPasswordsEqual = currentPasswordInput.value === passwordInput.value;
-            if(currentPasswordInput.value && passwordInput.value && isPasswordsEqual) {
+            if (currentPasswordInput.value && passwordInput.value && isPasswordsEqual) {
                 passwordInput.className = 'invalid';
                 confirmPasswordInput.setAttribute('disabled', 'disabled');
             } else {
@@ -169,7 +190,7 @@ class EditProfilePageController {
                 confirmPasswordInput.removeAttribute('disabled');
             }
         }
-        return isPasswordsEqual;   
+        return isPasswordsEqual;
     }
 
     private handlePasswordConfirmation(): boolean {
@@ -184,7 +205,7 @@ class EditProfilePageController {
                 confirmPasswordInput.className = 'valid';
             }
         }
-        return isPasswordConfirmed; 
+        return isPasswordConfirmed;
     }
 
     private handleConfirmButtonStatus(): void {
@@ -194,8 +215,14 @@ class EditProfilePageController {
         const confirmPasswordInput = <HTMLInputElement>document.querySelector('#confirm');
         const isPasswordConfirmed = this.handlePasswordConfirmation();
         const isPasswordEqual = this.handlePasswordDifference();
-        
-        if (currentPasswordInput.value && passwordInput.value && confirmPasswordInput.value && isPasswordConfirmed && !isPasswordEqual) {
+
+        if (
+            currentPasswordInput.value &&
+            passwordInput.value &&
+            confirmPasswordInput.value &&
+            isPasswordConfirmed &&
+            !isPasswordEqual
+        ) {
             confirmButton.removeAttribute('disabled');
             confirmButton.classList.remove('btn-disabled');
         } else {

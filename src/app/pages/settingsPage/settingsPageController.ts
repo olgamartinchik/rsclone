@@ -7,11 +7,11 @@ import { TSettings } from '../../services/types';
 
 class SettingsPageController {
     private view: SettingsPageView;
-    
+
     private model: SettingsPageModel;
-    
+
     private settings: void | TSettings;
-    
+
     private modifiedUserSettings: void | TSettings;
 
     constructor() {

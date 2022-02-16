@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
+const Dotenv = require('dotenv-webpack');
 
 const htmlFile = /^([-_\d\w]+).html$/i;
 const srcPath = path.resolve(__dirname, 'src');
@@ -134,6 +135,7 @@ module.exports = ({ development }) => {
                 template: '/src/index.html',
                 favicon: '/src/assets/favicon.png',
             }),
+            new Dotenv(),
         ],
         resolve: {
             extensions: ['.js'],

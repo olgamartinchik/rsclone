@@ -31,7 +31,20 @@ class EditProfilePageView {
         this.avatar = '';
     }
 
-    async render(settings: TSettings, userData: TUser, onchange: (e: Event) => void, onclick: (e: Event) => void, onchangeValue: (e: Event) => void, onchangeBirthday: (e: Event) => void, onchangeGender: (e: Event) => void, onclickSaveBtn: (e: Event) => void, onclickDeleteBtn: (e: Event) => void, onIconClick: (e: Event) => void, onPasswordInput: (e: Event) => void, onConfirmButtonClick: (e: Event) => void) {
+    async render(
+        settings: TSettings,
+        userData: TUser,
+        onchange: (e: Event) => void,
+        onclick: (e: Event) => void,
+        onchangeValue: (e: Event) => void,
+        onchangeBirthday: (e: Event) => void,
+        onchangeGender: (e: Event) => void,
+        onclickSaveBtn: (e: Event) => void,
+        onclickDeleteBtn: (e: Event) => void,
+        onIconClick: (e: Event) => void,
+        onPasswordInput: (e: Event) => void,
+        onConfirmButtonClick: (e: Event) => void
+    ) {
         // this.animationManager.initPageTransition()
         this.rootNode.textContent = '';
         this.getData();
@@ -41,12 +54,20 @@ class EditProfilePageView {
 
         const avatar = (<TUser>storageManager.getItem('user', 'local')).avatar;
         if (avatar) avatarManager.setDeleteIcon();
-        
-        this.createContentForm(settings, userData, onchangeValue, onchangeBirthday, onchangeGender,onclickSaveBtn, onclickDeleteBtn);
+
+        this.createContentForm(settings, userData, onchangeValue, onchangeBirthday, onchangeGender, onclickSaveBtn);
         this.createFooter();
 
         this.activateValidation();
-        this.addEvents(onchange, onclickDeleteBtn, onclick, onIconClick, onPasswordInput, onchangeValue, onConfirmButtonClick);
+        this.addEvents(
+            onchange,
+            onclickDeleteBtn,
+            onclick,
+            onIconClick,
+            onPasswordInput,
+            onchangeValue,
+            onConfirmButtonClick
+        );
         this.initMaterialize();
     }
 
@@ -67,29 +88,24 @@ class EditProfilePageView {
         this.rootNode.append(profile.getEditProfileTemplate(src));
     }
 
-    private createContentForm(settings: TSettings, userData: TUser, onchangeValue: (e: Event) => void, onchangeBirthday: (e: Event) => void, onchangeGender: (e: Event) => void, onclickSaveBtn: (e: Event) => void, onclickDeleteBtn: (e: Event) => void): void {
+    private createContentForm(
+        settings: TSettings,
+        userData: TUser,
+        onchangeValue: (e: Event) => void,
+        onchangeBirthday: (e: Event) => void,
+        onchangeGender: (e: Event) => void,
+        onclickSaveBtn: (e: Event) => void
+    ): void {
         const main = <HTMLElement>this.rootNode.querySelector('.main-layout');
         // this.animationManager.initContentFadeout(main);
         const profileInfoWrapper = new Node(main, 'div', 'settings-wrapper editprofile');
-        profileInfoWrapper.append(profileItem.getTemplate('text','Name', userData.name, onchangeValue));
-        profileInfoWrapper.append(profileItem.getTemplate('email','Email', userData.email, onchangeValue));
+        profileInfoWrapper.append(profileItem.getTemplate('text', 'Name', userData.name, onchangeValue));
+        profileInfoWrapper.append(profileItem.getTemplate('email', 'Email', userData.email, onchangeValue));
         profileInfoWrapper.append(calender.getEditTemplate(settings.birthday, onchangeBirthday));
-        profileInfoWrapper.append(
-            parameters.getShortTemplate(
-                ClassNames.editProfile,
-                Height.title,
-                onchangeValue,
-            )
-        );
+        profileInfoWrapper.append(parameters.getShortTemplate(ClassNames.editProfile, Height.title, onchangeValue));
         this.getParameters('height', settings);
 
-        profileInfoWrapper.append(
-            parameters.getShortTemplate(
-                ClassNames.editProfile,
-                Weight.title,
-                onchangeValue,
-            )
-        );
+        profileInfoWrapper.append(parameters.getShortTemplate(ClassNames.editProfile, Weight.title, onchangeValue));
         this.getParameters('weight', settings);
         this.getUnits(settings);
 
@@ -104,7 +120,7 @@ class EditProfilePageView {
         saveButton.setDisabled();
 
         const deleteButton = new Button(buttonWrapper, 'Delete');
-        deleteButton.addAttribute('data-target', 'modal10')
+        deleteButton.addAttribute('data-target', 'modal10');
         deleteButton.addClass('modal-trigger');
 
         buttonWrapper.insertAdjacentHTML('beforeend', this.addModal());
@@ -116,21 +132,21 @@ class EditProfilePageView {
             if (gender.dataset.value === settings.gender) {
                 gender.classList.add('active');
             }
-        })
+        });
     }
 
     private getParameters(type: string, settings: TSettings): void {
         const input = <HTMLInputElement>document.querySelectorAll(`[data-${type}]`)[1];
-        switch(type) {
+        switch (type) {
             case 'height':
-                if(settings.heightUnit === Height.units) {
+                if (settings.heightUnit === Height.units) {
                     input.placeholder = settings[type].toString();
                 } else {
                     input.placeholder = Math.round(settings.height / Coefficients.toCentimeters).toString();
                 }
                 break;
             case 'weight':
-                if(settings.weightUnit === Weight.units) {
+                if (settings.weightUnit === Weight.units) {
                     input.placeholder = settings[type].toString();
                 } else {
                     input.placeholder = Math.round(settings.weight * Coefficients.toPounds).toString();
@@ -161,7 +177,7 @@ class EditProfilePageView {
           <a href="#/" id="confirmToDelete" class="modal-close waves-effect waves-red btn-flat">Confirm</a>
         </div>
       </div>
-        `
+        `;
     }
 
     private activateValidation(): void {
@@ -171,13 +187,21 @@ class EditProfilePageView {
         if (emailInput) emailInput.setAttribute('pattern', '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}');
     }
 
-    private createFooter(): void {     
+    private createFooter(): void {
         this.rootNode.append(footer.getTemplate());
         // const footerLayout = <HTMLElement>this.rootNode.querySelector('footer');
         // this.animationManager.initContentFadeout(footerLayout);
     }
 
-    private addEvents(onchange: (e: Event) => void, onclick: (e: Event) => void, onDeleteAvatar: (e: Event) => void, onIconClick: (e: Event) => void, onPasswordInput: (e: Event) => void, onChangeValue: (e: Event) => void, onConfirmButtonClick: (e: Event) => void): void {
+    private addEvents(
+        onchange: (e: Event) => void,
+        onclick: (e: Event) => void,
+        onDeleteAvatar: (e: Event) => void,
+        onIconClick: (e: Event) => void,
+        onPasswordInput: (e: Event) => void,
+        onChangeValue: (e: Event) => void,
+        onConfirmButtonClick: (e: Event) => void
+    ): void {
         const fileInput = <HTMLInputElement>this.rootNode.querySelector('#avatar');
         if (fileInput) fileInput.onchange = (e: Event) => onchange(e);
 

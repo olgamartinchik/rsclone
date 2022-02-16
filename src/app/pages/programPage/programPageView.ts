@@ -14,7 +14,7 @@ class ProgramPageView {
     contentBlock!: Node<HTMLElement>;
 
     cardsWrapper!: Node<HTMLElement>;
-    
+
     private animationManager: Animation;
 
     constructor() {
@@ -23,7 +23,6 @@ class ProgramPageView {
     }
 
     render(data: Card[], onclick: (e: Event) => void, week: number): void {
-
         // this.animationManager.initPageTransition();
 
         this.rootNode.textContent = '';
@@ -38,7 +37,7 @@ class ProgramPageView {
             'settings',
         ]);
         navbar.generateMenu(true, 'Program');
-        navbar.addProfileLink(user.name.split('')[0]);   
+        navbar.addProfileLink(user.name.split('')[0]);
 
         this.setContents(data, onclick, week);
 

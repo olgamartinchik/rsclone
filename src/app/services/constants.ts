@@ -101,7 +101,6 @@ export enum Coefficients {
     toPounds = 2.20462262185,
     toCentimeters = 31,
     toKilograms = 0.45,
-    
 }
 
 export enum Endpoints {
@@ -109,7 +108,6 @@ export enum Endpoints {
     userSettings = 'userSettings',
     workoutSettings = 'workoutSettings',
     changeUserData = 'editProfile',
-    cloudinary = 'https://api.cloudinary.com/v1_1/dpen5obst/upload'
 }
 
 export enum ModalContents {

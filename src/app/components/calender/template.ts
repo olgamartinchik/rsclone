@@ -7,7 +7,7 @@ export default function calenderTemplate(): string {
 }
 
 export function editcalenderTemplate(text: string): string {
-  return `
+    return `
 <p class="settings-link">Birthday</p>
 <div class="profile-item-input">
   <input type="text" class="datepicker" name="datepicker" value="${text}" autocomplete="off" data-value="birthday"/>

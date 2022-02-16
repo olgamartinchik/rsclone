@@ -10,6 +10,7 @@ export class AuthModel {
     public isLoading: boolean;
 
     private clientManager: ClientManager;
+
     private user: TUser;
 
     constructor() {
@@ -23,7 +24,7 @@ export class AuthModel {
         this.user = {
             name: '',
             email: '',
-        }
+        };
     }
 
     public changeHandler(...args: Array<Partial<TLoginForm>>) {
@@ -76,7 +77,7 @@ export class AuthModel {
         this.isLoading = true;
         const data = await this.clientManager.postData(`${type}`, this.form);
         this.isLoading = false;
-        
+
         if (this.clientManager.result) {
             this.user.name = (<TLoginResponse>data).userName;
             this.user.email = (<TLoginResponse>data).email;

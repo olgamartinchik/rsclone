@@ -1,5 +1,10 @@
-export function profileHeaderTemplate(name: string, src: string, completedWorkoutrs: number ,caloriesBurned: number): string {
-  return `
+export function profileHeaderTemplate(
+    name: string,
+    src: string,
+    completedWorkoutrs: number,
+    caloriesBurned: number
+): string {
+    return `
   <div class="profile-decorative"></div>
   <div class="profile-decorative narrow"></div>
   <div class="profile-header_info z-depth-1">
@@ -37,11 +42,11 @@ export function profileHeaderTemplate(name: string, src: string, completedWorkou
          </div>
      </div>
  </div>
-  `
+  `;
 }
 
-export function achievementCardTemplate(src: string, badge: string, text: string, modal:string): string {
-  return `
+export function achievementCardTemplate(src: string, badge: string, text: string, modal: string): string {
+    return `
   <a href="#${modal}" class="achievement-card modal-trigger">
     <img src=${src} width="100" height="100" alt="Bagde">
   </a>
@@ -52,11 +57,11 @@ export function achievementCardTemplate(src: string, badge: string, text: string
       <p class="badge-subtitle">${text}</p>
     </div>
   </div>
-  `
+  `;
 }
 
 export function editProfileTemplate(src: string): string {
-  return `
+    return `
   <div class="editprofile-decorative"></div>
   <div class="avatar">
       <input class="profile-avatar-input" type="file" accept="image/*" id="avatar" alt="Avatar">        
@@ -73,5 +78,5 @@ export function editProfileTemplate(src: string): string {
       <a href="#/editprofile" class="modal-close waves-effect waves-red btn-flat" id="deleteAvatar">Agree</a>
     </div>
   </div>
-  `
+  `;
 }

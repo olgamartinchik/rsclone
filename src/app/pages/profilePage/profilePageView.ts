@@ -13,17 +13,17 @@ class ProfilePageView {
     private rootNode: HTMLElement;
 
     private materializeHandler: MaterializeHandler;
-    
-    private badges: Array<TBadge>
-    
+
+    private badges: Array<TBadge>;
+
     private userName: string;
-    
+
     private completedWorkouts: number;
-    
+
     private caloriesBurned: number;
-    
+
     private badgesActivated: Array<string>;
-    
+
     private avatar: string | null | undefined;
 
     private animationManager: Animation;
@@ -51,7 +51,7 @@ class ProfilePageView {
 
         const avatar = (<TUser>storageManager.getItem('user', 'local')).avatar;
         if (avatar) avatarManager.setDeleteIcon();
-        
+
         this.createFooter();
 
         this.addEvents(onchange, onclick);
@@ -72,7 +72,16 @@ class ProfilePageView {
     }
 
     public createProfileHeader(src: string): void {
-        this.rootNode.append(profile.getTemplate(this.userName, src, this.badges, this.badgesActivated ,this.completedWorkouts, this.caloriesBurned));
+        this.rootNode.append(
+            profile.getTemplate(
+                this.userName,
+                src,
+                this.badges,
+                this.badgesActivated,
+                this.completedWorkouts,
+                this.caloriesBurned
+            )
+        );
         // const main = <HTMLElement>this.rootNode.querySelector('main');
         // this.animationManager.initContentFadeout(main);
         this.colorStatistics();
@@ -88,8 +97,8 @@ class ProfilePageView {
             }
         });
     }
-         
-    private createFooter(): void {     
+
+    private createFooter(): void {
         this.rootNode.append(footer.getTemplate());
         // const footerLayout = <HTMLElement>this.rootNode.querySelector('footer');
         // this.animationManager.initContentFadeout(footerLayout);

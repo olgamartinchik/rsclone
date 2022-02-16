@@ -1,4 +1,4 @@
-import calenderTemplate, {editcalenderTemplate} from './template';
+import calenderTemplate, { editcalenderTemplate } from './template';
 
 class Calender {
     private rootNode: HTMLElement;

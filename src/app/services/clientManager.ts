@@ -8,7 +8,6 @@ import {
     TWorkoutProgram,
     TChangeUserDataForm,
 } from '../services/types';
-import { Endpoints } from './constants';
 import { API_ID, KEY_API } from '../configs/edamamConfig';
 
 class ClientManager {
@@ -62,7 +61,12 @@ class ClientManager {
         }
     }
 
-    public async changeData(path: string, method: string, id: string, form: TLoginForm | TSettings | TChangeUserDataForm): Promise<void | TSettings> {
+    public async changeData(
+        path: string,
+        method: string,
+        id: string,
+        form: TLoginForm | TSettings | TChangeUserDataForm
+    ): Promise<void | TSettings> {
         try {
             const response = await fetch(`https://rsclonebackend.herokuapp.com/api/${path}/${id}`, {
                 method: `${method.toUpperCase()}`,
@@ -90,9 +94,9 @@ class ClientManager {
     public async deleteUserData(path: string, id: string): Promise<void> {
         try {
             const res = await fetch(`https://rsclonebackend.herokuapp.com/api/${path}/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
             });
-            
+
             return await res.json();
         } catch (e: unknown) {
             this.handleError(e);
@@ -204,20 +208,34 @@ class ClientManager {
         }
     }
 
-    public async uploadAvatar(file: File, id: string) {
+    public async uploadAvatar(file: File) {
         try {
             const formData = new FormData();
-            formData.append("file", file);
-            formData.append("upload_preset", "upload-avatar");
+            formData.append('file', file);
+            formData.append('upload_preset', 'upload-avatar');
 
-            const res = await fetch(`${Endpoints.cloudinary}`, {
+            const res = await fetch(`https://api.cloudinary.com/v1_1/dpen5obst/upload`, {
                 method: 'POST',
                 body: formData,
             });
-            const data = await res.json(); 
+            const data = await res.json();
             console.log(data);
-            return  data;
-        }  catch (e: unknown) {
+            return data;
+        } catch (e: unknown) {
+            this.handleError(e);
+        }
+    }
+
+    public async deleteAvatar(publicId: string) {
+        try {
+            const res = await fetch(`https://api.cloudinary.com/v1_1/dpen5obst/destroy`, {
+                method: 'POST',
+                body: publicId,
+            });
+            const data = await res.json();
+            console.log(data);
+            return data;
+        } catch (e: unknown) {
             this.handleError(e);
         }
     }
@@ -226,7 +244,7 @@ class ClientManager {
     //     try {
     //         const formData = new FormData();
     //         formData.append('file', file);
-    //         
+    //
     //         const res = await fetch(`https://rsclonebackend.herokuapp.com/api/avatar/${id}`, {
     //             method: 'POST',
     //             body: formData,
@@ -245,7 +263,7 @@ class ClientManager {
     //         const res = await fetch(`https://rsclonebackend.herokuapp.com/api/avatar/${id}`, {
     //             method: 'DELETE'
     //         });
-            
+
     //         return await res.json();
     //     } catch (e: unknown) {
     //         this.handleError(e);

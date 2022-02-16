@@ -19,17 +19,16 @@ class Parameters {
         rootNode.id = title.split(' ').join('');
         rootNode.onclick = (e: Event) => onselect(e);
         rootNode.onchange = (e: Event) => onchange(e);
-        rootNode.insertAdjacentHTML('afterbegin', paramsTemplate(className, title, units, units2, option1, option2, min, max));
+        rootNode.insertAdjacentHTML(
+            'afterbegin',
+            paramsTemplate(className, title, units, units2, option1, option2, min, max)
+        );
         (<HTMLInputElement>rootNode.querySelector('#play-bar')).oninput = (e: Event) => oninput(e);
 
         return rootNode;
     }
 
-    public getShortTemplate(
-        className: string,
-        title: string,
-        onchange: (e: Event) => void
-    ): HTMLElement {
+    public getShortTemplate(className: string, title: string, onchange: (e: Event) => void): HTMLElement {
         const rootNode = document.createElement('div');
         rootNode.className = 'input-group';
         rootNode.id = title.split(' ').join('');

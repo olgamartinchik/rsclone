@@ -65,7 +65,7 @@ export class AuthPageController {
             } else {
                 confirmPasswordInput.className = 'valid';
             }
-        } 
+        }
     }
 
     private handleValidation(type: string, element: HTMLInputElement): void {

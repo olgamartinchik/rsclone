@@ -15,7 +15,7 @@ import {
     WorkoutType,
     WorkoutsProgramDuration,
     Colors,
-    ClassNames
+    ClassNames,
 } from '../../services/constants';
 import onboardingModel, { OnboardingModel } from './onboardingPageModel';
 
@@ -23,7 +23,7 @@ class OnboardingPageView {
     private materializeHandler: MaterializeHandler;
 
     private rootNode: HTMLElement;
-    
+
     private model: OnboardingModel;
 
     constructor() {
@@ -187,7 +187,7 @@ class OnboardingPageView {
                     oninput,
                     onchange
                 );
-                
+
                 weightChoiceBlock.classList.add('hidden');
 
                 form.append(weightChoiceBlock);
@@ -195,7 +195,7 @@ class OnboardingPageView {
                 const valueInput = <HTMLInputElement>document.querySelector('.value-select');
                 const unitValue = <HTMLElement>document.querySelector('.value > span');
                 this.colorActiveUnit(settings);
-                valueInput.placeholder = (settings.weightUnit === Weight.units) ? Weight.min : Weight.min2;
+                valueInput.placeholder = settings.weightUnit === Weight.units ? Weight.min : Weight.min2;
                 unitValue.textContent = settings.weightUnit;
             }
         });
@@ -215,7 +215,7 @@ class OnboardingPageView {
 
         const input = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[1];
         const value = <HTMLInputElement>elementsWrapper.children[0];
-        
+
         value.value = this.getConvertedValue(type).toString();
         this.getUnits(settings);
         this.getSliderValue(settings);
@@ -225,7 +225,7 @@ class OnboardingPageView {
 
     private getConvertedValue(type: string): number {
         let value = 0;
-        switch(type) {
+        switch (type) {
             case 'height':
                 value = this.model.convertedValues.height;
                 break;
@@ -242,19 +242,18 @@ class OnboardingPageView {
     private getUnits(settings: TSettings): void {
         const unitValues = <NodeListOf<HTMLElement>>document.querySelectorAll('.value > span');
         unitValues.forEach((unitValue) => {
-            switch(unitValue.dataset.title) {
+            switch (unitValue.dataset.title) {
                 case 'heightUnit':
-                   unitValue.textContent = settings.heightUnit;
-                     break;
+                    unitValue.textContent = settings.heightUnit;
+                    break;
                 case 'weightUnit':
-                   unitValue.textContent = settings.weightUnit;
-                   break;
+                    unitValue.textContent = settings.weightUnit;
+                    break;
                 case 'desiredWeightUnit':
-                   unitValue.textContent = settings.weightUnit;
-                   break;
-             }
+                    unitValue.textContent = settings.weightUnit;
+                    break;
+            }
         });
-
     }
 
     private getSliderValue(settings: TSettings): void {
@@ -270,7 +269,6 @@ class OnboardingPageView {
                 case 'desiredWeight':
                     slider.value = settings.desiredWeight.toString();
                     break;
-
             }
         });
     }

@@ -14,11 +14,14 @@ class OnboardingPageController {
 
     private block: number;
 
-    
     private parameter: TParameter;
+
     private heightUnit: string;
+
     private weightUnit: string;
+
     private desiredWeightUnit: string;
+
     private user: TUser;
 
     constructor() {
@@ -43,11 +46,11 @@ class OnboardingPageController {
             coefficient: 0,
             unit: '',
             value: '',
-        }
+        };
         this.user = {
             name: '',
             email: '',
-        }
+        };
     }
 
     public createPage() {
@@ -57,7 +60,7 @@ class OnboardingPageController {
             return;
         }
         this.user = <TUser>this.model.getUserData();
-        
+
         this.view.render(
             this.blocks[this.block],
             this.model.settings,
@@ -137,7 +140,7 @@ class OnboardingPageController {
     private handleUnitSelect(e: Event): void {
         const nextElement = (<HTMLElement>e.target).nextElementSibling as HTMLElement;
         const previousElement = (<HTMLElement>e.target).previousElementSibling as HTMLElement;
-        
+
         if (nextElement) nextElement.classList.remove('active');
         if (previousElement) previousElement.classList.remove('active');
         (<HTMLElement>e.target).classList.add('active');
@@ -149,7 +152,7 @@ class OnboardingPageController {
     private setCurrentUnit(e: Event): void {
         const unitType = <string>(<HTMLElement>e.target).dataset.title;
         const unit = <string>(<HTMLElement>e.target).dataset.value;
-        
+
         if (unitType === 'heightUnit') {
             this.heightUnit = unit;
             this.parameter.unit = unit;
@@ -164,7 +167,7 @@ class OnboardingPageController {
 
     private setParameterCharacteristics(e: Event): void {
         const parameterType = <string>(<HTMLElement>e.target).dataset.title;
-        
+
         if (parameterType === 'heightUnit' && this.heightUnit === Height.units) {
             this.parameter.minValue = +Height.min;
             this.parameter.maxValue = +Height.max;
@@ -215,24 +218,23 @@ class OnboardingPageController {
         const valueInput = <HTMLInputElement>(<HTMLElement>e.currentTarget).querySelector('.value-select');
         const unitValue = <HTMLInputElement>(<HTMLElement>e.currentTarget).querySelector('.value>span');
         const slider = <HTMLInputElement>(<HTMLElement>e.currentTarget).querySelector('#play-bar');
-        const inputGroup = (<HTMLElement>(<HTMLInputElement>e.target).closest('.input-group'));
+        const inputGroup = <HTMLElement>(<HTMLInputElement>e.target).closest('.input-group');
         const parametersType = inputGroup.id;
-        
+
         this.getConvertedValues(slider);
 
         unitValue.textContent = this.parameter.unit;
         valueInput.value = this.parameter.value;
-        
+
         this.model.saveConvertedValues({ [parametersType]: parseInt(this.parameter.value) });
         this.registerSelectedValue(e);
     }
 
     public getConvertedValues(slider: HTMLInputElement): void {
-        
         if (this.parameter.unit === Height.units || this.parameter.unit === Weight.units) {
             this.parameter.value = slider.value;
         } else {
-            this.parameter.value = (Math.round(+slider.value / this.parameter.coefficient)).toString();
+            this.parameter.value = Math.round(+slider.value / this.parameter.coefficient).toString();
         }
     }
 
@@ -241,21 +243,26 @@ class OnboardingPageController {
         const clickedElement = <HTMLInputElement>e.target;
         const valueGroup = <HTMLInputElement>(<HTMLElement>e.currentTarget).querySelector('.value');
         const slider = <HTMLInputElement>(<HTMLElement>e.currentTarget).querySelector('#play-bar');
-        
+
         if (clickedElement !== slider) {
             if (this.parameter.unit === Height.units || this.parameter.unit === Weight.units) {
                 slider.value = clickedElement.value;
             } else {
-                slider.value = (Math.round(+clickedElement.value * this.parameter.coefficient)).toString();
+                slider.value = Math.round(+clickedElement.value * this.parameter.coefficient).toString();
             }
             this.parameter.value = clickedElement.value;
         } else {
             this.getConvertedValues(slider);
         }
 
-        if (parseInt(this.parameter.value) < this.parameter.minValue || parseInt(this.parameter.value) > this.parameter.maxValue) {
+        if (
+            parseInt(this.parameter.value) < this.parameter.minValue ||
+            parseInt(this.parameter.value) > this.parameter.maxValue
+        ) {
             clickedElement.value = this.parameter.minValue.toString();
-            this.createMessage(`Please enter the value between ${this.parameter.minValue} and ${this.parameter.maxValue}`);
+            this.createMessage(
+                `Please enter the value between ${this.parameter.minValue} and ${this.parameter.maxValue}`
+            );
         } else {
             this.activateSelectedValues(valueGroup, clickedElement);
             this.colorRangeSlider(slider, this.parameter.minValueDefault, this.parameter.maxValueDefault);
@@ -269,7 +276,7 @@ class OnboardingPageController {
     }
 
     public handleRangeSliderInput(e: Event): void {
-        const inputGroup = (<HTMLElement>(<HTMLInputElement>e.target).closest('.input-group'));
+        const inputGroup = <HTMLElement>(<HTMLInputElement>e.target).closest('.input-group');
         const parametersType = inputGroup.id;
         const slider = <HTMLInputElement>e.target;
         const valueInput = <HTMLInputElement>inputGroup.querySelector('.value-select');
@@ -284,7 +291,6 @@ class OnboardingPageController {
     }
 
     private colorRangeSlider(slider: HTMLInputElement, min: number, max: number): void {
-
         const percent = ((+slider.value - min) / (max - min)) * Coefficients.percent;
         slider.style.backgroundImage = `linear-gradient(to right, ${Colors.primary} 0%, ${Colors.primary} ${percent}%, ${Colors.secondary} ${percent}%, ${Colors.secondary} 100%)`;
     }
@@ -320,7 +326,7 @@ class OnboardingPageController {
     private registerSelectedValue(e: Event): void {
         const key = <string>(<HTMLElement>e.target).dataset.title;
         const value = <string>(<HTMLElement>e.target).dataset.value;
-        
+
         this.model.changeHandler({ [key]: value });
     }
 
@@ -349,7 +355,11 @@ class OnboardingPageController {
         e.preventDefault();
 
         if (this.blocks[this.block] === 'About you') {
-            if (this.model.settings.height === 0 || this.model.settings.weight === 0 || this.model.settings.birthday === '') {
+            if (
+                this.model.settings.height === 0 ||
+                this.model.settings.weight === 0 ||
+                this.model.settings.birthday === ''
+            ) {
                 this.createMessage(Message.valueMissing);
                 return;
             }

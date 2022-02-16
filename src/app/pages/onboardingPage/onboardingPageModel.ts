@@ -16,9 +16,8 @@ import storageManager from '../../services/storageManager';
 
 export class OnboardingModel {
     private form: TSettings;
-    
+
     private converted: TConvertedValues;
-    
 
     constructor() {
         this.form = {
@@ -45,7 +44,7 @@ export class OnboardingModel {
             height: 0,
             weight: 0,
             desiredWeight: 0,
-        }
+        };
     }
 
     public getUserData(): TUser | void {
@@ -66,7 +65,6 @@ export class OnboardingModel {
         if (setting.duration) this.form.duration = +setting.duration;
         if (setting.heightUnit) this.form.heightUnit = setting.heightUnit;
         if (setting.weightUnit) this.form.weightUnit = setting.weightUnit;
-
     }
 
     public saveConvertedValues(...args: Array<Partial<TConvertedValues>>): void {

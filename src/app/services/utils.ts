@@ -155,7 +155,7 @@ export default class Utils {
                 text: BadgeText.hundredWorkouts,
                 modalId: 'modal6',
             },
-        ]
+        ];
 
         return badges;
     }

@@ -21,7 +21,8 @@
     background: linear-gradient(270deg, $color-background-linear-5 -24.77%, $color-background-linear-6 95.41%);
 }
 
-.btn-flat.disabled, .btn-flat.btn-flat[disabled] {
+.btn-flat.disabled,
+.btn-flat.btn-flat[disabled] {
     color: white !important;
 }
 

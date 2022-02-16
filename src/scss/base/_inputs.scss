@@ -44,7 +44,7 @@ input {
 .settings-wrapper .input-group .value input {
     color: $color-text-navbar;
     font-size: 18px;
-} 
+}
 
 input[type='text'].datepicker {
     margin-bottom: 0;
@@ -78,7 +78,7 @@ input[type='text'].datepicker {
     margin-bottom: 20px;
 }
 
-.modal-content > .input-field > label{
+.modal-content > .input-field > label {
     color: $color-text-navbar;
 }
 
@@ -223,30 +223,30 @@ select:-webkit-autofill:focus {
     select:-webkit-autofill,
     select:-webkit-autofill:hover,
     select:-webkit-autofill:focus {
-    -webkit-text-fill-color: $color-text-navbar !important;
+        -webkit-text-fill-color: $color-text-navbar !important;
     }
-    input[type=text]:not(.browser-default).valid,
-    input[type=email]:not(.browser-default).valid,
-    input[type=password]:not(.browser-default).valid,
-    input[type=text]:not(.browser-default).invalid,
-    input[type=email]:not(.browser-default).invalid,
-    input[type=password]:not(.browser-default).invalid {
+    input[type='text']:not(.browser-default).valid,
+    input[type='email']:not(.browser-default).valid,
+    input[type='password']:not(.browser-default).valid,
+    input[type='text']:not(.browser-default).invalid,
+    input[type='email']:not(.browser-default).invalid,
+    input[type='password']:not(.browser-default).invalid {
         border-bottom: none;
         box-shadow: none;
     }
 }
 
-.settings-wrapper.editprofile{
+.settings-wrapper.editprofile {
     .input-group .value::placeholder,
-    input[type=text]:not(.browser-default)::placeholder,
-    input[type=email]:not(.browser-default)::placeholder,
-    input[type=password]:not(.browser-default)::placeholder {
+    input[type='text']:not(.browser-default)::placeholder,
+    input[type='email']:not(.browser-default)::placeholder,
+    input[type='password']:not(.browser-default)::placeholder {
         color: $color-text-navbar;
     }
     .input-group .value:focus::placeholder,
-    input[type=text]:not(.browser-default):focus::placeholder,
-    input[type=email]:not(.browser-default):focus::placeholder,
-    input[type=password]:not(.browser-default):focus::placeholder {
+    input[type='text']:not(.browser-default):focus::placeholder,
+    input[type='email']:not(.browser-default):focus::placeholder,
+    input[type='password']:not(.browser-default):focus::placeholder {
         opacity: 0;
     }
 }
