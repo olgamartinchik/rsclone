@@ -10,14 +10,14 @@ class UserDataManager {
         this.userSettings = userSettings;
     }
 
-    async createUserData() {
+    async createUserData(userAction:string) {
         await new CalculationCalories(this.userSettings).getRecipeDate();
+        await new CalculationCalories(this.userSettings).createUserMeal(userAction);
         await new MealPageModel().getSearchingData('brownie');
         new DateManager().getArrayDate(this.userSettings);
         const numWeek = new DateManager().getNumWeek(this.userSettings);
-        await new MealPageModel().getUserMealData();
+       await new MealPageModel().getUserMealData();
 
-        console.log('numWeek', numWeek);
     }
 }
 export default UserDataManager;

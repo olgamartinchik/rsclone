@@ -101,9 +101,13 @@ export class AuthModel {
 
     private async saveUserSettings(type: string): Promise<void> {
         const userSettings = await this.clientManager.getUserSettings(this.clientManager.token.userID);
+
         if (userSettings) {
             StorageManager.addItem('userSettings', userSettings, 'local');
-            new UserDataManager(userSettings!).createUserData();
+
+            const userAction='login'
+            StorageManager.addItem('userAction',userAction,'local')            
+            new UserDataManager(userSettings!).createUserData(userAction);
         }
         this.navigate(type);
     }

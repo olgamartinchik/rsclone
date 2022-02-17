@@ -55,7 +55,7 @@ class MealPageController {
         this.view.getLoaderSearchingContainer();
         this.view.getLoaderMealContainer();
 
-        this.mealData = await this.model.getUserMealData();
+        this.mealData = await this.model.getUserMealData() as IDataExplore[];
 
         if (!this.searchingData || this.searchingData.length === 0) {
             this.searchingData = await this.model.getSearchingData('brownie');

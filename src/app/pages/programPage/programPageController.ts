@@ -1,4 +1,5 @@
 import authManager from '../../services/authManager';
+import { IDataExplore } from '../../services/types';
 import MealPageController from '../mealPage/mealPageController';
 import MealPageModel from '../mealPage/mealPageModel';
 import MealPageView from '../mealPage/mealPageView';
@@ -38,7 +39,7 @@ class ProgramPageController {
 
         this.mealSection.getLoaderMealContainer();
         this.mealSection.loadMealCard(
-            await this.mealData.getUserMealData(),
+            await this.mealData.getUserMealData() as IDataExplore[],
             this.handlerMealCards.handlerMealCard.bind(this)
         );
     }
