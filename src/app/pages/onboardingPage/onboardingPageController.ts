@@ -227,6 +227,7 @@ class OnboardingPageController {
         valueInput.value = this.parameter.value;
 
         this.model.saveConvertedValues({ [parametersType]: parseInt(this.parameter.value) });
+        this.handleDesiredWeightConvert(parametersType);
         this.registerSelectedValue(e);
     }
 
@@ -235,6 +236,12 @@ class OnboardingPageController {
             this.parameter.value = slider.value;
         } else {
             this.parameter.value = Math.round(+slider.value / this.parameter.coefficient).toString();
+        }
+    }
+
+    private handleDesiredWeightConvert(type: string): void {
+        if (type === 'weight' && this.parameter.unit === Weight.units2 && this.model.settings.desiredWeight > 0) {
+            this.model.saveConvertedValues({ ['desiredWeight']:  Math.round(this.model.settings.desiredWeight / this.parameter.coefficient)})
         }
     }
 

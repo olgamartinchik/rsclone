@@ -174,13 +174,10 @@ class OnboardingPageView {
                     break;
             }
             if (goal === GoalTitles.weight) {
-                const weightChoiceBlock = Parameters.getTemplate(
+                const weightChoiceBlock = Parameters.getDesireWeightTemplate(
                     ClassNames.onboarding,
                     Weight.desired,
                     Weight.units,
-                    Weight.units2,
-                    Weight.option1,
-                    Weight.option2,
                     Weight.min,
                     Weight.max,
                     onselect,
@@ -194,7 +191,7 @@ class OnboardingPageView {
 
                 const valueInput = <HTMLInputElement>document.querySelector('.value-select');
                 const unitValue = <HTMLElement>document.querySelector('.value > span');
-                this.colorActiveUnit(settings);
+
                 valueInput.placeholder = settings.weightUnit === Weight.units ? Weight.min : Weight.min2;
                 unitValue.textContent = settings.weightUnit;
             }
@@ -212,10 +209,10 @@ class OnboardingPageView {
 
     private getParameters(type: string, settings: TSettings) {
         const elementsWrapper = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[0];
-
+        
         const input = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[1];
         const value = <HTMLInputElement>elementsWrapper.children[0];
-
+        
         value.value = this.getConvertedValue(type).toString();
         this.getUnits(settings);
         this.getSliderValue(settings);
