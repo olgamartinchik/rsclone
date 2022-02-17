@@ -47,7 +47,7 @@ class VideoHandler {
 
     private tracker: StatTracker;
 
-    private onEndVideo: (id: string, time: TStatData) => void;
+    private onEndVideo: (id?: string, time?: TStatData) => void;
 
     constructor() {
         this.timer = new Timer();
@@ -79,14 +79,16 @@ class VideoHandler {
         parentElement: HTMLElement,
         src: string,
         card: Card,
-        callback: (id: string, time: TStatData) => void,
-        settings: TSettings
+        callback: (id?: string, time?: TStatData) => void,
+        settings?: TSettings
     ): void {
         this.onEndVideo = callback;
         this.removeInnerContext();
         this.initVideo(parentElement, src, card.id);
         this.tracker.reset();
-        this.tracker.startTracking(card.data.caloriesPerMinute, settings);
+        if (settings) {
+            this.tracker.startTracking(card.data.caloriesPerMinute, settings!);
+        }
 
         this.video!.oncanplay = (e: Event): void => {
             e.stopPropagation();

@@ -54,6 +54,40 @@
             content: fa-content($fa-var-cogs);
         }
     }
+    &.angle-left {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 50%;
+        left: 40px;
+        &:before {
+            content: fa-content($fa-var-angle-left);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+    }
+    &.angle-right {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 50%;
+        right: 40px;
+        &:before {
+            content: fa-content($fa-var-angle-right);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+    }
     &.arrow-left {
         &:before {
             content: fa-content($fa-var-arrow-left);

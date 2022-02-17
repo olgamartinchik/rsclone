@@ -1,0 +1,29 @@
+.main-layout.browse {
+  .workout-header {
+    background-position: top 30% left 50%;
+    &::before {
+      height: 250px;
+    }
+  }
+  .workout-container {
+    min-height: 300px;
+    &.buttons {
+      min-height: 50px;
+      position: absolute;
+      top: 295px;
+      background-color: transparent;
+      .workout-controls {
+        padding: 0;
+        .workout-fav {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+  .workout-title {
+    font-size: 30px;
+  }
+  .workout-info {
+    bottom: 80px;
+  }
+}

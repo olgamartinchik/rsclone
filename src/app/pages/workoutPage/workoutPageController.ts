@@ -27,12 +27,13 @@ class WorkoutPageController {
         }
     }
 
-    private async startWorkout(e: Event) {
+    public async startWorkout(e: Event) {
         const id = (<HTMLElement>e.currentTarget).id;
         const link = this.model.getVideoLink(id);
         const settings = await this.model.getSettingsData();
         const card = this.model.getCardById(id);
         if (link && card && settings) {
+            console.log(link, card, settings);
             this.videoHandler.createVideo(this.view.rootNode, link, card, this.sendStatistics.bind(this), settings);
         }
     }
