@@ -23,7 +23,7 @@ export function changePasswordTemplate(title: string): string {
   <p class="settings-link">${title}</p>
   <a class="waves-effect waves-light btn modal-trigger change-password" href="#modal9">Change Password</a>
 
-  <div id="modal9" class="modal">
+  <div id="modal9" class="modal change-password">
     <div class="modal-content">
       <div class="input-field col s12 auth-field">
         <i class="icon eye-closed" data-type="eye-icon"></i>

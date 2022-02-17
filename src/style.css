@@ -17686,6 +17686,10 @@ footer {
   .btn-wrapper.settings {
     margin-top: 15px;
   }
+
+  .btn-wrapper.edit-profile {
+    padding: 0;
+  }
 }
 input {
   color: #b4b4b4;
@@ -18237,6 +18241,14 @@ select:-webkit-autofill:focus {
   }
   100% {
     opacity: 1;
+  }
+}
+@media (max-width: 420px) {
+  .modal.change-password {
+    width: 85%;
+  }
+  .modal.change-password .modal-content {
+    padding: 15px;
   }
 }
 
