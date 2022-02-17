@@ -1,5 +1,6 @@
 import { WorkoutType } from './constants';
 export default class Utils {
+   
     static getChunks<T>(dataArr: T[], chunk: number): Array<T[]> {
         return dataArr.reduce((resultArray: Array<T[]>, item: T, index: number) => {
             const chunkIndex = Math.floor(index / chunk);
@@ -108,4 +109,5 @@ export default class Utils {
     static getKeyByValue<T>(object: T, value: string | number | Array<WorkoutType>) {
         return Object.keys(object).find((key) => object[key] === value);
     }
+   
 }
