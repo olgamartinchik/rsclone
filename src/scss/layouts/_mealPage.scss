@@ -169,15 +169,8 @@
     justify-content: space-evenly;
     gap: 60px;
     flex-wrap: wrap;
-    // .explore-card:nth-child(even) {
-    //     // animation-delay: 0.1s;
-    //     color: green;
-    // }
 }
-.explore-card:nth-child(2n) {
-    animation-delay: 0.1s;
-    color: green;
-}
+
 .explore-img-container {
     width: 300px;
 
