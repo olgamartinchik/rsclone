@@ -195,8 +195,9 @@ class ClientManager {
             this.text = String(e);
         }
     }
-    public async postUserMenu(id:string, periodUserMeal:IDataExplore[]){
-        try{
+
+    public async postUserMenu(id: string, periodUserMeal: IDataExplore[]) {
+        try {
             const res = await fetch(`https://rsclonebackend.herokuapp.com/api/menu`, {
                 method: 'POST',
                 body: JSON.stringify({ _id: id, periodUserMeal }),
@@ -206,29 +207,29 @@ class ClientManager {
             });
 
             return await res.json();
-        }catch(e){
+        } catch (e) {
             this.handleError(e);
         }
-
     }
-    public async getUserMenu(id:string ): Promise<IDataExplore[] | void>{
-        try{
+
+    public async getUserMenu(id: string): Promise<IDataExplore[] | void> {
+        try {
             const res = await fetch(`https://rsclonebackend.herokuapp.com/api/menu/${id}`, {
                 method: 'GET',
-                
+
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
 
             return await res.json();
-        }catch(e){
+        } catch (e) {
             this.handleError(e);
         }
-
     }
-    public async updateUserMenu(id:string,periodUserMeal:IDataExplore[]): Promise<IDataExplore[] | void>{
-        try{
+
+    public async updateUserMenu(id: string, periodUserMeal: IDataExplore[]): Promise<IDataExplore[] | void> {
+        try {
             const res = await fetch(`https://rsclonebackend.herokuapp.com/api/menu/${id}`, {
                 method: 'PATCH',
                 body: JSON.stringify({ periodUserMeal }),
@@ -238,12 +239,10 @@ class ClientManager {
             });
 
             return await res.json();
-        }catch(e){
+        } catch (e) {
             this.handleError(e);
         }
-
     }
-
 }
 
 export default ClientManager;

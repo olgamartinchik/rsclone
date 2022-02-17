@@ -75,17 +75,15 @@ export class OnboardingModel {
     public async saveSettings() {
         const clientManager = new ClientManager();
         StorageManager.addItem('userSettings', this.form, 'local');
-        await  clientManager.postData(Endpoints.userSettings, this.form);
- 
-        const userAction='register'
-        StorageManager.addItem('userAction',userAction,'local')
+        await clientManager.postData(Endpoints.userSettings, this.form);
+
+        const userAction = 'register';
+        StorageManager.addItem('userAction', userAction, 'local');
         await new UserDataManager(this.form).createUserData(userAction);
-        if(StorageManager.getItem('periodUserMeal',  'local') as IDataExplore[]){
-            const periodUserMeal= StorageManager.getItem('periodUserMeal',  'local') as IDataExplore[];
-            await new ClientManager().postUserMenu(this.form.userId, periodUserMeal)
+        if (StorageManager.getItem('periodUserMeal', 'local') as IDataExplore[]) {
+            const periodUserMeal = StorageManager.getItem('periodUserMeal', 'local') as IDataExplore[];
+            await new ClientManager().postUserMenu(this.form.userId, periodUserMeal);
         }
-   
-      
     }
 
     public calculateAge(dateOfBirth: string): number {

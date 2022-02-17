@@ -126,9 +126,9 @@ class EditPlanPageController {
         } else {
             this.model.saveSettings(this.modifiedUserSettings);
 
-            const userAction='editProfile'
-            StorageManager.addItem('userAction',userAction,'local')
-           
+            const userAction = 'editProfile';
+            StorageManager.addItem('userAction', userAction, 'local');
+
             new UserDataManager(this.modifiedUserSettings!).createUserData(userAction);
             authManager.navigate('/settings');
         }

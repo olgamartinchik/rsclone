@@ -32,15 +32,14 @@ class MealPageModel {
 
     async getUserMealData() {
         const userData: Array<IDataExplore> = [];
-       
-        const userAction=StorageManager.getItem('userAction','local') as string
-       
+
+        const userAction = StorageManager.getItem('userAction', 'local') as string;
+
         const periodUserMeal =
-            (StorageManager.getItem('periodUserMeal', 'local') as Array<IDataExplore>) 
-            ??
-            (await new CalculationCalories(
-                StorageManager.getItem('userSettings', 'local') as TSettings
-            ).createUserMeal(userAction));
+            (StorageManager.getItem('periodUserMeal', 'local') as Array<IDataExplore>) ??
+            (await new CalculationCalories(StorageManager.getItem('userSettings', 'local') as TSettings).createUserMeal(
+                userAction
+            ));
         periodUserMeal[this.today.dateToday()].forEach((meal) => {
             if (meal) {
                 userData.push(meal);
@@ -49,7 +48,7 @@ class MealPageModel {
 
         StorageManager.addItem('mealData', userData, 'local');
         return userData;
-    // }
+        // }
     }
 
     async getSearchingData(meal = 'Salad') {

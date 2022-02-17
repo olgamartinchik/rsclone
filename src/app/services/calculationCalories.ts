@@ -33,13 +33,14 @@ class CalculationCalories {
     private relaxCalCoefficient: number;
 
     private muscleCalCoefficient: number;
-    private id:string;
+
+    private id: string;
 
     calories: number;
 
     constructor(userSettings: TSettings) {
         this.userSettings = userSettings;
-        this.id=this.userSettings.userId
+        this.id = this.userSettings.userId;
         this.weight = this.userSettings.weight;
         this.height = this.userSettings.height;
         this.age = this.userSettings.age;
@@ -94,12 +95,11 @@ class CalculationCalories {
         const calories = this.getCalories();
         const recipeData = await new ClientManager().getRecipe(calories);
         StorageManager.addItem('allRecipe', recipeData, 'local');
-    //    await this.createUserMeal(userAction);
+        //    await this.createUserMeal(userAction);
         return recipeData;
     }
-   
 
-    async createUserMeal(userAction:string) {
+    async createUserMeal(userAction: string) {
         let periodUserMeal = {} as IDataExplore[];
         const dayMeals = ['breakfast', 'lunch/dinner', 'snack'];
         const arrayDates = new DateManager().getArrayDate(this.userSettings);
@@ -119,27 +119,22 @@ class CalculationCalories {
                 );
             });
         });
-        if(userAction==='login'){
-            const data=await new ClientManager().getUserMenu(this.id)
-            if(data){
-             periodUserMeal= (data as any).periodUserMeal
-             StorageManager.addItem('periodUserMeal',periodUserMeal, 'local');
-             
+        if (userAction === 'login') {
+            const data = await new ClientManager().getUserMenu(this.id);
+            if (data) {
+                periodUserMeal = (data as any).periodUserMeal;
+                StorageManager.addItem('periodUserMeal', periodUserMeal, 'local');
             }
-        }else if(userAction==='editProfile'){
-            const data =await new ClientManager().updateUserMenu(this.id, periodUserMeal)
-           
-            periodUserMeal= (data as any).updateUserMenu.periodUserMeal
-            StorageManager.addItem('periodUserMeal',periodUserMeal, 'local');
-           
-        }else if(userAction==='register'){
+        } else if (userAction === 'editProfile') {
+            const data = await new ClientManager().updateUserMenu(this.id, periodUserMeal);
+
+            periodUserMeal = (data as any).updateUserMenu.periodUserMeal;
             StorageManager.addItem('periodUserMeal', periodUserMeal, 'local');
-           
-        }else{
+        } else if (userAction === 'register') {
             StorageManager.addItem('periodUserMeal', periodUserMeal, 'local');
-            
+        } else {
+            StorageManager.addItem('periodUserMeal', periodUserMeal, 'local');
         }
-      
 
         return periodUserMeal;
     }

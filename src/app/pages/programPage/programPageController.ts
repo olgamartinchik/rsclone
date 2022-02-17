@@ -39,7 +39,7 @@ class ProgramPageController {
 
         this.mealSection.getLoaderMealContainer();
         this.mealSection.loadMealCard(
-            await this.mealData.getUserMealData() as IDataExplore[],
+            (await this.mealData.getUserMealData()) as IDataExplore[],
             this.handlerMealCards.handlerMealCard.bind(this)
         );
     }

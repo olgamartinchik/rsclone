@@ -105,8 +105,8 @@ export class AuthModel {
         if (userSettings) {
             StorageManager.addItem('userSettings', userSettings, 'local');
 
-            const userAction='login'
-            StorageManager.addItem('userAction',userAction,'local')            
+            const userAction = 'login';
+            StorageManager.addItem('userAction', userAction, 'local');
             new UserDataManager(userSettings!).createUserData(userAction);
         }
         this.navigate(type);
