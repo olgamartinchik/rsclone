@@ -117,6 +117,11 @@ class Config {
                 isAuth: null,
             },
             {
+                path: /browse\/([a-zA-Z]){1,10}/,
+                callback: (...args) => console.log('browse', args),
+                isAuth: null,
+            },
+            {
                 path: /meal\/(\d{1,2})/,
                 callback: (...args) => console.log('meal page', args),
                 isAuth: true,

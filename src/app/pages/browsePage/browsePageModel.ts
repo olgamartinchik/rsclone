@@ -52,6 +52,11 @@ class BrowsePageModel {
 
         return url;
     }
+
+    public filterCardArray(type: string, value: string): Array<Card> {
+        const filteredCardArray = this.cards.filter((card) => card.data[type] === value);
+        return filteredCardArray;
+    }
 }
 
 export default BrowsePageModel;

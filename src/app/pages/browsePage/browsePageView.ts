@@ -7,12 +7,15 @@ import Button from '../../components/Button';
 import workoutHeaderTemplate from '../../components/workout/template';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
 import storageManager from '../../services/storageManager';
+import { WorkoutType } from '../../services/constants';
 
 class BrowsePageView {
     public rootNode: HTMLElement;
     
     private materializeHandler: MaterializeHandler;
-    angle: number;
+    private angle: number;
+    private mainLayout!: Node<HTMLElement>;
+    private cardsWrapper!: Node<HTMLElement>;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
@@ -20,13 +23,13 @@ class BrowsePageView {
         this.angle = 0;
     }
 
-    public render(isLogin: boolean, card: Card, signUpHandler: () => void, startVideo: (e: Event) => void) {
+    public render(isLogin: boolean, card: Card, signUpHandler: () => void, startVideo: (e: Event) => void, onParameterClick: (e: Event) => void) {
         if (isLogin) {
             this.createAuthorizedHeader()
         } else {
             this.createNotAuthorizedHeader(signUpHandler);
         }
-        this.createContent(isLogin, card, startVideo);
+        this.createContent(isLogin, card, startVideo, onParameterClick);
         this.rootNode.append(footer.getTemplate());
         this.initMaterialize();
     }
@@ -58,15 +61,17 @@ class BrowsePageView {
         }
     }
 
-    private createContent(isLogin: boolean, card: Card, startVideo: (e: Event) => void): void {
-        const mainPage = new Node(this.rootNode, 'main', 'main-layout browse');
-        mainPage.node.insertAdjacentHTML('afterbegin', workoutHeaderTemplate(card));
-        mainPage.node.append(this.getWorkoutDetailsLayout(card, startVideo));
+    private createContent(isLogin: boolean, card: Card, startVideo: (e: Event) => void, onParameterClick: (e: Event) => void): void {
+        this.mainLayout = new Node(this.rootNode, 'main', 'main-layout browse');
+        this.mainLayout.node.insertAdjacentHTML('afterbegin', workoutHeaderTemplate(card));
+        this.mainLayout.node.append(this.getWorkoutDetailsLayout(card, startVideo));
 
         const buttonFav = <HTMLElement>document.querySelector('.workout-fav');
         if (!isLogin && buttonFav) {
             buttonFav.style.opacity = '0';
         }
+
+        this.createParamBlock('Classes', onParameterClick);
     }
 
     private getWorkoutDetailsLayout(card: Card, startVideo: (e: Event) => void): HTMLElement {
@@ -85,6 +90,52 @@ class BrowsePageView {
         buttonStart.button.node.onclick = (e: Event) => startVideo(e);
 
         return workoutDetails.node;
+    }
+
+    private createParamBlock(title: string, onParameterClick: (e: Event) => void): void {
+        const blockWrapper = new Node(this.mainLayout!.node, 'div', 'browse-block');
+        Node.setChild(blockWrapper.node, 'h2', 'browse-block-title', title);
+        this.setContent(title, blockWrapper.node, onParameterClick);
+    }
+
+    private setContent(title: string, parentNode: HTMLElement, onParameterClick: (e: Event) => void) {
+        switch(title) {
+            case 'Classes':
+                this.createClassesBlock(parentNode, onParameterClick);
+                break;
+        }
+    }
+
+    private createClassesBlock(parentNode: HTMLElement, onParameterClick: (e: Event) => void): void {
+        const classesWrapper = new Node(parentNode, 'div', 'classes-block');
+        const classes = [
+            WorkoutType.yoga, 
+            WorkoutType.stretch, 
+            WorkoutType.strength, 
+            WorkoutType.pilates,
+            WorkoutType.meditation,
+            WorkoutType.dance,
+            WorkoutType.cardio,
+            WorkoutType.boxing,
+            WorkoutType.HIIT
+        ];
+        classes.forEach((item) => {
+            const classesCard = Node.setChild(classesWrapper.node, 'div', 'type-card');
+            classesCard.style.backgroundImage =  `linear-gradient(0deg, rgba(129, 131, 132, 0.7), rgba(129, 131, 132, 0.7)), url("../../../assets/img/classes/${item}.jpg")`;
+            classesCard.setAttribute('data-type', 'type');
+            classesCard.setAttribute('data-value', item);
+            classesCard.onclick = (e: Event) => onParameterClick(e);
+
+            Node.setChild(classesCard, 'span', '', item.toUpperCase());
+        });
+    }
+
+    public renderFilteredWorkouts(data: Card[], onclick: (e: Event) => void): void {
+        this.mainLayout!.node.textContent = '';
+        const cardElems = data.map((card: Card, index: number) => card.getTemplate(onclick, index));
+
+        this.cardsWrapper = new Node(this.mainLayout.node, 'div', 'workouts-wrapper');
+        this.cardsWrapper.node.append(...cardElems);
     }
 
     private initMaterialize(): void {

@@ -27,3 +27,51 @@
     bottom: 80px;
   }
 }
+
+.browse-block {
+  padding: 15px;
+  max-width: 900px;
+  margin: 0 auto;
+  &-title {
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: 500;
+  }
+  .classes-block {
+    width: 100%;
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .type-card {
+    width: 210px;
+    height: 160px;
+    border-radius: 16px;
+    color: #fff;
+    text-align: center;
+    padding-top: 50px;
+    background-size: cover;
+    background-position: 50%;
+    background-blend-mode: multiply, normal;
+    background-image: linear-gradient(0deg, rgba(129, 131, 132, 0.7), rgba(129, 131, 132, 0.7));
+    transition: transform 1.5s ease;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
+    span {
+      font-size: 25px;
+      font-weight: 700;
+    }
+  }
+}
+
+.workouts-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  grid-gap: 30px;
+  padding: 20px;
+}
