@@ -172,11 +172,6 @@ class EditProfilePageModel {
             age -= 1;
         }
 
-        if (!dateOfBirth) {
-            age = (<TSettings>this.getSettingsData()).age;
-            console.log('Errrrrroorrrr!!!!!');
-        }
-
         return age;
     }
 

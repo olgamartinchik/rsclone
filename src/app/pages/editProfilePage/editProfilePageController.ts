@@ -155,9 +155,15 @@ class EditProfilePageController {
     private handleBirthdayChange(e: Event): void {
         const currentTarget = <HTMLElement>e.currentTarget;
         const calenderInput = <HTMLInputElement>currentTarget.querySelector('.datepicker');
-        const age = this.model.calculateAge(calenderInput.value);
-        (<TSettings>this.modifiedUserSettings).age = age;
-        (<TSettings>this.modifiedUserSettings).birthday = calenderInput.value;
+        let age = (<TSettings>this.modifiedUserSettings).age;
+        if (calenderInput.value) {
+            age = this.model.calculateAge(calenderInput.value);
+            (<TSettings>this.modifiedUserSettings).age = age;
+            (<TSettings>this.modifiedUserSettings).birthday = calenderInput.value;
+        } else {
+            calenderInput.value = (<TSettings>this.modifiedUserSettings).birthday;
+            console.log('birthday error!');
+        }
         this.handleSaveButtonStatus();
     }
 
