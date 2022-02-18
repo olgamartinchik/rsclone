@@ -110,7 +110,7 @@ class ProgramPageModel {
         storageManager.addItem('userSettings', settings, 'local');
         const userData = storageManager.getItem<TToken>('token', 'local');;
         if (userData) {
-            await this.client.changeData('userSettings', userData.userID, settings);
+            await this.client.changeData('userSettings', 'PATCH', userData.userID, settings);
         }
     }
 }

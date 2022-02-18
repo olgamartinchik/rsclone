@@ -20,17 +20,17 @@ class BadgesManager {
         switch (workoutsCompleted) {
             case 1: {
                 this.popup.createPopup(BadgeActiveSrc.oneWorkout, BadgeName.oneWorkout, BadgeText.oneWorkout);
-                settings.badges.push(BadgeActiveSrc.oneWorkout);
+                settings.badges.push(BadgeName.oneWorkout);
                 break;
             }
             case 5: {
                 this.popup.createPopup(BadgeActiveSrc.fiveWorkouts, BadgeName.fiveWorkouts, BadgeText.fiveWorkouts);
-                settings.badges.push(BadgeActiveSrc.fiveWorkouts);
+                settings.badges.push(BadgeName.fiveWorkouts);
                 break;
             }
             case 10: {
                 this.popup.createPopup(BadgeActiveSrc.tenWorkouts, BadgeName.tenWorkouts, BadgeText.tenWorkouts);
-                settings.badges.push(BadgeActiveSrc.tenWorkouts);
+                settings.badges.push(BadgeName.tenWorkouts);
                 break;
             }
             case 20: {
@@ -39,12 +39,12 @@ class BadgesManager {
                     BadgeName.twentyWorkouts,
                     BadgeText.twentyWorkouts
                 );
-                settings.badges.push(BadgeActiveSrc.twentyWorkouts);
+                settings.badges.push(BadgeName.twentyWorkouts);
                 break;
             }
             case 50: {
                 this.popup.createPopup(BadgeActiveSrc.fiftyWorkouts, BadgeName.fiftyWorkouts, BadgeText.fiftyWorkouts);
-                settings.badges.push(BadgeActiveSrc.fiftyWorkouts);
+                settings.badges.push(BadgeName.fiftyWorkouts);
                 break;
             }
             case 100: {
@@ -53,7 +53,7 @@ class BadgesManager {
                     BadgeName.hundredWorkouts,
                     BadgeText.hundredWorkouts
                 );
-                settings.badges.push(BadgeActiveSrc.hundredWorkouts);
+                settings.badges.push(BadgeName.hundredWorkouts);
                 break;
             }
         }
@@ -65,7 +65,7 @@ class BadgesManager {
         storageManager.addItem('userSettings', settings, 'local');
         const userData = storageManager.getItem<TToken>('token', 'local');
         if (userData) {
-            await this.client.changeData('userSettings', userData.userID, settings);
+            await this.client.changeData('userSettings', 'PATCH', userData.userID, settings);
         }
     }
 }

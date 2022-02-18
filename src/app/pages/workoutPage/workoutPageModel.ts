@@ -140,7 +140,7 @@ class WorkoutPageModel {
         storageManager.addItem('workout-cards', this.cards, 'local');
         const userData = this.getUserData();
         if (userData) {
-            await this.client.changeData('userSettings', userData.userID, settings);
+            await this.client.changeData('userSettings', 'PATCH', userData.userID, settings);
         }
     }
 }
