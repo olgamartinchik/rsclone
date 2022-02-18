@@ -71,6 +71,7 @@ class ExploreController {
                     if (StorageApiManager.getItem('allRecipe', 'local')) {
                         const data = StorageApiManager.getItem('allRecipe', 'local') as IDataExplore[];
                         this.dietData = data.filter((meal) =>
+                        
                             String(meal.recipe.dietLabels!).toLowerCase().includes(diet)
                         );
                     }

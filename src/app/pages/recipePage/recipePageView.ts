@@ -46,7 +46,7 @@ class RecipePageView {
 
     createContentExplore(recipePageData: IDataExplore, backPage: string) {
         const main = new Node(this.rootNode, 'main', 'main-layout recipe-main');
-        const linkBack = new Node(main.node, 'a', '');
+        const linkBack = new Node(main.node, 'a', ' red lighten-2 btn-floating btn');
         linkBack.setAttribute('href', `${backPage}`);
         Node.setChild(linkBack.node, 'i', 'fas fa-long-arrow-alt-left black-arrow');
         const sectionAbout = new Node(main.node, 'section', 'about-section');

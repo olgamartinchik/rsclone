@@ -164,7 +164,7 @@ class ClientManager {
 
     public async searchingData(from: string, to: string, meal = 'Salad') {
         try {
-            const url = `https://api.edamam.com/search?q=${meal}&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&imageSize=LARGE`;
+            const url = `https://api.edamam.com/search?q=${meal}&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}`;
 
             const response = await fetch(url);
             const data = await response.json();
@@ -177,9 +177,9 @@ class ClientManager {
     public async getRecipe(calories: number) {
         try {
             const caloriesForOneMeal = Math.floor(calories / 3);
-            const url = `https://api.edamam.com/search?q=all&app_id=1ddd26bc&app_key=aa2a6148d30d95275813c6bc548941bf&from=0&to=100&imageSize=LARGE&calories=${String(
-                caloriesForOneMeal
-            )}-${String(caloriesForOneMeal + 300)}&Health=alcohol-free`;
+            const url = `https://api.edamam.com/search?q=all&app_id=1ddd26bc&app_key=aa2a6148d30d95275813c6bc548941bf&from=0&to=100&calories=${String(
+                caloriesForOneMeal-100
+            )}-${String(caloriesForOneMeal + 200)}&Health=alcohol-free`;
             const response = await fetch(url);
             const data = await response.json();
             return data.hits;

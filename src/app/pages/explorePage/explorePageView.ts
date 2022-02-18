@@ -36,9 +36,9 @@ class ExplorePageView {
     createContentExplore(diet: string) {
         const main = new Node(this.rootNode, 'main', 'main-layout main-diet');
         const mealTypeSection = new Node(main.node, 'section', 'meal-type-section');
-        const linkBack = new Node(mealTypeSection.node, 'a', 'arrow-back');
+        const linkBack = new Node(mealTypeSection.node, 'a', 'arrow-back  red lighten-2 btn-floating btn');
         linkBack.setAttribute('href', '#meal');
-        Node.setChild(linkBack.node, 'i', 'fas fa-long-arrow-alt-left');
+        Node.setChild(linkBack.node, 'i', 'fas fa-long-arrow-alt-left black-arrow');
 
         Node.setChild(mealTypeSection.node, 'h1', 'title-type', `${diet}`);
         const mealSection = new Node(main.node, 'section', 'meal-section diet-menu-section');

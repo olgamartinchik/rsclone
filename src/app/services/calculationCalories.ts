@@ -111,7 +111,7 @@ class CalculationCalories {
             dayMeals.forEach((day) => {
                 periodUserMeal[date].push(
                     allRecipe!.find((meal, ind, array) => {
-                        if ((meal!.recipe.mealType! as [])!.includes(day as never)) {
+                        if (Array.from(meal!.recipe.mealType!as []).length===1&&(meal!.recipe.mealType! as [])!.includes(day as never)) {
                             Utils.shuffleArr(array);
                             return meal!.recipe.mealType!;
                         }
