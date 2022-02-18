@@ -164,9 +164,9 @@ export default class Utils {
         return arr.reduce((prev, next) => prev + Object.values(next).reduce((a, b) => a + b), 0);
     }
 
-    // static iterateDoubleArr<T, CallbackT>(arr: T[][], callback: CallbackT): void {
-    //     arr.forEach((elem) => {
-    //         elem.forEach((item) => callback(item));
-    //     });
-    // }
+    static iterateDoubleArr<T>(arr: T[][], callback: (elem: T, parentElem: T[], index: number) => void): void {
+        arr.forEach((elem, index) => {
+            elem.forEach((item) => callback(item, elem, index));
+        });
+    }
 }

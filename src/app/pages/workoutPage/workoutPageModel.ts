@@ -1,7 +1,7 @@
 import Card from '../../components/card/card';
 import storageManager from '../../services/storageManager';
 import CloudinaryManager from '../../services/cloudinarySDK';
-import { TProgress, TProgressData, TSettings, TStatData, TToken, TWorkoutProgram } from '../../services/types';
+import { TProgress, TProgressData, TSettings, TStatData, TToken, TWorkout, TWorkoutProgram } from '../../services/types';
 import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';
 
@@ -65,24 +65,19 @@ class WorkoutPageModel {
     }
 
     public async updateWorkoutData(card: Card): Promise<void> {
-        const program = storageManager.getItem<TWorkoutProgram>('workout-program', 'local');
+        const program = storageManager.getItem<Array<TWorkout[]>>('workout-program', 'local');
         if (program) {
-            program.forEach((workoutWeek) => {
-                workoutWeek.forEach((workout) => {
-                    this.cards.forEach(cardArr => {
-                        cardArr.forEach(cardElem => {
-                            if(cardElem.id === card.id) {
-                                cardElem.completed = true;
-                                cardElem.data.completed = true;
-                            }
-                        });
-                    });
-
-                    if (workout._id === card.id) {
-                        workout.completed = true;
-                        card.data.completed = true;
-                    }
-                });
+            Utils.iterateDoubleArr<TWorkout>(program, (workout) => {
+                if (workout._id === card.id) {
+                    workout.completed = true;
+                    card.data.completed = true;
+                }
+            });
+            Utils.iterateDoubleArr<Card>(this.cards, (cardElem) => {
+                if(cardElem.id === card.id) {
+                    cardElem.completed = true;
+                    cardElem.data.completed = true;
+                }
             });
             storageManager.addItem('workout-program', program, 'local');
             storageManager.addItem('workout-cards', this.cards, 'local');

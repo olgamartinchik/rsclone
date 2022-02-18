@@ -86,8 +86,6 @@ class ProgramPageController {
                 });
             });
         }
-        console.log(likedCards);
-
         this.view.renderFavs(likedCards, this.handleCardClick.bind(this));
     }
 
