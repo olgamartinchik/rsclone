@@ -19,6 +19,7 @@ class EditProfilePageModel {
             userName: '',
             email: '',
             password: '',
+            avatar: '',
             newPassword: '',
         };
         this.isLoading = true;
@@ -36,6 +37,8 @@ class EditProfilePageModel {
         this.editProfileForm = changeUserDataForm;
         this.editProfileForm.userName = modifiedUserData.name;
         this.editProfileForm.email = modifiedUserData.email;
+        this.editProfileForm.avatar = modifiedUserData.avatar!;
+        console.log('sent to update user data', this.editProfileForm)
         await this.updateUserData(modifiedUserData);
     }
 
@@ -56,7 +59,7 @@ class EditProfilePageModel {
     public async updateUserData(modifiedUserData: TUser) {
         const userId = (<TSettings>this.getSettingsData()).userId;
         this.isLoading = true;
-        console.log(this.editProfileForm);
+        
         await this.clientManager.changeData(
             Endpoints.changeUserData,
             'POST',

@@ -37,12 +37,14 @@ class EditProfilePageController {
         this.changeUserDataForm = {
             userName: '',
             email: '',
+            avatar: '',
             password: '',
             newPassword: '',
         };
         this.confirmCurrentPasswordForm = {
             userName: '',
             email: '',
+            avatar: '',
             password: '',
             newPassword: '',
         };

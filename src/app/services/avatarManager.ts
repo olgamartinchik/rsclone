@@ -1,19 +1,26 @@
 import ClientManager from './clientManager';
 import CloudinaryManager from './cloudinarySDK';
 import storageManager from './storageManager';
-import { TToken, TSettings, TUser } from './types';
+import { TToken, TSettings, TUser, TChangeUserDataForm } from './types';
+import { Endpoints } from './constants';
 
 export class AvatarManager {
     private clientManager: ClientManager;
 
     private files: Array<File>;
 
-    private cloudinaryManager: CloudinaryManager;
+    private editProfileForm: TChangeUserDataForm;
 
     constructor() {
         this.clientManager = new ClientManager();
-        this.cloudinaryManager = new CloudinaryManager();
         this.files = [];
+        this.editProfileForm = {
+            userName: '',
+            email: '',
+            password: '',
+            avatar: '',
+            newPassword: '',
+        };
     }
 
     public getAvatarFile(element: HTMLInputElement): Array<File> {
@@ -37,18 +44,6 @@ export class AvatarManager {
 
         return this.files;
     }
-
-    // public toggleEditIcon(): void {
-    //     const editIcon = <HTMLElement>document.querySelector('.icon-upload');
-
-    //     if (editIcon && editIcon.className.includes('pencil')) {
-    //         editIcon.className = 'icon-upload icon delete modal-trigger';
-    //         editIcon.setAttribute('data-target', 'modal7');
-    //     } else {
-    //         editIcon.className = 'icon-upload icon pencil';
-    //         editIcon.removeAttribute('data-target');
-    //     }
-    // }
 
     public setDeleteIcon(): void {
         const editIcon = <HTMLElement>document.querySelector('.icon-upload');
@@ -92,15 +87,45 @@ export class AvatarManager {
     }
 
     public async updateUserInfo(file: File): Promise<void> {
-        const user = <TUser>storageManager.getItem('user', 'local');
-        const userId = (<TToken>storageManager.getItem('token', 'local')).userID;
-        const userName = (<TUser>storageManager.getItem('user', 'local')).name;
+        const user = this.getUserData()!;
+        const userName = user.name;
         
         const avatar = await this.clientManager.uploadAvatar(file);
         user.avatar = avatar.secure_url;
-        storageManager.addItem('user', user, 'local');
+        
+        this.updateUserDataForm(user);
         this.updateProfileIcon(user.avatar, userName);
         this.saveAvatarID(avatar.public_id);
+    }
+
+    private getTokenData(): TToken | void {
+        return storageManager.getItem('token', 'local');
+    }
+
+    private getUserData(): TUser | void {
+        return storageManager.getItem('user', 'local');
+    }
+
+    private async updateUserDataForm(user: TUser): Promise<void> {
+        this.editProfileForm.userName = user.name;
+        this.editProfileForm.email = user.email;
+        this.editProfileForm.avatar = user.avatar!;
+        console.log('sent to update avatar', this.editProfileForm)
+        await this.updateUserData(user);
+    }
+
+    private async updateUserData(user: TUser) {
+        const userId = this.getTokenData()!.userID;
+        
+        await this.clientManager.changeData(
+            Endpoints.changeUserData,
+            'POST',
+            userId,
+            <TChangeUserDataForm>this.editProfileForm
+        );
+
+        storageManager.addItem('user', user, 'local');
+        console.log('userData in LS after avatar sent to back', this.getUserData());
     }
 
     private saveAvatarID(id: string) {
@@ -119,13 +144,14 @@ export class AvatarManager {
     }
 
     public async deleteAvatar() {
-        const user = <TUser>storageManager.getItem('user', 'local');
+        const user = this.getUserData()!;
         const publicId = <string>storageManager.getItem('public_id', 'local');
-        const userName = (<TUser>storageManager.getItem('user', 'local')).name;
+        const userName = user.name;
         user.avatar = '';
         // await this.clientManager.deleteAvatar(publicId);
         storageManager.deleteItem('public_id', 'local');
-        storageManager.addItem('user', user, 'local');
+
+        this.updateUserDataForm(user);
         this.setUploadIcon();
         this.updateProfileIcon(user.avatar, userName);
     }

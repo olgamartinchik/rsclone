@@ -150,6 +150,7 @@ export type TUser = {
 export type TChangeUserDataForm = {
     userName: string;
     email: string;
+    avatar: string;
     password: string;
     newPassword: string;
 }
