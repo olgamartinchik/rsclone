@@ -71,6 +71,7 @@ class WorkoutPageModel {
                 workoutWeek.forEach((workout) => {
                     if (workout._id === card.id) {
                         workout.completed = true;
+                        card.data.completed = true;
                     }
                 });
             });
@@ -107,13 +108,14 @@ class WorkoutPageModel {
 
         if (weekIndex !== undefined) {
             if (!settings.progress[weekIndex]) {
-                settings.progress.push({ minutes: [], calories: [] });
+                settings.progress.push({ minutes: [], calories: [], workoutsCompleted: 0 });
             }
             const currWeek = settings.progress[weekIndex];
             const currDate = currWeek.minutes.find((weekItem) => weekItem[date]);
             const currCalories = currWeek.calories.find((weekItem) => weekItem[date]);
             this.setData(currDate, date, dataStat.time, currWeek, 'minutes');
             this.setData(currCalories, date, dataStat.calories, currWeek, 'calories');
+            currWeek.workoutsCompleted += 1;
         }
     }
 
@@ -126,6 +128,15 @@ class WorkoutPageModel {
             }
         } else {
             progress[type].push({ [key]: value });
+        }
+    }
+
+    public async saveSettings(settings: TSettings): Promise<void> {
+        storageManager.addItem('userSettings', settings, 'local');
+        storageManager.addItem('workout-cards', this.cards, 'local');
+        const userData = this.getUserData();
+        if (userData) {
+            await this.client.changeData('userSettings', userData.userID, settings);
         }
     }
 }

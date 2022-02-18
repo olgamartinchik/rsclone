@@ -2,6 +2,7 @@ import WorkoutPageModel from './statisticPageModel';
 import WorkoutPageView from './statisticPageView';
 import authManager from '../../services/authManager';
 import videoHandler from '../../components/videoHandler/videoHandler';
+import BadgesManager from '../../services/badgesManager';
 
 class StatisticPageController {
     private view: WorkoutPageView;
@@ -10,10 +11,13 @@ class StatisticPageController {
 
     private videoHandler: typeof videoHandler;
 
+    private badgeManager: BadgesManager;
+
     constructor() {
         this.model = new WorkoutPageModel();
         this.view = new WorkoutPageView();
         this.videoHandler = videoHandler;
+        this.badgeManager = new BadgesManager();
     }
 
     public async createPage(args: string[]): Promise<void> {
@@ -22,6 +26,7 @@ class StatisticPageController {
         const settings = await this.model.getSettings();
         if (settings) {
             this.view.render(settings, this.handleClick.bind(this, id));
+            this.badgeManager.checkBadge(settings);
         } else {
             authManager.navigate('');
         }

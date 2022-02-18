@@ -159,4 +159,8 @@ export default class Utils {
             }
         });
     }
+
+    static countValuesSum(arr: TProgressData[]): number {
+        return arr.reduce((prev, next) => prev + Object.values(next).reduce((a, b) => a + b), 0);
+    }
 }

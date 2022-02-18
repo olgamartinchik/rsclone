@@ -123,6 +123,15 @@ export enum BadgeSrc {
     hundredWorkouts = '../../../assets/img/badges/6.png',
 }
 
+export enum BadgeActiveSrc {
+    oneWorkout = '../../../assets/img/badges/badge1.png',
+    fiveWorkouts = '../../../assets/img/badges/badge2.png',
+    tenWorkouts = '../../../assets/img/badges/badge3.png',
+    twentyWorkouts = '../../../assets/img/badges/badge4.png',
+    fiftyWorkouts = '../../../assets/img/badges/badge5.png',
+    hundredWorkouts = '../../../assets/img/badges/badge6.png',
+}
+
 export enum BadgeName {
     oneWorkout = 'GameOn Badge',
     fiveWorkouts = 'TakeOn Badge',
@@ -139,4 +148,8 @@ export enum BadgeText {
     twentyWorkouts = 'Awarded for completing 20 workouts on FitOn.',
     fiftyWorkouts = 'Awarded for completing 50 workouts on FitOn.',
     hundredWorkouts = 'Awarded for completing 100 workouts on FitOn.',
+}
+
+export enum BadgesAmount {
+    amount = 6,
 }

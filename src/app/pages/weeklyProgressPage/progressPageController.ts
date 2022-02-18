@@ -3,6 +3,7 @@ import WorkoutPageView from './progressPageView';
 import authManager from '../../services/authManager';
 import Utils from '../../services/utils';
 import { TSettings } from '../../services/types';
+import storageManager from '../../services/storageManager';
 
 class ProgressPageController {
     private view: WorkoutPageView;
@@ -26,14 +27,15 @@ class ProgressPageController {
 
     public async createCharts(set?: TSettings) {
         const settings = set || (await this.model.getSettings());
-        const weekIndex = this.model.getCurrentWeek();
-        if (settings) {
+        const weekIndex = storageManager.getItem<number>('numWeek', 'local');
+        if (settings && weekIndex !== undefined) {
             const currentProgressData = settings.progress[weekIndex];
+            const minutes = currentProgressData ? currentProgressData.minutes : [];
+            const calories = currentProgressData ? currentProgressData.calories : [];
 
             const [weekKeys, datesKeys] = Utils.getWeekDays(settings.startDate, weekIndex);
-            const valuesMinutes = Utils.getWeekValues(weekKeys, currentProgressData.minutes);
-            const valuesCalories = Utils.getWeekValues(weekKeys, currentProgressData.calories);
-
+            const valuesMinutes = Utils.getWeekValues(weekKeys, minutes);
+            const valuesCalories = Utils.getWeekValues(weekKeys, calories);
             this.view.renderCharts(datesKeys, valuesMinutes, valuesCalories, settings.weekProgress);
         }
     }

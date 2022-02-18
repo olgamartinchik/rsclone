@@ -1,0 +1,201 @@
+.overflow {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.popup {
+  padding: 18px 15px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1001;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 32px);
+  max-width: 520px;
+  min-height: 258px;
+  background-color: $color-text-on-dark;
+  border-radius: 20px;
+  display: none;
+  &-text {
+    margin-bottom: 55px;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 28px;
+    text-align: center;
+    letter-spacing: -0.5px;
+    color: $color-title-black;
+  }
+
+  &-additional-text {
+    margin-bottom: 38px;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 28px;
+    text-align: center;
+    letter-spacing: -0.5px;
+    color: $color-title-black;
+  }
+
+  &-controls {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &-btn {
+      width: 100%;
+    border-color: $color-title-black;
+    color: $color-title-black;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: 1px;
+    border-radius: 40px;
+    &-pink {
+      border-color: $color-primary;
+      background-color: $color-primary;
+      &:hover {
+        border-color: $color-background-linear-3;
+        background-color: $color-background-linear-3;
+      }
+      &:active {
+        border-color: $color-like;
+        background-color: $color-like;
+      }
+    }
+  }
+
+  &-answer {
+    .close {
+      display: none;
+    }
+    .popup-img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      position: relative;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 400px;
+      min-height: 250px;
+      border-radius: 20px;
+      background-position: center;
+      background-size: cover;
+      transform-origin: right center;
+      animation: imgShowUp 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        border-radius: 50%;
+      }
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+      img {
+          width: inherit;
+        border-radius: 20px;
+      }
+    }
+    .popup-text {
+      margin-bottom: 10px;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 26px;
+    }
+    .popup-additional-text {
+      font-style: italic;
+      font-weight: normal;
+      font-size: 20px;
+      line-height: 24px;
+    }
+
+    .popup-btn {
+      display: inline-block;
+      width: 100%;
+      color: $color-text-on-dark;
+      &:hover {
+          color: $color-text-on-dark;
+      }
+    }
+  }
+}
+
+.popup.active {
+  display: flex;
+  opacity: 0;
+  animation: scaleUp 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+.popup.closed {
+  animation: scaleDown 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+.overflow.active {
+  display: block;
+  animation: smoothAppear 0.8s ease-in forwards;
+}
+
+.overflow.closed {
+  animation: smoothDisappear 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@media screen and (max-width: 520px) {
+  .popup {
+    padding: 30px;
+    &-btn {
+      width: 100%;
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 22px;
+    }
+    &-text {
+        margin-top: 0;
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-size: 42px;
+      line-height: 51px;
+    }
+    &-additional-text {
+      margin: 0 0 30px 0;
+      font-weight: 600;
+      font-size: 82px;
+      line-height: 102px;
+    }
+    &-answer {
+      .popup-img {
+          margin-bottom: 20px;
+          min-height: auto;
+            img {
+                max-width: 100%;
+                height: auto;
+        }
+      } 
+
+      .popup-btn-pink {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+  }
+}
