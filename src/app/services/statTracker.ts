@@ -1,5 +1,5 @@
-import { TSettings, TStatData } from '../types';
-import Utils from '../utils';
+import { TSettings, TStatData } from './types';
+import Utils from './utils';
 
 class StatTracker {
     private caloriesTimerId: ReturnType<typeof setInterval> | null;

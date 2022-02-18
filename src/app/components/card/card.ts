@@ -10,13 +10,16 @@ class Card {
 
     public completed: boolean;
 
-    constructor(data: TWorkout) {
+    public liked: boolean;
+
+    constructor(data: TWorkout, isLiked?: boolean, isCompleted?: boolean) {
         this.data = data;
         this.id = data._id;
         this.rootNode = document.createElement('div');
         this.rootNode.className = 'program-card z-depth-1';
         this.rootNode.id = data._id!;
-        this.completed = data.completed;
+        this.completed = isCompleted ? true : false;
+        this.liked = isLiked ? true : false;
     }
 
     public getTemplate(onclick: (e: Event) => void, index?: number): HTMLElement {

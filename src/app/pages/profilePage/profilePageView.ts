@@ -3,6 +3,8 @@ import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import storageManager from '../../services/storageManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
+import badgesActiveTemp from '../../components/achievement/templateActive';
+import { BadgesAmount } from '../../services/constants';
 
 class ProfilePageView {
     private rootNode: HTMLElement;
@@ -14,7 +16,7 @@ class ProfilePageView {
         this.materializeHandler = new MaterializeHandler();
     }
 
-    render() {
+    public render(badges: string[]): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
         const user = <string>storageManager.getItem('user', 'local');
@@ -28,13 +30,19 @@ class ProfilePageView {
         navbar.generateMenu();
         navbar.addProfileLink(user, true);
 
-        this.rootNode.insertAdjacentHTML('beforeend', this.template());
+        this.rootNode.insertAdjacentHTML('beforeend', this.template(badges));
 
         this.rootNode.append(footer.getTemplate());
         this.materializeHandler.initModal();
     }
 
-    private template(): string {
+    private template(badges: string[]): string {
+        let badgesTemplate = '';
+        let index = 0;
+        while (index < BadgesAmount.amount) {
+            badgesTemplate += badgesActiveTemp(index, badges[index]);
+            index += 1;
+        }
         return `
         <main class="main-layout">
             <div class="profile-header">
@@ -67,33 +75,7 @@ class ProfilePageView {
             <div class="profile-content-block">
                 <h2 class="title">Achievements</h2>
                 <div class="profile-content item">
-                    <a href="#modal1" class="achievement-card modal-trigger">
-                        <img src="../../../assets/img/badges/1.png" width="100" height="100" alt="Bagde">
-                    </a>
-                    
-                    <div id="modal1" class="modal profile">
-                        <div class="modal-content">
-                        <img class="badge-img-modal" src="../../../assets/img/badges/1.png" width="300" height="300" alt="Bagde">
-                        <h4 class="badge-title">GameOn Badge</h4>
-                        <p class="badge-subtitle">Awarded for completing a 1st workout on FitOnClone.</p>
-                        </div>
-                    </div>
-
-                    <a class="achievement-card">
-                        <img src="../../../assets/img/badges/2.png" width="100" height="100" alt="Bagde">
-                    </a>
-                    <a class="achievement-card">
-                        <img src="../../../assets/img/badges/3.png" width="100" height="100" alt="Bagde">
-                    </a>
-                    <a class="achievement-card">
-                        <img src="../../../assets/img/badges/4.png" width="100" height="100" alt="Bagde">
-                    </a>
-                    <a class="achievement-card">
-                        <img src="../../../assets/img/badges/5.png" width="100" height="100" alt="Bagde">
-                    </a>
-                    <a class="achievement-card">
-                        <img src="../../../assets/img/badges/6.png" width="100" height="100" alt="Bagde">
-                    </a>                                                                                
+                    ${badgesTemplate}                                                                                
                 </div>
             </div>
         </main>

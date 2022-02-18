@@ -55,7 +55,7 @@ class ProgressPageView {
             settings.weekProgress.minutes,
             settings.weekProgress.calories
         );
-        const weekStat = this.statisticWeekWidget.getTemplate(settings.weekProgress, settings.startDate, false);
+        const weekStat = this.statisticWeekWidget.getTemplate(settings, false);
         this.mainBlock.node.insertAdjacentHTML('beforeend', workoutStat);
         container.node.append(weekStat);
         this.mainBlock.node.append(container.node);

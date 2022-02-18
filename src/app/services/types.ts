@@ -45,11 +45,11 @@ export type TSettings = {
     weekProgress: TWeekProgress;
     favWorkouts: Array<WorkoutType>;
     caloriesBurned: number;
-    badges: Array<BadgeName>;
+    badges: string[];
     heightUnit: HeightUnit;
     weightUnit: WeightUnit;
     completedWorkouts: number;
-    liked: Array<string>;
+    liked: string[];
     progress: TProgress[];
 };
 
@@ -135,4 +135,5 @@ export type TProgressData = {
 export type TProgress = {
     minutes: TProgressData[];
     calories: TProgressData[];
+    workoutsCompleted: number;
 };
