@@ -95,15 +95,18 @@ class RecipePageView {
     }
 
     getImagesRecipe(recipePageData: IDataExplore) {
-        this.rootNodeImgContainer.textContent = '';
         Array.from(recipePageData.recipe.ingredients!).forEach((ingredient) => {
             if (ingredient.image) {
-                const image = new Node(this.rootNodeImgContainer, 'img', '');
-                image.setAttribute('alt', '');
-
-                image.setAttribute('src', `${ingredient.image}`);
+                const img=new Image()
+                img.src=`${ingredient.image}`
+                img.alt='meal'
+                img.onload=()=>{
+                    this.rootNodeImgContainer.append(img)
+                }
             }
         });
+
+
         return this.rootNodeImgContainer;
     }
 
@@ -140,6 +143,7 @@ class RecipePageView {
         }
 
         return this.rootNodeIngrDetailsList;
+    
     }
 }
 export default RecipePageView;
