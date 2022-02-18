@@ -44,8 +44,7 @@ class BrowsePageController {
         this.initMaterialize();
     }
 
-    renderFilteredBlock(types: Array<string>) {
-        
+    public renderFilteredBlock(types: Array<string>) {
         this.view.renderFilteredWorkouts(this.filteredArray, this.handleCardClick.bind(this));
     }
 
@@ -86,6 +85,7 @@ class BrowsePageController {
         const value = (<HTMLElement>e.currentTarget).dataset.value;
         this.filteredArray = this.model.filterCardArray(type!, value!);
         authManager.navigate(`browse/${value}`);
+        this.view.renderFilteredWorkouts(this.filteredArray, this.handleCardClick.bind(this));
     }
 
     public handleCardClick(e: Event): void {

@@ -19,6 +19,7 @@ class BrowsePageView {
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
+        this.mainLayout = new Node(this.rootNode, 'main', 'main-layout browse');
         this.materializeHandler = new MaterializeHandler();
         this.angle = 0;
     }
@@ -62,7 +63,7 @@ class BrowsePageView {
     }
 
     private createContent(isLogin: boolean, card: Card, startVideo: (e: Event) => void, onParameterClick: (e: Event) => void): void {
-        this.mainLayout = new Node(this.rootNode, 'main', 'main-layout browse');
+        // this.mainLayout = new Node(this.rootNode, 'main', 'main-layout browse');
         this.mainLayout.node.insertAdjacentHTML('afterbegin', workoutHeaderTemplate(card));
         this.mainLayout.node.append(this.getWorkoutDetailsLayout(card, startVideo));
 

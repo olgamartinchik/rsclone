@@ -112,13 +112,13 @@ class Config {
                 isAuth: true,
             },
             {
-                path: /browse/,
-                callback: () => this.browsePageController.createPage(),
+                path: /browse\/([a-zA-Z]{1,10})/,
+                callback: (...args) => this.browsePageController.renderFilteredBlock(args),
                 isAuth: null,
             },
             {
-                path: /browse\/([a-zA-Z]){1,10}/,
-                callback: (...args) => console.log('browse', args),
+                path: /browse/,
+                callback: () => this.browsePageController.createPage(),
                 isAuth: null,
             },
             {

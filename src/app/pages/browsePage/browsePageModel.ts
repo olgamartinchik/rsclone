@@ -24,6 +24,7 @@ class BrowsePageModel {
                 return new Card(item);
             });
         }
+        // console.log(this.cards);
     }
 
     public getRandomWorkout(): Card {
