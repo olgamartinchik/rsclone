@@ -69,6 +69,15 @@ class WorkoutPageModel {
         if (program) {
             program.forEach((workoutWeek) => {
                 workoutWeek.forEach((workout) => {
+                    this.cards.forEach(cardArr => {
+                        cardArr.forEach(cardElem => {
+                            if(cardElem.id === card.id) {
+                                cardElem.completed = true;
+                                cardElem.data.completed = true;
+                            }
+                        });
+                    });
+
                     if (workout._id === card.id) {
                         workout.completed = true;
                         card.data.completed = true;
@@ -76,12 +85,12 @@ class WorkoutPageModel {
                 });
             });
             storageManager.addItem('workout-program', program, 'local');
+            storageManager.addItem('workout-cards', this.cards, 'local');
             const userData = this.getUserData();
             if (userData) {
                 await this.client.updateProgram(program, userData.userID);
             }
         }
-        storageManager.addItem('workout-cards', this.cards, 'local');
     }
 
     public async updateSettingsData(dataStat: TStatData): Promise<void> {

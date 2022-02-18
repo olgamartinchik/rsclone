@@ -44,9 +44,9 @@ class WorkoutPageController {
     private async sendStatistics(id: string, statData: TStatData): Promise<void> {
         const workout = this.model.getCardById(id);
         if (workout) {
-            this.model.updateSettingsData(statData);
+            await this.model.updateSettingsData(statData);
             workout.completed = true;
-            this.model.updateWorkoutData(workout);
+            await this.model.updateWorkoutData(workout);
         }
         authManager.navigate(`workoutsummary/${id}`);
     }

@@ -163,4 +163,10 @@ export default class Utils {
     static countValuesSum(arr: TProgressData[]): number {
         return arr.reduce((prev, next) => prev + Object.values(next).reduce((a, b) => a + b), 0);
     }
+
+    // static iterateDoubleArr<T, CallbackT>(arr: T[][], callback: CallbackT): void {
+    //     arr.forEach((elem) => {
+    //         elem.forEach((item) => callback(item));
+    //     });
+    // }
 }

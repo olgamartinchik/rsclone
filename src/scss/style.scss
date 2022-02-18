@@ -19,10 +19,6 @@
 //Base
 
 @import 'base/base';
-@import 'base/buttons';
-@import 'base/inputs';
-@import 'base/icons';
-@import 'base/popup';
 
 //Layouts
 
@@ -43,4 +39,9 @@
 @import 'layouts/statisticWidget';
 @import 'layouts/weeklyProgress';
 
+//Components
 
+@import 'base/buttons';
+@import 'base/inputs';
+@import 'base/icons';
+@import 'base/popup';
