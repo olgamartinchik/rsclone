@@ -84,6 +84,8 @@ export class AuthModel {
             this.user.email = (<TLoginResponse>data).email;
             if ((<TLoginResponse>data).avatar) {
                 this.user.avatar = (<TLoginResponse>data).avatar;
+            } else {
+                this.user.avatar = '';
             }
             await this.saveData(type);
             this.navigate(type);

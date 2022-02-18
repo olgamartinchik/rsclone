@@ -110,7 +110,7 @@ export class AvatarManager {
         this.editProfileForm.userName = user.name;
         this.editProfileForm.email = user.email;
         this.editProfileForm.avatar = user.avatar!;
-        console.log('sent to update avatar', this.editProfileForm)
+
         await this.updateUserData(user);
     }
 
@@ -125,7 +125,6 @@ export class AvatarManager {
         );
 
         storageManager.addItem('user', user, 'local');
-        console.log('userData in LS after avatar sent to back', this.getUserData());
     }
 
     private saveAvatarID(id: string) {
