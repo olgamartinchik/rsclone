@@ -75,6 +75,7 @@ export type TLoginResponse = {
     userId: string;
     userName: string;
     email: string;
+    avatar?: string | undefined;
 };
 
 export type TToken = {

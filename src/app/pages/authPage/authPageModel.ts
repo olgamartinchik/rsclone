@@ -24,6 +24,7 @@ export class AuthModel {
         this.user = {
             name: '',
             email: '',
+            avatar: '',
         };
     }
 
@@ -81,6 +82,9 @@ export class AuthModel {
         if (this.clientManager.result) {
             this.user.name = (<TLoginResponse>data).userName;
             this.user.email = (<TLoginResponse>data).email;
+            if ((<TLoginResponse>data).avatar) {
+                this.user.avatar = (<TLoginResponse>data).avatar;
+            }
             await this.saveData(type);
             this.navigate(type);
         } else {

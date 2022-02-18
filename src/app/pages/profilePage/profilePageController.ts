@@ -20,6 +20,7 @@ class ProfilePageController {
         if (!(<FileList>clickedElement.files).length) {
             return;
         }
+
         this.files = avatarManager.getAvatarFile(clickedElement);
     }
 

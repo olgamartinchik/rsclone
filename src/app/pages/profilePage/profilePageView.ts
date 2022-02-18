@@ -41,7 +41,6 @@ class ProfilePageView {
     }
 
     public async render(onchange: (e: Event) => void, onclick: (e: Event) => void) {
-        // this.animationManager.initPageTransition();
         this.rootNode.textContent = '';
         this.getData();
         const src = avatarManager.formAvatarSrc();
@@ -82,8 +81,6 @@ class ProfilePageView {
                 this.caloriesBurned
             )
         );
-        // const main = <HTMLElement>this.rootNode.querySelector('main');
-        // this.animationManager.initContentFadeout(main);
         this.colorStatistics();
     }
 

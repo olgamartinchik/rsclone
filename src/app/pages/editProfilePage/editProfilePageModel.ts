@@ -56,6 +56,7 @@ class EditProfilePageModel {
     public async updateUserData(modifiedUserData: TUser) {
         const userId = (<TSettings>this.getSettingsData()).userId;
         this.isLoading = true;
+        console.log(this.editProfileForm);
         await this.clientManager.changeData(
             Endpoints.changeUserData,
             'POST',

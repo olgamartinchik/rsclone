@@ -95,7 +95,7 @@ export class AvatarManager {
         const user = <TUser>storageManager.getItem('user', 'local');
         const userId = (<TToken>storageManager.getItem('token', 'local')).userID;
         const userName = (<TUser>storageManager.getItem('user', 'local')).name;
-
+        
         const avatar = await this.clientManager.uploadAvatar(file);
         user.avatar = avatar.secure_url;
         storageManager.addItem('user', user, 'local');
