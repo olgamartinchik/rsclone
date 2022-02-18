@@ -147,11 +147,17 @@ export class AvatarManager {
         const userName = user.name;
         user.avatar = '';
         // await this.clientManager.deleteAvatar(publicId);
-        storageManager.deleteItem('public_id', 'local');
+        // storageManager.deleteItem('public_id', 'local');
 
         this.updateUserDataForm(user);
+        this.clearFileInput();
         this.setUploadIcon();
         this.updateProfileIcon(user.avatar, userName);
+    }
+
+    public clearFileInput(): void {
+        const fileInput = <HTMLInputElement>document.querySelector('input[type=file]');
+        fileInput.value = '';
     }
 }
 
