@@ -165,52 +165,52 @@ footer {
 }
 
 @keyframes imgShowUp {
-  0% {
-    transform: scale(0.1) translateY(50%);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1) translate(0);
-    opacity: 1;
-  }
+    0% {
+        transform: scale(0.1) translateY(50%);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translate(0);
+        opacity: 1;
+    }
 }
 
 @keyframes scaleUp {
-  0% {
-    transform: scale(0.8) translateY(1000px) translateX(-50%);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1) translate(-50%, -50%);
-    opacity: 1;
-  }
+    0% {
+        transform: scale(0.8) translateY(1000px) translateX(-50%);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translate(-50%, -50%);
+        opacity: 1;
+    }
 }
 
 @keyframes scaleDown {
-  0% {
-    transform: scale(1) translate(-50%, -50%);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(0.8) translateY(1000px) translateX(-50%);
-    opacity: 0;
-  }
+    0% {
+        transform: scale(1) translate(-50%, -50%);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.8) translateY(1000px) translateX(-50%);
+        opacity: 0;
+    }
 }
 
 @keyframes smoothAppear {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes smoothDisappear {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

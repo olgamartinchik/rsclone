@@ -17,7 +17,7 @@ class ProfilePageController {
 
     public createPage() {
         const settings = this.model.getSettingsData();
-        if(settings) {
+        if (settings) {
             this.view.render(settings.badges, this.handleAvatarChange.bind(this), this.handleAvatarDelete.bind(this));
         }
     }

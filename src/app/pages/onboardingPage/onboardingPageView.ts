@@ -209,10 +209,10 @@ class OnboardingPageView {
 
     private getParameters(type: string, settings: TSettings) {
         const elementsWrapper = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[0];
-        
+
         const input = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[1];
         const value = <HTMLInputElement>elementsWrapper.children[0];
-        
+
         value.value = this.getConvertedValue(type).toString();
         this.getUnits(settings);
         this.getSliderValue(settings);

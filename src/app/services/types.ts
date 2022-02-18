@@ -1,11 +1,4 @@
-import {
-    WorkoutType,
-    IntensityType,
-    Goal,
-    Gender,
-    WorkoutsProgramDuration,
-    WorkoutsNumber
-} from './constants';
+import { WorkoutType, IntensityType, Goal, Gender, WorkoutsProgramDuration, WorkoutsNumber } from './constants';
 
 export type TWorkout = {
     title: string;
@@ -152,7 +145,7 @@ export type TChangeUserDataForm = {
     avatar: string;
     password: string;
     newPassword: string;
-}
+};
 
 export type TWeekProgress = {
     currentWeek: number;

@@ -76,7 +76,7 @@ class ProgramPageController {
                 cardArr.forEach((card: Card) => {
                     const favCard = favs.find((fav) => fav === card.id);
                     if (favCard) {
-                        if(!likedCards.find(cardElem => cardElem._id === card.id)) {
+                        if (!likedCards.find((cardElem) => cardElem._id === card.id)) {
                             likedCards.push(card.data);
                             if (!card.liked) {
                                 card.liked = true;

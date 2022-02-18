@@ -1,5 +1,4 @@
 import ClientManager from './clientManager';
-import CloudinaryManager from './cloudinarySDK';
 import storageManager from './storageManager';
 import { TToken, TSettings, TUser, TChangeUserDataForm } from './types';
 import { Endpoints } from './constants';
@@ -89,10 +88,10 @@ export class AvatarManager {
     public async updateUserInfo(file: File): Promise<void> {
         const user = this.getUserData()!;
         const userName = user.name;
-        
+
         const avatar = await this.clientManager.uploadAvatar(file);
         user.avatar = avatar.secure_url;
-        
+
         this.updateUserDataForm(user);
         this.updateProfileIcon(user.avatar, userName);
         this.saveAvatarID(avatar.public_id);
@@ -116,7 +115,7 @@ export class AvatarManager {
 
     private async updateUserData(user: TUser) {
         const userId = this.getTokenData()!.userID;
-        
+
         await this.clientManager.changeData(
             Endpoints.changeUserData,
             'POST',
@@ -144,7 +143,7 @@ export class AvatarManager {
 
     public async deleteAvatar() {
         const user = this.getUserData()!;
-        const publicId = <string>storageManager.getItem('public_id', 'local');
+        // const publicId = <string>storageManager.getItem('public_id', 'local');
         const userName = user.name;
         user.avatar = '';
         // await this.clientManager.deleteAvatar(publicId);

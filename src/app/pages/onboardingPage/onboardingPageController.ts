@@ -241,7 +241,9 @@ class OnboardingPageController {
 
     private handleDesiredWeightConvert(type: string): void {
         if (type === 'weight' && this.parameter.unit === Weight.units2 && this.model.settings.desiredWeight > 0) {
-            this.model.saveConvertedValues({ ['desiredWeight']:  Math.round(this.model.settings.desiredWeight / this.parameter.coefficient)})
+            this.model.saveConvertedValues({
+                ['desiredWeight']: Math.round(this.model.settings.desiredWeight / this.parameter.coefficient),
+            });
         }
     }
 

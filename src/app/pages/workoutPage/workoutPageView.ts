@@ -50,7 +50,7 @@ class WorkoutPageView {
         const workoutContainerSm = new Node(workoutDetails.node, 'div', 'workout-container workout-container-sm');
         const controls = new Node(workoutContainer.node, 'div', 'workout-controls');
         const buttonFav = new Node(controls.node, 'button', 'workout-fav');
-        if(card.liked) buttonFav.node.classList.add('active');
+        if (card.liked) buttonFav.node.classList.add('active');
         buttonFav.node.insertAdjacentHTML(
             'afterbegin',
             `<span class="workout-fav-icon">favourite</span>

@@ -5,10 +5,8 @@ import profile from '../../components/profile/profile';
 import storageManager from '../../services/storageManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
 import avatarManager from '../../services/avatarManager';
-import badgesActiveTemp from '../../components/achievement/templateActive';
 import Utils from '../../services/utils';
 import { TBadge, TToken, TSettings, TUser } from '../../services/types';
-import { BadgesAmount } from '../../services/constants';
 
 class ProfilePageView {
     private rootNode: HTMLElement;

@@ -21,9 +21,9 @@ class EditProfilePageController {
     private modifiedUser: void | TUser;
 
     private changeUserDataForm: TChangeUserDataForm;
-    
+
     private confirmCurrentPasswordForm: TChangeUserDataForm;
-    
+
     private files: Array<File>;
 
     constructor() {
@@ -198,13 +198,15 @@ class EditProfilePageController {
         this.handleConfirmButtonStatus();
     }
 
-    private  async handleCurrentPasswordBlur(e: Event): Promise<void> {
+    private async handleCurrentPasswordBlur(e: Event): Promise<void> {
         const passwordInput = <HTMLInputElement>document.querySelector('#newPassword');
         const confirmPasswordInput = <HTMLInputElement>document.querySelector('#confirm');
         const currentPasswordPrinted = (<HTMLInputElement>e.target).value;
         this.confirmCurrentPasswordForm.password = currentPasswordPrinted;
         let isCurrentPasswordCorrect = false;
-        isCurrentPasswordCorrect = await this.model.checkCurrentPassword(<TChangeUserDataForm>this.confirmCurrentPasswordForm);
+        isCurrentPasswordCorrect = await this.model.checkCurrentPassword(
+            <TChangeUserDataForm>this.confirmCurrentPasswordForm
+        );
 
         if (isCurrentPasswordCorrect) {
             passwordInput.removeAttribute('disabled');

@@ -6,6 +6,7 @@ import { TSettings } from './types';
 
 class UserDataManager {
     userSettings: TSettings;
+
     wrManager: WorkoutManager;
 
     constructor(userSettings: TSettings) {

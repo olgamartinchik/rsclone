@@ -105,7 +105,7 @@ class ProgramPageView {
     public renderFavs(favs: TWorkout[], onclick: (e: Event) => void): void {
         const favWrapper = new Node(this.programContent.node, 'div', 'fav-wrapper');
         favWrapper.node.insertAdjacentHTML('afterbegin', cardFavDecorative());
-        if(favs.length) {
+        if (favs.length) {
             const allCards = favs.map((card: TWorkout) => {
                 const cardFav = new Node(null, 'div', 'program-card fav-card');
                 cardFav.node.id = String(card._id);
@@ -115,10 +115,8 @@ class ProgramPageView {
             });
             favWrapper.node.append(...allCards);
         } else {
-            favWrapper.node.insertAdjacentHTML('beforeend', cardFavEmpty())
+            favWrapper.node.insertAdjacentHTML('beforeend', cardFavEmpty());
         }
-        
-        
     }
 
     public renderStatBlock(settings: TSettings, clickHandler: () => void) {
@@ -130,4 +128,3 @@ class ProgramPageView {
 }
 
 export default ProgramPageView;
-

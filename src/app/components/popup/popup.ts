@@ -14,7 +14,7 @@ class Popup {
         this.overflow = null;
     }
 
-    public createPopup(src: string, name: string = '', text: string = ''): void {
+    public createPopup(src: string, name = '', text = ''): void {
         this.popUp = document.createElement('div');
         this.overflow = document.createElement('div');
         this.popUp.className = 'popup popup-answer active';
@@ -31,26 +31,24 @@ class Popup {
     }
 
     public destroyPopup() {
-        if(this.overflow && this.popUp) {
+        if (this.overflow && this.popUp) {
             this.overflow.classList.add('closed');
             this.popUp.classList.add('closed');
             this.overflow.onanimationend = (e: Event) => {
                 e.stopPropagation();
-                if(this.overflow) {
+                if (this.overflow) {
                     this.overflow.classList.remove('closed');
                     this.overflow.remove();
                 }
             };
             this.popUp.onanimationend = (e: Event) => {
                 e.stopPropagation();
-                if(this.popUp) {
+                if (this.popUp) {
                     this.popUp.classList.remove('closed');
                     this.popUp.remove();
                 }
             };
         }
-        
-
     }
 }
 

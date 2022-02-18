@@ -43,10 +43,7 @@ class Parameters {
         rootNode.id = title.split(' ').join('');
         rootNode.onclick = (e: Event) => onselect(e);
         rootNode.onchange = (e: Event) => onchange(e);
-        rootNode.insertAdjacentHTML(
-            'afterbegin',
-            desiredWeightTemplate(className, title, units, min, max)
-        );
+        rootNode.insertAdjacentHTML('afterbegin', desiredWeightTemplate(className, title, units, min, max));
         (<HTMLInputElement>rootNode.querySelector('#play-bar')).oninput = (e: Event) => oninput(e);
 
         return rootNode;

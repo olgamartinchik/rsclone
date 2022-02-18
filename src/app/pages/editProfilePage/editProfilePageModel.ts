@@ -38,7 +38,7 @@ class EditProfilePageModel {
         this.editProfileForm.userName = modifiedUserData.name;
         this.editProfileForm.email = modifiedUserData.email;
         this.editProfileForm.avatar = modifiedUserData.avatar!;
-        console.log('sent to update user data', this.editProfileForm)
+        console.log('sent to update user data', this.editProfileForm);
         await this.updateUserData(modifiedUserData);
     }
 
@@ -59,7 +59,7 @@ class EditProfilePageModel {
     public async updateUserData(modifiedUserData: TUser) {
         const userId = (<TSettings>this.getSettingsData()).userId;
         this.isLoading = true;
-        
+
         await this.clientManager.changeData(
             Endpoints.changeUserData,
             'POST',
@@ -78,7 +78,7 @@ class EditProfilePageModel {
         this.resetPasswordFields();
         this.resetEditProfileForm();
     }
-    
+
     public async checkCurrentPassword(changeUserDataForm: TChangeUserDataForm): Promise<boolean> {
         this.editProfileForm = changeUserDataForm;
         const userId = (<TSettings>this.getSettingsData()).userId;
@@ -90,7 +90,7 @@ class EditProfilePageModel {
             <TChangeUserDataForm>this.editProfileForm
         );
         this.isLoading = false;
-        if(!this.clientManager.result) this.createMessage(this.clientManager.message);
+        if (!this.clientManager.result) this.createMessage(this.clientManager.message);
         this.resetEditProfileForm();
         return this.clientManager.result;
     }

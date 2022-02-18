@@ -154,7 +154,7 @@ export enum ClassNames {
     onboarding = 'title title-tablet',
     editProfile = 'settings-link',
 }
-    
+
 export enum BadgesAmount {
     amount = 6,
 }

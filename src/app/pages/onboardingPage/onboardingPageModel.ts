@@ -50,7 +50,7 @@ export class OnboardingModel {
                 {
                     minutes: [],
                     calories: [],
-                    workoutsCompleted: 0
+                    workoutsCompleted: 0,
                 },
             ],
         };
@@ -146,7 +146,7 @@ export class OnboardingModel {
             {
                 minutes: [],
                 calories: [],
-                workoutsCompleted: 0
+                workoutsCompleted: 0,
             },
         ];
     }
