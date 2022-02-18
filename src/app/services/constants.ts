@@ -124,12 +124,12 @@ export enum BadgeSrc {
 }
 
 export enum BadgeActiveSrc {
-    oneWorkout = '../../../assets/img/badges/1_active.png',
-    fiveWorkouts = '../../../assets/img/badges/2.png',
-    tenWorkouts = '../../../assets/img/badges/3.png',
-    twentyWorkouts = '../../../assets/img/badges/4.png',
-    fiftyWorkouts = '../../../assets/img/badges/5.png',
-    hundredWorkouts = '../../../assets/img/badges/6.png',
+    oneWorkout = '../../../assets/img/badges/badge1.png',
+    fiveWorkouts = '../../../assets/img/badges/badge2.png',
+    tenWorkouts = '../../../assets/img/badges/badge3.png',
+    twentyWorkouts = '../../../assets/img/badges/badge4.png',
+    fiftyWorkouts = '../../../assets/img/badges/badge5.png',
+    hundredWorkouts = '../../../assets/img/badges/badge6.png',
 }
 
 export enum BadgeName {
@@ -153,4 +153,8 @@ export enum BadgeText {
 export enum ClassNames {
     onboarding = 'title title-tablet',
     editProfile = 'settings-link',
+}
+    
+export enum BadgesAmount {
+    amount = 6,
 }

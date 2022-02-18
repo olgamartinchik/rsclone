@@ -5,9 +5,10 @@ import profile from '../../components/profile/profile';
 import storageManager from '../../services/storageManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
 import avatarManager from '../../services/avatarManager';
-import animationManager, { Animation } from '../../services/animationManager';
+import badgesActiveTemp from '../../components/achievement/templateActive';
 import Utils from '../../services/utils';
 import { TBadge, TToken, TSettings, TUser } from '../../services/types';
+import { BadgesAmount } from '../../services/constants';
 
 class ProfilePageView {
     private rootNode: HTMLElement;
@@ -24,9 +25,7 @@ class ProfilePageView {
 
     private badgesActivated: Array<string>;
 
-    private avatar: string | null | undefined;
-
-    private animationManager: Animation;
+    private avatar: string | undefined;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
@@ -37,11 +36,11 @@ class ProfilePageView {
         this.completedWorkouts = 0;
         this.caloriesBurned = 0;
         this.avatar = '';
-        this.animationManager = animationManager;
     }
 
-    public async render(onchange: (e: Event) => void, onclick: (e: Event) => void) {
+    public async render(badges: string[], onchange: (e: Event) => void, onclick: (e: Event) => void) {
         this.rootNode.textContent = '';
+        this.badgesActivated = badges;
         this.getData();
         const src = avatarManager.formAvatarSrc();
 
@@ -97,8 +96,6 @@ class ProfilePageView {
 
     private createFooter(): void {
         this.rootNode.append(footer.getTemplate());
-        // const footerLayout = <HTMLElement>this.rootNode.querySelector('footer');
-        // this.animationManager.initContentFadeout(footerLayout);
     }
 
     private getData(): void {

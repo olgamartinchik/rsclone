@@ -4,8 +4,7 @@ import {
     Goal,
     Gender,
     WorkoutsProgramDuration,
-    WorkoutsNumber,
-    BadgeName,
+    WorkoutsNumber
 } from './constants';
 
 export type TWorkout = {
@@ -44,11 +43,11 @@ export type TSettings = {
     weekProgress: TWeekProgress;
     favWorkouts: Array<WorkoutType>;
     caloriesBurned: number;
-    badges: Array<BadgeName>;
+    badges: string[];
     heightUnit: string;
     weightUnit: string;
     completedWorkouts: number;
-    liked: Array<string>;
+    liked: string[];
     progress: TProgress[];
 };
 
@@ -82,7 +81,7 @@ export type TToken = {
     userName?: string;
     userID: string;
     jwtToken: string;
-    avatar?: string | null;
+    avatar?: string;
 };
 
 export type RouteOption = {
@@ -175,4 +174,5 @@ export type TProgressData = {
 export type TProgress = {
     minutes: TProgressData[];
     calories: TProgressData[];
+    workoutsCompleted: number;
 };

@@ -4,10 +4,13 @@ import Header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 import storageManager from '../../services/storageManager';
-import { TSettings } from '../../services/types';
+import { TSettings, TWorkout } from '../../services/types';
 import StatisticWeekWidget from '../../components/statWeekWidget/statisticWeekWidget';
 import MealPageView from '../mealPage/mealPageView';
 import { TUser } from '../../services/types';
+import templateFav from '../../components/card/templateFav';
+import cardFavDecorative from '../../components/card/templateFavDecorative';
+import cardFavEmpty from '../../components/card/emptyFavCard';
 
 class ProgramPageView {
     private rootNode: HTMLElement;
@@ -18,19 +21,22 @@ class ProgramPageView {
 
     private weekWidget: StatisticWeekWidget;
 
+    private programContent: Node<HTMLElement>;
+
+    private contentWrapper: Node<HTMLElement>;
+
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
+        this.programContent = new Node(null, 'div', 'left-block');
+        this.contentWrapper = new Node(null, 'div', 'main-content');
         this.weekWidget = new StatisticWeekWidget();
     }
 
-    public render(
-        data: Card[],
-        onclick: (e: Event) => void,
-        week: number,
-        settings: TSettings,
-        handleStatBlockClick: () => void
-    ): void {
+    public render(data: Card[], onclick: (e: Event) => void, week: number): void {
         this.rootNode.textContent = '';
+        this.programContent.node.textContent = '';
+        this.contentWrapper.node.textContent = '';
+
         this.rootNode.append(Header.getTemplate());
         const user = <TUser>storageManager.getItem('user', 'local');
 
@@ -44,37 +50,22 @@ class ProgramPageView {
         navbar.generateMenu(true, 'Program');
         navbar.addProfileLink(user.name.split('')[0]);
 
-        this.setContents(data, onclick, week, settings, handleStatBlockClick);
+        this.setContents(data, onclick, week);
         this.rootNode.append(Footer.getTemplate());
     }
 
-    private setContents(
-        data: Card[],
-        onclick: (e: Event) => void,
-        week: number,
-        settings: TSettings,
-        handleStatBlockClick: () => void
-    ): void {
-        const containerWidget = new Node(null, 'div', 'container-stat');
-        const widget = this.weekWidget.getTemplate(
-            settings.weekProgress,
-            settings.startDate,
-            true,
-            handleStatBlockClick
-        );
-        containerWidget.node.append(widget);
+    private setContents(data: Card[], onclick: (e: Event) => void, week: number): void {
         const program = new Node(this.rootNode, 'main', 'main-layout');
         Node.setChild(program.node, 'div', 'decorative');
-        const contentWrapper = new Node(program.node, 'div', 'main-content');
-        const programContent = new Node(contentWrapper.node, 'div', 'left-block');
-        this.contentBlock = new Node(programContent.node, 'section', 'content-block z-depth-1');
-        contentWrapper.node.append(containerWidget.node);
+        program.node.append(this.contentWrapper.node);
+        this.contentWrapper.node.append(this.programContent.node);
+        this.contentBlock = new Node(this.programContent.node, 'section', 'content-block z-depth-1');
         Node.setChild(this.contentBlock.node, 'h2', 'hidden', 'Program');
 
         this.getContentBlockTitle(week);
         this.getCards(data, onclick);
         this.cardsWrapper.node.insertAdjacentHTML('beforeend', this.getAddWorkoutBlock());
-        programContent.node.insertAdjacentHTML('beforeend', new MealPageView().getSectionMeal());
+        this.programContent.node.insertAdjacentHTML('beforeend', new MealPageView().getSectionMeal());
     }
 
     private getContentBlockTitle(week: number): void {
@@ -110,6 +101,33 @@ class ProgramPageView {
         </div>        
         `;
     }
+
+    public renderFavs(favs: TWorkout[], onclick: (e: Event) => void): void {
+        const favWrapper = new Node(this.programContent.node, 'div', 'fav-wrapper');
+        favWrapper.node.insertAdjacentHTML('afterbegin', cardFavDecorative());
+        if(favs.length) {
+            const allCards = favs.map((card: TWorkout) => {
+                const cardFav = new Node(null, 'div', 'program-card fav-card');
+                cardFav.node.id = String(card._id);
+                cardFav.node.onclick = (e: Event) => onclick(e);
+                cardFav.node.insertAdjacentHTML('beforeend', templateFav(card));
+                return cardFav.node;
+            });
+            favWrapper.node.append(...allCards);
+        } else {
+            favWrapper.node.insertAdjacentHTML('beforeend', cardFavEmpty())
+        }
+        
+        
+    }
+
+    public renderStatBlock(settings: TSettings, clickHandler: () => void) {
+        const containerWidget = new Node(null, 'div', 'container-stat');
+        const widget = this.weekWidget.getTemplate(settings, true, clickHandler);
+        containerWidget.node.append(widget);
+        this.contentWrapper.node.append(containerWidget.node);
+    }
 }
 
 export default ProgramPageView;
+

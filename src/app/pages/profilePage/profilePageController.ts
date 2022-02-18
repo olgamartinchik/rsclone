@@ -1,18 +1,25 @@
+import ProfilePageModel from './profilePageModel';
 import ProfilePageView from './profilePageView';
 import avatarManager from '../../services/avatarManager';
 
 class ProfilePageController {
+    private model: ProfilePageModel;
+
     private view: ProfilePageView;
 
     private files: Array<File>;
 
     constructor() {
+        this.model = new ProfilePageModel();
         this.view = new ProfilePageView();
         this.files = [];
     }
 
     public createPage() {
-        this.view.render(this.handleAvatarChange.bind(this), this.handleAvatarDelete.bind(this));
+        const settings = this.model.getSettingsData();
+        if(settings) {
+            this.view.render(settings.badges, this.handleAvatarChange.bind(this), this.handleAvatarDelete.bind(this));
+        }
     }
 
     private handleAvatarChange(e: Event): void {

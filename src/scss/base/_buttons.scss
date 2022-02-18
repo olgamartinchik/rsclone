@@ -3,10 +3,11 @@
     border-radius: 10px;
     font-family: 'Poppins', Helvetica, Arial, sans-serif;
     font-weight: 700;
+    transition: 0.5s;
     &.header-tablet {
         visibility: hidden;
     }
-    :hover {
+    &:hover {
         color: $color-active-on-dark;
         opacity: 0.9;
     }

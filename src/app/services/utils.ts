@@ -209,4 +209,14 @@ export default class Utils {
             }
         });
     }
+
+    static countValuesSum(arr: TProgressData[]): number {
+        return arr.reduce((prev, next) => prev + Object.values(next).reduce((a, b) => a + b), 0);
+    }
+
+    static iterateDoubleArr<T>(arr: T[][], callback: (elem: T, parentElem: T[], index: number) => void): void {
+        arr.forEach((elem, index) => {
+            elem.forEach((item) => callback(item, elem, index));
+        });
+    }
 }

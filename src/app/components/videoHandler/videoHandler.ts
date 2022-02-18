@@ -4,7 +4,7 @@ import Timer from '../timer/timer';
 import preloader from '../preloader/preloader';
 import Card from '../card/card';
 import { TSettings, TStatData } from '../../services/types';
-import StatTracker from '../../services/statTracker/statTracker';
+import StatTracker from '../../services/statTracker';
 
 class VideoHandler {
     private video: HTMLVideoElement | null;
@@ -100,7 +100,10 @@ class VideoHandler {
             }
             this.preloader.remove();
         };
-        this.video!.onended = (): void => this.stopVideo();
+        this.video!.onended = (e: Event): void => {
+            e.stopPropagation();
+            this.stopVideo();
+        };
     }
 
     private stopVideo(): void {

@@ -47,7 +47,7 @@ class StatisticPageView {
             settings.weekProgress.minutes,
             settings.weekProgress.calories
         );
-        const weekStat = this.statisticWeekWidget.getTemplate(settings.weekProgress, settings.startDate, false);
+        const weekStat = this.statisticWeekWidget.getTemplate(settings, false);
         const btn = new Node(null, 'button', 'next-btn waves-effect waves-light btn-large', 'next');
         btn.node.onclick = () => callbackClick();
 
