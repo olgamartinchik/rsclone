@@ -3,18 +3,21 @@ import ClientManager from "../../services/clientManager";
 import CloudinaryManager from '../../services/cloudinarySDK';
 import Utils from '../../services/utils';
 import { TWorkout } from '../../services/types';
+import storageManager from "../../services/storageManager";
 
 class BrowsePageModel {
     private clientManager: ClientManager;
     private cards: Array<Card>;
     private sdk: CloudinaryManager;
     private currentCardId: string;
+    private type: string;
 
     constructor() {
         this.clientManager = new ClientManager();
         this.sdk = new CloudinaryManager();
         this.cards = [];
         this.currentCardId = '';
+        this.type = '';
     }
 
     public async getData() {
@@ -52,11 +55,6 @@ class BrowsePageModel {
         }
 
         return url;
-    }
-
-    public filterCardArray(type: string, value: string): Array<Card> {
-        const filteredCardArray = this.cards.filter((card) => card.data[type] === value);
-        return filteredCardArray;
     }
 }
 

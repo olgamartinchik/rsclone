@@ -14,12 +14,12 @@ class BrowsePageView {
     
     private materializeHandler: MaterializeHandler;
     private angle: number;
-    private mainLayout!: Node<HTMLElement>;
     private cardsWrapper!: Node<HTMLElement>;
+    private mainLayout: HTMLElement;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
-        this.mainLayout = new Node(this.rootNode, 'main', 'main-layout browse');
+        this.mainLayout = <HTMLElement>document.getElementById('browse');
         this.materializeHandler = new MaterializeHandler();
         this.angle = 0;
     }
@@ -63,16 +63,17 @@ class BrowsePageView {
     }
 
     private createContent(isLogin: boolean, card: Card, startVideo: (e: Event) => void, onParameterClick: (e: Event) => void): void {
-        // this.mainLayout = new Node(this.rootNode, 'main', 'main-layout browse');
-        this.mainLayout.node.insertAdjacentHTML('afterbegin', workoutHeaderTemplate(card));
-        this.mainLayout.node.append(this.getWorkoutDetailsLayout(card, startVideo));
+        const mainLayout = new Node(this.rootNode, 'main', 'main-layout browse');
+        mainLayout.setAttribute('id', 'browse');
+        mainLayout.node.insertAdjacentHTML('afterbegin', workoutHeaderTemplate(card));
+        mainLayout.node.append(this.getWorkoutDetailsLayout(card, startVideo));
 
         const buttonFav = <HTMLElement>document.querySelector('.workout-fav');
         if (!isLogin && buttonFav) {
             buttonFav.style.opacity = '0';
         }
 
-        this.createParamBlock('Classes', onParameterClick);
+        this.createParamBlock(mainLayout.node, 'Classes', onParameterClick);
     }
 
     private getWorkoutDetailsLayout(card: Card, startVideo: (e: Event) => void): HTMLElement {
@@ -93,8 +94,8 @@ class BrowsePageView {
         return workoutDetails.node;
     }
 
-    private createParamBlock(title: string, onParameterClick: (e: Event) => void): void {
-        const blockWrapper = new Node(this.mainLayout!.node, 'div', 'browse-block');
+    private createParamBlock(parentNode: HTMLElement, title: string, onParameterClick: (e: Event) => void): void {
+        const blockWrapper = new Node(parentNode, 'div', 'browse-block');
         Node.setChild(blockWrapper.node, 'h2', 'browse-block-title', title);
         this.setContent(title, blockWrapper.node, onParameterClick);
     }
@@ -129,14 +130,6 @@ class BrowsePageView {
 
             Node.setChild(classesCard, 'span', '', item.toUpperCase());
         });
-    }
-
-    public renderFilteredWorkouts(data: Card[], onclick: (e: Event) => void): void {
-        this.mainLayout!.node.textContent = '';
-        const cardElems = data.map((card: Card, index: number) => card.getTemplate(onclick, index));
-
-        this.cardsWrapper = new Node(this.mainLayout.node, 'div', 'workouts-wrapper');
-        this.cardsWrapper.node.append(...cardElems);
     }
 
     private initMaterialize(): void {

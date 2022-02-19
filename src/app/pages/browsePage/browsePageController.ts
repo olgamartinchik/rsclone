@@ -1,7 +1,7 @@
 import BrowsePageView from './browsePageView';
 import BrowsePageModel from './browsePageModel';
 import videoHandler from '../../components/videoHandler/videoHandler';
-import modalCutomized from '../../components/modal/modalCutomized';
+import modalCustomized from '../../components/modal/modalCutomized';
 import carouselTemplate from '../../components/carousel/template';
 import StorageManager from '../../services/storageManager';
 import authManager from '../../services/authManager';
@@ -10,6 +10,7 @@ import WorkoutPageController from '../workoutPage/workoutPageController';
 import WorkoutPageModel from '../workoutPage/workoutPageModel';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
 import { TToken, TSettings } from '../../services/types';
+import storageManager from '../../services/storageManager';
 
 class BrowsePageController {
     private view: BrowsePageView;
@@ -22,7 +23,7 @@ class BrowsePageController {
     
     private materializeHandler: MaterializeHandler;
 
-    private modalCustomized: typeof modalCutomized;
+    private modalCustomized: typeof modalCustomized;
 
     private filteredArray!: Array<Card>;
 
@@ -30,7 +31,7 @@ class BrowsePageController {
         this.view = new BrowsePageView();
         this.model = new BrowsePageModel();
         this.videoHandler = videoHandler; 
-        this.modalCustomized = modalCutomized;
+        this.modalCustomized = modalCustomized;
         this.materializeHandler = new MaterializeHandler();
         this.isLogin = false;
     }
@@ -42,10 +43,6 @@ class BrowsePageController {
         this.view.render(this.isLogin, card, this.signUpHandler.bind(this), this.startWorkout.bind(this), this.onParameterClick.bind(this));
         
         this.initMaterialize();
-    }
-
-    public renderFilteredBlock(types: Array<string>) {
-        this.view.renderFilteredWorkouts(this.filteredArray, this.handleCardClick.bind(this));
     }
 
     private checkAuth(): boolean {
@@ -81,19 +78,11 @@ class BrowsePageController {
     }
 
     private onParameterClick(e: Event): void {
-        const type = (<HTMLElement>e.currentTarget).dataset.type;
-        const value = (<HTMLElement>e.currentTarget).dataset.value;
-        this.filteredArray = this.model.filterCardArray(type!, value!);
+        const type = (<HTMLElement>e.currentTarget).dataset.type!;
+        const value = (<HTMLElement>e.currentTarget).dataset.value!;
         authManager.navigate(`browse/${value}`);
-        this.view.renderFilteredWorkouts(this.filteredArray, this.handleCardClick.bind(this));
-    }
 
-    public handleCardClick(e: Event): void {
-        const currCard = <HTMLElement>e.currentTarget;
-        const workout = this.model.getCardById(currCard.id);
-        if (workout) {
-            authManager.navigate(`workout/${workout.id}`);
-        }
+        storageManager.addItem('type', type, 'local');
     }
 
     private initMaterialize(): void {

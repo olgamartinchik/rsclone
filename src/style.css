@@ -17417,6 +17417,10 @@ input:not([type]).select-dropdown {
   padding: 20px;
 }
 
+.program-card .title {
+  white-space: nowrap;
+}
+
 html,
 body,
 #app {
