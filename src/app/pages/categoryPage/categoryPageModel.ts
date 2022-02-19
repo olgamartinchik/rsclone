@@ -2,6 +2,7 @@ import ClientManager from "../../services/clientManager";
 import Card from "../../components/card/card";
 import storageManager from "../../services/storageManager";
 import Utils from "../../services/utils";
+import { tinySrgb } from "@cloudinary/url-gen/qualifiers/colorSpace";
 
 export default class CategoryPageModel {
   private clientManager: ClientManager;
@@ -21,6 +22,7 @@ export default class CategoryPageModel {
             return new Card(item);
         });
     }
+    return this.cards;
   }
 
   public filterCardArray(filters): Array<Card> {
@@ -36,8 +38,11 @@ export default class CategoryPageModel {
   }
 
   private getValues(card: Card, type: string): Array<string> {
-    const valuesArray = card.data[type].split(',');
-    const modifiedValuesArr = valuesArray.map((value) => value.trim());
+    let modifiedValuesArr = [];
+    if(type) {
+      const valuesArray = card.data[type].split(',');
+      modifiedValuesArr = valuesArray.map((value) => value.trim());
+    }
     return modifiedValuesArr;
   }
 
@@ -52,8 +57,11 @@ export default class CategoryPageModel {
     return currCard;
   }
 
-  public getType(): string {
-    const type = <string>storageManager.getItem('type', 'local');
+  public getType(filters): string {
+    let type = '';
+    for (let key in filters) {
+      type = key;
+    }
     return type;
   }
 

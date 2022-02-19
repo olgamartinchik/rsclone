@@ -25,13 +25,13 @@ class BrowsePageView {
         this.angle = 0;
     }
 
-    public render(isLogin: boolean, card: Card, signUpHandler: () => void, startVideo: (e: Event) => void, onParameterClick: (e: Event) => void) {
+    public render(isLogin: boolean, card: Card, signUpHandler: () => void, startVideo: (e: Event) => void, onParameterClick: (e: Event) => void, addtoFav: (e: Event) => void) {
         if (isLogin) {
             this.createAuthorizedHeader()
         } else {
             this.createNotAuthorizedHeader(signUpHandler);
         }
-        this.createContent(isLogin, card, startVideo, onParameterClick);
+        this.createContent(isLogin, card, startVideo, onParameterClick, addtoFav);
         this.rootNode.append(footer.getTemplate());
         this.initMaterialize();
     }
@@ -39,7 +39,7 @@ class BrowsePageView {
     private createAuthorizedHeader(): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-        const user = <string>storageManager.getItem('user', 'local');
+        const user = <TUser>storageManager.getItem('user', 'local');
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -48,7 +48,7 @@ class BrowsePageView {
             'settings',
         ]);
         navbar.generateMenu(true, 'Browse');
-        navbar.addProfileLink(user);
+        navbar.addProfileLink(user.name.split('')[0]);
     }
 
     private createNotAuthorizedHeader(signUpHandler: () => void): void {
@@ -63,11 +63,11 @@ class BrowsePageView {
         }
     }
 
-    private createContent(isLogin: boolean, card: Card, startVideo: (e: Event) => void, onParameterClick: (e: Event) => void): void {
+    private createContent(isLogin: boolean, card: Card, startVideo: (e: Event) => void, onParameterClick: (e: Event) => void, addtoFav: (e: Event) => void): void {
         const mainLayout = new Node(this.rootNode, 'main', 'main-layout browse');
         mainLayout.setAttribute('id', 'browse');
         mainLayout.node.insertAdjacentHTML('afterbegin', workoutHeaderTemplate(card));
-        mainLayout.node.append(this.getWorkoutDetailsLayout(card, startVideo));
+        mainLayout.node.append(this.getWorkoutDetailsLayout(card, startVideo, addtoFav));
 
         const buttonFav = <HTMLElement>document.querySelector('.workout-fav');
         if (!isLogin && buttonFav) {
@@ -77,16 +77,18 @@ class BrowsePageView {
         this.createParamBlock(mainLayout.node, 'Classes', onParameterClick);
     }
 
-    private getWorkoutDetailsLayout(card: Card, startVideo: (e: Event) => void): HTMLElement {
+    private getWorkoutDetailsLayout(card: Card, startVideo: (e: Event) => void, addToFav: (e: Event) => void): HTMLElement {
         const workoutDetails = new Node(null, 'div', 'workout-details');
         const workoutContainer = new Node(workoutDetails.node, 'div', 'workout-container buttons');
         const controls = new Node(workoutContainer.node, 'div', 'workout-controls');
         const buttonFav = new Node(controls.node, 'button', 'workout-fav');
+        if (card.liked) buttonFav.node.classList.add('active');
         buttonFav.node.insertAdjacentHTML(
             'afterbegin',
             `<span>favourite</span>
             <i class="far fa-heart"></i>`
         );
+        buttonFav.node.onclick = (e: Event) => addToFav(e);
         const buttonStart = new Button(controls.node, 'Start');
         buttonStart.button.node.className = 'waves-effect waves-light btn-large';
         if (card.data._id) buttonStart.button.node.id = card.data._id;
@@ -112,6 +114,7 @@ class BrowsePageView {
     private createClassesBlock(parentNode: HTMLElement, onParameterClick: (e: Event) => void): void {
         const classesWrapper = new Node(parentNode, 'div', 'classes-block');
         const classes = [
+            'all workouts',
             WorkoutType.yoga, 
             WorkoutType.stretch, 
             WorkoutType.strength, 
@@ -120,11 +123,11 @@ class BrowsePageView {
             WorkoutType.dance,
             WorkoutType.cardio,
             WorkoutType.boxing,
-            WorkoutType.HIIT
+            WorkoutType.HIIT,
         ];
         classes.forEach((item) => {
             const classesCard = Node.setChild(classesWrapper.node, 'div', 'type-card');
-            classesCard.style.backgroundImage =  `linear-gradient(0deg, rgba(129, 131, 132, 0.7), rgba(129, 131, 132, 0.7)), url("../../../assets/img/classes/${item}.jpg")`;
+            classesCard.style.backgroundImage =  `linear-gradient(0deg, rgba(129, 131, 132, 0.7), rgba(129, 131, 132, 0.7)), url("../../../assets/img/classes/${item.split(' ').join('')}.jpg")`;
             classesCard.setAttribute('data-type', 'type');
             classesCard.setAttribute('data-value', item);
             classesCard.onclick = (e: Event) => onParameterClick(e);

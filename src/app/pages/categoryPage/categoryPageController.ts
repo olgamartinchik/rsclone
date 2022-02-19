@@ -25,16 +25,18 @@ export default class CategoryPageController {
 
   public async render(values: Array<string>) {
     this.filters = {};
-    await this.model.getData();
-
+    const allCards = await this.model.getData();
+    this.isLogin = this.checkAuth();
     const [value] = values;
+    if(value === 'all') {
+      this.view.render(this.isLogin, value, allCards, this.handleCardClick.bind(this), this.signUpHandler.bind(this), this.checkboxHandler.bind(this));
+      return;
+    }
     const type = <string>Utils.getFilterType(value);
     this.updateFilters(type, value);
     
     const filteredArray = this.model.filterCardArray(this.filters);
     this.formCategoryValues();
-    this.isLogin = this.checkAuth();
-
     if(filteredArray.length > 0 && this.categoryValues.includes(value)) {
         this.view.render(this.isLogin, value, filteredArray, this.handleCardClick.bind(this), this.signUpHandler.bind(this), this.checkboxHandler.bind(this));
     } else {
@@ -43,7 +45,7 @@ export default class CategoryPageController {
   }
 
   private formCategoryValues(): void {
-    const type = this.model.getType();
+    const type = this.model.getType(this.filters);
     switch(type) {
       case 'type':
         this.categoryValues = [            
@@ -55,7 +57,8 @@ export default class CategoryPageController {
           WorkoutType.dance,
           WorkoutType.cardio,
           WorkoutType.boxing,
-          WorkoutType.HIIT
+          WorkoutType.HIIT,
+          'allworkouts',
         ]
     }
   }

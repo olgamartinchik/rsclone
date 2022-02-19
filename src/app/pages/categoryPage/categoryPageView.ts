@@ -5,6 +5,7 @@ import NavBar from '../../components/header/navbar';
 import header from '../../components/header/header';
 import footer from '../../components/footer/footer';
 import storageManager from '../../services/storageManager';
+import { TUser } from '../../services/types';
 
 export default class CategoryPageView {
     private rootNode: HTMLElement;
@@ -41,7 +42,7 @@ export default class CategoryPageView {
     private createAuthorizedHeader(): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-        const user = <string>storageManager.getItem('user', 'local');
+        const user = <TUser>storageManager.getItem('user', 'local');
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -50,7 +51,7 @@ export default class CategoryPageView {
             'settings',
         ]);
         navbar.generateMenu(true, 'Browse');
-        navbar.addProfileLink(user);
+        navbar.addProfileLink(user.name.split('')[0]);
     }
 
     private createNotAuthorizedHeader(signUpHandler: () => void): void {
@@ -66,7 +67,8 @@ export default class CategoryPageView {
     }
 
     private renderTitle(text: string): void {
-      new Node(this.mainLayout!.node, 'h2', 'category-title', text);
+      const title = (text !== 'all') ? text : 'all workouts';
+      new Node(this.mainLayout!.node, 'h2', 'category-title', title);
     }
 
     private addBackButton(): void {
