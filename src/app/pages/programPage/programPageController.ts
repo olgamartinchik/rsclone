@@ -1,6 +1,5 @@
 import Card from '../../components/card/card';
 import authManager from '../../services/authManager';
-import { IDataExplore } from '../../services/types';
 import { TSettings, TWorkout } from '../../services/types';
 import Utils from '../../services/utils';
 import MealPageController from '../mealPage/mealPageController';
@@ -30,22 +29,22 @@ class ProgramPageController {
 
     public async createPage(): Promise<void> {
         const settings = await this.model.getSettingsData();
-// <<<<<<< HEAD
-//         const trainings = await this.model.getWeekTrainings(settings!);
-//         this.view.render(
-//             trainings,
-//             this.handleCardClick.bind(this),
-//             this.model.week,
-//             settings!,
-//             this.handleStatBlockClick.bind(this)
-//         );
+        // <<<<<<< HEAD
+        //         const trainings = await this.model.getWeekTrainings(settings!);
+        //         this.view.render(
+        //             trainings,
+        //             this.handleCardClick.bind(this),
+        //             this.model.week,
+        //             settings!,
+        //             this.handleStatBlockClick.bind(this)
+        //         );
 
-//         this.mealSection.getLoaderMealContainer();
-//         this.mealSection.loadMealCard(
-//             (await this.mealData.getUserMealData()) as IDataExplore[],
-//             this.handlerMealCards.handlerMealCard.bind(this)
-//         );
-// =======
+        //         this.mealSection.getLoaderMealContainer();
+        //         this.mealSection.loadMealCard(
+        //             (await this.mealData.getUserMealData()) as IDataExplore[],
+        //             this.handlerMealCards.handlerMealCard.bind(this)
+        //         );
+        // =======
         if (settings) {
             const trainings = await this.model.getWeekTrainings(settings);
             this.view.render(trainings, this.handleCardClick.bind(this), this.model.week);
@@ -104,7 +103,6 @@ class ProgramPageController {
             });
         }
         this.view.renderFavs(likedCards, this.handleCardClick.bind(this));
-
     }
 
     public handleCardClick(e: Event): void {

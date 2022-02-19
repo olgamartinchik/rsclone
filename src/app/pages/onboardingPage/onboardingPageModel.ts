@@ -1,7 +1,7 @@
 import StorageManager from '../../services/storageManager';
 import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';
-import { TToken, TConvertedValues, TSettings, TUser,IDataExplore } from '../../services/types';
+import { TToken, TConvertedValues, TSettings, TUser, IDataExplore } from '../../services/types';
 import {
     Goal,
     Gender,
