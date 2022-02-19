@@ -50,7 +50,7 @@ class ProgramPageController {
                 calories: 0,
                 workoutsCompleted: 0,
                 minutes: 0,
-                workoutsNumber: settings.weekProgress.workoutsNumber,
+                workoutsNumber: settings.workoutsNumber,
             };
         } else {
             const calories = Utils.countValuesSum(settings.progress[weekIndex].calories);
@@ -60,9 +60,10 @@ class ProgramPageController {
                 calories: calories,
                 workoutsCompleted: settings.weekProgress.workoutsCompleted,
                 minutes: minutes,
-                workoutsNumber: settings.weekProgress.workoutsNumber,
+                workoutsNumber: settings.workoutsNumber,
             };
         }
+        console.log(settings, 'view')
         this.view.renderStatBlock(settings, clickHandler);
         await this.model.saveSettings(settings);
     }

@@ -1,6 +1,7 @@
 import MealPageModel from '../pages/mealPage/mealPageModel';
 import CalculationCalories from './calculationCalories';
 import ClientManager from './clientManager';
+import { Endpoints } from './constants';
 import DateManager from './datesManager';
 import storageManager from './storageManager';
 import { TSettings, TToken } from './types';
@@ -43,6 +44,9 @@ class UserDataManager {
         console.log(this.userSettings, program)
 
         storageManager.addItem('workout-program', program, 'local');
+        this.resetStatData(this.userSettings);
+        await this.saveUserSettings();
+
     }
 
     async getUserSettings(): Promise<TSettings | void> {
@@ -54,6 +58,30 @@ class UserDataManager {
         }
 
         return settings;
+    }
+
+    private resetStatData(settings: TSettings): void {
+        settings.weekProgress = {
+            currentWeek: 0,
+            calories: 0,
+            workoutsCompleted: 0,
+            minutes: 0,
+            workoutsNumber: settings.workoutsNumber,
+        };
+        settings.caloriesBurned = 0;
+        settings.badges = [];
+        settings.completedWorkouts = 0;
+        settings.progress = [];
+        settings.startDate = Date.now().toString();
+    }
+
+    private async saveUserSettings(): Promise<void> {
+        storageManager.addItem('userSettings', this.userSettings, 'local');
+        const userData = storageManager.getItem<TToken>('token', 'local');
+
+        if(userData) {
+            await this.client.changeData(Endpoints.userSettings, userData.userID, this.userSettings);
+        }
     }
 }
 export default UserDataManager;

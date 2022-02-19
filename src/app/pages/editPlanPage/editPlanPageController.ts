@@ -6,6 +6,7 @@ import Utils from '../../services/utils';
 import { TSettings } from '../../services/types';
 import { GoalTitles, WorkoutType, Message } from '../../services/constants';
 import UserDataManager from '../../services/userDataManager';
+import preloader from '../../components/preloader/preloader';
 
 class EditPlanPageController {
     private view: EditPlanPageView;
@@ -109,7 +110,9 @@ class EditPlanPageController {
         }
     }
 
-    private handleSaveBtnClick(): void {
+    private async handleSaveBtnClick(): Promise<void> {
+        this.view.setPreloader();
+        preloader.getTemplate();
         if (
             (<TSettings>this.modifiedUserSettings).goal === 'weight' &&
             (<TSettings>this.modifiedUserSettings).desiredWeight === 0
@@ -123,11 +126,15 @@ class EditPlanPageController {
             const input = <HTMLInputElement>document.querySelector('.editplan-input');
             input.value = '0';
         } else {
-            this.model.saveSettings(this.modifiedUserSettings);
+            await this.model.saveSettings(this.modifiedUserSettings);
 
-            new UserDataManager(this.modifiedUserSettings!).createUserData();
-            authManager.navigate('/settings');
+            await new UserDataManager(this.modifiedUserSettings!).createUserData();
+            this.view.removePreloader();
+
+            authManager.navigate('/program');
         }
+        this.view.removePreloader();
+
     }
 }
 

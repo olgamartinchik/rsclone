@@ -14,15 +14,23 @@ import {
     ModalContents,
 } from '../../services/constants';
 import { TSettings } from '../../services/types';
+import preloader from '../../components/preloader/preloader';
 
 class EditPlanPageView {
     private rootNode: HTMLElement;
 
     private materializeHandler: MaterializeHandler;
 
+    private preloader: HTMLElement;
+
+    private overflow: HTMLElement;
+
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
         this.materializeHandler = new MaterializeHandler();
+        this.preloader = preloader.getTemplate();
+        this.overflow = document.createElement('div');
+        this.overflow.className = 'overflow active';
     }
 
     public render(userSettings: TSettings | void, onchange: (e: Event) => void, onclick: (e: Event) => void): void {
@@ -216,6 +224,15 @@ class EditPlanPageView {
 
     private createFooter(): void {
         this.rootNode.append(footer.getTemplate());
+    }
+
+    public setPreloader(): void {
+        this.rootNode.append(this.overflow, this.preloader);
+    }
+
+    public removePreloader(): void {
+        this.overflow.remove();
+        this.preloader.remove();
     }
 }
 

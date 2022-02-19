@@ -374,6 +374,10 @@
             justify-content: center;
             align-items: center;
             border: none;
+            &:hover {
+                box-shadow: none;
+                cursor: auto;
+            }
         }
         
     }
