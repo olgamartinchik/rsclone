@@ -1,4 +1,5 @@
 .main-layout.browse {
+  position: relative;
   .workout-header {
     background-position: top 30% left 50%;
     &::before {
@@ -10,7 +11,7 @@
     &.buttons {
       min-height: 50px;
       position: absolute;
-      top: 295px;
+      top: 230px;
       background-color: transparent;
       .workout-controls {
         padding: 0;
@@ -45,8 +46,8 @@
     grid-template-columns: repeat(3, 1fr);
   }
   .type-card {
-    width: 210px;
-    height: 160px;
+    width: 100%;
+    height: 200px;
     border-radius: 16px;
     color: #fff;
     text-align: center;
@@ -73,5 +74,35 @@
   justify-content: center;
   width: 100%;
   grid-gap: 30px;
-  padding: 20px;
+}
+
+@media (max-width: 800px) {
+  .browse-block {
+    .type-card {
+      height: 160px;
+      span {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .browse-block {
+    .type-card {
+      height: 120px;
+      span {
+        font-size: 18px;
+      }
+    }
+    .classes-block {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media (max-width: 400px) {
+    .browse-block > .classes-block {
+      grid-template-columns: repeat(1, 1fr);
+    }
 }

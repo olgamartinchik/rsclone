@@ -37,6 +37,11 @@ export default class CategoryPageModel {
     });
 
     return currCard;
-}
+  }
+
+  public getType(): string {
+    const type = <string>storageManager.getItem('type', 'local');
+    return type;
+  }
 
 }
