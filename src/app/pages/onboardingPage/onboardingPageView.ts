@@ -15,14 +15,19 @@ import {
     WorkoutType,
     WorkoutsProgramDuration,
     Colors,
+    ClassNames,
 } from '../../services/constants';
+import onboardingModel, { OnboardingModel } from './onboardingPageModel';
 
 class OnboardingPageView {
     private materializeHandler: MaterializeHandler;
 
     private rootNode: HTMLElement;
 
+    private model: OnboardingModel;
+
     constructor() {
+        this.model = onboardingModel;
         this.materializeHandler = new MaterializeHandler();
         this.rootNode = <HTMLElement>document.getElementById('app');
     }
@@ -30,7 +35,6 @@ class OnboardingPageView {
     render(
         block: string,
         settings: TSettings,
-        birthday: string,
         onselect: (e: Event) => void,
         oninput: (e: Event) => void,
         onchange: (e: Event) => void,
@@ -47,7 +51,7 @@ class OnboardingPageView {
         form.setAttribute('action', '#');
         form.setAttribute('method', 'post');
 
-        this.renderForm(block, form, settings, birthday, onselect, oninput, onchange, onclick, onBackClick);
+        this.renderForm(block, form, settings, onselect, oninput, onchange, onclick, onBackClick);
 
         this.rootNode.append(Footer.getTemplate());
     }
@@ -56,7 +60,6 @@ class OnboardingPageView {
         block: string,
         form: HTMLElement,
         settings: TSettings,
-        birthday: string,
         onselect: (e: Event) => void,
         oninput: (e: Event) => void,
         onchange: (e: Event) => void,
@@ -67,7 +70,7 @@ class OnboardingPageView {
 
         switch (block) {
             case 'About you':
-                this.renderAboutBlock(form, settings, birthday, onselect, oninput, onchange);
+                this.renderAboutBlock(form, settings, onselect, oninput, onchange);
                 break;
             case `What's your goal?`:
                 this.renderGoalsBlock(form, settings, onselect, oninput, onchange);
@@ -95,7 +98,6 @@ class OnboardingPageView {
     private renderAboutBlock(
         form: HTMLElement,
         settings: TSettings,
-        birthday: string,
         onselect: (e: Event) => void,
         oninput: (e: Event) => void,
         onchange: (e: Event) => void
@@ -104,13 +106,15 @@ class OnboardingPageView {
         this.colorSelectedOption(settings, 'gender');
 
         form.append(Calender.getTemplate(onselect));
-        (<HTMLInputElement>document.querySelector('.datepicker')).value = birthday;
+        (<HTMLInputElement>document.querySelector('.datepicker')).value = settings.birthday;
         this.materializeHandler.initDatePicker();
 
         form.append(
             Parameters.getTemplate(
+                ClassNames.onboarding,
                 Height.title,
                 Height.units,
+                Height.units2,
                 Height.option1,
                 Height.option2,
                 Height.min,
@@ -123,8 +127,10 @@ class OnboardingPageView {
 
         form.append(
             Parameters.getTemplate(
+                ClassNames.onboarding,
                 Weight.title,
                 Weight.units,
+                Weight.units2,
                 Weight.option1,
                 Weight.option2,
                 Weight.min,
@@ -137,6 +143,7 @@ class OnboardingPageView {
 
         if (settings.height > 0) this.getParameters('height', settings);
         if (settings.weight > 0) this.getParameters('weight', settings);
+        this.colorActiveUnit(settings);
     }
 
     private renderGoalsBlock(
@@ -167,25 +174,111 @@ class OnboardingPageView {
                     break;
             }
             if (goal === GoalTitles.weight) {
-                const weightChoiceBlock = Parameters.getTemplate(
+                const weightChoiceBlock = Parameters.getDesireWeightTemplate(
+                    ClassNames.onboarding,
                     Weight.desired,
                     Weight.units,
-                    Weight.option1,
-                    Weight.option2,
                     Weight.min,
                     Weight.max,
                     onselect,
                     oninput,
                     onchange
                 );
+
                 weightChoiceBlock.classList.add('hidden');
 
                 form.append(weightChoiceBlock);
+
+                const valueInput = <HTMLInputElement>document.querySelector('.value-select');
+                const unitValue = <HTMLElement>document.querySelector('.value > span');
+
+                valueInput.placeholder = settings.weightUnit === Weight.units ? Weight.min : Weight.min2;
+                unitValue.textContent = settings.weightUnit;
             }
         });
 
         if (settings.desiredWeight > 0) this.getParameters('desiredweight', settings);
         this.colorSelectedOption(settings, 'goal');
+        const weightChoiceBlock = <HTMLElement>document.querySelector('.input-group');
+        if (!(<HTMLElement>document.querySelector(`[data-value='weight']`)).className.includes('active')) {
+            weightChoiceBlock.classList.add('hidden');
+        } else {
+            weightChoiceBlock.classList.remove('hidden');
+        }
+    }
+
+    private getParameters(type: string, settings: TSettings) {
+        const elementsWrapper = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[0];
+
+        const input = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[1];
+        const value = <HTMLInputElement>elementsWrapper.children[0];
+
+        value.value = this.getConvertedValue(type).toString();
+        this.getUnits(settings);
+        this.getSliderValue(settings);
+        elementsWrapper.style.color = Colors.textOnLight;
+        input.style.color = Colors.textOnLight;
+    }
+
+    private getConvertedValue(type: string): number {
+        let value = 0;
+        switch (type) {
+            case 'height':
+                value = this.model.convertedValues.height;
+                break;
+            case 'weight':
+                value = this.model.convertedValues.weight;
+                break;
+            case 'desiredweight':
+                value = this.model.convertedValues.desiredWeight;
+                break;
+        }
+        return value;
+    }
+
+    private getUnits(settings: TSettings): void {
+        const unitValues = <NodeListOf<HTMLElement>>document.querySelectorAll('.value > span');
+        unitValues.forEach((unitValue) => {
+            switch (unitValue.dataset.title) {
+                case 'heightUnit':
+                    unitValue.textContent = settings.heightUnit;
+                    break;
+                case 'weightUnit':
+                    unitValue.textContent = settings.weightUnit;
+                    break;
+                case 'desiredWeightUnit':
+                    unitValue.textContent = settings.weightUnit;
+                    break;
+            }
+        });
+    }
+
+    private getSliderValue(settings: TSettings): void {
+        const sliders = <NodeListOf<HTMLInputElement>>document.querySelectorAll('#play-bar');
+        sliders.forEach((slider) => {
+            switch (slider.dataset.type) {
+                case 'height':
+                    slider.value = settings.height.toString();
+                    break;
+                case 'weight':
+                    slider.value = settings.weight.toString();
+                    break;
+                case 'desiredWeight':
+                    slider.value = settings.desiredWeight.toString();
+                    break;
+            }
+        });
+    }
+
+    private colorActiveUnit(settings: TSettings) {
+        const unitOptions = <NodeListOf<HTMLElement>>document.querySelectorAll('.unit');
+        unitOptions.forEach((unitOption) => {
+            if (unitOption.dataset.value === settings.weightUnit || unitOption.dataset.value === settings.heightUnit) {
+                unitOption.classList.add('active');
+            } else {
+                unitOption.classList.remove('active');
+            }
+        });
     }
 
     private renderFrequencyBlock(form: HTMLElement, settings: TSettings, onselect: (e: Event) => void): void {
@@ -272,27 +365,6 @@ class OnboardingPageView {
                     break;
             }
         });
-    }
-
-    private getParameters(type: string, settings: TSettings) {
-        const elementsWrapper = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[0];
-
-        const input = <HTMLElement>document.querySelectorAll(`[data-${type}]`)[1];
-        const value = <HTMLInputElement>elementsWrapper.children[0];
-        switch (type) {
-            case 'height':
-                value.value = settings.height.toString();
-                break;
-            case 'weight':
-                value.value = settings.weight.toString();
-                break;
-            case 'desiredweight':
-                value.textContent = settings.desiredWeight.toString();
-                value.value = settings.desiredWeight.toString();
-                break;
-        }
-        elementsWrapper.style.color = Colors.textOnLight;
-        input.style.color = Colors.textOnLight;
     }
 
     public renderCongratulations(programDuration: number, onclick: (e: Event) => void): void {

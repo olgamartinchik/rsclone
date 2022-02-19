@@ -1,7 +1,15 @@
 import Card from '../../components/card/card';
 import storageManager from '../../services/storageManager';
 import CloudinaryManager from '../../services/cloudinarySDK';
-import { TProgress, TProgressData, TSettings, TStatData, TToken, TWorkout, TWorkoutProgram } from '../../services/types';
+import {
+    TProgress,
+    TProgressData,
+    TSettings,
+    TStatData,
+    TToken,
+    TWorkout,
+    TWorkoutProgram,
+} from '../../services/types';
 import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';
 
@@ -74,7 +82,7 @@ class WorkoutPageModel {
                 }
             });
             Utils.iterateDoubleArr<Card>(this.cards, (cardElem) => {
-                if(cardElem.id === card.id) {
+                if (cardElem.id === card.id) {
                     cardElem.completed = true;
                     cardElem.data.completed = true;
                 }
@@ -96,7 +104,7 @@ class WorkoutPageModel {
 
             const userData = this.getUserData();
             if (userData) {
-                this.client.changeData('userSettings', userData.userID, settings);
+                this.client.changeData('userSettings', 'PATCH', userData.userID, settings);
             }
         }
     }
@@ -140,7 +148,7 @@ class WorkoutPageModel {
         storageManager.addItem('workout-cards', this.cards, 'local');
         const userData = this.getUserData();
         if (userData) {
-            await this.client.changeData('userSettings', userData.userID, settings);
+            await this.client.changeData('userSettings', 'PATCH', userData.userID, settings);
         }
     }
 }

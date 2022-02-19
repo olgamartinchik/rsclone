@@ -339,8 +339,8 @@
             position: relative;
             padding: 8px;
             min-height: 246px;
-            background: rgb(2,0,36);
-            background: linear-gradient(318deg, rgba(122,59,180,1) 19%, rgba(98,0,255,1) 100%);
+            background: rgb(2, 0, 36);
+            background: linear-gradient(318deg, rgba(122, 59, 180, 1) 19%, rgba(98, 0, 255, 1) 100%);
             cursor: auto;
             overflow: visible;
             .title {
@@ -375,9 +375,7 @@
             align-items: center;
             border: none;
         }
-        
     }
-
 }
 
 .fav-wrapper {
@@ -396,7 +394,6 @@
         }
     }
 }
-
 
 .title-container {
     padding: 6px;
@@ -667,7 +664,6 @@ span.bold-text {
         }
         .image {
             height: 93px;
-            
         }
         .card-info {
             &.description {
@@ -708,7 +704,6 @@ span.bold-text {
                 }
             }
         }
-        
     }
     .main-content .container-stat .summary-block-info .icon {
         width: 30px;

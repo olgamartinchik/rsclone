@@ -1,5 +1,5 @@
 export default function popup(src: string, name: string, text: string): string {
-  return `
+    return `
     <div class="popup-img">
       <img src="${src}" alt="popup-image">
     </div>

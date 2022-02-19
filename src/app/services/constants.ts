@@ -55,43 +55,38 @@ export enum Id {
 
 export enum Message {
     registerSuccess = 'User created',
-    valueMissing = 'Please, choose a value',
+    valueMissing = 'Please, choose values',
     invalidWeightValue = 'Please, select desired weight less than actual one',
     desiredWeightmissing = 'Please, choose desired weight',
-    invalidName = 'Please enter a valid name consisting only of letters',
+    invalidName = 'Please enter a valid name starting from letter',
     invalidPassword = 'Password should not be less than 6 symbols',
     invalidValue = 'Please enter a valid value',
+    passwordEqual = 'Please choose a password different from a last one',
 }
 
 export enum Height {
     title = 'height',
     units = 'cm',
-    units2 = 'ft & in',
-    option1 = 'Feet & Inches',
+    units2 = 'ft',
+    option1 = 'Feet',
     option2 = 'Centimeters',
     min = '120',
     max = '220',
-}
-
-export enum HeightUnit {
-    unitDefault = 'cm',
-    unit2 = 'ft',
+    min2 = '4',
+    max2 = '7',
 }
 
 export enum Weight {
     title = 'weight',
     desired = 'desired Weight',
     units = 'kg',
-    units2 = 'pounds',
+    units2 = 'lbs',
     option1 = 'Pounds',
     option2 = 'Kilograms',
     min = '40',
     max = '200',
-}
-
-export enum WeightUnit {
-    unitDefault = 'kg',
-    unit2 = 'pounds',
+    min2 = '88',
+    max2 = '440',
 }
 
 export enum Colors {
@@ -104,10 +99,15 @@ export enum Coefficients {
     percent = 100,
     toFeet = 0.032808398950131,
     toPounds = 2.20462262185,
+    toCentimeters = 31,
+    toKilograms = 0.45,
 }
 
 export enum Endpoints {
+    auth = 'auth',
     userSettings = 'userSettings',
+    workoutSettings = 'workoutSettings',
+    changeUserData = 'editProfile',
 }
 
 export enum ModalContents {
@@ -148,6 +148,11 @@ export enum BadgeText {
     twentyWorkouts = 'Awarded for completing 20 workouts on FitOn.',
     fiftyWorkouts = 'Awarded for completing 50 workouts on FitOn.',
     hundredWorkouts = 'Awarded for completing 100 workouts on FitOn.',
+}
+
+export enum ClassNames {
+    onboarding = 'title title-tablet',
+    editProfile = 'settings-link',
 }
 
 export enum BadgesAmount {

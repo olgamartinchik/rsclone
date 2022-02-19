@@ -3,7 +3,11 @@ import Node from '../Node';
 import statTemplate from './template';
 
 class StatisticWeekWidget {
-    public getTemplate(settings: TSettings, isExtendedFunctionality: boolean, callback: () => void = () => {}): HTMLElement {
+    public getTemplate(
+        settings: TSettings,
+        isExtendedFunctionality: boolean,
+        callback: () => void = () => {}
+    ): HTMLElement {
         const contentBlock = new Node(null, 'div', 'content-block z-depth-1');
         const titleBlock = new Node(contentBlock.node, 'div', 'title-block');
         titleBlock.node.insertAdjacentHTML('afterbegin', '<h3 class="title stat-title">weekly progress</h3>');

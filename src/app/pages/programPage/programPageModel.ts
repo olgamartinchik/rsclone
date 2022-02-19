@@ -41,11 +41,12 @@ class ProgramPageModel {
         } else if (program) {
             this.program = program;
         }
-        
+
         const tempCards = storageManager.getItem<Card[][]>('workout-cards', 'local');
         if (tempCards && tempCards.length) {
-            this.cards = tempCards
-                .map((workoutPerWeek) => workoutPerWeek.map((card) => new Card(card.data, card.liked, card.completed)));
+            this.cards = tempCards.map((workoutPerWeek) =>
+                workoutPerWeek.map((card) => new Card(card.data, card.liked, card.completed))
+            );
         } else {
             this.cards = this.program.map((workoutPerWeek) => workoutPerWeek.map((card) => new Card(card)));
         }
@@ -108,9 +109,9 @@ class ProgramPageModel {
 
     public async saveSettings(settings: TSettings): Promise<void> {
         storageManager.addItem('userSettings', settings, 'local');
-        const userData = storageManager.getItem<TToken>('token', 'local');;
+        const userData = storageManager.getItem<TToken>('token', 'local');
         if (userData) {
-            await this.client.changeData('userSettings', userData.userID, settings);
+            await this.client.changeData('userSettings', 'PATCH', userData.userID, settings);
         }
     }
 }

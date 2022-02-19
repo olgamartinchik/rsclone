@@ -1,0 +1,71 @@
+.editprofile-decorative {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 80px;
+    background: linear-gradient(-180deg, $color-background-linear-5 -8.99%, $color-background-linear-6 109.7%);
+}
+
+.profile-avatar.editprofile {
+    background-color: $color-background-linear-6;
+}
+
+.profile-item-input {
+    display: flex;
+    align-items: center;
+    flex-basis: 60%;
+    height: 100%;
+    input[type='text']:not(.browser-default),
+    input[type='email']:not(.browser-default)#email,
+    input[type='password']:not(.browser-default) {
+        width: 100%;
+        height: 95%;
+        box-sizing: border-box;
+        padding-right: 10px;
+        text-align: right;
+        color: $color-text-navbar;
+        font-size: 18px;
+        &::placeholder {
+            text-align: right;
+        }
+    }
+}
+
+.editprofile.gender-selection {
+    width: 230px;
+    height: 30px;
+    margin-bottom: 10px;
+    line-height: 30px;
+}
+
+.password-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    input[type='password']:not(.browser-default) {
+        width: 100%;
+        box-sizing: border-box;
+        padding-left: 10px;
+        border: 1px solid $color-border-light;
+    }
+}
+
+.modal-trigger.change-password {
+    height: 30px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-transform: none;
+    background-color: transparent;
+    line-height: 30px;
+    color: $color-text-navbar;
+}
+
+.edit-profile {
+    .btn-large {
+        width: 130px;
+    }
+}
+
+.settings-wrapper.editprofile {
+    padding-top: 0;
+}

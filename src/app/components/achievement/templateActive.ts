@@ -15,5 +15,3 @@ export default function achievementActiveTemplate(index: number, src?: string): 
             </div>
         </div>`;
 }
-
-
