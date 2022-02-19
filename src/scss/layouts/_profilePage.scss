@@ -20,9 +20,18 @@
     &-avatar {
         width: 150px;
         height: 150px;
-        border: 1px solid $color-text-on-dark;
+        object-fit: cover;
         border-radius: 50%;
         background-color: $color-primary;
+        &:hover .icon-upload {
+            opacity: 1;
+        }
+        &-input {
+            display: none;
+        }
+        &-label {
+            cursor: pointer;
+        }
     }
     &-name {
         display: block;
@@ -89,6 +98,10 @@
     }
 }
 
+.profile.activated {
+    color: $color-text-navbar;
+}
+
 .achievement-card {
     width: 100px;
     height: 100px;
@@ -117,6 +130,18 @@
         width: 90%;
         text-align: center;
         margin: 10px auto;
+    }
+}
+
+.modal.avatar-modal {
+    width: 50%;
+    .modal-content {
+        text-align: center;
+        font-size: 18px;
+        margin: 0;
+    }
+    .modal-footer {
+        text-align: center;
     }
 }
 

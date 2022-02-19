@@ -1,8 +1,9 @@
 import footer from '../../components/footer/footer';
 import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
+import storageManager from '../../services/storageManager';
 import Node from '../../components/Node';
-import { IDataExplore } from '../../services/types';
+import { TUser, IDataExplore } from '../../services/types';
 
 class RecipePageView {
     private rootNode: HTMLElement;
@@ -28,6 +29,7 @@ class RecipePageView {
     render(recipePageData: IDataExplore, backPage: string) {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
+        const user = <TUser>storageManager.getItem('user', 'local');
 
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
@@ -36,8 +38,8 @@ class RecipePageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu('');
-        navbar.addProfileLink('O');
+        navbar.generateMenu(true);
+        navbar.addProfileLink(user.name.split('')[0]);
 
         this.createContentExplore(recipePageData, backPage);
 

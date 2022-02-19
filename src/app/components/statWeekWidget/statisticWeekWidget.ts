@@ -1,11 +1,10 @@
-import { TWeekProgress } from '../../services/types';
+import { TSettings } from '../../services/types';
 import Node from '../Node';
 import statTemplate from './template';
 
 class StatisticWeekWidget {
     public getTemplate(
-        weekProgress: TWeekProgress,
-        startDate: string,
+        settings: TSettings,
         isExtendedFunctionality: boolean,
         callback: () => void = () => {}
     ): HTMLElement {
@@ -19,7 +18,7 @@ class StatisticWeekWidget {
         }
         contentBlock.node.insertAdjacentHTML(
             'beforeend',
-            statTemplate(weekProgress, startDate, isExtendedFunctionality)
+            statTemplate(settings.weekProgress, settings.startDate, isExtendedFunctionality)
         );
         return contentBlock.node;
     }

@@ -17,9 +17,16 @@ input {
     & .value {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin-right: 35px;
         width: 71px;
         color: $color-placeholder;
+        &.editprofile {
+            margin-right: 10px;
+            span {
+                flex-basis: 50%;
+            }
+        }
     }
     & > span.title {
         width: 130px;
@@ -31,6 +38,12 @@ input {
             width: 75px;
         }
     }
+}
+
+.settings-wrapper .input-group .value,
+.settings-wrapper .input-group .value input {
+    color: $color-text-navbar;
+    font-size: 18px;
 }
 
 input[type='text'].datepicker {
@@ -50,10 +63,23 @@ input[type='text'].datepicker {
 #userName,
 #email,
 #password,
-#confirm {
+#confirm,
+#newPassword {
     box-sizing: border-box;
     padding-left: 12px;
     color: white;
+}
+
+.modal-content > .input-field > #confirm,
+.modal-content > .input-field > #newPassword,
+.modal-content > .input-field > #password {
+    border-bottom: 1px solid $color-border;
+    color: $color-text-navbar;
+    margin-bottom: 20px;
+}
+
+.modal-content > .input-field > label {
+    color: $color-text-navbar;
 }
 
 .datepicker-table td.is-selected {
@@ -185,6 +211,44 @@ select:-webkit-autofill:focus {
     box-shadow: 0 0 0px 1000px $color-autocomplete inset !important;
     -webkit-box-shadow: 0 0 0px 1000px $color-autocomplete inset !important;
     transition: background-color 5000s ease-in-out 0s !important;
+}
+
+.profile-item-input {
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+        -webkit-text-fill-color: $color-text-navbar !important;
+    }
+    input[type='text']:not(.browser-default).valid,
+    input[type='email']:not(.browser-default).valid,
+    input[type='password']:not(.browser-default).valid,
+    input[type='text']:not(.browser-default).invalid,
+    input[type='email']:not(.browser-default).invalid,
+    input[type='password']:not(.browser-default).invalid {
+        border-bottom: none;
+        box-shadow: none;
+    }
+}
+
+.settings-wrapper.editprofile {
+    .input-group .value::placeholder,
+    input[type='text']:not(.browser-default)::placeholder,
+    input[type='email']:not(.browser-default)::placeholder,
+    input[type='password']:not(.browser-default)::placeholder {
+        color: $color-text-navbar;
+    }
+    .input-group .value:focus::placeholder,
+    input[type='text']:not(.browser-default):focus::placeholder,
+    input[type='email']:not(.browser-default):focus::placeholder,
+    input[type='password']:not(.browser-default):focus::placeholder {
+        opacity: 0;
+    }
 }
 
 @media (max-width: 400px) {

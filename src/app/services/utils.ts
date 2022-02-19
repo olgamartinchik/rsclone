@@ -1,5 +1,6 @@
-import { WorkoutType } from './constants';
-import { TProgressData } from './types';
+import { TBadge, TProgressData } from './types';
+import { WorkoutType, BadgeSrc, BadgeName, BadgeText, BadgeActiveSrc } from './constants';
+
 export default class Utils {
     static getChunks<T>(dataArr: T[], chunk: number): Array<T[]> {
         return dataArr.reduce((resultArray: Array<T[]>, item: T, index: number) => {
@@ -110,6 +111,55 @@ export default class Utils {
         return Object.keys(object).find((key) => object[key] === value);
     }
 
+    static getBadges(): Array<TBadge> {
+        const badges = [
+            {
+                src: BadgeSrc.oneWorkout,
+                srcActive: BadgeActiveSrc.oneWorkout,
+                name: BadgeName.oneWorkout,
+                text: BadgeText.oneWorkout,
+                modalId: 'modal1',
+            },
+            {
+                src: BadgeSrc.fiveWorkouts,
+                srcActive: BadgeActiveSrc.fiveWorkouts,
+                name: BadgeName.fiveWorkouts,
+                text: BadgeText.fiveWorkouts,
+                modalId: 'modal2',
+            },
+            {
+                src: BadgeSrc.tenWorkouts,
+                srcActive: BadgeActiveSrc.tenWorkouts,
+                name: BadgeName.tenWorkouts,
+                text: BadgeText.tenWorkouts,
+                modalId: 'modal3',
+            },
+            {
+                src: BadgeSrc.twentyWorkouts,
+                srcActive: BadgeActiveSrc.twentyWorkouts,
+                name: BadgeName.twentyWorkouts,
+                text: BadgeText.twentyWorkouts,
+                modalId: 'modal4',
+            },
+            {
+                src: BadgeSrc.fiftyWorkouts,
+                srcActive: BadgeActiveSrc.fiftyWorkouts,
+                name: BadgeName.fiftyWorkouts,
+                text: BadgeText.fiftyWorkouts,
+                modalId: 'modal5',
+            },
+            {
+                src: BadgeSrc.hundredWorkouts,
+                srcActive: BadgeActiveSrc.hundredWorkouts,
+                name: BadgeName.hundredWorkouts,
+                text: BadgeText.hundredWorkouts,
+                modalId: 'modal6',
+            },
+        ];
+
+        return badges;
+    }
+
     static getTimeDiffInSeconds(startTime: number): number {
         return Math.round((Date.now() - startTime) / 60000);
     }
@@ -157,6 +207,16 @@ export default class Utils {
             } else {
                 return 0;
             }
+        });
+    }
+
+    static countValuesSum(arr: TProgressData[]): number {
+        return arr.reduce((prev, next) => prev + Object.values(next).reduce((a, b) => a + b), 0);
+    }
+
+    static iterateDoubleArr<T>(arr: T[][], callback: (elem: T, parentElem: T[], index: number) => void): void {
+        arr.forEach((elem, index) => {
+            elem.forEach((item) => callback(item, elem, index));
         });
     }
 }

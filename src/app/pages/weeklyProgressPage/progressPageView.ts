@@ -4,7 +4,8 @@ import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 import StatisticWeekWidget from '../../components/statWeekWidget/statisticWeekWidget';
 import StatisticWorkoutWidget from '../../components/statWorkoutWidget/statisticWorkoutWidget';
-import { TSettings, TWeekProgress } from '../../services/types';
+import storageManager from '../../services/storageManager';
+import { TSettings, TWeekProgress, TUser } from '../../services/types';
 import chartsManager from '../../services/chartsManager';
 import chartOptions from '../../components/chartOptions/template';
 
@@ -27,7 +28,7 @@ class ProgressPageView {
     render(settings: TSettings, callbackClick: () => void): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-
+        const user = <TUser>storageManager.getItem('user', 'local');
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -35,8 +36,8 @@ class ProgressPageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu();
-        navbar.addProfileLink('O');
+        navbar.generateMenu(true);
+        navbar.addProfileLink(user.name.split('')[0]);
         this.createMainBlockLayout(settings, callbackClick);
 
         this.rootNode.append(footer.getTemplate());
@@ -55,7 +56,7 @@ class ProgressPageView {
             settings.weekProgress.minutes,
             settings.weekProgress.calories
         );
-        const weekStat = this.statisticWeekWidget.getTemplate(settings.weekProgress, settings.startDate, false);
+        const weekStat = this.statisticWeekWidget.getTemplate(settings, false);
         this.mainBlock.node.insertAdjacentHTML('beforeend', workoutStat);
         container.node.append(weekStat);
         this.mainBlock.node.append(container.node);
