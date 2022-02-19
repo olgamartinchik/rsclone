@@ -1,6 +1,8 @@
 import Node from '../Node';
 import Button from '../Button';
 import { Id } from '../../services/constants';
+import { TUser } from '../../services/types';
+import storageManager from '../../services/storageManager';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
 
 export default class NavBar {
@@ -29,11 +31,11 @@ export default class NavBar {
         Node.setChild(menuMobile.node, 'i', 'material-icons', 'menu');
     }
 
-    generateMenu(activeLink?: string | undefined, attributeName = Id.menu): void {
+    generateMenu(isLogin: boolean, activeLink?: string | undefined, attributeName = Id.menu): void {
         this.menu.node.textContent = '';
         this.menu.setAttribute('id', attributeName);
         this.generateLinks(this.menu.node, this.needsButton, this.icons, activeLink);
-        this.generateMobileMenu();
+        this.generateMobileMenu(isLogin, activeLink);
         this.materializeHandler.initSidenav();
     }
 
@@ -58,23 +60,56 @@ export default class NavBar {
         }
     }
 
-    generateMobileMenu() {
+    generateMobileMenu(isLogin: boolean, activeLink?: string | undefined) {
         const header = document.querySelector('header');
         const mobileMenu = new Node(header, 'ul', 'sidenav');
         mobileMenu.setAttribute('id', Id.mobileMenu);
-
-        this.generateLinks(mobileMenu.node, false, this.icons);
+        this.generateLinks(mobileMenu.node, false, this.icons, activeLink);
+        if (isLogin) this.addMobileProfileLink(mobileMenu.node, activeLink);
+        if (this.needsButton) {
+            const signUpBtn = Node.setChild(
+                mobileMenu.node,
+                'a',
+                'waves-effect waves-light btn-large sidenav-close',
+                'Signup'
+            );
+            signUpBtn.setAttribute('href', '#/register');
+        }
     }
 
     addProfileLink(user: string, isActive?: boolean | undefined): void {
         const menuItem = new Node(this.menu.node, 'li');
         if (isActive) menuItem.node.classList.add('active');
+
         const menuLink = new Node(menuItem.node, 'a');
         menuLink.setAttribute('href', `#/profile`);
-        const iconContainer = new Node(menuLink.node, 'div', 'icon-container');
-        const profileIcon = new Node(iconContainer.node, 'span', 'profile');
-        profileIcon.node.innerHTML = `${user}`;
+
+        this.generateProfileIcon(menuLink.node, user);
+
         menuLink.node.innerHTML += 'Profile';
+    }
+
+    generateProfileIcon(parentNode: HTMLElement, user: string): void {
+        const avatar = (<TUser>storageManager.getItem('user', 'local')).avatar;
+        const iconContainer = new Node(parentNode, 'div', 'icon-container');
+        const profileIcon = new Node(iconContainer.node, 'span', 'profile');
+
+        if (avatar) {
+            profileIcon.node.style.backgroundImage = `url("${avatar}")`;
+            profileIcon.node.innerHTML = '';
+        } else {
+            profileIcon.node.innerHTML = `${user}`;
+            profileIcon.node.style.backgroundImage = '';
+        }
+    }
+
+    addMobileProfileLink(parentNode: HTMLElement, activeLink?: string | undefined): void {
+        const menuItem = new Node(parentNode, 'li');
+        if (activeLink && activeLink === 'Profile') menuItem.node.classList.add('active');
+
+        const menuLink = new Node(menuItem.node, 'a', 'sidenav-close', 'Profile');
+        menuLink.setAttribute('href', `#/profile`);
+        Node.setChild(menuLink.node, 'i', `icon user`);
     }
 
     public get button() {

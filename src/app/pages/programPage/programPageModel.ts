@@ -41,9 +41,26 @@ class ProgramPageModel {
         } else if (program) {
             this.program = program;
         }
-        this.cards = this.program.map((workoutPerWeek) => {
-            return workoutPerWeek.map((card) => new Card(card));
-        });
+
+        const tempCards = storageManager.getItem<Card[][]>('workout-cards', 'local');
+        if (tempCards && tempCards.length) {
+            this.cards = tempCards.map((workoutPerWeek) =>
+                workoutPerWeek.map((card) => new Card(card.data, card.liked, card.completed))
+            );
+        } else {
+            this.cards = this.program.map((workoutPerWeek) => workoutPerWeek.map((card) => new Card(card)));
+        }
+        if (settings.liked.length) {
+            this.cards.forEach((cardArr: Card[]) => {
+                cardArr.forEach((card: Card) => {
+                    const favCard = settings.liked.find((fav) => fav === card.id);
+                    if (favCard) {
+                        card.liked = true;
+                    }
+                });
+            });
+        }
+
         this.saveData();
         return this.cards[this.week];
     }
@@ -84,6 +101,18 @@ class ProgramPageModel {
 
     public get week(): number {
         return this.currentWeek;
+    }
+
+    public get allCard(): Card[][] {
+        return this.cards;
+    }
+
+    public async saveSettings(settings: TSettings): Promise<void> {
+        storageManager.addItem('userSettings', settings, 'local');
+        const userData = storageManager.getItem<TToken>('token', 'local');
+        if (userData) {
+            await this.client.changeData('userSettings', 'PATCH', userData.userID, settings);
+        }
     }
 }
 

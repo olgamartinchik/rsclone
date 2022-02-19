@@ -2,7 +2,6 @@ import ExplorePageModel from './explorePageModel';
 import ExplorePageView from './explorePageView';
 import StorageApiManager from '../../services/storageManager';
 import { IDataExplore } from '../../services/types';
-import { none } from '@cloudinary/url-gen/qualifiers/progressive';
 class ExploreController {
     private view: ExplorePageView;
 

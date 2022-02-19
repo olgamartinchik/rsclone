@@ -3,21 +3,28 @@ import footer from '../../components/footer/footer';
 import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
-import { IDataExplore } from '../../services/types';
+import storageManager from '../../services/storageManager';
+import animationManager, { Animation } from '../../services/animationManager';
+import { IDataExplore, TUser } from '../../services/types';
 
 class ExplorePageView {
     private rootNode: HTMLElement;
 
     private tabsData: string[];
 
+    private animationManager: Animation;
+
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
+        this.animationManager = animationManager;
         this.tabsData = ['balanced', 'high-fiber', 'low-carb', 'low-fat', 'low-sodium'];
     }
 
     render(diet: string) {
+        // this.animationManager.initPageTransition();
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
+        const user = <TUser>storageManager.getItem('user', 'local');
 
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
@@ -26,15 +33,17 @@ class ExplorePageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu('');
-        navbar.addProfileLink('O');
+        navbar.generateMenu(true);
+        navbar.addProfileLink(user.name.split('')[0]);
 
         this.createContentExplore(diet);
+
         this.rootNode.append(footer.getTemplate());
     }
 
     createContentExplore(diet: string) {
         const main = new Node(this.rootNode, 'main', 'main-layout main-diet');
+        // this.animationManager.initContentFadeout(main.node);
         const mealTypeSection = new Node(main.node, 'section', 'meal-type-section');
         const linkBack = new Node(mealTypeSection.node, 'a', 'arrow-back');
         linkBack.setAttribute('href', '#meal');

@@ -103,6 +103,9 @@
             color: $color-primary;
             transform: scale(1.08);
         }
+        &.active {
+            color: $color-like;
+        }
     }
 
     &-text {

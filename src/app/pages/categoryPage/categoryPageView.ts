@@ -45,7 +45,7 @@ export default class CategoryPageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu('Browse');
+        navbar.generateMenu(true, 'Browse');
         navbar.addProfileLink(user);
     }
 
@@ -55,7 +55,7 @@ export default class CategoryPageView {
 
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Team', 'Browse', 'Login'], true);
-        navbar.generateMenu();
+        navbar.generateMenu(false);
         if (navbar.button) {
             navbar.button.button.node.onclick = () => signUpHandler();
         }

@@ -6,6 +6,8 @@ import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 import workoutHeaderTemplate from '../../components/workout/template';
 import workoutDesc from '../../components/workout/workoutDescription';
+import storageManager from '../../services/storageManager';
+import { TUser } from '../../services/types';
 
 class WorkoutPageView {
     public readonly rootNode: HTMLElement;
@@ -14,10 +16,10 @@ class WorkoutPageView {
         this.rootNode = <HTMLElement>document.getElementById('app');
     }
 
-    render(card: Card, startVideo: (e: Event) => void): void {
+    render(card: Card, startVideo: (e: Event) => void, addToFav: (e: Event) => void): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-
+        const user = <TUser>storageManager.getItem('user', 'local');
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -25,33 +27,41 @@ class WorkoutPageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu();
-        navbar.addProfileLink('O');
-        this.createMainBlockLayout(card, startVideo);
+        navbar.generateMenu(true);
+        navbar.addProfileLink(user.name.split('')[0]);
+        this.createMainBlockLayout(card, startVideo, addToFav);
 
         this.rootNode.append(footer.getTemplate());
     }
 
-    private createMainBlockLayout(card: Card, startVideo: (e: Event) => void): void {
+    private createMainBlockLayout(card: Card, startVideo: (e: Event) => void, addToFav: (e: Event) => void): void {
         const mainPage = new Node(this.rootNode, 'main', 'main-page');
         mainPage.node.insertAdjacentHTML('afterbegin', workoutHeaderTemplate(card));
-        mainPage.node.append(this.getWorkoutDetailsLayout(card, startVideo));
+        mainPage.node.append(this.getWorkoutDetailsLayout(card, startVideo, addToFav));
     }
 
-    private getWorkoutDetailsLayout(card: Card, startVideo: (e: Event) => void): HTMLElement {
+    private getWorkoutDetailsLayout(
+        card: Card,
+        startVideo: (e: Event) => void,
+        addToFav: (e: Event) => void
+    ): HTMLElement {
         const workoutDetails = new Node(null, 'div', 'workout-details');
         const workoutContainer = new Node(workoutDetails.node, 'div', 'workout-container');
         const workoutContainerSm = new Node(workoutDetails.node, 'div', 'workout-container workout-container-sm');
         const controls = new Node(workoutContainer.node, 'div', 'workout-controls');
         const buttonFav = new Node(controls.node, 'button', 'workout-fav');
+        if (card.liked) buttonFav.node.classList.add('active');
         buttonFav.node.insertAdjacentHTML(
             'afterbegin',
-            `<span>favourite</span>
-            <i class="far fa-heart"></i>`
+            `<span class="workout-fav-icon">favourite</span>
+            <i class="small material-icons">favorite${card.liked ? '' : '_border'}</i>`
         );
+        buttonFav.node.onclick = (e: Event) => addToFav(e);
         const buttonStart = new Button(controls.node, 'Start');
         buttonStart.button.node.className = 'waves-effect waves-light btn-large';
-        if (card.data._id) buttonStart.button.node.id = card.data._id;
+        if (card.data._id) {
+            buttonStart.button.node.id = card.data._id;
+        }
         buttonStart.button.node.onclick = (e: Event) => startVideo(e);
         workoutContainerSm.node.insertAdjacentHTML(
             'afterbegin',

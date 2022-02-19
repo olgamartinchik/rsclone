@@ -1,6 +1,9 @@
+import storageManager from '../../services/storageManager';
+import { TSettings } from '../../services/types';
+
 class ProfilePageModel {
-    getData() {
-        console.log('data is being loaded');
+    public getSettingsData(): TSettings | void {
+        return storageManager.getItem<TSettings>('userSettings', 'local');
     }
 }
 

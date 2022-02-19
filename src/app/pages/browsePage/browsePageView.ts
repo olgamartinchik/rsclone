@@ -8,6 +8,7 @@ import workoutHeaderTemplate from '../../components/workout/template';
 import MaterializeHandler from '../../services/materialize/materializeHandler';
 import storageManager from '../../services/storageManager';
 import { WorkoutType } from '../../services/constants';
+import { TUser } from '../../services/types';
 
 class BrowsePageView {
     public rootNode: HTMLElement;
@@ -46,7 +47,7 @@ class BrowsePageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu('Browse');
+        navbar.generateMenu(true, 'Browse');
         navbar.addProfileLink(user);
     }
 
@@ -56,7 +57,7 @@ class BrowsePageView {
 
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Team', 'Browse', 'Login'], true);
-        navbar.generateMenu();
+        navbar.generateMenu(false);
         if (navbar.button) {
             navbar.button.button.node.onclick = () => signUpHandler();
         }

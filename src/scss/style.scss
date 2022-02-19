@@ -16,6 +16,10 @@
 @import 'abstract/mixins';
 @import 'abstract/placeholders';
 
+//Base
+
+@import 'base/base';
+
 //Layouts
 
 @import 'layouts/header';
@@ -32,16 +36,19 @@
 @import 'layouts/recipePage';
 @import 'layouts/editPlanPage';
 @import 'layouts/profilePage';
+@import 'layouts/editProfile';
 @import 'layouts/statisticWidget';
 @import 'layouts/weeklyProgress';
 @import 'layouts/browse';
 @import 'layouts/categoryPage';
 
-//Base
+//Components
 
-@import 'base/base';
 @import 'base/buttons';
 @import 'base/inputs';
 @import 'base/icons';
 @import 'base/modal';
 @import 'base/carousel';
+@import 'base/animation';
+@import 'base/modals';
+@import 'base/popup';
