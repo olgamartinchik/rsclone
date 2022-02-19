@@ -19,10 +19,20 @@ test('Should return number`',()=>{
     expect(resultMonth).toBeLessThan(targe)
 
 })
+test('Should not return Date', ()=>{
+    const resultMonth=Utils.getMonth('Dec')
+    const targe=new Date()
+    expect(resultMonth).not.toEqual(targe)
+})
 
 test('Should return randomInteger typeof number',()=>{
-    const result=Utils.randomInteger(1,200)
+    const result=Utils.randomInteger(1, 200)
     expect(typeof result).toBe('number')
+
+})
+test('Should return randomInteger typeof number',()=>{
+    const result=Utils.randomInteger(1, 100)
+    expect(result).not.toBe(undefined)
 
 })
 test('Should return randomInteger typeof boolean',()=>{
@@ -34,11 +44,39 @@ test('Should return randomInteger typeof boolean',()=>{
 test('Should return array',()=>{
     const result=Utils.shuffleArr([])    
     expect(result).toEqual([])
+    expect(result).not.toEqual(undefined)
+
 
 })
 test('Should return string',()=>{
     const result=Utils.getTime(216000)    
     expect(typeof result).toEqual('string')
     expect(result).not.toBeFalsy()
+
+})
+test('Should return string',()=>{
+    const result=Utils.getTime(216000)       
+    expect(result).not.toEqual(new Date())
+
+})
+test('Should return string or number',()=>{
+    const result=Utils.getKeyByValue({'date':'18.02.2022','time':216000}, 'date')    
+    expect(typeof result).not.toBe('number'||"string")
+})
+test('Should return key by value',()=>{
+    const result=Utils.getKeyByValue({'time':216000}, 216000)    
+    expect(result).toBe('time')
+})
+
+test('Should return boolean',()=>{
+    const result=Utils.compareObjects({},{})   
+   
+    expect( result).not.toBe(undefined)
+
+})
+
+test('Should get chunks',()=>{
+    const result=Utils.getChunks([], 2)   
+    expect(result instanceof Array).toBe(true)   
 
 })
