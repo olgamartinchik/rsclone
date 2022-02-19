@@ -1,31 +1,42 @@
 import CategoryPageModel from '../../pages/categoryPage/categoryPageModel';
 import CategoryPageView from './categoryPageView';
+import Utils from '../../services/utils';
+import Card from '../../components/card/card';
 import authManager from '../../services/authManager';
 import StorageManager from '../../services/storageManager';
 import { TToken, TSettings } from '../../services/types';
-import { WorkoutType } from '../../services/constants';
+import { WorkoutType, Message } from '../../services/constants';
 
 export default class CategoryPageController {
   private model: CategoryPageModel;
   private view: CategoryPageView;
   private isLogin: boolean;
-  categoryValues: string[];
+  private categoryValues: string[];
+  filters: {[key: string]: Array<string>} ;
+  
 
   constructor() {
     this.model = new CategoryPageModel();
     this.view = new CategoryPageView();
     this.isLogin = false;
     this.categoryValues = [];
+    this.filters = {};
   }
 
   public async render(values: Array<string>) {
-    const [value] = values;
-    this.isLogin = this.checkAuth();
+    this.filters = {};
     await this.model.getData();
-    const filteredArray = this.model.filterCardArray(value);
+
+    const [value] = values;
+    const type = <string>Utils.getFilterType(value);
+    this.updateFilters(type, value);
+    
+    const filteredArray = this.model.filterCardArray(this.filters);
     this.formCategoryValues();
+    this.isLogin = this.checkAuth();
+
     if(filteredArray.length > 0 && this.categoryValues.includes(value)) {
-        this.view.render(this.isLogin, value, filteredArray, this.handleCardClick.bind(this), this.signUpHandler.bind(this),);
+        this.view.render(this.isLogin, value, filteredArray, this.handleCardClick.bind(this), this.signUpHandler.bind(this), this.checkboxHandler.bind(this));
     } else {
         authManager.navigate('browse');
     }
@@ -47,6 +58,28 @@ export default class CategoryPageController {
           WorkoutType.HIIT
         ]
     }
+  }
+
+  private updateFilters(type: string, value: string): void {
+    if (!this.filters[type]) {
+      this.filters[type] = [];
+    }
+
+    if (value === 'allequipment') {
+      this.resetFilter(type);
+      this.filterWorkouts();
+    } else if (!this.filters![type].includes(value)) {
+      this.filters![type].push(value);
+    } else if (this.filters[type].length === 1) {
+      this.resetFilter(type);
+    } else {
+      const index = this.filters![type].indexOf(value);
+      this.filters![type].splice(index, 1);
+    }
+  }
+
+  private resetFilter(type: string) {
+    delete this.filters[type];
   }
 
   private checkAuth(): boolean {
@@ -71,5 +104,45 @@ export default class CategoryPageController {
     if (workout) {
         authManager.navigate(`workout/${workout.id}`);
     }
+  }
+
+  private checkboxHandler(e: Event): void {
+    const parentElement = <HTMLInputElement>e.currentTarget;
+    const type = (<string>(<HTMLInputElement>e.currentTarget).dataset.type);
+    const value = (<HTMLInputElement>e.target).id;
+    
+    this.updateFilters(type, value);
+    
+    this.handleALLOption(parentElement, type, value);
+    this.filterWorkouts();
+  }
+
+  private handleALLOption(parentElement: HTMLElement, type: string, id: string) {
+    const allOption = <HTMLInputElement>parentElement.querySelector(`#all${type}`);
+    const allCheckboxes = <NodeListOf<HTMLInputElement>>parentElement.querySelectorAll('input[type=checkbox]');
+    
+    if (id !== `all${type}` && this.filters[type]) {
+      allOption.checked = false;
+      allOption.removeAttribute('disabled');
+    } else {
+      allCheckboxes.forEach((checkbox) => {
+        checkbox.checked = false;
+      });
+      allOption.checked = true;
+      allOption.setAttribute('disabled', 'disabled');
+    }
+  }
+
+  private filterWorkouts(): void {
+    const filteredCards = this.model.filterCardArray(this.filters);
+    this.updateCards(filteredCards);
+    
+    if (filteredCards.length === 0) {
+      this.view.renderMessage(Message.noCards);
+    }
+  }
+
+  private updateCards(filteredCards: Array<Card>): void {
+    this.view.renderFilteredWorkouts(filteredCards, this.handleCardClick.bind(this)); 
   }
 }

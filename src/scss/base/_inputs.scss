@@ -198,6 +198,11 @@ input[type='password']:not(.browser-default).invalid {
     color: $color-invalid;
 }
 
+[type=checkbox]:checked + span:not(.lever):before {
+    border-right: 1px solid $color-primary;
+    border-bottom: 1px solid $color-primary;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

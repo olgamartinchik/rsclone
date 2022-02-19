@@ -78,11 +78,8 @@ class BrowsePageController {
     }
 
     private onParameterClick(e: Event): void {
-        const type = (<HTMLElement>e.currentTarget).dataset.type!;
         const value = (<HTMLElement>e.currentTarget).dataset.value!;
         authManager.navigate(`browse/${value}`);
-
-        storageManager.addItem('type', type, 'local');
     }
 
     private initMaterialize(): void {

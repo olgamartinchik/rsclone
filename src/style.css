@@ -17858,7 +17858,7 @@ input:not([type]).select-dropdown {
 .workouts-wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   grid-gap: 30px;
 }
@@ -17900,8 +17900,15 @@ input:not([type]).select-dropdown {
   font-weight: 500;
 }
 
+.workouts-wrapper {
+  margin-bottom: 15px;
+}
 .workouts-wrapper.category {
-  justify-content: space-between;
+  min-height: 200px;
+  align-items: center;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
 }
 .workouts-wrapper .program-card {
   margin-right: 0;
@@ -17911,9 +17918,64 @@ input:not([type]).select-dropdown {
   white-space: nowrap;
 }
 
+.program-card.removing {
+  height: 0;
+  width: 0;
+  min-width: 0;
+  transition: height 0.5s, width 0.5s, min-width 0.5s;
+}
+
+.title-container.removing,
+.image-container.removing,
+.card-info.removing {
+  transform: scale(0);
+  transition: transform 0.5s;
+}
+
+.program-card.hidden {
+  display: none;
+}
+
+.filters-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.filters-block select:focus {
+  outline: 1px solid #ff8a80;
+}
+.filters-block input[type=text]:not(.browser-default).select-dropdown,
+.filters-block input:not([type]).select-dropdown {
+  width: 200px;
+  text-align: left;
+  font-size: 15px;
+}
+.filters-block fieldset {
+  width: 370px;
+  border: 1px solid rgba(194, 190, 190, 0.5);
+  border-radius: 10px;
+}
+.filters-block fieldset form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 60px;
+}
+.filters-block fieldset form p {
+  margin: 0;
+}
+
 @media (max-width: 1300px) {
   .main-layout.category {
     max-width: 800px;
+  }
+
+  .workouts-wrapper.category {
+    justify-content: space-between;
   }
 }
 @media (max-width: 850px) {
@@ -18249,6 +18311,11 @@ input[type=text]:not(.browser-default).invalid,
 input[type=email]:not(.browser-default).invalid,
 input[type=password]:not(.browser-default).invalid {
   color: #f44336;
+}
+
+[type=checkbox]:checked + span:not(.lever):before {
+  border-right: 1px solid #ff8a80;
+  border-bottom: 1px solid #ff8a80;
 }
 
 input:-webkit-autofill,
