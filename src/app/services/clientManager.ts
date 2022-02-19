@@ -178,7 +178,7 @@ class ClientManager {
         try {
             const caloriesForOneMeal = Math.floor(calories / 3);
             const url = `https://api.edamam.com/search?q=all&app_id=1ddd26bc&app_key=aa2a6148d30d95275813c6bc548941bf&from=0&to=100&calories=${String(
-                caloriesForOneMeal-100
+                caloriesForOneMeal - 100
             )}-${String(caloriesForOneMeal + 200)}&Health=alcohol-free`;
             const response = await fetch(url);
             const data = await response.json();
@@ -212,7 +212,7 @@ class ClientManager {
         }
     }
 
-    public async getUserMenu(id: string): Promise<IDataExplore[] | void> {
+    public async getUserMenu(id: string): Promise<{ id: string; periodUserMeal: object } | void> {
         try {
             const res = await fetch(`https://rsclonebackend.herokuapp.com/api/menu/${id}`, {
                 method: 'GET',
@@ -228,7 +228,10 @@ class ClientManager {
         }
     }
 
-    public async updateUserMenu(id: string, periodUserMeal: IDataExplore[]): Promise<IDataExplore[] | void> {
+    public async updateUserMenu(
+        id: string,
+        periodUserMeal: object
+    ): Promise<{ id: string; periodUserMeal: object } | void> {
         try {
             const res = await fetch(`https://rsclonebackend.herokuapp.com/api/menu/${id}`, {
                 method: 'PATCH',

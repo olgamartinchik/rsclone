@@ -1,5 +1,4 @@
 import { IDataExplore } from '../../services/types';
-import Utils from '../../services/utils';
 import MealPageModel from './mealPageModel';
 import MealPageView from './mealPageView';
 import Preloader from '../../components/preloader/preloader';

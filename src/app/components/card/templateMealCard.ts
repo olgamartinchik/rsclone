@@ -19,6 +19,7 @@ export const userMealCardTemplate = function (data: IDataExplore, position: numb
     </div>
     `;
 };
+
 export const exploreCardTemplate = function (data: IDataExplore, position: number): string {
     return `    
         <div class="explore-card" data-edamam=${data.recipe.diet} data-num=${position}>
