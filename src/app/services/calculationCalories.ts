@@ -93,19 +93,20 @@ class CalculationCalories {
 
     async getRecipeDate() {
         const calories = this.getCalories();
-        const recipeData = await new ClientManager().getRecipe(calories);
+        const recipeData =(StorageManager.getItem('allRecipe', 'local') as IDataExplore[])?? await new ClientManager().getRecipe(calories);
         StorageManager.addItem('allRecipe', recipeData, 'local');
-        //    await this.createUserMeal(userAction);
         return recipeData;
     }
 
     async createUserMeal(userAction: string) {
         let periodUserMeal = {} as IDataExplore[];
         const dayMeals = ['breakfast', 'lunch/dinner', 'snack'];
+  
         const arrayDates = new DateManager().getArrayDate(this.userSettings);
+     
         const allRecipe =
             (StorageManager.getItem('allRecipe', 'local') as IDataExplore[]) ?? (await this.getRecipeDate());
-
+           
         arrayDates.forEach((date) => {
             periodUserMeal[date] = [];
             dayMeals.forEach((day) => {
@@ -126,16 +127,17 @@ class CalculationCalories {
                 StorageManager.addItem('periodUserMeal', periodUserMeal, 'local');
             }
         } else if (userAction === 'editProfile') {
-            const data = await new ClientManager().updateUserMenu(this.id, periodUserMeal);
-
-            periodUserMeal = (data as any).updateUserMenu.periodUserMeal;
+           
             StorageManager.addItem('periodUserMeal', periodUserMeal, 'local');
+            const data = await new ClientManager().updateUserMenu(this.id, periodUserMeal);
+          
+            console.log('3')
         } else if (userAction === 'register') {
             StorageManager.addItem('periodUserMeal', periodUserMeal, 'local');
         } else {
             StorageManager.addItem('periodUserMeal', periodUserMeal, 'local');
         }
-
+        
         return periodUserMeal;
     }
 }
