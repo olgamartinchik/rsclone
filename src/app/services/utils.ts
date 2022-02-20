@@ -2,6 +2,7 @@ import { TBadge, TProgressData } from './types';
 import { WorkoutType, BadgeSrc, BadgeName, BadgeText, BadgeActiveSrc } from './constants';
 
 export default class Utils {
+   
     static getChunks<T>(dataArr: T[], chunk: number): Array<T[]> {
         return dataArr.reduce((resultArray: Array<T[]>, item: T, index: number) => {
             const chunkIndex = Math.floor(index / chunk);

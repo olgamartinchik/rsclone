@@ -2,8 +2,7 @@ import ClientManager from "../../services/clientManager";
 import Card from "../../components/card/card";
 import storageManager from "../../services/storageManager";
 import CloudinaryManager from '../../services/cloudinarySDK';
-import Utils from "../../services/utils";
-import { tinySrgb } from "@cloudinary/url-gen/qualifiers/colorSpace";
+import { TFilter } from "../../services/types";
 
 export default class CategoryPageModel {
   private clientManager: ClientManager;
@@ -70,7 +69,7 @@ export default class CategoryPageModel {
     return currCard;
   }
 
-  public getType(filters): string {
+  public getType(filters: TFilter): string {
     let type = '';
     for (let key in filters) {
       type = key;

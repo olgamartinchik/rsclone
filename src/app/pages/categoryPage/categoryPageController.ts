@@ -7,7 +7,7 @@ import videoHandler from '../../components/videoHandler/videoHandler';
 import modalCustomized from '../../components/modal/modalCutomized';
 import carouselTemplate from '../../components/carousel/template';
 import StorageManager from '../../services/storageManager';
-import { TToken, TSettings } from '../../services/types';
+import { TToken, TSettings, TFilter } from '../../services/types';
 import { WorkoutType, Message } from '../../services/constants';
 
 export default class CategoryPageController {
@@ -17,7 +17,7 @@ export default class CategoryPageController {
   private videoHandler: typeof videoHandler;
   private modalCustomized: typeof modalCustomized;
   private categoryValues: string[];
-  filters: {[key: string]: Array<string>} ;
+  filters: TFilter ;
   
 
   constructor() {

@@ -59,7 +59,7 @@ class CalculationCalories {
         this.calories = 0;
     }
 
-    getFemaleCalories() {
+   private getFemaleCalories():number {
         const baseCalories =
             this.weightCoefficient * this.weight +
             this.heightCoefficient * this.height -
@@ -68,7 +68,7 @@ class CalculationCalories {
         return baseCalories;
     }
 
-    getMaleCalories() {
+   private getMaleCalories():number {
         const baseCalories =
             this.weightCoefficient * this.weight +
             this.heightCoefficient * this.height -
@@ -77,7 +77,7 @@ class CalculationCalories {
         return baseCalories;
     }
 
-    getCalories() {
+   private getCalories():number {
         const baseCalories = this.gender === 'male' ? this.getFemaleCalories() : this.getMaleCalories();
         if (this.goal === 'weight') {
             this.calories = Math.floor(baseCalories * this.weightCalCoefficient);
@@ -92,7 +92,7 @@ class CalculationCalories {
         return this.calories;
     }
 
-    async getRecipeDate() {
+   public async getRecipeDate():Promise<IDataExplore[]> {
         const calories = this.getCalories();
         const recipeData =
             (StorageManager.getItem('allRecipe', 'local') as IDataExplore[]) ??
