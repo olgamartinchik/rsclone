@@ -63,7 +63,6 @@ class ProgramPageController {
                 workoutsNumber: settings.workoutsNumber,
             };
         }
-        console.log(settings, 'view')
         this.view.renderStatBlock(settings, clickHandler);
         await this.model.saveSettings(settings);
     }
@@ -93,6 +92,7 @@ class ProgramPageController {
     public handleCardClick(e: Event): void {
         const currCard = <HTMLElement>e.currentTarget;
         const workout = this.model.getCardById(currCard.id);
+
         if (workout) {
             authManager.navigate(`workout/${workout.id}`);
         }

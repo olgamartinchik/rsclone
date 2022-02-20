@@ -15247,11 +15247,16 @@ input[type=text]:not(.browser-default) {
   margin-top: 10px;
   font-size: 24px;
 }
+.program-card .image-container {
+  display: flex;
+  justify-content: center;
+}
 .program-card .image {
-  width: 317px;
+  width: 100%;
+  max-width: 92%;
   height: 167px;
   overflow: hidden;
-  margin: 0 auto;
+  margin: 0;
   background-image: url("../../assets/img/workout1.jpg");
   background-size: cover;
   background-position: 50%;
@@ -15379,6 +15384,7 @@ input[type=text]:not(.browser-default) {
 }
 .program-card.fav-card .image {
   width: 100%;
+  max-width: 100%;
 }
 .program-card.fav-card:last-of-type {
   margin-right: 10px;

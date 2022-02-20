@@ -33,6 +33,7 @@ class UserDataManager {
         const settingsUpdated = await this.getUserSettings();
         if(settingsUpdated) {
             this.userSettings = settingsUpdated;
+            this.resetStatData();
         }
         await this.caloriesCalculator.getRecipeDate();
         await this.mealModel.getSearchingData('brownie');
@@ -41,10 +42,8 @@ class UserDataManager {
         this.dateMr.getArrayDate(this.userSettings);
         this.dateMr.getNumWeek(this.userSettings);
         const program = await this.workoutManager.getProgram(this.userSettings);
-        console.log(this.userSettings, program)
 
         storageManager.addItem('workout-program', program, 'local');
-        this.resetStatData(this.userSettings);
         await this.saveUserSettings();
 
     }
@@ -60,19 +59,20 @@ class UserDataManager {
         return settings;
     }
 
-    private resetStatData(settings: TSettings): void {
-        settings.weekProgress = {
+    private resetStatData(): void {
+        this.userSettings.weekProgress = {
             currentWeek: 0,
             calories: 0,
             workoutsCompleted: 0,
             minutes: 0,
-            workoutsNumber: settings.workoutsNumber,
+            workoutsNumber: this.userSettings.workoutsNumber,
         };
-        settings.caloriesBurned = 0;
-        settings.badges = [];
-        settings.completedWorkouts = 0;
-        settings.progress = [];
-        settings.startDate = Date.now().toString();
+        this.userSettings.caloriesBurned = 0;
+        this.userSettings.badges = [];
+        this.userSettings.completedWorkouts = 0;
+        this.userSettings.progress = [];
+        this.userSettings.startDate = Date.now().toString();
+        this.userSettings.liked = [];
     }
 
     private async saveUserSettings(): Promise<void> {

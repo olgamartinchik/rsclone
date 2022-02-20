@@ -111,8 +111,6 @@ class EditPlanPageController {
     }
 
     private async handleSaveBtnClick(): Promise<void> {
-        this.view.setPreloader();
-        preloader.getTemplate();
         if (
             (<TSettings>this.modifiedUserSettings).goal === 'weight' &&
             (<TSettings>this.modifiedUserSettings).desiredWeight === 0
@@ -126,15 +124,15 @@ class EditPlanPageController {
             const input = <HTMLInputElement>document.querySelector('.editplan-input');
             input.value = '0';
         } else {
+            this.view.setPreloader();
             await this.model.saveSettings(this.modifiedUserSettings);
-
             await new UserDataManager(this.modifiedUserSettings!).createUserData();
-            this.view.removePreloader();
-
-            authManager.navigate('/program');
+            this.view.removePreloader(this.navigateToProgram.bind(this));
         }
-        this.view.removePreloader();
+    }
 
+    public navigateToProgram(): void {
+        authManager.navigate('/program');
     }
 }
 

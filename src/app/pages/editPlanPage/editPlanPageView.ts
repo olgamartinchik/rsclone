@@ -23,14 +23,13 @@ class EditPlanPageView {
 
     private preloader: HTMLElement;
 
-    private overflow: HTMLElement;
+    private overflow: HTMLElement | null;
 
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
         this.materializeHandler = new MaterializeHandler();
         this.preloader = preloader.getTemplate();
-        this.overflow = document.createElement('div');
-        this.overflow.className = 'overflow active';
+        this.overflow = null;
     }
 
     public render(userSettings: TSettings | void, onchange: (e: Event) => void, onclick: (e: Event) => void): void {
@@ -39,6 +38,12 @@ class EditPlanPageView {
         this.createHeader();
         this.createMainLayout(userSettings, onchange, onclick);
         this.createFooter();
+        this.createPreloader();
+    }
+
+    private createPreloader() {
+        this.overflow = document.createElement('div');
+        this.overflow.className = 'overflow active';
     }
 
     private createHeader(): void {
@@ -227,12 +232,22 @@ class EditPlanPageView {
     }
 
     public setPreloader(): void {
-        this.rootNode.append(this.overflow, this.preloader);
+        if(this.overflow) {
+            this.rootNode.append(this.overflow, this.preloader);
+        }
     }
 
-    public removePreloader(): void {
-        this.overflow.remove();
-        this.preloader.remove();
+    public removePreloader(callback: () => void = () => {}): void {
+        if(this.overflow) {
+            this.overflow.classList.add('closed');
+            this.overflow.onanimationend = () => {
+                this.preloader.remove();
+                if(this.overflow) this.overflow.remove();
+                this.overflow = null;
+                callback();
+            }
+        }
+        
     }
 }
 
