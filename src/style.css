@@ -14576,7 +14576,7 @@ nav .brand-logo {
   flex-wrap: wrap;
 }
 .results-content .row {
-  flex-basis: 25%;
+  flex-basis: 23%;
 }
 .results-content .row .col.m6 {
   width: 100%;
@@ -14610,8 +14610,12 @@ nav .brand-logo {
   }
 }
 @media (max-width: 1020px) {
+  .results-wrapper {
+    max-width: 600px;
+  }
+
   .results-content .row {
-    flex-basis: 50%;
+    flex-basis: 47%;
   }
 }
 @media (max-width: 992px) {
@@ -14630,6 +14634,10 @@ nav .brand-logo {
   }
 }
 @media (max-width: 768px) {
+  .results-wrapper {
+    max-width: 500px;
+  }
+
   .promo {
     min-height: 600px;
     background-position: 75%;
@@ -14649,10 +14657,25 @@ nav .brand-logo {
   }
 
   .subtitle {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 @media (max-width: 560px) {
+  .results-wrapper {
+    max-width: 500px;
+  }
+
+  .results-content .row {
+    flex-basis: 80%;
+  }
+
+  .results .card > .card-image > .card-title {
+    font-size: 20px;
+  }
+  .results .card-content {
+    font-size: 14px;
+  }
+
   .title {
     display: none;
   }
@@ -14672,10 +14695,6 @@ nav .brand-logo {
 @media (max-width: 480px) {
   .promo {
     min-height: 500px;
-  }
-
-  .results-content .row {
-    flex-basis: 100%;
   }
 }
 .main-layout {
@@ -18175,7 +18194,7 @@ input:not([type]).select-dropdown {
 
 .back-btn {
   position: absolute;
-  top: 50px;
+  top: 40px;
   left: 0;
   color: white;
 }
