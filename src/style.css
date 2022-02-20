@@ -16084,6 +16084,10 @@ span.bold-text {
 }
 .meal-card .card .card-image {
     position: relative;
+    background-image: url('../../assets/exploreMeal/1.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     width: 100%;
     height: 207px;
     overflow: hidden;
@@ -16128,6 +16132,14 @@ span.bold-text {
     width: 300px;
     height: 220px;
     overflow: hidden;
+    opacity: 0;
+    animation: slide-up 0.5s ease-in forwards;
+}
+.explore-card .subtitle-meal {
+    transition: color 0.5s ease-in-out;
+}
+.explore-card:hover .subtitle-meal {
+    color: #ff8a80;
 }
 
 .explore-container {
@@ -16209,6 +16221,20 @@ span.bold-text {
 .left-block .meal-card .card {
   border: 0.5px solid rgba(194, 190, 190, 0.5);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.meal-card,
+.card {
+    opacity: 0;
+    animation: slide-up 0.5s ease-in forwards;
+}
+.meal-card .subtitle-day-meal,
+.card .subtitle-day-meal {
+    transition: color 0.5s ease-in-out;
+}
+.meal-card:hover .subtitle-day-meal,
+.card:hover .subtitle-day-meal {
+    color: #ff8a80;
 }
 
 @media (max-width: 830px) {
@@ -16740,14 +16766,26 @@ p.settings-link {
   position: relative;
   background-color: #fbf1f1;
 }
+.recipe-main .btn-floating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 15px;
+    left: 15px;
+}
 
 .black-arrow {
-    color: #d3caca;
+    padding: 0;
+    text-shadow: 0px 0px 0px black, 0 0 0 white;
+}
+.black-arrow:hover {
+    transform: scale(1);
+    color: #c4a0a0;
 }
 
 .about-section {
     padding: 0px 15px;
-    width: 70%;
+    width: 46%;
     margin: 0 auto;
     transition: 0.3s ease-in-out;
 }
@@ -16768,6 +16806,7 @@ p.settings-link {
     overflow: hidden;
     height: 45vh;
     border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 66, 129, 0.12);
 }
 .about-section .about-container img {
   width: 100%;
@@ -16847,6 +16886,7 @@ p.settings-link {
     width: 65%;
     align-items: center;
     margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0, 66, 129, 0.12);
     transition: 0.3s ease-in-out;
 }
 
@@ -16912,12 +16952,14 @@ p.settings-link {
 }
 
 .title-recipe .image-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  width: 100%;
-  gap: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    min-height: 80px;
+    width: 100%;
+    gap: 20px;
 }
 .title-recipe .image-container img {
   width: 50px;

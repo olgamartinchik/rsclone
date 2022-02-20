@@ -1,15 +1,7 @@
 import Card from '../../components/card/card';
 import storageManager from '../../services/storageManager';
 import CloudinaryManager from '../../services/cloudinarySDK';
-import {
-    TProgress,
-    TProgressData,
-    TSettings,
-    TStatData,
-    TToken,
-    TWorkout,
-    TWorkoutProgram,
-} from '../../services/types';
+import { TProgress, TProgressData, TSettings, TStatData, TToken, TWorkout } from '../../services/types';
 import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';
 

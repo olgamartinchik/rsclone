@@ -1,5 +1,4 @@
 import { IDataExplore } from '../../services/types';
-import Utils from '../../services/utils';
 import MealPageModel from './mealPageModel';
 import MealPageView from './mealPageView';
 import Preloader from '../../components/preloader/preloader';
@@ -55,7 +54,7 @@ class MealPageController {
         this.view.getLoaderSearchingContainer();
         this.view.getLoaderMealContainer();
 
-        this.mealData = await this.model.getUserMealData();
+        this.mealData = (await this.model.getUserMealData()) as IDataExplore[];
 
         if (!this.searchingData || this.searchingData.length === 0) {
             this.searchingData = await this.model.getSearchingData('brownie');

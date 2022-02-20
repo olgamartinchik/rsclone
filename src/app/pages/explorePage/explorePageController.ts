@@ -50,7 +50,7 @@ class ExploreController {
 
     setBgExplorePage(diet: string) {
         const mealTypeSection = document.getElementsByClassName('meal-type-section')[0] as HTMLElement;
-        (mealTypeSection.style as any).backgroundImage = `url(../../assets/exploreMeal/${diet}.jpg)`;
+        mealTypeSection.style.backgroundImage = `url(../../assets/exploreMeal/${diet}.jpg)`;
     }
 
     setTitleExplorePage(diet: string) {
