@@ -56,7 +56,7 @@ class BrowsePageView {
         this.rootNode.append(header.getTemplate());
 
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
-        const navbar = new NavBar(navWrapper, ['Team', 'Browse', 'Login'], true);
+        const navbar = new NavBar(navWrapper, ['Browse', 'Login'], true);
         navbar.generateMenu(false);
         if (navbar.button) {
             navbar.button.button.node.onclick = () => signUpHandler();
