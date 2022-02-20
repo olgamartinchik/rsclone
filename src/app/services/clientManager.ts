@@ -187,6 +187,8 @@ class ClientManager {
             return data.hits;
         } catch (e) {
             console.log(e);
+            const searchingContainer = document.getElementsByClassName('searching-meals')[0];
+            searchingContainer.innerHTML = 'Please, try again in 10 minutes. The server is overloaded';
         }
     }
 

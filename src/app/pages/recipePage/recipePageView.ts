@@ -4,6 +4,7 @@ import NavBar from '../../components/header/navbar';
 import storageManager from '../../services/storageManager';
 import Node from '../../components/Node';
 import { TUser, IDataExplore } from '../../services/types';
+import Preloader from '../../components/preloader/preloader';
 
 class RecipePageView {
     private rootNode: HTMLElement;
@@ -63,6 +64,7 @@ class RecipePageView {
         const titleRecipe = new Node(recipeContainer.node, 'div', 'title-recipe');
         Node.setChild(titleRecipe.node, 'h4', '', `${recipePageData.recipe.mealType}`);
         Node.setChild(titleRecipe.node, 'h2', '', `${recipePageData.recipe.label}`);
+        titleRecipe.append(this.getPreloader());
         titleRecipe.append(this.getImagesRecipe(recipePageData));
         const sourceContainer = new Node(titleRecipe.node, 'div', '');
         const titleSource = new Node(sourceContainer.node, 'h6', '', 'See source: ');
@@ -84,10 +86,11 @@ class RecipePageView {
             const label = new Node(tabs.node, 'label', '', `${tab}`);
             label.setAttribute('for', `tab-btn-${ind + 1}`);
         });
-        //
+
         const recipeContent = new Node(tabs.node, 'div', 'content-recipe');
         recipeContent.setAttribute('id', 'content-1');
         const ingredientsContainer = new Node(recipeContent.node, 'div', 'ingredients-container');
+
         ingredientsContainer.append(this.getIngredientsList(recipePageData));
 
         const recipeDetails = new Node(tabs.node, 'div', 'content-recipe');
@@ -97,6 +100,7 @@ class RecipePageView {
     }
 
     getImagesRecipe(recipePageData: IDataExplore) {
+        this.rootNodeImgContainer.innerHTML = '';
         Array.from(recipePageData.recipe.ingredients!).forEach((ingredient) => {
             if (ingredient.image) {
                 const img = new Image();
@@ -108,6 +112,13 @@ class RecipePageView {
             }
         });
 
+        return this.rootNodeImgContainer;
+    }
+
+    getPreloader() {
+        this.rootNodeImgContainer.innerHTML = '';
+        const preload = Preloader.getTemplate();
+        this.rootNodeImgContainer.append(preload);
         return this.rootNodeImgContainer;
     }
 

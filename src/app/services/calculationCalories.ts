@@ -135,8 +135,6 @@ class CalculationCalories {
         } else if (userAction === 'editProfile') {
             StorageManager.addItem('periodUserMeal', periodUserMeal, 'local');
             await new ClientManager().updateUserMenu(this.id, periodUserMeal);
-
-            console.log('3');
         } else if (userAction === 'register') {
             StorageManager.addItem('periodUserMeal', periodUserMeal, 'local');
         } else {

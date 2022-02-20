@@ -182,10 +182,12 @@
     gap: 35px;
 }
 .title-recipe .image-container {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-wrap: wrap;
+    min-height: 80px;
     width: 100%;
     gap: 20px;
     img {
