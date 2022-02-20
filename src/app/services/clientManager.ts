@@ -6,6 +6,7 @@ import {
     TAuthResult,
     TLoginResponse,
     TWorkoutProgram,
+    IDataExplore,
     TChangeUserDataForm,
 } from '../services/types';
 import { API_ID, KEY_API } from '../configs/edamamConfig';
@@ -179,22 +180,24 @@ class ClientManager {
 
     public async searchingData(from: string, to: string, meal = 'Salad') {
         try {
-            const url = `https://api.edamam.com/search?q=${meal}&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}&imageSize=LARGE`;
+            const url = `https://api.edamam.com/search?q=${meal}&app_id=${API_ID}&app_key=${KEY_API}&from=${from}&to=${to}`;
 
             const response = await fetch(url);
             const data = await response.json();
             return data.hits;
         } catch (e) {
             console.log(e);
+            const searchingContainer = document.getElementsByClassName('searching-meals')[0];
+            searchingContainer.innerHTML = 'Please, try again in 10 minutes. The server is overloaded';
         }
     }
 
     public async getRecipe(calories: number) {
         try {
             const caloriesForOneMeal = Math.floor(calories / 3);
-            const url = `https://api.edamam.com/search?q=all&app_id=1ddd26bc&app_key=aa2a6148d30d95275813c6bc548941bf&from=0&to=100&imageSize=LARGE&calories=${String(
-                caloriesForOneMeal
-            )}-${String(caloriesForOneMeal + 300)}&Health=alcohol-free`;
+            const url = `https://api.edamam.com/search?q=all&app_id=1ddd26bc&app_key=aa2a6148d30d95275813c6bc548941bf&from=0&to=100&calories=${String(
+                caloriesForOneMeal - 100
+            )}-${String(caloriesForOneMeal + 200)}&Health=alcohol-free`;
             const response = await fetch(url);
             const data = await response.json();
             return data.hits;
@@ -208,7 +211,7 @@ class ClientManager {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('upload_preset', 'upload-avatar');
-            
+
             const res = await fetch(`https://api.cloudinary.com/v1_1/dpen5obst/upload`, {
                 method: 'POST',
                 body: formData,
@@ -235,41 +238,62 @@ class ClientManager {
         }
     }
 
-    // public async uploadAvatar(file: File, id: string) {
-    //     try {
-    //         const formData = new FormData();
-    //         formData.append('file', file);
-    //
-    //         const res = await fetch(`https://rsclonebackend.herokuapp.com/api/avatar/${id}`, {
-    //             method: 'POST',
-    //             body: formData,
-    //         });
-
-    //         return await res.json();
-    //     } catch (e: unknown) {
-    //         this.handleError(e);
-    //     }
-    // }
-
-    // public async deleteAvatar(file: File, id: string) {
-    //     try {
-    //         const formData = new FormData()
-    //         formData.append('file', file)
-    //         const res = await fetch(`https://rsclonebackend.herokuapp.com/api/avatar/${id}`, {
-    //             method: 'DELETE'
-    //         });
-
-    //         return await res.json();
-    //     } catch (e: unknown) {
-    //         this.handleError(e);
-    //     }
-    // }
-
     private handleError(e: unknown) {
         if (e instanceof Error) {
             this.text = e.message;
         } else {
             this.text = String(e);
+        }
+    }
+
+    public async postUserMenu(id: string, periodUserMeal: IDataExplore[]) {
+        try {
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/menu`, {
+                method: 'POST',
+                body: JSON.stringify({ _id: id, periodUserMeal }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            return await res.json();
+        } catch (e) {
+            this.handleError(e);
+        }
+    }
+
+    public async getUserMenu(id: string): Promise<{ id: string; periodUserMeal: object } | void> {
+        try {
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/menu/${id}`, {
+                method: 'GET',
+
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            return await res.json();
+        } catch (e) {
+            this.handleError(e);
+        }
+    }
+
+    public async updateUserMenu(
+        id: string,
+        periodUserMeal: object
+    ): Promise<{ id: string; periodUserMeal: object } | void> {
+        try {
+            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/menu/${id}`, {
+                method: 'PATCH',
+                body: JSON.stringify({ periodUserMeal }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            return await res.json();
+        } catch (e) {
+            this.handleError(e);
         }
     }
 }

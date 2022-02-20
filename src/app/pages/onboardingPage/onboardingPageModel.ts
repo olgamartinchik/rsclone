@@ -1,7 +1,7 @@
 import StorageManager from '../../services/storageManager';
 import ClientManager from '../../services/clientManager';
 import Utils from '../../services/utils';
-import { TToken, TConvertedValues, TSettings, TUser } from '../../services/types';
+import { TToken, TConvertedValues, TSettings, TUser, IDataExplore } from '../../services/types';
 import {
     Goal,
     Gender,
@@ -95,8 +95,15 @@ export class OnboardingModel {
     public async saveSettings() {
         const clientManager = new ClientManager();
         StorageManager.addItem('userSettings', this.form, 'local');
-        clientManager.postData(Endpoints.userSettings, this.form);
-        await new UserDataManager(this.form).createUserData();
+        await clientManager.postData(Endpoints.userSettings, this.form);
+
+        const userAction = 'register';
+        StorageManager.addItem('userAction', userAction, 'local');
+        await new UserDataManager(this.form).createUserData(userAction);
+        if (StorageManager.getItem('periodUserMeal', 'local') as IDataExplore[]) {
+            const periodUserMeal = StorageManager.getItem('periodUserMeal', 'local') as IDataExplore[];
+            await new ClientManager().postUserMenu(this.form.userId, periodUserMeal);
+        }
     }
 
     public calculateAge(dateOfBirth: string): number {
