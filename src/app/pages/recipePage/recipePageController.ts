@@ -1,4 +1,3 @@
-import ExplorePageModel from '../explorePage/explorePageModel';
 import RecipePageModel from './recipePageModel';
 import RecipePageView from './recipePageView';
 import StorageApiManager from '../../services/storageManager';

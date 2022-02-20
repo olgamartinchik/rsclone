@@ -18,8 +18,8 @@ export function settingsWithChipsTemplate(text: string, unit1?: string, unit2?: 
           ${text}
       </p>
       <div class="unit-selection z-depth-1">
-         <div class="unit-item active">${unit1}</div>
-         <div class="unit-item">${unit2}</div>
+         <div class="unit-item" data-title="${text.toLowerCase()}Unit" data-value="${unit1}">${unit1}</div>
+         <div class="unit-item" data-title="${text.toLowerCase()}Unit" data-value="${unit2}">${unit2}</div>
       </div>
   </div>
   `;

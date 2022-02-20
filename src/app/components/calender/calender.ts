@@ -1,4 +1,4 @@
-import calenderTemplate from './template';
+import calenderTemplate, { editcalenderTemplate } from './template';
 
 class Calender {
     private rootNode: HTMLElement;
@@ -14,6 +14,15 @@ class Calender {
         this.rootNode.insertAdjacentHTML('afterbegin', calenderTemplate());
 
         return this.rootNode;
+    }
+
+    public getEditTemplate(text: string, onclick: (e: Event) => void): HTMLElement {
+        const rootNode = document.createElement('div');
+        rootNode.className = 'plan-item wrapper';
+        rootNode.onchange = (e: Event) => onclick(e);
+        rootNode.insertAdjacentHTML('afterbegin', editcalenderTemplate(text));
+
+        return rootNode;
     }
 }
 

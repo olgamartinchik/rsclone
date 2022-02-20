@@ -14408,6 +14408,12 @@ footer {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
   }
 }
+@media only screen and (min-width: 601px) and (max-width: 992px) {
+  #toast-container {
+    left: 40%;
+    bottom: 70%;
+  }
+}
 @keyframes scale-up {
   0% {
     transform: scale(1);
@@ -14492,6 +14498,10 @@ nav ul a {
   font-size: 17px;
 }
 nav ul a:hover {
+  color: #fc6f00;
+}
+
+ul li.active a {
   color: #fc6f00;
 }
 
@@ -14670,6 +14680,7 @@ nav .brand-logo {
 }
 .main-layout {
   min-height: calc(100% - 144px);
+  transition: all 3s ease-in-out;
   margin: 0 auto;
 }
 
@@ -15091,11 +15102,15 @@ input[type=text]:not(.browser-default) {
   flex-wrap: nowrap;
   cursor: pointer;
 }
+.main-content .container-stat .title-block .icon {
+  font-size: 20px;
+  transition: 0.5s;
+}
 .main-content .container-stat .title-block:hover {
   background-position: 0 100%;
 }
 .main-content .container-stat .title-block:hover .stat-title,
-.main-content .container-stat .title-block:hover .material-icons {
+.main-content .container-stat .title-block:hover .icon {
   color: #ff8a80;
 }
 .main-content .container-stat .stat-title,
@@ -15534,9 +15549,9 @@ span.bold-text {
     border-radius: 10px;
     border: 1px solid #bf5567;
   }
-  .main-content .container-stat .title-block .material-icons {
+  .main-content .container-stat .title-block .icon {
     position: absolute;
-    top: 25%;
+    top: 32%;
     right: 3%;
     color: white;
   }
@@ -16079,6 +16094,10 @@ span.bold-text {
 }
 .meal-card .card .card-image {
   position: relative;
+  background-image: url("../../assets/exploreMeal/1.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   width: 100%;
   height: 207px;
   overflow: hidden;
@@ -16123,6 +16142,14 @@ span.bold-text {
   width: 300px;
   height: 220px;
   overflow: hidden;
+  opacity: 0;
+  animation: slide-up 0.5s ease-in forwards;
+}
+.explore-card .subtitle-meal {
+  transition: color 0.5s ease-in-out;
+}
+.explore-card:hover .subtitle-meal {
+  color: #ff8a80;
 }
 
 .explore-container {
@@ -16204,6 +16231,20 @@ span.bold-text {
 .left-block .meal-card .card {
   border: 0.5px solid rgba(194, 190, 190, 0.5);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.meal-card,
+.card {
+  opacity: 0;
+  animation: slide-up 0.5s ease-in forwards;
+}
+.meal-card .subtitle-day-meal,
+.card .subtitle-day-meal {
+  transition: color 0.5s ease-in-out;
+}
+.meal-card:hover .subtitle-day-meal,
+.card:hover .subtitle-day-meal {
+  color: #ff8a80;
 }
 
 @media (max-width: 830px) {
@@ -16592,8 +16633,10 @@ span.bold-text {
 .settings-link {
   display: flex;
   align-items: center;
+  height: 100%;
   margin: 0;
   color: #666;
+  text-transform: capitalize;
   font-size: 18px;
   font-weight: 500;
 }
@@ -16733,14 +16776,26 @@ p.settings-link {
   position: relative;
   background-color: #fbf1f1;
 }
+.recipe-main .btn-floating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 15px;
+  left: 15px;
+}
 
 .black-arrow {
-  color: #d3caca;
+  padding: 0;
+  text-shadow: 0px 0px 0px black, 0 0 0 white;
+}
+.black-arrow:hover {
+  transform: scale(1);
+  color: #c4a0a0;
 }
 
 .about-section {
   padding: 0px 15px;
-  width: 70%;
+  width: 46%;
   margin: 0 auto;
   transition: 0.3s ease-in-out;
 }
@@ -16761,6 +16816,7 @@ p.settings-link {
   overflow: hidden;
   height: 45vh;
   border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 66, 129, 0.12);
 }
 .about-section .about-container img {
   width: 100%;
@@ -16840,6 +16896,7 @@ p.settings-link {
   width: 65%;
   align-items: center;
   margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(0, 66, 129, 0.12);
   transition: 0.3s ease-in-out;
 }
 
@@ -16905,10 +16962,12 @@ p.settings-link {
 }
 
 .title-recipe .image-container {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-wrap: wrap;
+  min-height: 80px;
   width: 100%;
   gap: 20px;
 }
@@ -17021,7 +17080,7 @@ p.settings-link {
   margin: 0;
 }
 .plan-item.wrapper {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 input[type=text]:not(.browser-default).select-dropdown,
@@ -17142,9 +17201,18 @@ input:not([type]).select-dropdown {
 .profile-avatar {
   width: 150px;
   height: 150px;
-  border: 1px solid white;
+  object-fit: cover;
   border-radius: 50%;
   background-color: #ff8a80;
+}
+.profile-avatar:hover .icon-upload {
+  opacity: 1;
+}
+.profile-avatar-input {
+  display: none;
+}
+.profile-avatar-label {
+  cursor: pointer;
 }
 .profile-name {
   display: block;
@@ -17210,6 +17278,10 @@ input:not([type]).select-dropdown {
   margin-top: 20px;
 }
 
+.profile.activated {
+  color: #666;
+}
+
 .achievement-card {
   width: 100px;
   height: 100px;
@@ -17237,6 +17309,18 @@ input:not([type]).select-dropdown {
   width: 90%;
   text-align: center;
   margin: 10px auto;
+}
+
+.modal.avatar-modal {
+  width: 50%;
+}
+.modal.avatar-modal .modal-content {
+  text-align: center;
+  font-size: 18px;
+  margin: 0;
+}
+.modal.avatar-modal .modal-footer {
+  text-align: center;
 }
 
 @media (max-width: 850px) {
@@ -17296,6 +17380,78 @@ input:not([type]).select-dropdown {
     font-size: 22px;
   }
 }
+.editprofile-decorative {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 80px;
+  background: linear-gradient(-180deg, #3680e0 -8.99%, #53e9f4 109.7%);
+}
+
+.profile-avatar.editprofile {
+  background-color: #53e9f4;
+}
+
+.profile-item-input {
+  display: flex;
+  align-items: center;
+  flex-basis: 60%;
+  height: 100%;
+}
+.profile-item-input input[type=text]:not(.browser-default),
+.profile-item-input input[type=email]:not(.browser-default)#email,
+.profile-item-input input[type=password]:not(.browser-default) {
+  width: 100%;
+  height: 95%;
+  box-sizing: border-box;
+  padding-right: 10px;
+  text-align: right;
+  color: #666;
+  font-size: 18px;
+}
+.profile-item-input input[type=text]:not(.browser-default)::placeholder,
+.profile-item-input input[type=email]:not(.browser-default)#email::placeholder,
+.profile-item-input input[type=password]:not(.browser-default)::placeholder {
+  text-align: right;
+}
+
+.editprofile.gender-selection {
+  width: 230px;
+  height: 30px;
+  margin-bottom: 10px;
+  line-height: 30px;
+}
+
+.password-input {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.password-input input[type=password]:not(.browser-default) {
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 10px;
+  border: 1px solid rgba(194, 190, 190, 0.5);
+}
+
+.modal-trigger.change-password {
+  height: 30px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-transform: none;
+  background-color: transparent;
+  line-height: 30px;
+  color: #666;
+}
+
+.edit-profile .btn-large {
+  width: 130px;
+}
+
+.settings-wrapper.editprofile {
+  padding-top: 0;
+}
+
 .main-stat {
   overflow: hidden;
 }
@@ -17709,6 +17865,11 @@ input:not([type]).select-dropdown {
   background: linear-gradient(270deg, #3680e0 -24.77%, #53e9f4 95.41%);
 }
 
+.btn-flat.disabled,
+.btn-flat.btn-flat[disabled] {
+  color: white !important;
+}
+
 .btn-disabled {
   background: linear-gradient(270deg, #dee3e6 -24.77%, #9b9e9e 95.41%);
   cursor: not-allowed;
@@ -17778,6 +17939,10 @@ input:not([type]).select-dropdown {
   .btn-wrapper.settings {
     margin-top: 15px;
   }
+
+  .btn-wrapper.edit-profile {
+    padding: 0;
+  }
 }
 input {
   color: #b4b4b4;
@@ -17803,9 +17968,16 @@ input {
 .input-group .value {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-right: 35px;
   width: 71px;
   color: #b4b4b4;
+}
+.input-group .value.editprofile {
+  margin-right: 10px;
+}
+.input-group .value.editprofile span {
+  flex-basis: 50%;
 }
 .input-group > span.title {
   width: 130px;
@@ -17816,6 +17988,12 @@ input {
 }
 .input-group > span.title.calender {
   width: 75px;
+}
+
+.settings-wrapper .input-group .value,
+.settings-wrapper .input-group .value input {
+  color: #666;
+  font-size: 18px;
 }
 
 input[type=text].datepicker {
@@ -17835,10 +18013,23 @@ input[type=text].datepicker::placeholder {
 #userName,
 #email,
 #password,
-#confirm {
+#confirm,
+#newPassword {
   box-sizing: border-box;
   padding-left: 12px;
   color: white;
+}
+
+.modal-content > .input-field > #confirm,
+.modal-content > .input-field > #newPassword,
+.modal-content > .input-field > #password {
+  border-bottom: 1px solid #c2bebe;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.modal-content > .input-field > label {
+  color: #666;
 }
 
 .datepicker-table td.is-selected {
@@ -17972,6 +18163,40 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s !important;
 }
 
+.profile-item-input input:-webkit-autofill,
+.profile-item-input input:-webkit-autofill:hover,
+.profile-item-input input:-webkit-autofill:focus,
+.profile-item-input textarea:-webkit-autofill,
+.profile-item-input textarea:-webkit-autofill:hover,
+.profile-item-input textarea:-webkit-autofill:focus,
+.profile-item-input select:-webkit-autofill,
+.profile-item-input select:-webkit-autofill:hover,
+.profile-item-input select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #666 !important;
+}
+.profile-item-input input[type=text]:not(.browser-default).valid,
+.profile-item-input input[type=email]:not(.browser-default).valid,
+.profile-item-input input[type=password]:not(.browser-default).valid,
+.profile-item-input input[type=text]:not(.browser-default).invalid,
+.profile-item-input input[type=email]:not(.browser-default).invalid,
+.profile-item-input input[type=password]:not(.browser-default).invalid {
+  border-bottom: none;
+  box-shadow: none;
+}
+
+.settings-wrapper.editprofile .input-group .value::placeholder,
+.settings-wrapper.editprofile input[type=text]:not(.browser-default)::placeholder,
+.settings-wrapper.editprofile input[type=email]:not(.browser-default)::placeholder,
+.settings-wrapper.editprofile input[type=password]:not(.browser-default)::placeholder {
+  color: #666;
+}
+.settings-wrapper.editprofile .input-group .value:focus::placeholder,
+.settings-wrapper.editprofile input[type=text]:not(.browser-default):focus::placeholder,
+.settings-wrapper.editprofile input[type=email]:not(.browser-default):focus::placeholder,
+.settings-wrapper.editprofile input[type=password]:not(.browser-default):focus::placeholder {
+  opacity: 0;
+}
+
 @media (max-width: 400px) {
   .select-block .options p {
     flex-basis: 45%;
@@ -17991,6 +18216,8 @@ select:-webkit-autofill:focus {
   height: 30px;
   border-radius: 50%;
   background-color: #816ffe;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .icon {
@@ -18055,6 +18282,12 @@ select:-webkit-autofill:focus {
 .icon.clock:before {
   content: "\f017";
 }
+.icon.calendar {
+  margin-right: 12px;
+}
+.icon.calendar:before {
+  content: "\f133";
+}
 .icon.eye {
   position: absolute;
   right: 12px;
@@ -18103,6 +18336,14 @@ select:-webkit-autofill:focus {
   color: white;
   cursor: pointer;
 }
+.icon.delete {
+  margin: auto;
+}
+.icon.delete:before {
+  content: "\f1f8";
+  color: white;
+  cursor: pointer;
+}
 .icon.medal {
   margin: auto;
 }
@@ -18147,6 +18388,7 @@ select:-webkit-autofill:focus {
 .icon-upload {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   width: 30px;
   height: 30px;
   background-color: #816ffe;
@@ -18154,6 +18396,8 @@ select:-webkit-autofill:focus {
   position: absolute;
   left: 115px;
   top: 105px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .icon-select.down:before {
@@ -18173,6 +18417,93 @@ select:-webkit-autofill:focus {
   cursor: pointer;
 }
 
+.animation-wrapper {
+  z-index: 1000;
+  background-color: #ff8a80;
+  position: fixed;
+  top: 130px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  margin: auto auto;
+  overflow: hidden;
+  transition: all 3;
+}
+
+.animate_content {
+  animation: animate 3s ease;
+  transition: all 0.5;
+}
+
+.animation-fade-out {
+  animation: fade-out 1s ease;
+  transition: all 0.5;
+}
+
+@keyframes animate {
+  10% {
+    transform: scale(1, 0.002);
+    opacity: 0;
+  }
+  35% {
+    transform: scale(0.2, 0.002);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.2, 0.002);
+    opacity: 0;
+  }
+  85% {
+    transform: scale(1, 0.002);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 0.5;
+  }
+}
+@keyframes fade-out {
+  10% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.1;
+  }
+  30% {
+    opacity: 0.2;
+  }
+  40% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  60% {
+    opacity: 0.5;
+  }
+  70% {
+    opacity: 0.6;
+  }
+  80% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@media (max-width: 420px) {
+  .modal.change-password {
+    width: 85%;
+  }
+  .modal.change-password .modal-content {
+    padding: 15px;
+  }
+}
 .overflow {
   display: none;
   position: fixed;

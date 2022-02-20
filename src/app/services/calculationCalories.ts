@@ -3,6 +3,7 @@ import DateManager from './datesManager';
 import StorageManager from './storageManager';
 import { IDataExplore, TSettings } from './types';
 import Utils from './utils';
+
 class CalculationCalories {
     userSettings: TSettings;
 
@@ -34,10 +35,13 @@ class CalculationCalories {
 
     private muscleCalCoefficient: number;
 
+    private id: string;
+
     calories: number;
 
     constructor(userSettings: TSettings) {
         this.userSettings = userSettings;
+        this.id = this.userSettings.userId;
         this.weight = this.userSettings.weight;
         this.height = this.userSettings.height;
         this.age = this.userSettings.age;
@@ -90,25 +94,31 @@ class CalculationCalories {
 
     async getRecipeDate() {
         const calories = this.getCalories();
-        const recipeData = await new ClientManager().getRecipe(calories);
+        const recipeData =
+            (StorageManager.getItem('allRecipe', 'local') as IDataExplore[]) ??
+            (await new ClientManager().getRecipe(calories));
         StorageManager.addItem('allRecipe', recipeData, 'local');
-        this.createUserMeal();
         return recipeData;
     }
 
-    async createUserMeal() {
-        const periodUserMeal = {};
+    async createUserMeal(userAction: string) {
+        let periodUserMeal = {};
         const dayMeals = ['breakfast', 'lunch/dinner', 'snack'];
+
         const arrayDates = new DateManager().getArrayDate(this.userSettings);
+
         const allRecipe =
             (StorageManager.getItem('allRecipe', 'local') as IDataExplore[]) ?? (await this.getRecipeDate());
 
         arrayDates.forEach((date) => {
-            periodUserMeal[date] = [];
+            periodUserMeal[date] = [] as IDataExplore | [];
             dayMeals.forEach((day) => {
                 periodUserMeal[date].push(
                     allRecipe!.find((meal, ind, array) => {
-                        if ((meal!.recipe.mealType! as [])!.includes(day as never)) {
+                        if (
+                            Array.from(meal!.recipe.mealType! as []).length === 1 &&
+                            (meal!.recipe.mealType! as [])!.includes(day as never)
+                        ) {
                             Utils.shuffleArr(array);
                             return meal!.recipe.mealType!;
                         }
@@ -116,7 +126,20 @@ class CalculationCalories {
                 );
             });
         });
-        StorageManager.addItem('periodUserMeal', periodUserMeal, 'local');
+        if (userAction === 'login') {
+            const data = await new ClientManager().getUserMenu(this.id);
+            if (data) {
+                (periodUserMeal as object) = data.periodUserMeal;
+                StorageManager.addItem('periodUserMeal', periodUserMeal, 'local');
+            }
+        } else if (userAction === 'editProfile') {
+            StorageManager.addItem('periodUserMeal', periodUserMeal, 'local');
+            await new ClientManager().updateUserMenu(this.id, periodUserMeal);
+        } else if (userAction === 'register') {
+            StorageManager.addItem('periodUserMeal', periodUserMeal, 'local');
+        } else {
+            StorageManager.addItem('periodUserMeal', periodUserMeal, 'local');
+        }
 
         return periodUserMeal;
     }

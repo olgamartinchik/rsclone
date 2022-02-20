@@ -1,8 +1,10 @@
 import footer from '../../components/footer/footer';
 import header from '../../components/header/header';
 import NavBar from '../../components/header/navbar';
+import storageManager from '../../services/storageManager';
 import Node from '../../components/Node';
-import { IDataExplore } from '../../services/types';
+import { TUser, IDataExplore } from '../../services/types';
+import Preloader from '../../components/preloader/preloader';
 
 class RecipePageView {
     private rootNode: HTMLElement;
@@ -28,6 +30,7 @@ class RecipePageView {
     render(recipePageData: IDataExplore, backPage: string) {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
+        const user = <TUser>storageManager.getItem('user', 'local');
 
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
@@ -36,8 +39,8 @@ class RecipePageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu('');
-        navbar.addProfileLink('O');
+        navbar.generateMenu(true);
+        navbar.addProfileLink(user.name.split('')[0]);
 
         this.createContentExplore(recipePageData, backPage);
 
@@ -46,7 +49,7 @@ class RecipePageView {
 
     createContentExplore(recipePageData: IDataExplore, backPage: string) {
         const main = new Node(this.rootNode, 'main', 'main-layout recipe-main');
-        const linkBack = new Node(main.node, 'a', '');
+        const linkBack = new Node(main.node, 'a', ' red lighten-2 btn-floating btn');
         linkBack.setAttribute('href', `${backPage}`);
         Node.setChild(linkBack.node, 'i', 'fas fa-long-arrow-alt-left black-arrow');
         const sectionAbout = new Node(main.node, 'section', 'about-section');
@@ -61,6 +64,7 @@ class RecipePageView {
         const titleRecipe = new Node(recipeContainer.node, 'div', 'title-recipe');
         Node.setChild(titleRecipe.node, 'h4', '', `${recipePageData.recipe.mealType}`);
         Node.setChild(titleRecipe.node, 'h2', '', `${recipePageData.recipe.label}`);
+        titleRecipe.append(this.getPreloader());
         titleRecipe.append(this.getImagesRecipe(recipePageData));
         const sourceContainer = new Node(titleRecipe.node, 'div', '');
         const titleSource = new Node(sourceContainer.node, 'h6', '', 'See source: ');
@@ -82,10 +86,11 @@ class RecipePageView {
             const label = new Node(tabs.node, 'label', '', `${tab}`);
             label.setAttribute('for', `tab-btn-${ind + 1}`);
         });
-        //
+
         const recipeContent = new Node(tabs.node, 'div', 'content-recipe');
         recipeContent.setAttribute('id', 'content-1');
         const ingredientsContainer = new Node(recipeContent.node, 'div', 'ingredients-container');
+
         ingredientsContainer.append(this.getIngredientsList(recipePageData));
 
         const recipeDetails = new Node(tabs.node, 'div', 'content-recipe');
@@ -95,22 +100,32 @@ class RecipePageView {
     }
 
     getImagesRecipe(recipePageData: IDataExplore) {
-        this.rootNodeImgContainer.textContent = '';
+        this.rootNodeImgContainer.innerHTML = '';
         Array.from(recipePageData.recipe.ingredients!).forEach((ingredient) => {
             if (ingredient.image) {
-                const image = new Node(this.rootNodeImgContainer, 'img', '');
-                image.setAttribute('alt', '');
-
-                image.setAttribute('src', `${ingredient.image}`);
+                const img = new Image();
+                img.src = `${ingredient.image}`;
+                img.alt = 'meal';
+                img.onload = () => {
+                    this.rootNodeImgContainer.append(img);
+                };
             }
         });
+
+        return this.rootNodeImgContainer;
+    }
+
+    getPreloader() {
+        this.rootNodeImgContainer.innerHTML = '';
+        const preload = Preloader.getTemplate();
+        this.rootNodeImgContainer.append(preload);
         return this.rootNodeImgContainer;
     }
 
     getIngredientsList(recipePageData: IDataExplore) {
         this.rootNodeIngredientsList.textContent = '';
         Array.from(recipePageData.recipe.ingredientLines!).forEach((ingredient) => {
-            const li = new Node(this.rootNodeIngredientsList, 'li', '', `${ingredient}`);
+            new Node(this.rootNodeIngredientsList, 'li', '', `${ingredient}`);
         });
 
         return this.rootNodeIngredientsList;

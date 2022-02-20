@@ -6,7 +6,6 @@ import Utils from '../../services/utils';
 import { TSettings } from '../../services/types';
 import { GoalTitles, WorkoutType, Message } from '../../services/constants';
 import UserDataManager from '../../services/userDataManager';
-import preloader from '../../components/preloader/preloader';
 
 class EditPlanPageController {
     private view: EditPlanPageView;
@@ -124,9 +123,10 @@ class EditPlanPageController {
             const input = <HTMLInputElement>document.querySelector('.editplan-input');
             input.value = '0';
         } else {
+            storageManager.addItem('userAction', 'editProfile', 'local');
             this.view.setPreloader();
             await this.model.saveSettings(this.modifiedUserSettings);
-            await new UserDataManager(this.modifiedUserSettings!).createUserData();
+            await new UserDataManager(this.modifiedUserSettings!).updateUserData();
             this.view.removePreloader(this.navigateToProgram.bind(this));
         }
     }

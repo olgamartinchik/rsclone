@@ -22,6 +22,11 @@
     background: linear-gradient(270deg, $color-background-linear-5 -24.77%, $color-background-linear-6 95.41%);
 }
 
+.btn-flat.disabled,
+.btn-flat.btn-flat[disabled] {
+    color: white !important;
+}
+
 .btn-disabled {
     background: linear-gradient(270deg, $color-background-linear-7 -24.77%, $color-background-linear-8 95.41%);
     cursor: not-allowed;
@@ -91,5 +96,9 @@
 @media (max-width: 420px) {
     .btn-wrapper.settings {
         margin-top: 15px;
+    }
+
+    .btn-wrapper.edit-profile {
+        padding: 0;
     }
 }

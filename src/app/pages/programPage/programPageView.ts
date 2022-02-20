@@ -7,6 +7,7 @@ import storageManager from '../../services/storageManager';
 import { TSettings, TWorkout } from '../../services/types';
 import StatisticWeekWidget from '../../components/statWeekWidget/statisticWeekWidget';
 import MealPageView from '../mealPage/mealPageView';
+import { TUser } from '../../services/types';
 import templateFav from '../../components/card/templateFav';
 import cardFavDecorative from '../../components/card/templateFavDecorative';
 import cardFavEmpty from '../../components/card/emptyFavCard';
@@ -37,7 +38,8 @@ class ProgramPageView {
         this.contentWrapper.node.textContent = '';
 
         this.rootNode.append(Header.getTemplate());
-        const user = <string>storageManager.getItem('user', 'local');
+        const user = <TUser>storageManager.getItem('user', 'local');
+
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -45,8 +47,8 @@ class ProgramPageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu('Program');
-        navbar.addProfileLink(user);
+        navbar.generateMenu(true, 'Program');
+        navbar.addProfileLink(user.name.split('')[0]);
 
         this.setContents(data, onclick, week);
         this.rootNode.append(Footer.getTemplate());
@@ -103,7 +105,7 @@ class ProgramPageView {
     public renderFavs(favs: TWorkout[], onclick: (e: Event) => void): void {
         const favWrapper = new Node(this.programContent.node, 'div', 'fav-wrapper');
         favWrapper.node.insertAdjacentHTML('afterbegin', cardFavDecorative());
-        if(favs.length) {
+        if (favs.length) {
             const allCards = favs.map((card: TWorkout) => {
                 const cardFav = new Node(null, 'div', 'program-card fav-card');
                 cardFav.node.id = String(card._id);
@@ -113,10 +115,8 @@ class ProgramPageView {
             });
             favWrapper.node.append(...allCards);
         } else {
-            favWrapper.node.insertAdjacentHTML('beforeend', cardFavEmpty())
+            favWrapper.node.insertAdjacentHTML('beforeend', cardFavEmpty());
         }
-        
-        
     }
 
     public renderStatBlock(settings: TSettings, clickHandler: () => void) {
@@ -128,4 +128,3 @@ class ProgramPageView {
 }
 
 export default ProgramPageView;
-

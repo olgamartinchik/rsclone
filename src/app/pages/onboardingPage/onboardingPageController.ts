@@ -3,28 +3,30 @@ import onboardingModel, { OnboardingModel } from './onboardingPageModel';
 import authManager from '../../services/authManager';
 import storageManager from '../../services/storageManager';
 import { Height, Weight, Colors, Coefficients, Goal, Message, WorkoutType } from '../../services/constants';
-import { TToken } from '../../services/types';
+import { TToken, TParameter, TUser } from '../../services/types';
 
 class OnboardingPageController {
     private view: OnboardingPageView;
 
     private model: OnboardingModel;
 
-    private isFeet: boolean;
-
-    private isPounds: boolean;
-
     private blocks: Array<string>;
 
     private block: number;
 
-    private birthday: string;
+    private parameter: TParameter;
+
+    private heightUnit: string;
+
+    private weightUnit: string;
+
+    private desiredWeightUnit: string;
+
+    private user: TUser;
 
     constructor() {
         this.view = new OnboardingPageView();
         this.model = onboardingModel;
-        this.isFeet = false;
-        this.isPounds = false;
         this.blocks = [
             'About you',
             `What's your goal?`,
@@ -33,7 +35,22 @@ class OnboardingPageController {
             'How many weeks do you want to start with?',
         ];
         this.block = 0;
-        this.birthday = '';
+        this.heightUnit = 'cm';
+        this.weightUnit = 'kg';
+        this.desiredWeightUnit = 'kg';
+        this.parameter = {
+            minValue: 0,
+            maxValue: 0,
+            minValueDefault: 0,
+            maxValueDefault: 0,
+            coefficient: 0,
+            unit: '',
+            value: '',
+        };
+        this.user = {
+            name: '',
+            email: '',
+        };
     }
 
     public createPage() {
@@ -42,12 +59,11 @@ class OnboardingPageController {
             authManager.navigate('/');
             return;
         }
+        this.user = <TUser>this.model.getUserData();
 
-        this.birthday = this.model.dateOfBirth;
         this.view.render(
             this.blocks[this.block],
             this.model.settings,
-            this.birthday,
             this.handleValueSelect.bind(this),
             this.handleRangeSliderInput.bind(this),
             this.handleInputChange.bind(this),
@@ -85,12 +101,12 @@ class OnboardingPageController {
     private handleDayBirthSelect(e: Event): void {
         const currentTarget = <HTMLElement>e.currentTarget;
         const calenderInput = <HTMLInputElement>currentTarget.children.namedItem('datepicker');
-        this.birthday = calenderInput.value;
         const age = this.model.calculateAge(calenderInput.value);
         this.model.changeHandler({ age: age });
     }
 
     private handleParametersSelect(e: Event): void {
+        const slider = <HTMLInputElement>(<HTMLElement>e.currentTarget).querySelector('#play-bar');
         const selectBlocks = document.querySelectorAll('.select-block');
         const select = (<HTMLElement>e.currentTarget).children[2];
 
@@ -102,6 +118,8 @@ class OnboardingPageController {
             }
         });
         this.activateParametersBlock(e);
+        this.setParameterCharacteristics(e);
+        this.colorRangeSlider(slider, this.parameter.minValueDefault, this.parameter.maxValueDefault);
     }
 
     private activateParametersBlock(e: Event): void {
@@ -122,103 +140,163 @@ class OnboardingPageController {
     private handleUnitSelect(e: Event): void {
         const nextElement = (<HTMLElement>e.target).nextElementSibling as HTMLElement;
         const previousElement = (<HTMLElement>e.target).previousElementSibling as HTMLElement;
+
         if (nextElement) nextElement.classList.remove('active');
         if (previousElement) previousElement.classList.remove('active');
         (<HTMLElement>e.target).classList.add('active');
-
+        this.setCurrentUnit(e);
+        this.setParameterCharacteristics(e);
         this.convertUnits(e);
     }
 
-    private convertUnits(e: Event): void {
-        const className = (<HTMLElement>e.target).className;
-        const heightSlider = <HTMLInputElement>document.querySelectorAll('[data-height]')[2];
-        const weightSlider = <HTMLInputElement>document.querySelectorAll('[data-weight]')[2];
-        const desiredWeightSlider = <HTMLInputElement>document.querySelectorAll('[data-desiredweight]')[2];
-        let unit = '';
-        let value = '';
-        if (className.includes('feet')) {
-            this.isFeet = true;
-            unit = 'ft';
-            value = Math.round(+heightSlider.value * Coefficients.toFeet).toString();
-        } else if (className.includes('centimeters')) {
-            this.isFeet = false;
-            unit = 'cm';
-            value = heightSlider.value;
-        } else if (className.includes('pounds') && weightSlider) {
-            this.isPounds = true;
-            unit = 'lbs';
-            value = Math.round(+weightSlider.value * Coefficients.toPounds).toString();
-        } else if (className.includes('kilograms') && weightSlider) {
-            this.isPounds = false;
-            unit = 'kg';
-            value = desiredWeightSlider.value;
-        } else if (className.includes('pounds') && desiredWeightSlider) {
-            this.isPounds = true;
-            unit = 'lbs';
-            value = Math.round(+desiredWeightSlider.value * Coefficients.toPounds).toString();
-        } else if (className.includes('kilograms') && desiredWeightSlider) {
-            this.isPounds = false;
-            unit = 'kg';
-            value = desiredWeightSlider.value;
-        }
+    private setCurrentUnit(e: Event): void {
+        const unitType = <string>(<HTMLElement>e.target).dataset.title;
+        const unit = <string>(<HTMLElement>e.target).dataset.value;
 
-        (<HTMLElement>e.currentTarget).children[1].children[1].textContent = unit;
-        (<HTMLInputElement>(<HTMLElement>e.currentTarget).children[1].children[0]).value = value;
+        if (unitType === 'heightUnit') {
+            this.heightUnit = unit;
+            this.parameter.unit = unit;
+        } else if (unitType === 'weightUnit') {
+            this.weightUnit = unit;
+            this.parameter.unit = unit;
+        } else if (unitType === 'desiredWeightUnit') {
+            this.desiredWeightUnit = unit;
+            this.parameter.unit = unit;
+        }
+    }
+
+    private setParameterCharacteristics(e: Event): void {
+        const parameterType = <string>(<HTMLElement>e.target).dataset.title;
+
+        if (parameterType === 'heightUnit' && this.heightUnit === Height.units) {
+            this.parameter.minValue = +Height.min;
+            this.parameter.maxValue = +Height.max;
+            this.parameter.minValueDefault = +Height.min;
+            this.parameter.maxValueDefault = +Height.max;
+            this.parameter.coefficient = Coefficients.toFeet;
+            this.parameter.unit = Height.units;
+        } else if (parameterType === 'heightUnit' && this.heightUnit === Height.units2) {
+            this.parameter.minValue = +Height.min2;
+            this.parameter.maxValue = +Height.max2;
+            this.parameter.minValueDefault = +Height.min;
+            this.parameter.maxValueDefault = +Height.max;
+            this.parameter.coefficient = Coefficients.toCentimeters;
+            this.parameter.unit = Height.units2;
+        } else if (parameterType === 'weightUnit' && this.weightUnit === Weight.units) {
+            this.parameter.minValue = +Weight.min;
+            this.parameter.maxValue = +Weight.max;
+            this.parameter.minValueDefault = +Weight.min;
+            this.parameter.maxValueDefault = +Weight.max;
+            this.parameter.coefficient = Coefficients.toPounds;
+            this.parameter.unit = Weight.units;
+        } else if (parameterType === 'weightUnit' && this.weightUnit === Weight.units2) {
+            this.parameter.minValue = +Weight.min2;
+            this.parameter.maxValue = +Weight.max2;
+            this.parameter.minValueDefault = +Weight.min;
+            this.parameter.maxValueDefault = +Weight.max;
+            this.parameter.coefficient = Coefficients.toKilograms;
+            this.parameter.unit = Weight.units2;
+        } else if (parameterType === 'desiredWeightUnit' && this.desiredWeightUnit === Weight.units) {
+            this.parameter.minValue = +Weight.min;
+            this.parameter.maxValue = +Weight.max;
+            this.parameter.minValueDefault = +Weight.min;
+            this.parameter.maxValueDefault = +Weight.max;
+            this.parameter.coefficient = Coefficients.toPounds;
+            this.parameter.unit = Weight.units;
+        } else if (parameterType === 'desiredWeightUnit' && this.desiredWeightUnit === Weight.units2) {
+            this.parameter.minValue = +Weight.min2;
+            this.parameter.maxValue = +Weight.max2;
+            this.parameter.minValueDefault = +Weight.min;
+            this.parameter.maxValueDefault = +Weight.max;
+            this.parameter.coefficient = Coefficients.toKilograms;
+            this.parameter.unit = Weight.units2;
+        }
+        if (!this.parameter.value) this.parameter.value = this.parameter.minValue.toString();
+    }
+
+    private convertUnits(e: Event): void {
+        const valueInput = <HTMLInputElement>(<HTMLElement>e.currentTarget).querySelector('.value-select');
+        const unitValue = <HTMLInputElement>(<HTMLElement>e.currentTarget).querySelector('.value>span');
+        const slider = <HTMLInputElement>(<HTMLElement>e.currentTarget).querySelector('#play-bar');
+        const inputGroup = <HTMLElement>(<HTMLInputElement>e.target).closest('.input-group');
+        const parametersType = inputGroup.id;
+
+        this.getConvertedValues(slider);
+
+        unitValue.textContent = this.parameter.unit;
+        valueInput.value = this.parameter.value;
+
+        this.model.saveConvertedValues({ [parametersType]: parseInt(this.parameter.value) });
+        this.handleDesiredWeightConvert(parametersType);
+        this.registerSelectedValue(e);
+    }
+
+    public getConvertedValues(slider: HTMLInputElement): void {
+        if (this.parameter.unit === Height.units || this.parameter.unit === Weight.units) {
+            this.parameter.value = slider.value;
+        } else {
+            this.parameter.value = Math.round(+slider.value / this.parameter.coefficient).toString();
+        }
+    }
+
+    private handleDesiredWeightConvert(type: string): void {
+        if (type === 'weight' && this.parameter.unit === Weight.units2 && this.model.settings.desiredWeight > 0) {
+            this.model.saveConvertedValues({
+                ['desiredWeight']: Math.round(this.model.settings.desiredWeight / this.parameter.coefficient),
+            });
+        }
     }
 
     public handleInputChange(e: Event): void {
+        const parametersType = (<HTMLElement>e.currentTarget).id;
         const clickedElement = <HTMLInputElement>e.target;
-        const heightSlider = <HTMLInputElement>document.querySelectorAll('[data-height]')[2];
-        const weightSlider = <HTMLInputElement>document.querySelectorAll('[data-weight]')[2];
-        const desiredWeightSlider = <HTMLInputElement>document.querySelectorAll('[data-desiredweight]')[2];
-        if (+clickedElement.value < +clickedElement.min || +clickedElement.value > +clickedElement.max) {
-            clickedElement.value = '0';
-            this.createMessage(`Please enter the value between ${clickedElement.min} and ${clickedElement.max}`);
-        } else {
-            if ((<HTMLElement>e.target).dataset.value === 'height') {
-                heightSlider.value = clickedElement.value;
-                this.handleRangeSliderInput(e);
-                this.colorRangeSlider(heightSlider, +clickedElement.min, +clickedElement.max);
-            } else if ((<HTMLElement>e.target).dataset.value === 'weight') {
-                weightSlider.value = clickedElement.value;
-                this.handleRangeSliderInput(e);
-                this.colorRangeSlider(weightSlider, +clickedElement.min, +clickedElement.max);
-            } else if ((<HTMLElement>e.target).dataset.value === 'desiredWeight') {
-                desiredWeightSlider.value = clickedElement.value;
-                this.handleRangeSliderInput(e);
-                this.colorRangeSlider(desiredWeightSlider, +clickedElement.min, +clickedElement.max);
+        const valueGroup = <HTMLInputElement>(<HTMLElement>e.currentTarget).querySelector('.value');
+        const slider = <HTMLInputElement>(<HTMLElement>e.currentTarget).querySelector('#play-bar');
+
+        if (clickedElement !== slider) {
+            if (this.parameter.unit === Height.units || this.parameter.unit === Weight.units) {
+                slider.value = clickedElement.value;
+            } else {
+                slider.value = Math.round(+clickedElement.value * this.parameter.coefficient).toString();
             }
+            this.parameter.value = clickedElement.value;
+        } else {
+            this.getConvertedValues(slider);
+        }
+
+        if (
+            parseInt(this.parameter.value) < this.parameter.minValue ||
+            parseInt(this.parameter.value) > this.parameter.maxValue
+        ) {
+            clickedElement.value = this.parameter.minValue.toString();
+            this.createMessage(
+                `Please enter the value between ${this.parameter.minValue} and ${this.parameter.maxValue}`
+            );
+        } else {
+            this.activateSelectedValues(valueGroup, clickedElement);
+            this.colorRangeSlider(slider, this.parameter.minValueDefault, this.parameter.maxValueDefault);
+            this.model.changeHandler({ [parametersType]: parseInt(slider.value) });
         }
     }
 
-    public handleRangeSliderInput(e: Event): void {
-        const parametersType = (<HTMLElement>e.currentTarget).id;
-        const rangeSlider = <HTMLInputElement>e.target;
-        let minValue = 0;
-        let maxValue = 0;
-        let coefficient = 0;
-        let unit = false;
-
-        if (parametersType === 'height') {
-            minValue = +Height.min;
-            maxValue = +Height.max;
-            coefficient = Coefficients.toFeet;
-            unit = this.isFeet;
-        } else if (parametersType === 'weight' || parametersType === 'desiredWeight') {
-            minValue = +Weight.min;
-            maxValue = +Weight.max;
-            coefficient = Coefficients.toPounds;
-            unit = this.isPounds;
-        }
-        const valueGroup = (<HTMLElement>e.currentTarget).children[1] as HTMLElement;
+    private activateSelectedValues(valueGroup: HTMLElement, element: HTMLInputElement): void {
         valueGroup.style.color = Colors.textOnLight;
-        (<HTMLInputElement>valueGroup.children[0]).style.color = Colors.textOnLight;
-        (<HTMLInputElement>valueGroup.children[0]).value = !unit
-            ? rangeSlider.value
-            : Math.round(+rangeSlider.value * coefficient).toString();
+        element.style.color = Colors.textOnLight;
+    }
 
-        this.model.changeHandler({ [parametersType]: +rangeSlider.value });
-        this.colorRangeSlider(rangeSlider, minValue, maxValue);
+    public handleRangeSliderInput(e: Event): void {
+        const inputGroup = <HTMLElement>(<HTMLInputElement>e.target).closest('.input-group');
+        const parametersType = inputGroup.id;
+        const slider = <HTMLInputElement>e.target;
+        const valueInput = <HTMLInputElement>inputGroup.querySelector('.value-select');
+        const valueGroup = <HTMLElement>inputGroup.querySelector('.value');
+
+        this.model.saveConvertedValues({ [parametersType]: parseInt(this.parameter.value) });
+        this.getConvertedValues(slider);
+        valueInput.value = this.parameter.value;
+        this.colorRangeSlider(slider, this.parameter.minValueDefault, this.parameter.maxValueDefault);
+        this.activateSelectedValues(valueGroup, valueInput);
+        this.model.changeHandler({ [parametersType]: parseInt(slider.value) });
     }
 
     private colorRangeSlider(slider: HTMLInputElement, min: number, max: number): void {
@@ -231,7 +309,6 @@ class OnboardingPageController {
 
         const weightChoiceBlock = <HTMLElement>document.querySelector('.input-group');
         const selectBlock = <HTMLElement>document.querySelector('.select-block');
-
         if ((<HTMLElement>e.target).dataset.value === Goal.weight) {
             weightChoiceBlock.classList.remove('hidden');
             selectBlock.classList.add('active');
@@ -270,12 +347,16 @@ class OnboardingPageController {
     }
 
     private updateDesiredWeight(): void {
-        const weightSlider = <HTMLInputElement>document.querySelectorAll('[data-desiredweight]')[2];
-        const input = <HTMLInputElement>document.querySelectorAll('[data-desiredweight]')[1];
-        weightSlider.value = '40';
-        input.value = '40';
-        this.colorRangeSlider(weightSlider, +input.min, +input.max);
-        this.model.changeHandler({ desiredWeight: +weightSlider.value });
+        const slider = <HTMLInputElement>document.querySelector('#play-bar');
+        const input = <HTMLInputElement>document.querySelector('.value-select');
+        const unitValue = <HTMLInputElement>document.querySelector('.value');
+
+        slider.value = this.parameter.minValueDefault.toString();
+        input.value = '';
+        input.placeholder = this.parameter.minValue.toString();
+        unitValue.style.color = Colors.secondary;
+        this.colorRangeSlider(slider, this.parameter.minValueDefault, this.parameter.maxValueDefault);
+        this.model.changeHandler({ desiredWeight: 0 });
         this.createMessage(Message.invalidWeightValue);
     }
 
@@ -283,7 +364,11 @@ class OnboardingPageController {
         e.preventDefault();
 
         if (this.blocks[this.block] === 'About you') {
-            if (this.model.settings.height === 0 || this.model.settings.weight === 0 || this.birthday === '') {
+            if (
+                this.model.settings.height === 0 ||
+                this.model.settings.weight === 0 ||
+                this.model.settings.birthday === ''
+            ) {
                 this.createMessage(Message.valueMissing);
                 return;
             }
@@ -292,6 +377,9 @@ class OnboardingPageController {
         if (this.blocks[this.block] === `What's your goal?`) {
             if (this.model.settings.desiredWeight >= this.model.settings.weight) {
                 this.updateDesiredWeight();
+                return;
+            } else if (this.model.settings.goal === Goal.weight && this.model.settings.desiredWeight === 0) {
+                this.createMessage(Message.valueMissing);
                 return;
             }
         }

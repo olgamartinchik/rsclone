@@ -24,7 +24,7 @@ class StatisticPageController {
         this.videoHandler.destroy();
         const [id] = args;
         const settings = await this.model.getSettings();
-        console.log(settings)
+
         if (settings) {
             this.view.render(settings, this.handleClick.bind(this, id));
             this.badgeManager.checkBadge(settings);

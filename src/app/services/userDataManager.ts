@@ -4,7 +4,7 @@ import ClientManager from './clientManager';
 import { Endpoints } from './constants';
 import DateManager from './datesManager';
 import storageManager from './storageManager';
-import { TSettings, TToken } from './types';
+import { IDataExplore, TSettings, TToken, TWorkoutProgram } from './types';
 import WorkoutManager from './workoutManager';
 
 class UserDataManager {
@@ -20,8 +20,15 @@ class UserDataManager {
 
     private userSettings: TSettings;
 
+    private program: TWorkoutProgram;
+
+    private menu: IDataExplore[];
+
+
     constructor(userSettings: TSettings) {
         this.userSettings = userSettings;
+        this.program = [];
+        this.menu = [];
         this.client = new ClientManager();
         this.caloriesCalculator = new CalculationCalories(this.userSettings);
         this.mealModel = new MealPageModel();
@@ -29,23 +36,30 @@ class UserDataManager {
         this.workoutManager = new WorkoutManager();
     }
 
-    async createUserData(): Promise<void> {
-        const settingsUpdated = await this.getUserSettings();
-        if(settingsUpdated) {
-            this.userSettings = settingsUpdated;
-            this.resetStatData();
-        }
+    async createMealData(): Promise<void> {
+        const action = storageManager.getItem<string>('userAction', 'local');
         await this.caloriesCalculator.getRecipeDate();
+        await this.caloriesCalculator.createUserMeal(action!);
         await this.mealModel.getSearchingData('brownie');
         await this.mealModel.getUserMealData();
 
         this.dateMr.getArrayDate(this.userSettings);
         this.dateMr.getNumWeek(this.userSettings);
-        const program = await this.workoutManager.getProgram(this.userSettings);
+    }
 
-        storageManager.addItem('workout-program', program, 'local');
-        await this.saveUserSettings();
+    async createWorkoutData(): Promise<void> {
+        this.program = await this.workoutManager.getProgram(this.userSettings);
+    }
 
+    async updateUserData(): Promise<void> {
+        const settingsUpdated = await this.getUserSettings();
+        if(settingsUpdated) {
+            this.userSettings = settingsUpdated;
+            this.resetStatData();
+        }
+        await this.createMealData();
+        await this.createWorkoutData();
+        await this.saveUserData(this.userSettings, this.program);
     }
 
     async getUserSettings(): Promise<TSettings | void> {
@@ -75,12 +89,14 @@ class UserDataManager {
         this.userSettings.liked = [];
     }
 
-    private async saveUserSettings(): Promise<void> {
+    private async saveUserData(settings: TSettings, program: TWorkoutProgram): Promise<void> {
         storageManager.addItem('userSettings', this.userSettings, 'local');
+        storageManager.addItem('workout-program', program, 'local');
         const userData = storageManager.getItem<TToken>('token', 'local');
 
         if(userData) {
-            await this.client.changeData(Endpoints.userSettings, userData.userID, this.userSettings);
+            await this.client.changeData(Endpoints.userSettings, 'patch', userData.userID, settings);
+            await this.client.updateProgram(program, userData.userID);
         }
     }
 }

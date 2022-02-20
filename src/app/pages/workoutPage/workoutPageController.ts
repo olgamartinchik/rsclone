@@ -53,8 +53,8 @@ class WorkoutPageController {
 
     private async addToFav(id: string, e: Event): Promise<void> {
         const card = this.model.getCardById(id);
-        const currBtn = (<HTMLElement>e.currentTarget);
-        if(currBtn.classList.contains('active')) {
+        const currBtn = <HTMLElement>e.currentTarget;
+        if (currBtn.classList.contains('active')) {
             currBtn.classList.remove('active');
             if (currBtn.lastElementChild) currBtn.lastElementChild.textContent = 'favorite_border';
         } else {
@@ -63,15 +63,17 @@ class WorkoutPageController {
         }
         const settings = await this.model.getSettingsData();
         const currCard = this.model.getCardById(id);
-        if(card && settings && currCard) {
+        if (card && settings && currCard) {
             const liked = settings.liked;
-            
+
             const unique = new Set(liked);
-            if(unique.has(id)) {
+            if (unique.has(id)) {
                 unique.delete(id);
                 currCard.liked = false;
-                this.popUp.createPopup('../../../assets/img/broken-heart.png', 'Workout has been removed from favorites!');
-
+                this.popUp.createPopup(
+                    '../../../assets/img/broken-heart.png',
+                    'Workout has been removed from favorites!'
+                );
             } else {
                 unique.add(id);
                 currCard.liked = true;
@@ -80,7 +82,6 @@ class WorkoutPageController {
             settings.liked = [...unique];
             await this.model.saveSettings(settings);
         }
-
     }
 }
 

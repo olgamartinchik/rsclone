@@ -6,6 +6,8 @@ import NavBar from '../../components/header/navbar';
 import Node from '../../components/Node';
 import workoutHeaderTemplate from '../../components/workout/template';
 import workoutDesc from '../../components/workout/workoutDescription';
+import storageManager from '../../services/storageManager';
+import { TUser } from '../../services/types';
 
 class WorkoutPageView {
     public readonly rootNode: HTMLElement;
@@ -17,7 +19,7 @@ class WorkoutPageView {
     render(card: Card, startVideo: (e: Event) => void, addToFav: (e: Event) => void): void {
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
-
+        const user = <TUser>storageManager.getItem('user', 'local');
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
         const navbar = new NavBar(navWrapper, ['Program', 'Browse', 'Meal', 'Settings'], false, [
             'user',
@@ -25,8 +27,8 @@ class WorkoutPageView {
             'meal',
             'settings',
         ]);
-        navbar.generateMenu();
-        navbar.addProfileLink('O');
+        navbar.generateMenu(true);
+        navbar.addProfileLink(user.name.split('')[0]);
         this.createMainBlockLayout(card, startVideo, addToFav);
 
         this.rootNode.append(footer.getTemplate());
@@ -48,7 +50,7 @@ class WorkoutPageView {
         const workoutContainerSm = new Node(workoutDetails.node, 'div', 'workout-container workout-container-sm');
         const controls = new Node(workoutContainer.node, 'div', 'workout-controls');
         const buttonFav = new Node(controls.node, 'button', 'workout-fav');
-        if(card.liked) buttonFav.node.classList.add('active');
+        if (card.liked) buttonFav.node.classList.add('active');
         buttonFav.node.insertAdjacentHTML(
             'afterbegin',
             `<span class="workout-fav-icon">favourite</span>

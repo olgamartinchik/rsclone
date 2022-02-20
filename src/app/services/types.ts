@@ -1,14 +1,4 @@
-import {
-    WorkoutType,
-    IntensityType,
-    Goal,
-    Gender,
-    WorkoutsProgramDuration,
-    WorkoutsNumber,
-    BadgeName,
-    HeightUnit,
-    WeightUnit,
-} from './constants';
+import { WorkoutType, IntensityType, Goal, Gender, WorkoutsProgramDuration, WorkoutsNumber } from './constants';
 
 export type TWorkout = {
     title: string;
@@ -33,6 +23,7 @@ export type TStrategies = {
 
 export type TSettings = {
     userId: string;
+    birthday: string;
     startDate: string;
     goal: Goal;
     weight: number;
@@ -46,11 +37,17 @@ export type TSettings = {
     favWorkouts: Array<WorkoutType>;
     caloriesBurned: number;
     badges: string[];
-    heightUnit: HeightUnit;
-    weightUnit: WeightUnit;
+    heightUnit: string;
+    weightUnit: string;
     completedWorkouts: number;
     liked: string[];
     progress: TProgress[];
+};
+
+export type TConvertedValues = {
+    weight: number;
+    height: number;
+    desiredWeight: number;
 };
 
 export type TWorkoutProgram = Array<TWorkout[]>;
@@ -62,7 +59,7 @@ export interface IWorkoutManager {
 export type TLoginForm = {
     userName: string;
     email: string;
-    password: string;
+    password?: string;
 };
 
 export type TLoginResponse = {
@@ -70,11 +67,14 @@ export type TLoginResponse = {
     userId: string;
     userName: string;
     email: string;
+    avatar?: string | undefined;
 };
 
 export type TToken = {
+    userName?: string;
     userID: string;
     jwtToken: string;
+    avatar?: string;
 };
 
 export type RouteOption = {
@@ -113,6 +113,38 @@ export type TAuthResult = {
     message: string;
     token: string;
     userId: string;
+};
+
+export type TBadge = {
+    src: string;
+    srcActive: string;
+    name: string;
+    text: string;
+    modalId: string;
+};
+
+export type TParameter = {
+    minValue: number;
+    maxValue: number;
+    minValueDefault: number;
+    maxValueDefault: number;
+    coefficient: number;
+    unit: string;
+    value: string;
+};
+
+export type TUser = {
+    name: string;
+    email: string;
+    avatar?: string | undefined;
+};
+
+export type TChangeUserDataForm = {
+    userName: string;
+    email: string;
+    avatar: string;
+    password: string;
+    newPassword: string;
 };
 
 export type TWeekProgress = {

@@ -37,10 +37,14 @@
             justify-content: space-between;
             flex-wrap: nowrap;
             cursor: pointer;
+            .icon {
+                font-size: 20px;
+                transition: 0.5s;
+            }
             &:hover {
                 background-position: 0 100%;
                 .stat-title,
-                .material-icons {
+                .icon {
                     color: $color-primary;
                 }
             }
@@ -345,8 +349,8 @@
             position: relative;
             padding: 8px;
             min-height: 246px;
-            background: rgb(2,0,36);
-            background: linear-gradient(318deg, rgba(122,59,180,1) 19%, rgba(98,0,255,1) 100%);
+            background: rgb(2, 0, 36);
+            background: linear-gradient(318deg, rgba(122, 59, 180, 1) 19%, rgba(98, 0, 255, 1) 100%);
             cursor: auto;
             overflow: visible;
             .title {
@@ -385,9 +389,7 @@
                 cursor: auto;
             }
         }
-        
     }
-
 }
 
 .fav-wrapper {
@@ -406,7 +408,6 @@
         }
     }
 }
-
 
 .title-container {
     padding: 6px;
@@ -491,9 +492,9 @@ span.bold-text {
                 background-color: rgba(207, 90, 115, 0.6);
                 border-radius: 10px;
                 border: 1px solid #bf5567;
-                .material-icons {
+                .icon {
                     position: absolute;
-                    top: 25%;
+                    top: 32%;
                     right: 3%;
                     color: $color-text-on-dark;
                 }
@@ -677,7 +678,6 @@ span.bold-text {
         }
         .image {
             height: 93px;
-            
         }
         .card-info {
             &.description {
@@ -718,7 +718,6 @@ span.bold-text {
                 }
             }
         }
-        
     }
     .main-content .container-stat .summary-block-info .icon {
         width: 30px;

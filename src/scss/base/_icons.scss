@@ -11,6 +11,8 @@
         height: 30px;
         border-radius: 50%;
         background-color: $color-settings-active;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 }
 
@@ -113,6 +115,12 @@
             content: fa-content($fa-var-clock);
         }
     }
+    &.calendar {
+        margin-right: 12px;
+        &:before {
+            content: fa-content($fa-var-calendar);
+        }
+    }
     &.eye {
         position: absolute;
         right: 12px;
@@ -165,6 +173,14 @@
             cursor: pointer;
         }
     }
+    &.delete {
+        margin: auto;
+        &:before {
+            content: fa-content($fa-var-trash);
+            color: $color-text-on-dark;
+            cursor: pointer;
+        }
+    }
     &.medal {
         margin: auto;
         &:before {
@@ -202,6 +218,7 @@
 .icon-upload {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     width: 30px;
     height: 30px;
     background-color: $color-settings-active;
@@ -209,6 +226,8 @@
     position: absolute;
     left: 115px;
     top: 105px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
 .icon-select {

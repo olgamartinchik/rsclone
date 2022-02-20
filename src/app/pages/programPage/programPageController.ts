@@ -29,6 +29,22 @@ class ProgramPageController {
 
     public async createPage(): Promise<void> {
         const settings = await this.model.getSettingsData();
+        // <<<<<<< HEAD
+        //         const trainings = await this.model.getWeekTrainings(settings!);
+        //         this.view.render(
+        //             trainings,
+        //             this.handleCardClick.bind(this),
+        //             this.model.week,
+        //             settings!,
+        //             this.handleStatBlockClick.bind(this)
+        //         );
+
+        //         this.mealSection.getLoaderMealContainer();
+        //         this.mealSection.loadMealCard(
+        //             (await this.mealData.getUserMealData()) as IDataExplore[],
+        //             this.handlerMealCards.handlerMealCard.bind(this)
+        //         );
+        // =======
         if (settings) {
             const trainings = await this.model.getWeekTrainings(settings);
             this.view.render(trainings, this.handleCardClick.bind(this), this.model.week);
@@ -76,7 +92,7 @@ class ProgramPageController {
                 cardArr.forEach((card: Card) => {
                     const favCard = favs.find((fav) => fav === card.id);
                     if (favCard) {
-                        if(!likedCards.find(cardElem => cardElem._id === card.id)) {
+                        if (!likedCards.find((cardElem) => cardElem._id === card.id)) {
                             likedCards.push(card.data);
                             if (!card.liked) {
                                 card.liked = true;
