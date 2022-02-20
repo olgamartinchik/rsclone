@@ -117,7 +117,7 @@ export class AuthModel {
 
             const userAction = 'login';
             StorageManager.addItem('userAction', userAction, 'local');
-            new UserDataManager(userSettings!).createUserData(userAction);
+            new UserDataManager(userSettings!).createMealData();
         }
     }
 

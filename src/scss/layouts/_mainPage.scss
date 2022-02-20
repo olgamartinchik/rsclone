@@ -204,11 +204,16 @@
             font-size: 24px;
         }
     }
+    .image-container {
+        display: flex;
+        justify-content: center;
+    }
     .image {
-        width: 317px;
+        width: 100%;
+        max-width: 92%;
         height: 167px;
         overflow: hidden;
-        margin: 0 auto;
+        margin: 0;
         background-image: url('../../assets/img/workout1.jpg');
         background-size: cover;
         background-position: 50%;
@@ -335,6 +340,7 @@
         }
         .image {
             width: 100%;
+            max-width: 100%;
         }
         &:last-of-type {
             margin-right: 10px;
@@ -378,6 +384,10 @@
             justify-content: center;
             align-items: center;
             border: none;
+            &:hover {
+                box-shadow: none;
+                cursor: auto;
+            }
         }
     }
 }

@@ -99,7 +99,7 @@ export class OnboardingModel {
 
         const userAction = 'register';
         StorageManager.addItem('userAction', userAction, 'local');
-        await new UserDataManager(this.form).createUserData(userAction);
+        await new UserDataManager(this.form).createMealData();
         if (StorageManager.getItem('periodUserMeal', 'local') as IDataExplore[]) {
             const periodUserMeal = StorageManager.getItem('periodUserMeal', 'local') as IDataExplore[];
             await new ClientManager().postUserMenu(this.form.userId, periodUserMeal);

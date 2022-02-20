@@ -313,7 +313,7 @@ class EditProfilePageController {
         if (haveSettingsChanged) {
             await this.model.updateSettings(this.modifiedUserSettings);
             const userAction = StorageManager.getItem('userAction', 'local') as string;
-            new UserDataManager(this.modifiedUserSettings!).createUserData(userAction);
+            new UserDataManager(this.modifiedUserSettings!).updateUserData();
             this.handleAvatarImageChange();
         }
         if (hasUserInfoChanged || this.changeUserDataForm.password !== '') {
