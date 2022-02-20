@@ -48,7 +48,7 @@ class MealPageModel {
 
         StorageManager.addItem('mealData', userData, 'local');
         return userData;
-        // }
+       
     }
 
     async getSearchingData(meal = 'Salad') {
