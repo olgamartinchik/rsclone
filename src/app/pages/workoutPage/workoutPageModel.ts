@@ -8,20 +8,27 @@ import Utils from '../../services/utils';
 class WorkoutPageModel {
     private cards: Array<Card[]>;
 
+    private allCards: Card[];
+
     private sdk: CloudinaryManager;
 
     private client: ClientManager;
 
     constructor() {
         this.cards = [];
+        this.allCards = [];
         this.sdk = new CloudinaryManager();
         this.client = new ClientManager();
     }
 
     public getData() {
         const data = storageManager.getItem<Array<Card[]>>('workout-cards', 'local');
+        const allCards = storageManager.getItem<Card[]>('all-cards', 'local');
         if (data) {
             this.cards = data;
+        }
+        if (allCards) {
+            this.allCards = allCards;
         }
     }
 
@@ -42,16 +49,7 @@ class WorkoutPageModel {
     }
 
     public getCardById(id: string): Card | void {
-        let currCard!: Card;
-        this.cards.forEach((card: Card[]) => {
-            const cardElem = card.find((elem: Card) => elem.id === id);
-
-            if (cardElem) {
-                currCard = cardElem;
-            }
-        });
-
-        return currCard;
+        return this.allCards.find((elem: Card) => elem.id === id);
     }
 
     public getVideoLink(id: string): string {

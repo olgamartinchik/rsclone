@@ -24,7 +24,6 @@ class UserDataManager {
 
     private menu: IDataExplore[];
 
-
     constructor(userSettings: TSettings) {
         this.userSettings = userSettings;
         this.program = [];
@@ -53,7 +52,7 @@ class UserDataManager {
 
     async updateUserData(): Promise<void> {
         const settingsUpdated = await this.getUserSettings();
-        if(settingsUpdated) {
+        if (settingsUpdated) {
             this.userSettings = settingsUpdated;
             this.resetStatData();
         }
@@ -66,7 +65,7 @@ class UserDataManager {
         let settings = storageManager.getItem<TSettings>('userSettings', 'local');
         const userData = storageManager.getItem<TToken>('token', 'local');
 
-        if(!settings && userData) {
+        if (!settings && userData) {
             settings = await this.client.getUserSettings(userData.userID);
         }
 
@@ -86,7 +85,6 @@ class UserDataManager {
         this.userSettings.completedWorkouts = 0;
         this.userSettings.progress = [];
         this.userSettings.startDate = Date.now().toString();
-        this.userSettings.liked = [];
     }
 
     private async saveUserData(settings: TSettings, program: TWorkoutProgram): Promise<void> {
@@ -94,7 +92,7 @@ class UserDataManager {
         storageManager.addItem('workout-program', program, 'local');
         const userData = storageManager.getItem<TToken>('token', 'local');
 
-        if(userData) {
+        if (userData) {
             await this.client.changeData(Endpoints.userSettings, 'patch', userData.userID, settings);
             await this.client.updateProgram(program, userData.userID);
         }
