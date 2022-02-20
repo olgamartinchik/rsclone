@@ -17072,6 +17072,9 @@ p.settings-link {
 .plan-item.wrapper {
   margin-bottom: 15px;
 }
+.plan-item.wrapper.hidden {
+  display: none;
+}
 
 input[type=text]:not(.browser-default).select-dropdown,
 input:not([type]).select-dropdown {
@@ -18409,6 +18412,19 @@ select:-webkit-autofill:focus {
 .settings-wrapper.editprofile input[type=text]:not(.browser-default):focus::placeholder,
 .settings-wrapper.editprofile input[type=email]:not(.browser-default):focus::placeholder,
 .settings-wrapper.editprofile input[type=password]:not(.browser-default):focus::placeholder {
+  opacity: 0;
+}
+
+.settings-wrapper .editplan-input::placeholder,
+.settings-wrapper input[type=text]:not(.browser-default)::placeholder,
+.settings-wrapper input[type=email]:not(.browser-default)::placeholder,
+.settings-wrapper input[type=password]:not(.browser-default)::placeholder {
+  color: #666;
+}
+.settings-wrapper .editplan-input:focus::placeholder,
+.settings-wrapper input[type=text]:not(.browser-default):focus::placeholder,
+.settings-wrapper input[type=email]:not(.browser-default):focus::placeholder,
+.settings-wrapper input[type=password]:not(.browser-default):focus::placeholder {
   opacity: 0;
 }
 

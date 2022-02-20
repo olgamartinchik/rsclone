@@ -4,7 +4,7 @@ import storageManager from '../../services/storageManager';
 import authManager from '../../services/authManager';
 import Utils from '../../services/utils';
 import { TSettings } from '../../services/types';
-import { GoalTitles, WorkoutType, Message } from '../../services/constants';
+import { GoalTitles, WorkoutType, Message, Weight, Coefficients } from '../../services/constants';
 import UserDataManager from '../../services/userDataManager';
 import StorageManager from '../../services/storageManager';
 
@@ -56,8 +56,11 @@ class EditPlanPageController {
                 break;
             case 'duration':
             case 'workoutsNumber':
-            case 'desiredWeight':
                 this.updateUserSettings(settingsType, +settingValueChosen);
+                this.handleSaveButtonStatus(saveButton);
+                break;
+            case 'desiredWeight':
+                this.updateDesiredWeight(settingsType, settingValueChosen, settingInput);
                 this.handleSaveButtonStatus(saveButton);
                 break;
             case 'favWorkouts':
@@ -74,14 +77,68 @@ class EditPlanPageController {
         switch (key) {
             case 'goal':
                 this.modifiedUserSettings[key] = Utils.getKeyByValue(GoalTitles, value);
+                this.checkGoal(<string>Utils.getKeyByValue(GoalTitles, value));
                 break;
             case 'duration':
             case 'workoutsNumber':
             case 'workoutLength':
             case 'favWorkouts':
-            case 'desiredWeight':
                 this.modifiedUserSettings[key] = value;
                 break;
+        }
+    }
+
+    private checkGoal(goal: string) {
+        if (goal !== 'weight') {
+            this.modifiedUserSettings!.desiredWeight = 0;
+        }
+    }
+
+    private updateDesiredWeight(key: string, value: string, input: HTMLInputElement): void {
+        const settings = this.getUserSettings();
+        const unitIsDefault = (<TSettings>settings).weightUnit === Weight.units;
+
+        if(unitIsDefault) {
+            this.checkEnteredValue(input, value);
+        } else {
+            const valueConverted = this.convertWeight('lbs', parseInt(value));
+            this.checkEnteredValue(input, valueConverted.toString());
+        }
+    }
+
+    private checkEnteredValue(input: HTMLInputElement, value: string): void {
+        const settings = this.getUserSettings();
+        let valueChosen = parseInt(value);
+        if (valueChosen < parseInt(Weight.min) || valueChosen >= settings!.weight) {
+            input.value = '';
+            input.placeholder = '0';
+            this.formMessage();
+        } else {
+            this.modifiedUserSettings!.desiredWeight = parseInt(value);
+        }
+    }
+
+    private convertWeight(unit: string, valueChosen: number): number {
+        let value = valueChosen;
+        if (unit === 'kg') {
+            value *= Coefficients.toPounds; 
+        } else {
+            value *= Coefficients.toKilograms;
+        }
+        return value;
+    }
+
+    private formMessage(): void {
+        const settings = <TSettings>this.getUserSettings();
+        const unitIsDefault = (<TSettings>settings).weightUnit === Weight.units;
+        if (unitIsDefault) {
+            this.createMessage(
+                `Please enter the value between ${Weight.min} and ${settings!.weight}`
+            );
+        } else {
+            this.createMessage(
+                `Please enter the value between ${Weight.min2} and ${Math.round(settings!.weight * Coefficients.toPounds)}`
+            );
         }
     }
 
@@ -122,7 +179,8 @@ class EditPlanPageController {
         ) {
             this.createMessage(Message.invalidWeightValue);
             const input = <HTMLInputElement>document.querySelector('.editplan-input');
-            input.value = '0';
+            input.value = '';
+            input.placeholder = '0';
         } else {
             this.model.saveSettings(this.modifiedUserSettings);
 

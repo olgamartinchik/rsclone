@@ -256,6 +256,21 @@ select:-webkit-autofill:focus {
     }
 }
 
+.settings-wrapper {
+    .editplan-input::placeholder,
+    input[type='text']:not(.browser-default)::placeholder,
+    input[type='email']:not(.browser-default)::placeholder,
+    input[type='password']:not(.browser-default)::placeholder {
+        color: $color-text-navbar;
+    }
+    .editplan-input:focus::placeholder,
+    input[type='text']:not(.browser-default):focus::placeholder,
+    input[type='email']:not(.browser-default):focus::placeholder,
+    input[type='password']:not(.browser-default):focus::placeholder {
+        opacity: 0;
+    }
+}
+
 @media (max-width: 400px) {
     .select-block .options p {
         flex-basis: 45%;

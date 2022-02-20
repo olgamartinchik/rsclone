@@ -14,6 +14,7 @@ import {
     ModalContents,
 } from '../../services/constants';
 import { TSettings, TUser } from '../../services/types';
+import { Weight, Coefficients } from '../../services/constants';
 
 class EditPlanPageView {
     private rootNode: HTMLElement;
@@ -180,12 +181,33 @@ class EditPlanPageView {
 
     private createDesiredWeightInput(parentNode: HTMLElement, userSettings: TSettings | void): void {
         const wrapper = Node.setChild(parentNode, 'div', 'editplan-input-wrapper');
-        const input = Node.setChild(wrapper, 'input', 'editplan-input');
+        const input = <HTMLInputElement>Node.setChild(wrapper, 'input', 'editplan-input');
         input.setAttribute('value', (<TSettings>userSettings).desiredWeight.toString());
         input.setAttribute('data-type', 'desiredWeight');
-        Node.setChild(wrapper, 'span', 'editplan-unit', 'kg');
+        const desiredWeight = (<TSettings>userSettings).desiredWeight;
+        if (desiredWeight === 0) {
+            this.setInitialParameterValue(input);
+        } else {
+            this.getParameters(input, userSettings!);
+        }
+        
+        const unit = (<TSettings>userSettings).weightUnit;
+        Node.setChild(wrapper, 'span', 'editplan-unit', `${unit}`);
 
         if ((<TSettings>userSettings).goal !== 'weight') parentNode.classList.add('hidden');
+    }
+
+    private setInitialParameterValue(inputElement: HTMLInputElement) {
+        inputElement.value = '';
+        inputElement.placeholder = '0';
+    }
+
+    private getParameters(inputElement: HTMLInputElement, settings: TSettings): void {
+        if (settings.weightUnit === Weight.units) {
+            inputElement.value = settings.desiredWeight.toString();
+        } else {
+            inputElement.value = Math.round(settings.desiredWeight * Coefficients.toPounds).toString();
+        }
     }
 
     private createFavoriteTypesChoice(parentNode: HTMLElement, userSettings: TSettings | void): void {
