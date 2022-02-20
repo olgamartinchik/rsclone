@@ -4,27 +4,27 @@ export default function carouselTemplate(): string {
   <div id="carousel">
       <div id="spinner">
           <div class="spinner-card z-depth-2">
-              <h4>Personalized workout programs to achieve your goals</h4>
+              <h4>Personalized workout programs</h4>
               <div class="image">
-                  <img src="../../../assets/img/program.jpg" alt>
+                  <img src="../../../assets/img/advantages1.png" alt>
               </div>
           </div>
           <div class="spinner-card z-depth-2">
               <h4>Regular statistics</h4>
               <div class="image">
-                  <img src="../../../assets/img/program.jpg" alt>
+                  <img src="../../../assets/img/advantages2.png" alt>
               </div>
           </div>
           <div class="spinner-card z-depth-2">
               <h4>Customizable profile</h4>
               <div class="image">
-                  <img src="../../../assets/img/program.jpg" alt>
+                  <img src="../../../assets/img/advantages3.png" alt>
               </div>
           </div>
           <div class="spinner-card z-depth-2">
               <h4>Opportunity to use daily meal suggestions</h4>
               <div class="image">
-                  <img src="../../../assets/img/program.jpg" alt>
+                  <img src="../../../assets/img/advantages4.png" alt>
               </div>
           </div>
       </div>

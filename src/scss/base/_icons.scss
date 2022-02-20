@@ -61,12 +61,9 @@
         height: 30px;
         position: absolute;
         top: 50%;
-        left: 40px;
+        left: 30px;
         &:before {
             content: fa-content($fa-var-angle-left);
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
         }
         &:hover {
             cursor: pointer;
@@ -78,12 +75,9 @@
         height: 30px;
         position: absolute;
         top: 50%;
-        right: 40px;
+        right: 10px;
         &:before {
             content: fa-content($fa-var-angle-right);
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
         }
         &:hover {
             cursor: pointer;

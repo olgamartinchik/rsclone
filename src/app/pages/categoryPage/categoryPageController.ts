@@ -3,6 +3,9 @@ import CategoryPageView from './categoryPageView';
 import Utils from '../../services/utils';
 import Card from '../../components/card/card';
 import authManager from '../../services/authManager';
+import videoHandler from '../../components/videoHandler/videoHandler';
+import modalCustomized from '../../components/modal/modalCutomized';
+import carouselTemplate from '../../components/carousel/template';
 import StorageManager from '../../services/storageManager';
 import { TToken, TSettings } from '../../services/types';
 import { WorkoutType, Message } from '../../services/constants';
@@ -11,6 +14,8 @@ export default class CategoryPageController {
   private model: CategoryPageModel;
   private view: CategoryPageView;
   private isLogin: boolean;
+  private videoHandler: typeof videoHandler;
+  private modalCustomized: typeof modalCustomized;
   private categoryValues: string[];
   filters: {[key: string]: Array<string>} ;
   
@@ -19,6 +24,8 @@ export default class CategoryPageController {
     this.model = new CategoryPageModel();
     this.view = new CategoryPageView();
     this.isLogin = false;
+    this.videoHandler = videoHandler;
+    this.modalCustomized = modalCustomized; 
     this.categoryValues = [];
     this.filters = {};
   }
@@ -102,11 +109,29 @@ export default class CategoryPageController {
   }
 
   public handleCardClick(e: Event): void {
-    const currCard = <HTMLElement>e.currentTarget;
-    const workout = this.model.getCardById(currCard.id);
-    if (workout) {
+    if (this.isLogin) {
+      const currCard = <HTMLElement>e.currentTarget;
+      const workout = this.model.getCardById(currCard.id);
+      if (workout) {
         authManager.navigate(`workout/${workout.id}`);
+      }
+    } else {
+      this.startWorkout(e);
     }
+  }
+
+  private async startWorkout(e: Event) {
+    const id = (<HTMLElement>e.currentTarget).id;
+    const link = this.model.getVideoLink(id);
+    const card = <Card>this.model.getCardById(id);
+    if (!this.isLogin && link && card) {
+        this.videoHandler.createVideo(this.view.rootNode, link, card, this.onVideoEnd.bind(this));
+    }
+  }
+
+  private onVideoEnd(): void {
+    this.videoHandler.destroy();
+    this.modalCustomized.createModal(this.view.rootNode, carouselTemplate());
   }
 
   private checkboxHandler(e: Event): void {

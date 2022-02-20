@@ -8,7 +8,7 @@ import storageManager from '../../services/storageManager';
 import { TUser } from '../../services/types';
 
 export default class CategoryPageView {
-    private rootNode: HTMLElement;
+    public rootNode: HTMLElement;
     private mainLayout: Node<HTMLElement> | null;
 
     constructor() {

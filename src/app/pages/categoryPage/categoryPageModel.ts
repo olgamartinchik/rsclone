@@ -1,16 +1,19 @@
 import ClientManager from "../../services/clientManager";
 import Card from "../../components/card/card";
 import storageManager from "../../services/storageManager";
+import CloudinaryManager from '../../services/cloudinarySDK';
 import Utils from "../../services/utils";
 import { tinySrgb } from "@cloudinary/url-gen/qualifiers/colorSpace";
 
 export default class CategoryPageModel {
   private clientManager: ClientManager;
+  private sdk: CloudinaryManager;
   private cards: Card[];
   filteredCards: Card[];
 
   constructor() {
     this.clientManager = new ClientManager();
+    this.sdk = new CloudinaryManager();
     this.cards = [];
     this.filteredCards = [];
   }
@@ -23,6 +26,16 @@ export default class CategoryPageModel {
         });
     }
     return this.cards;
+  }
+
+  public getVideoLink(id: string): string {
+    const card = this.getCardById(id);
+    let url = '';
+    if (card) {
+        url = this.sdk.getVideoUrl(card.data.title);
+    }
+
+    return url;
   }
 
   public filterCardArray(filters): Array<Card> {

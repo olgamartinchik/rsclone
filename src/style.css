@@ -18420,13 +18420,10 @@ select:-webkit-autofill:focus {
   height: 30px;
   position: absolute;
   top: 50%;
-  left: 40px;
+  left: 30px;
 }
 .icon.angle-left:before {
   content: "\f104";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 }
 .icon.angle-left:hover {
   cursor: pointer;
@@ -18437,13 +18434,10 @@ select:-webkit-autofill:focus {
   height: 30px;
   position: absolute;
   top: 50%;
-  right: 40px;
+  right: 10px;
 }
 .icon.angle-right:before {
   content: "\f105";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 }
 .icon.angle-right:hover {
   cursor: pointer;

@@ -97,7 +97,9 @@ class BrowsePageController {
         const currBtn = <HTMLElement>e.currentTarget;
         if (currBtn.classList.contains('active')) {
             currBtn.classList.remove('active');
-            if (currBtn.lastElementChild) currBtn.lastElementChild.textContent = 'favorite_border';
+            if (currBtn.lastElementChild) {
+                currBtn.lastElementChild.textContent = 'favorite_border';
+            }
         } else {
             currBtn.classList.add('active');
             if (currBtn.lastElementChild) currBtn.lastElementChild.textContent = 'favorite';

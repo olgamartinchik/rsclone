@@ -85,8 +85,8 @@ class BrowsePageView {
         if (card.liked) buttonFav.node.classList.add('active');
         buttonFav.node.insertAdjacentHTML(
             'afterbegin',
-            `<span>favourite</span>
-            <i class="far fa-heart"></i>`
+            `<span class="workout-fav-icon">favourite</span>
+            <i class="small material-icons">favorite${card.liked ? '' : '_border'}</i>`
         );
         buttonFav.node.onclick = (e: Event) => addToFav(e);
         const buttonStart = new Button(controls.node, 'Start');
