@@ -350,7 +350,7 @@
             padding: 8px;
             min-height: 246px;
             background: rgb(2, 0, 36);
-            background: linear-gradient(318deg, rgba(122, 59, 180, 1) 19%, rgba(98, 0, 255, 1) 100%);
+            background: $color-violet-gradient;
             cursor: auto;
             overflow: visible;
             .title {
