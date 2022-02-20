@@ -59,8 +59,8 @@ export default class CategoryPageView {
         this.rootNode.append(header.getTemplate());
 
         const navWrapper = this.rootNode.querySelector('.nav-wrapper') as HTMLElement;
-        const navbar = new NavBar(navWrapper, ['Team', 'Browse', 'Login'], true);
-        navbar.generateMenu(false);
+        const navbar = new NavBar(navWrapper, ['Browse', 'Login'], true);
+        navbar.generateMenu(false, 'Browse');
         if (navbar.button) {
             navbar.button.button.node.onclick = () => signUpHandler();
         }

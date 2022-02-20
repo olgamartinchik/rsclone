@@ -37,10 +37,14 @@
             justify-content: space-between;
             flex-wrap: nowrap;
             cursor: pointer;
+            .icon {
+                font-size: 20px;
+                transition: 0.5s;
+            }
             &:hover {
                 background-position: 0 100%;
                 .stat-title,
-                .material-icons {
+                .icon {
                     color: $color-primary;
                 }
             }
@@ -478,9 +482,9 @@ span.bold-text {
                 background-color: rgba(207, 90, 115, 0.6);
                 border-radius: 10px;
                 border: 1px solid #bf5567;
-                .material-icons {
+                .icon {
                     position: absolute;
-                    top: 25%;
+                    top: 32%;
                     right: 3%;
                     color: $color-text-on-dark;
                 }

@@ -6,6 +6,7 @@ import UserDataManager from '../../services/userDataManager';
 import Utils from '../../services/utils';
 import { TSettings, TUser, TChangeUserDataForm } from '../../services/types';
 import { Height, Weight, Coefficients, Message } from '../../services/constants';
+import StorageManager from '../../services/storageManager';
 
 class EditProfilePageController {
     private view: EditProfilePageView;
@@ -311,7 +312,8 @@ class EditProfilePageController {
         this.initPreloader(<HTMLElement>e.target);
         if (haveSettingsChanged) {
             await this.model.updateSettings(this.modifiedUserSettings);
-            new UserDataManager(this.modifiedUserSettings!).createUserData();
+            const userAction = StorageManager.getItem('userAction', 'local') as string;
+            new UserDataManager(this.modifiedUserSettings!).createUserData(userAction);
             this.handleAvatarImageChange();
         }
         if (hasUserInfoChanged || this.changeUserDataForm.password !== '') {

@@ -6,6 +6,7 @@ import Utils from '../../services/utils';
 import { TSettings } from '../../services/types';
 import { GoalTitles, WorkoutType, Message } from '../../services/constants';
 import UserDataManager from '../../services/userDataManager';
+import StorageManager from '../../services/storageManager';
 
 class EditPlanPageController {
     private view: EditPlanPageView;
@@ -125,7 +126,10 @@ class EditPlanPageController {
         } else {
             this.model.saveSettings(this.modifiedUserSettings);
 
-            new UserDataManager(this.modifiedUserSettings!).createUserData();
+            const userAction = 'editProfile';
+            StorageManager.addItem('userAction', userAction, 'local');
+
+            new UserDataManager(this.modifiedUserSettings!).createUserData(userAction);
             authManager.navigate('/settings');
         }
     }
