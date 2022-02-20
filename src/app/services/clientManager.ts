@@ -10,6 +10,7 @@ import {
     TChangeUserDataForm,
 } from '../services/types';
 import { API_ID, KEY_API } from '../configs/edamamConfig';
+import workoutsMock from './mocks/trainings.json';
 
 class ClientManager {
     private static _instance: ClientManager | null;
@@ -107,6 +108,10 @@ class ClientManager {
     public async getWorkouts(): Promise<void | TWorkout[]> {
         try {
             const res = await fetch(`https://rsclonebackend.herokuapp.com/api/workouts`);
+    
+            if(res.status !== 200) {
+                return workoutsMock as TWorkout[];
+            }
 
             return (await res.json()) as TWorkout[];
         } catch (e: unknown) {

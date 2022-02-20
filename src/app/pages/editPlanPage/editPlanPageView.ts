@@ -15,15 +15,22 @@ import {
 } from '../../services/constants';
 import { TSettings, TUser } from '../../services/types';
 import { Weight, Coefficients } from '../../services/constants';
+import preloader from '../../components/preloader/preloader';
 
 class EditPlanPageView {
     private rootNode: HTMLElement;
 
     private materializeHandler: MaterializeHandler;
 
+    private preloader: HTMLElement;
+
+    private overflow: HTMLElement | null;
+
     constructor() {
         this.rootNode = <HTMLElement>document.getElementById('app');
         this.materializeHandler = new MaterializeHandler();
+        this.preloader = preloader.getTemplate();
+        this.overflow = null;
     }
 
     public render(userSettings: TSettings | void, onchange: (e: Event) => void, onclick: (e: Event) => void): void {
@@ -32,6 +39,12 @@ class EditPlanPageView {
         this.createHeader();
         this.createMainLayout(userSettings, onchange, onclick);
         this.createFooter();
+        this.createPreloader();
+    }
+
+    private createPreloader() {
+        this.overflow = document.createElement('div');
+        this.overflow.className = 'overflow active';
     }
 
     private createHeader(): void {
@@ -238,6 +251,25 @@ class EditPlanPageView {
 
     private createFooter(): void {
         this.rootNode.append(footer.getTemplate());
+    }
+
+    public setPreloader(): void {
+        if(this.overflow) {
+            this.rootNode.append(this.overflow, this.preloader);
+        }
+    }
+
+    public removePreloader(callback: () => void = () => {}): void {
+        if(this.overflow) {
+            this.overflow.classList.add('closed');
+            this.overflow.onanimationend = () => {
+                this.preloader.remove();
+                if(this.overflow) this.overflow.remove();
+                this.overflow = null;
+                callback();
+            }
+        }
+        
     }
 }
 

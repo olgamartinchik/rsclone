@@ -64,7 +64,6 @@ class ProgramPageView {
 
         this.getContentBlockTitle(week);
         this.getCards(data, onclick);
-        this.cardsWrapper.node.insertAdjacentHTML('beforeend', this.getAddWorkoutBlock());
         this.programContent.node.insertAdjacentHTML('beforeend', new MealPageView().getSectionMeal());
     }
 
@@ -80,26 +79,6 @@ class ProgramPageView {
 
         this.cardsWrapper = new Node(this.contentBlock.node, 'div', 'workout-list');
         this.cardsWrapper.node.append(...cardElems);
-    }
-
-    private getAddWorkoutBlock(): string {
-        return `
-        <div class="program-card z-depth-1">
-            <h3 class="title card-title title-container">Add Workout</h3>
-            <div class="image-container">
-            <div class="image lighthen"></div>
-            <div class="add-block">
-                <img class="red-plus" src="./assets/img/svg/add.svg" alt="" />
-            </div>
-            </div>
-            <div class="card-info">
-                <ol class="subtitle list">
-                    <li>Tap on any workout card</li>
-                    <li>Select <span class="bold-text">Add to Program</span></li>
-                </ol>
-            </div>
-        </div>        
-        `;
     }
 
     public renderFavs(favs: TWorkout[], onclick: (e: Event) => void): void {
