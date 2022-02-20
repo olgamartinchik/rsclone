@@ -12,7 +12,7 @@ class StatisticWeekWidget {
         const titleBlock = new Node(contentBlock.node, 'div', 'title-block');
         titleBlock.node.insertAdjacentHTML('afterbegin', '<h3 class="title stat-title">weekly progress</h3>');
         if (isExtendedFunctionality) {
-            const arrow = new Node(null, 'i', 'small material-icons', 'chevron_right');
+            const arrow = new Node(null, 'i', 'icon fa-solid fa-angle-right');
             titleBlock.node.append(arrow.node);
             titleBlock.node.onclick = () => callback();
         }
