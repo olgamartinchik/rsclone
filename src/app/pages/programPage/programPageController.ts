@@ -29,22 +29,6 @@ class ProgramPageController {
 
     public async createPage(): Promise<void> {
         const settings = await this.model.getSettingsData();
-        // <<<<<<< HEAD
-        //         const trainings = await this.model.getWeekTrainings(settings!);
-        //         this.view.render(
-        //             trainings,
-        //             this.handleCardClick.bind(this),
-        //             this.model.week,
-        //             settings!,
-        //             this.handleStatBlockClick.bind(this)
-        //         );
-
-        //         this.mealSection.getLoaderMealContainer();
-        //         this.mealSection.loadMealCard(
-        //             (await this.mealData.getUserMealData()) as IDataExplore[],
-        //             this.handlerMealCards.handlerMealCard.bind(this)
-        //         );
-        // =======
         if (settings) {
             const trainings = await this.model.getWeekTrainings(settings);
             this.view.render(trainings, this.handleCardClick.bind(this), this.model.week);

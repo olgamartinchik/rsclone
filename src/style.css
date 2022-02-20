@@ -15217,7 +15217,7 @@ input[type=text]:not(.browser-default) {
   padding: 0 8px 20px;
   min-height: 320px;
   overflow-x: auto;
-  overflow-y: auto;
+  overflow-y: hidden;
   transition: all 0.3s ease;
   white-space: nowrap;
   text-align: center;
