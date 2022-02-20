@@ -25,17 +25,24 @@ test('Should not return Date', ()=>{
     expect(resultMonth).not.toEqual(targe)
 })
 
-test('Should return randomInteger typeof number',()=>{
-    const result=Utils.randomInteger(1, 200)
-    expect(typeof result).toBe('number')
+describe('Should return randomInteger',()=>{
+    test('typeof number',()=>{
+        const result=Utils.randomInteger(1, 200)
+        expect(typeof result).toBe('number')
 
-})
-test('Should return randomInteger typeof number',()=>{
-    const result=Utils.randomInteger(1, 100)
-    expect(result).not.toBe(undefined)
+    })
+    test('typeof number',()=>{
+        const result=Utils.randomInteger(1, 100)
+        expect(result).not.toBe(undefined)
 
+    })
+   
+  
+    
 })
-test('Should return randomInteger typeof boolean',()=>{
+
+
+test('should return typeof boolean',()=>{
     const result=Utils.compareObjects({},{})
     expect(typeof result).toBe('boolean')
 
