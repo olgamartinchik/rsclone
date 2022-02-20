@@ -83,7 +83,7 @@ export default class CategoryPageView {
     }
 
     private renderFiltersSubBlock(parentNode: HTMLElement, type: string, text: string, options: Array<string>, selectedOptions: Array<string>): void {
-        const filtersSubBlockWrapper = Node.setChild(parentNode, 'fieldset', 'checkbox z-depth-1');
+        const filtersSubBlockWrapper = Node.setChild(parentNode, 'fieldset', 'checkbox');
         filtersSubBlockWrapper.setAttribute('data-type', type);
         Node.setChild(filtersSubBlockWrapper, 'legend', '', text); 
         filtersSubBlockWrapper.append(checkbox.getTemplate('', options, selectedOptions));
