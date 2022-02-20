@@ -92,12 +92,20 @@
             font-size: 25px;
             color: $color-text-on-dark;
         }
+        &:hover {
+            transform: scale(1.5);
+            transition: all 2s ease-out;
+        }
     }
     &.arrow-right {
         &:before {
             content: fa-content($fa-var-arrow-right);
             font-size: 20px;
             cursor: pointer;
+        }
+        &:hover {
+            transform: scale(1.5);
+            transition: all 2s ease-out;
         }
     }
     &.weight {
@@ -257,7 +265,10 @@
     left: 115px;
     top: 105px;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    &:hover {
+        transform: scale(1.5);
+        transition: all 2s ease-out;
+    } 
 }
 
 .icon-select {
@@ -285,7 +296,4 @@
     }
 }
 
-.icon:hover {
-    transform: scale(1.5);
-    transition: all 2s ease-out;
-}
+

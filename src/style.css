@@ -18627,10 +18627,18 @@ select:-webkit-autofill:focus {
   font-size: 25px;
   color: white;
 }
+.icon.arrow-left:hover {
+  transform: scale(1.5);
+  transition: all 2s ease-out;
+}
 .icon.arrow-right:before {
   content: "\f061";
   font-size: 20px;
   cursor: pointer;
+}
+.icon.arrow-right:hover {
+  transform: scale(1.5);
+  transition: all 2s ease-out;
 }
 .icon.weight:before {
   content: "\f496";
@@ -18774,7 +18782,10 @@ select:-webkit-autofill:focus {
   left: 115px;
   top: 105px;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+}
+.icon-upload:hover {
+  transform: scale(1.5);
+  transition: all 2s ease-out;
 }
 
 .icon-select.down:before {
@@ -18792,11 +18803,6 @@ select:-webkit-autofill:focus {
   top: 5px;
   color: #666;
   cursor: pointer;
-}
-
-.icon:hover {
-  transform: scale(1.5);
-  transition: all 2s ease-out;
 }
 
 .fiton-modal-overlay {
