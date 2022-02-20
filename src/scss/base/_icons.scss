@@ -85,6 +85,8 @@
         }
     }
     &.arrow-left {
+        position: absolute;
+        left: 50px;
         &:before {
             content: fa-content($fa-var-arrow-left);
             font-size: 25px;
@@ -281,4 +283,9 @@
             cursor: pointer;
         }
     }
+}
+
+.icon:hover {
+    transform: scale(1.5);
+    transition: all 2s ease-out;
 }

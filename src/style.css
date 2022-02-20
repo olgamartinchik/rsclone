@@ -14749,10 +14749,19 @@ nav .brand-logo {
 .registration-content > form .goal.option {
   flex-basis: 100%;
 }
+.registration-content > form .goal.option:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease-in;
+}
 .registration-content > form .goal.active {
   background-color: #ff8a80;
   color: white;
   border: none;
+}
+.registration-content > form .goal.active:hover {
+  cursor: default;
+  transform: scale(1);
+  transition: all 0.3s ease-in;
 }
 .registration-content > form .frequency {
   display: flex;
@@ -14768,6 +14777,10 @@ nav .brand-logo {
 .registration-content > form .frequency.option {
   flex-basis: 100%;
 }
+.registration-content > form .frequency.option:hover {
+  transform: scale(1.05);
+  transition: all 0.5s ease-in;
+}
 .registration-content > form .frequency.tile {
   flex-basis: 30%;
 }
@@ -14775,6 +14788,11 @@ nav .brand-logo {
   background-color: #ff8a80;
   color: white;
   border: none;
+}
+.registration-content > form .frequency.active:hover {
+  cursor: default;
+  transform: scale(1);
+  transition: all 0.5s ease-in;
 }
 .registration-content > form .classes {
   display: flex;
@@ -14790,8 +14808,16 @@ nav .brand-logo {
 .registration-content > form .classes.option {
   flex-basis: 100%;
 }
+.registration-content > form .classes.option:hover {
+  transform: scale(1.05);
+  transition: all 0.5s ease-in;
+}
 .registration-content > form .classes.tile {
   flex-basis: 30%;
+}
+.registration-content > form .classes.tile:hover {
+  transform: scale(1.05);
+  transition: all 0.5s ease-in;
 }
 .registration-content > form .classes.active {
   background-color: #ff8a80;
@@ -14834,6 +14860,10 @@ nav .brand-logo {
 .registration-content > form .duration.option {
   flex-basis: 100%;
 }
+.registration-content > form .duration.option:hover {
+  transform: scale(1.05);
+  transition: all 0.5s ease-in;
+}
 .registration-content > form .duration.tile {
   flex-basis: 30%;
 }
@@ -14841,6 +14871,11 @@ nav .brand-logo {
   background-color: #ff8a80;
   color: white;
   border: none;
+}
+.registration-content > form .duration.active:hover {
+  cursor: default;
+  transform: scale(1);
+  transition: all 0.5s ease-in;
 }
 
 div.parameters-options {
@@ -14877,6 +14912,15 @@ div.parameters-options.center {
   color: white;
   border-radius: 20px;
   background-color: #816ffe;
+}
+.gender-item.active:hover {
+  border-radius: 25px;
+  background-color: #816ffe;
+}
+.gender-item:hover {
+  background-color: rgba(129, 111, 254, 0.3);
+  border-radius: 25px;
+  transition: all 0.3s ease-in;
 }
 
 .datepicker::placeholder {
@@ -16660,6 +16704,15 @@ p.settings-link {
   border-radius: 25px;
   background-color: #816ffe;
 }
+.unit-item.active:hover {
+  border-radius: 25px;
+  background-color: #816ffe;
+}
+.unit-item:hover {
+  background-color: rgba(129, 111, 254, 0.3);
+  border-radius: 25px;
+  transition: all 0.3s ease-in;
+}
 
 @media (max-width: 420px) {
   .settings-wrapper {
@@ -17027,6 +17080,7 @@ p.settings-link {
   background-repeat: no-repeat;
   background-position: top;
   position: relative;
+  animation: smoothAppear 1s ease-in forwards;
 }
 
 .editplan-title {
@@ -17084,6 +17138,11 @@ input:not([type]).select-dropdown {
   text-align: center;
   color: #666;
   font-size: 18px;
+}
+input[type=text]:not(.browser-default).select-dropdown:hover,
+input:not([type]).select-dropdown:hover {
+  font-size: 20px;
+  transition: all 0.6s ease-in;
 }
 input[type=text]:not(.browser-default).editplan-input,
 input:not([type]).editplan-input {
@@ -17182,6 +17241,7 @@ input:not([type]).select-dropdown {
   width: 100%;
   height: 5px;
   background: linear-gradient(270deg, #e03694, #f47253);
+  animation: line-grow 1s ease-in forwards;
 }
 .profile-header {
   width: 100%;
@@ -17192,8 +17252,8 @@ input:not([type]).select-dropdown {
   min-height: 200px;
 }
 .profile-avatar {
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 50%;
   background-color: #ff8a80;
@@ -17282,10 +17342,13 @@ input:not([type]).select-dropdown {
 }
 
 .avatar {
+  width: 150px;
+  height: 150px;
   position: absolute;
   top: 25px;
   left: 50%;
   transform: translateX(-50%);
+  animation: smoothAppear 1s ease-in forwards;
 }
 
 .badge-img-modal {
@@ -17406,6 +17469,12 @@ input:not([type]).select-dropdown {
 .profile-item-input input[type=password]:not(.browser-default)::placeholder {
   text-align: right;
 }
+.profile-item-input input[type=text]:not(.browser-default):hover,
+.profile-item-input input[type=email]:not(.browser-default)#email:hover,
+.profile-item-input input[type=password]:not(.browser-default):hover {
+  font-size: 20px;
+  transition: all 1s ease-in;
+}
 
 .editprofile.gender-selection {
   width: 230px;
@@ -17443,6 +17512,10 @@ input:not([type]).select-dropdown {
 
 .settings-wrapper.editprofile {
   padding-top: 0;
+}
+
+.settings-wrapper > .input-group {
+  height: 40px;
 }
 
 .main-stat {
@@ -18209,6 +18282,11 @@ input {
   font-size: 18px;
 }
 
+.settings-wrapper .input-group .value input:hover {
+  font-size: 20px;
+  transition: all 0.5s ease-in-out;
+}
+
 input[type=text].datepicker {
   margin-bottom: 0;
   color: #666;
@@ -18345,6 +18423,12 @@ input[type=tel]:not(.browser-default):focus:not([readonly]) + label,
 input[type=number]:not(.browser-default):focus:not([readonly]) + label,
 input[type=search]:not(.browser-default):focus:not([readonly]) + label,
 textarea.materialize-textarea:focus:not([readonly]) + label {
+  color: #ff8a80;
+}
+
+input[type=text]:not(.browser-default):hover:not([readonly]) + label,
+input[type=email]:not(.browser-default):hover:not([readonly]) + label,
+input[type=password]:not(.browser-default):hover:not([readonly]) + label {
   color: #ff8a80;
 }
 
@@ -18503,6 +18587,10 @@ select:-webkit-autofill:focus {
 .icon.angle-right:hover {
   cursor: pointer;
   transform: scale(1.2);
+}
+.icon.arrow-left {
+  position: absolute;
+  left: 50px;
 }
 .icon.arrow-left:before {
   content: "\f060";
@@ -18674,6 +18762,11 @@ select:-webkit-autofill:focus {
   top: 5px;
   color: #666;
   cursor: pointer;
+}
+
+.icon:hover {
+  transform: scale(1.5);
+  transition: all 2s ease-out;
 }
 
 .fiton-modal-overlay {

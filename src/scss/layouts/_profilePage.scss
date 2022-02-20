@@ -7,6 +7,7 @@
             width: 100%;
             height: 5px;
             background: linear-gradient(270deg, $color-background-linear-3, $color-background-linear-4);
+            animation: line-grow 1s ease-in forwards;
         }
     }
     &-header {
@@ -18,8 +19,8 @@
         }
     }
     &-avatar {
-        width: 150px;
-        height: 150px;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
         border-radius: 50%;
         background-color: $color-primary;
@@ -109,10 +110,13 @@
 }
 
 .avatar {
+    width: 150px;
+    height: 150px;
     position: absolute;
     top: 25px;
     left: 50%;
     transform: translateX(-50%);
+    animation: smoothAppear 1s ease-in forwards;
 }
 
 .badge-img-modal {

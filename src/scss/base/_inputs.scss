@@ -46,6 +46,11 @@ input {
     font-size: 18px;
 }
 
+.settings-wrapper .input-group .value input:hover {
+    font-size: 20px;
+    transition: all 0.5s ease-in-out;
+}
+
 input[type='text'].datepicker {
     margin-bottom: 0;
     color: $color-text-navbar;
@@ -182,6 +187,12 @@ input[type='tel']:not(.browser-default):focus:not([readonly]) + label,
 input[type='number']:not(.browser-default):focus:not([readonly]) + label,
 input[type='search']:not(.browser-default):focus:not([readonly]) + label,
 textarea.materialize-textarea:focus:not([readonly]) + label {
+    color: $color-primary;
+}
+
+input[type='text']:not(.browser-default):hover:not([readonly]) + label,
+input[type='email']:not(.browser-default):hover:not([readonly]) + label,
+input[type='password']:not(.browser-default):hover:not([readonly]) + label {
     color: $color-primary;
 }
 

@@ -83,6 +83,15 @@ p.settings-link {
             color: $color-text-on-dark;
             border-radius: 25px;
             background-color: $color-settings-active;
+            &:hover {
+                border-radius: 25px;
+                background-color: #816ffe;
+            }
+        }
+        &:hover {
+            background-color: rgba(129, 111, 254, 0.3);
+            border-radius: 25px;
+            transition: all 0.3s ease-in;
         }
     }
 }
