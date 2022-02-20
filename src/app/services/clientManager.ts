@@ -108,8 +108,8 @@ class ClientManager {
     public async getWorkouts(): Promise<void | TWorkout[]> {
         try {
             const res = await fetch(`https://rsclonebackend.herokuapp.com/api/workouts`);
-    
-            if(res.status !== 200) {
+
+            if (res.status !== 200) {
                 return workoutsMock as TWorkout[];
             }
 

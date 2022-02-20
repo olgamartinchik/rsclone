@@ -18,6 +18,8 @@ class ProgramPageModel {
 
     private client: ClientManager;
 
+    private allCards: Card[];
+
     constructor() {
         this.wrManager = new WorkoutManager();
         this.client = new ClientManager();
@@ -25,9 +27,11 @@ class ProgramPageModel {
         this.currentWeek = 0;
         this.program = [];
         this.cards = [];
+        this.allCards = [];
     }
 
     public async getWeekTrainings(settings: TSettings): Promise<Card[]> {
+        await this.createAllCards();
         this.currentWeek = this.dateMr.getNumWeek(settings);
         const data = await this.getSettingsData();
         const program = await this.getProgram();
@@ -77,6 +81,20 @@ class ProgramPageModel {
         return program;
     }
 
+    public async createAllCards(): Promise<void> {
+        const tempCards = storageManager.getItem<Card[]>('all-cards', 'local');
+        if (tempCards) {
+            this.allCards = tempCards;
+        } else {
+            const workouts = await this.client.getWorkouts();
+            if (workouts)
+                workouts.forEach((workoutElem) => {
+                    this.allCards.push(new Card(workoutElem));
+                });
+            storageManager.addItem('all-cards', this.allCards, 'local');
+        }
+    }
+
     private saveData(): void {
         storageManager.addItem('workout-cards', this.cards, 'local');
         storageManager.addItem('workout-program', this.program, 'local');
@@ -96,7 +114,7 @@ class ProgramPageModel {
     }
 
     public getCardById(id: string): Card | void {
-        return this.cards[this.week].find((card: Card) => card.id === id);
+        return this.allCards.find((card: Card) => card.id === id);
     }
 
     public get week(): number {
@@ -105,6 +123,10 @@ class ProgramPageModel {
 
     public get allCard(): Card[][] {
         return this.cards;
+    }
+
+    public get getAllCards(): Card[] {
+        return this.allCards;
     }
 
     public async saveSettings(settings: TSettings): Promise<void> {

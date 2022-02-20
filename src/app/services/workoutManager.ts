@@ -58,7 +58,7 @@ class WorkoutManager implements IWorkoutManager {
         const filterArr = this.strategies[data.goal];
 
         return this.trainings.filter(
-            (training: TWorkout) => filterArr.includes(training.intensity) || filterArr.includes(training.type)
+            (training: TWorkout) => filterArr.includes(training.type) || filterArr.includes(training.intensity)
         );
     }
 }

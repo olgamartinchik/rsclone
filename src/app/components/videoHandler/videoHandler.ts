@@ -130,7 +130,6 @@ class VideoHandler {
         this.videoWrapper.append(this.preloader);
         parentElement.append(this.videoWrapper);
         this.isVideoInstalled = true;
-        document.body.style.overflow = 'hidden';
         this.controls.className = 'video-controls masked';
 
         this.renderControls();
@@ -456,8 +455,6 @@ class VideoHandler {
         this.isVideoInstalled = false;
         this.volumeRange?.removeEventListener('click', this.stopPropClick.bind(this));
         this.timeline?.removeEventListener('click', this.stopPropClick.bind(this));
-
-        document.body.style.overflow = 'auto';
     }
 }
 
