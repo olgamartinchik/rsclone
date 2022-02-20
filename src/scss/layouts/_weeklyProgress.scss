@@ -1,0 +1,141 @@
+.weekly-progress {
+    .btn-back {
+        position: absolute;
+        top: 15%;
+        left: 40px;
+    }
+    .title-summary {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        position: relative;
+    }
+    .workout-summary {
+        .container-stat {
+            display: none;
+        }
+    }
+    .container-stat {
+        .title-block {
+            display: none;
+        }
+        .content-block {
+            width: calc(100vw - 50%);
+            height: 201px;
+            margin: -190px auto 80px;
+        }
+        .summary-block-item {
+            height: 100%;
+            &:nth-of-type(1) {
+                border-top-left-radius: 12px;
+            }
+            &:nth-last-of-type(1) {
+                border-top-right-radius: 12px;
+            }
+        }
+    }
+
+    .charts-wrapper {
+        width: calc(100vw - 44%);
+        margin: -30px auto 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .chart {
+        padding-left: 10px;
+    }
+
+    .chart-wrapper {
+        width: 48%;
+        padding-left: 20px;
+    }
+
+    .options-icon {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 84px;
+    }
+
+    .options-title {
+        font-size: 13px;
+        color: $color-title-black;
+    }
+
+    .options-value {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .options-value-num {
+        font-size: 18px;
+        line-height: 18px;
+        font-weight: 500;
+        color: $color-title-black;
+        margin-bottom: 10px;
+    }
+
+    .options-value-title {
+        font-size: 13px;
+        line-height: 13px;
+        color: $color-subtitle-grey;
+        margin-bottom: 8px;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .weekly-progress {
+        .container-stat {
+            padding: 0;
+            max-width: 100%;
+            .content-block {
+                width: calc(100vw - 20%);
+            }
+        }
+        .charts-wrapper {
+            width: calc(100vw - 14%);
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .weekly-progress {
+        .charts-wrapper {
+            flex-direction: column;
+            margin: 0 auto 100px;
+        }
+        .chart-wrapper {
+            width: 100%;
+            padding: 10px;
+        }
+        .title {
+            display: block;
+            margin-left: 10px;
+        }
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .weekly-progress {
+        .container-stat .summary-block-item {
+            border-bottom: 1px solid $color-border;
+            &:nth-of-type(2) {
+                border-top-right-radius: 12px;
+            }
+            &:nth-of-type(4) {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 12px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .weekly-progress {
+        .btn-back {
+            left: 10px;
+        }
+    }
+}

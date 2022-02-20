@@ -1,4 +1,3 @@
-import ExplorePageModel from '../explorePage/explorePageModel';
 import RecipePageModel from './recipePageModel';
 import RecipePageView from './recipePageView';
 import StorageApiManager from '../../services/storageManager';
@@ -15,21 +14,16 @@ class RecipePageController {
     }
 
     public async createPage() {
-       
-        let backPage=''
-        if(StorageApiManager.getItem('backPage',  'local')){
-            backPage=StorageApiManager.getItem('backPage',  'local') as string
-        }else{
-            backPage='#meal'
+        let backPage = '';
+        if (StorageApiManager.getItem('backPage', 'local')) {
+            backPage = StorageApiManager.getItem('backPage', 'local') as string;
+        } else {
+            backPage = '#meal';
         }
-        if(StorageApiManager.getItem('recipePageData', 'local')){
-            const recipePageData=StorageApiManager.getItem('recipePageData', 'local') as IDataExplore
-            this.view.render(recipePageData, backPage);          
-            
-          
+        if (StorageApiManager.getItem('recipePageData', 'local')) {
+            const recipePageData = StorageApiManager.getItem('recipePageData', 'local') as IDataExplore;
+            this.view.render(recipePageData, backPage);
         }
-        
     }
-
 }
 export default RecipePageController;

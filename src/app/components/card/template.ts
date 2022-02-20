@@ -15,7 +15,9 @@ export default function cardTemplate(data: TWorkout): string {
           <span class="middle-dot ${data.intensity === 'medium' || data.intensity === 'high' ? 'active' : ''}"></span>
           <span class="middle-dot ${data.intensity === 'high' ? 'active' : ''}"></span>
         </div>
-        <a class="waves-effect waves-light btn-large ${data.completed === true ? 'btn-completed' : ''}">Start</a>
+        <a class="waves-effect waves-light btn-large ${data.completed === true ? 'btn-completed' : ''}">${
+        data.completed === true ? '<i class="tiny material-icons">check</i>Completed' : 'Start'
+    }</a>
       </div>
     </div>
   `;

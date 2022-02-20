@@ -10,8 +10,10 @@ import WorkoutPageController from '../pages/workoutPage/workoutPageController';
 import EditPlanPageController from '../pages/editPlanPage/editPlanPageController';
 import EditProfilePageController from '../pages/editProfilePage/editProfilePageController';
 import { RouteOption } from '../services/types';
+import StatisticPageController from '../pages/statistic/statisticPageController';
 import ExploreController from '../pages/explorePage/explorePageController';
 import RecipePageController from '../pages/recipePage/recipePageController';
+import ProgressPageController from '../pages/weeklyProgressPage/progressPageController';
 
 class Config {
     public programPageController: ProgramPageController;
@@ -36,11 +38,13 @@ class Config {
 
     public editProfilePageController: EditProfilePageController;
 
+    public statisticPageController: StatisticPageController;
+
     public exploreController: ExploreController;
 
     public recipePageController: RecipePageController;
 
-   
+    public progressPageController: ProgressPageController;
 
     constructor() {
         this.programPageController = new ProgramPageController();
@@ -54,9 +58,10 @@ class Config {
         this.workoutPageController = new WorkoutPageController();
         this.editPlanPageController = new EditPlanPageController();
         this.editProfilePageController = new EditProfilePageController();
+        this.statisticPageController = new StatisticPageController();
         this.exploreController = new ExploreController();
         this.recipePageController = new RecipePageController();
-        
+        this.progressPageController = new ProgressPageController();
     }
 
     public getRoutes(): RouteOption[] {
@@ -132,6 +137,11 @@ class Config {
                 isAuth: true,
             },
             {
+                path: /workoutsummary\/([\deabcdf]{24})/,
+                callback: (...args) => this.statisticPageController.createPage(args),
+                isAuth: true,
+            },
+            {
                 path: /explore/,
                 callback: () => this.exploreController.createPage(),
                 isAuth: true,
@@ -141,7 +151,11 @@ class Config {
                 callback: () => this.recipePageController.createPage(),
                 isAuth: true,
             },
-           
+            {
+                path: /weeklyprogress/,
+                callback: () => this.progressPageController.createPage(),
+                isAuth: true,
+            },
         ];
 
         return currRoutes;

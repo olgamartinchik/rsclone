@@ -4,7 +4,7 @@ export const userMealCardTemplate = function (data: IDataExplore, position: numb
     return `
     <div class="meal-card" data-num=${position} data-diet=${
         data.recipe.dietLabels
-    } data-mealType=${data.recipe.mealType!.toString()}>
+    } data-mealType=${data.recipe.mealType!.toString()} style="animation-delay: ${position / 10}s">
         <div class="col s12 m6">
             <div class="card">
                 <div class="card-image">
@@ -15,10 +15,12 @@ export const userMealCardTemplate = function (data: IDataExplore, position: numb
                     <p class="subtitle-day-meal">${data.recipe.label}</p>
                 </div>
             </div>
+            
         </div> 
     </div>
     `;
 };
+
 export const exploreCardTemplate = function (data: IDataExplore, position: number): string {
     return `    
         <div class="explore-card" data-edamam=${data.recipe.diet} data-num=${position}>

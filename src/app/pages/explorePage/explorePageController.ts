@@ -2,7 +2,6 @@ import ExplorePageModel from './explorePageModel';
 import ExplorePageView from './explorePageView';
 import StorageApiManager from '../../services/storageManager';
 import { IDataExplore } from '../../services/types';
-import { none } from '@cloudinary/url-gen/qualifiers/progressive';
 class ExploreController {
     private view: ExplorePageView;
 
@@ -24,7 +23,7 @@ class ExploreController {
             this.setBgExplorePage(diet);
             this.handlerTabs();
             this.model.getActiveClassTabs(diet);
-          
+
             this.model.activeTabs();
             this.setCards(diet);
         }
@@ -51,7 +50,7 @@ class ExploreController {
 
     setBgExplorePage(diet: string) {
         const mealTypeSection = document.getElementsByClassName('meal-type-section')[0] as HTMLElement;
-        (mealTypeSection.style as any).backgroundImage = `url(../../assets/exploreMeal/${diet}.jpg)`;
+        mealTypeSection.style.backgroundImage = `url(../../assets/exploreMeal/${diet}.jpg)`;
     }
 
     setTitleExplorePage(diet: string) {

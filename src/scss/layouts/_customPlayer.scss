@@ -8,23 +8,14 @@
         width: 100vw;
         min-height: 100vh;
         opacity: 0;
+        background-color: rgba(0, 0, 0, 0.9);
         animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         .preloader {
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -44%);
             z-index: 1001;
-            &::before {
-                content: '';
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: rgba(0, 0, 0, 0.8);
-                width: 100vw;
-                height: 100vh;
-            }
         }
         .count-down {
             &-timer {
@@ -185,13 +176,31 @@
     opacity: 1;
 }
 
+.calories-timer-wrapper {
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 88%;
+    transform: translate(-50%, 50%);
+    width: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: $color-text-on-dark;
+}
+
 .video-controls ~ .count-down-timer,
-.video-controls ~ .count-down-time {
+.video-controls ~ .count-down-time,
+.video-controls ~ .calories-timer-wrapper {
     visibility: hidden;
 }
 
 .video-controls.masked ~ .count-down-timer,
-.video-controls.masked ~ .count-down-time {
+.video-controls.masked ~ .count-down-time,
+.video-controls.masked ~ .calories-timer-wrapper {
     visibility: visible;
 }
 

@@ -3,9 +3,12 @@ import { TSettings, TToken, TWorkoutProgram } from '../../services/types';
 import Card from '../../components/card/card';
 import storageManager from '../../services/storageManager';
 import ClientManager from '../../services/clientManager';
+import DateManager from '../../services/datesManager';
 
 class ProgramPageModel {
     private wrManager: WorkoutManager;
+
+    private dateMr: DateManager;
 
     private currentWeek: number;
 
@@ -18,12 +21,14 @@ class ProgramPageModel {
     constructor() {
         this.wrManager = new WorkoutManager();
         this.client = new ClientManager();
+        this.dateMr = new DateManager();
         this.currentWeek = 0;
         this.program = [];
         this.cards = [];
     }
 
-    public async getWeekTrainings(): Promise<Card[]> {
+    public async getWeekTrainings(settings: TSettings): Promise<Card[]> {
+        this.currentWeek = this.dateMr.getNumWeek(settings);
         const data = await this.getSettingsData();
         const program = await this.getProgram();
 
@@ -36,9 +41,26 @@ class ProgramPageModel {
         } else if (program) {
             this.program = program;
         }
-        this.cards = this.program.map((workoutPerWeek) => {
-            return workoutPerWeek.map((card) => new Card(card));
-        });
+
+        const tempCards = storageManager.getItem<Card[][]>('workout-cards', 'local');
+        if (tempCards && tempCards.length) {
+            this.cards = tempCards.map((workoutPerWeek) =>
+                workoutPerWeek.map((card) => new Card(card.data, card.liked, card.completed))
+            );
+        } else {
+            this.cards = this.program.map((workoutPerWeek) => workoutPerWeek.map((card) => new Card(card)));
+        }
+        if (settings.liked.length) {
+            this.cards.forEach((cardArr: Card[]) => {
+                cardArr.forEach((card: Card) => {
+                    const favCard = settings.liked.find((fav) => fav === card.id);
+                    if (favCard) {
+                        card.liked = true;
+                    }
+                });
+            });
+        }
+
         this.saveData();
         return this.cards[this.week];
     }
@@ -60,7 +82,7 @@ class ProgramPageModel {
         storageManager.addItem('workout-program', this.program, 'local');
     }
 
-    private async getSettingsData(): Promise<TSettings | void> {
+    public async getSettingsData(): Promise<TSettings | void> {
         let settings = storageManager.getItem<TSettings>('userSettings', 'local');
         if (!settings) {
             const userData = storageManager.getItem<TToken>('token', 'local');
@@ -79,6 +101,18 @@ class ProgramPageModel {
 
     public get week(): number {
         return this.currentWeek;
+    }
+
+    public get allCard(): Card[][] {
+        return this.cards;
+    }
+
+    public async saveSettings(settings: TSettings): Promise<void> {
+        storageManager.addItem('userSettings', settings, 'local');
+        const userData = storageManager.getItem<TToken>('token', 'local');
+        if (userData) {
+            await this.client.changeData('userSettings', 'PATCH', userData.userID, settings);
+        }
     }
 }
 

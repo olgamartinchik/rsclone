@@ -22,7 +22,7 @@ class MealPageModel {
         this.numTo = this.numFrom + 1;
         this.mealData = new ClientManager();
         this.dishType = [
-            { recipe!: { diet!: 'balanced', image!: 'balanced' } },
+            { recipe: { diet: 'balanced', image: 'balanced' } },
             { recipe: { diet: 'high-fiber', image: 'high-fiber' } },
             { recipe: { diet: 'low-carb', image: 'low-carb' } },
             { recipe: { diet: 'low-fat', image: 'low-fat' } },
@@ -33,11 +33,13 @@ class MealPageModel {
     async getUserMealData() {
         const userData: Array<IDataExplore> = [];
 
+        const userAction = StorageManager.getItem('userAction', 'local') as string;
+
         const periodUserMeal =
             (StorageManager.getItem('periodUserMeal', 'local') as Array<IDataExplore>) ??
-            (await new CalculationCalories(
-                StorageManager.getItem('userSettings', 'local') as TSettings
-            ).createUserMeal());
+            (await new CalculationCalories(StorageManager.getItem('userSettings', 'local') as TSettings).createUserMeal(
+                userAction
+            ));
         periodUserMeal[this.today.dateToday()].forEach((meal) => {
             if (meal) {
                 userData.push(meal);
@@ -46,6 +48,7 @@ class MealPageModel {
 
         StorageManager.addItem('mealData', userData, 'local');
         return userData;
+       
     }
 
     async getSearchingData(meal = 'Salad') {

@@ -1,0 +1,318 @@
+.main-stat {
+    overflow: hidden;
+    .title-summary {
+        margin: 0 auto;
+        padding: 20px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: $summary-main-title;
+        text-align: center;
+    }
+
+    & ~ .footer {
+        position: fixed;
+        width: 100vw;
+        bottom: 0;
+        left: 0;
+    }
+}
+
+.container-stat {
+    padding: 0 40px;
+    margin: 0 auto;
+    max-width: calc(100vw - 200px);
+    .next-btn {
+        max-width: 100%;
+    }
+}
+
+.workout-summary {
+    min-height: 260px;
+    color: $color-text-on-dark;
+    background: linear-gradient(-180deg, $color-background-linear-1 -8.99%, $color-background-linear-2 109.7%);
+    .container-stat {
+        display: flex;
+        justify-content: center;
+    }
+    &-item {
+        margin: 27px;
+        padding-right: 27px;
+        margin-right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: 'Poppins', Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        border-right: 1px solid $stat-divider;
+        &:last-of-type {
+            border-right: none;
+        }
+    }
+}
+
+.summary-item {
+    &-title {
+        margin: 0;
+        padding: 2px 10px;
+        font-size: 18px;
+        line-height: 27px;
+    }
+}
+
+.container-stat {
+    .content-block {
+        margin: -110px auto 80px;
+        width: calc(100vw - 50%);
+        min-height: calc(100% - 21px);
+        height: 250px;
+        padding: 0;
+        background-color: transparent;
+        box-shadow: none;
+        animation: shadow-appear 0.3s 1s ease-in forwards;
+    }
+
+    .title-block {
+        margin-bottom: 0;
+        padding: 16px;
+        display: flex;
+        justify-content: center;
+        background-color: $color-text-on-dark;
+        border-radius: 12px 12px 0 0;
+        transform: translateY(-100%);
+        opacity: 0;
+        animation: box-move-down 0.3s ease-in-out forwards;
+    }
+
+    .stat-title {
+        margin: 0;
+        font-weight: 700;
+        font-size: 14px;
+        color: $stat-title;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .summary-block {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        height: 100%;
+        &-item {
+            height: calc(100% - 48px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            border-right: 1px solid $color-border;
+            background-color: $color-text-on-dark;
+            &:last-of-type {
+                border-right: none;
+                border-bottom-right-radius: 12px;
+            }
+            &:first-of-type {
+                border-bottom-left-radius: 12px;
+                transform: translateX(-300%);
+                animation: box-move 0.5s 0.8s ease-in-out forwards;
+            }
+            &:nth-of-type(2) {
+                transform: translateX(-300%);
+                animation: box-move 0.5s 0.3s ease-in-out forwards;
+            }
+            &:nth-of-type(3) {
+                transform: translateX(300%);
+                animation: box-move-right 0.5s 0.3s ease-in-out forwards;
+            }
+            &:nth-of-type(4) {
+                transform: translateX(300%);
+                animation: box-move-right 0.5s 0.8s ease-in-out forwards;
+            }
+        }
+        .icon {
+            margin-right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 44px;
+            height: 44px;
+            background: $color-text-on-dark;
+            box-shadow: 0 2px 4px rgb(0 0 0 / 25%);
+            position: relative;
+            border-radius: 50%;
+            margin-bottom: 19px;
+        }
+    }
+
+    .summary-block-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100px;
+    }
+
+    .summary-block-title {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 16px;
+        text-align: center;
+        color: $summary-block-title;
+        margin-bottom: 8px;
+    }
+
+    .summary-block-text {
+        margin: 0;
+        font-size: 14px;
+        line-height: 14px;
+        text-align: center;
+        color: $color-subtitle-meal;
+        margin-bottom: 0;
+    }
+
+    .next-btn {
+        display: block;
+        margin: 0 auto 80px;
+        width: 321px;
+        min-height: 54px;
+        border-radius: 100px;
+    }
+}
+
+.main-content .container-stat {
+    .content-block {
+        box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+        animation: none;
+    }
+    .title-block,
+    .summary-block-item {
+        animation: none;
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    .summary-block-item:first-of-type {
+        border-bottom-left-radius: 0;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    .main-stat {
+        .container-stat {
+            max-width: 100%;
+            .content-block {
+                width: calc(100vw - 84px);
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .main-stat {
+        .container-stat {
+            max-width: 100%;
+            .content-block {
+                height: auto;
+                width: calc(100vw - 84px);
+            }
+            .summary-block {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(2, 1fr);
+                &-item {
+                    height: auto;
+                    padding: 16px;
+                    border: none;
+                    &:first-of-type {
+                        border-bottom-left-radius: 0;
+                    }
+                    &:nth-of-type(odd) {
+                        border-right: 1px solid $color-border;
+                    }
+                    &:nth-of-type(1),
+                    &:nth-of-type(2) {
+                        border-bottom: 1px solid $color-border;
+                    }
+                    &:nth-of-type(3) {
+                        border-bottom-left-radius: 12px;
+                    }
+                }
+                .icon {
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .main-stat {
+        .container-stat {
+            .summary-block {
+                &-title,
+                &-text {
+                    font-size: 12px;
+                }
+                &-title {
+                    margin-bottom: 3px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .main-stat {
+        .title-summary {
+            display: block;
+            padding: 14px;
+        }
+
+        .container-stat {
+            .stat-title {
+                display: block;
+            }
+        }
+
+        .workout-summary {
+            min-height: 220px;
+        }
+
+        .summary-item {
+            &-title,
+            &-subtitle {
+                font-size: 16px;
+                line-height: 18px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .main-stat {
+        .container-stat {
+            padding: 0;
+            .content-block {
+                width: calc(100vw - 40px);
+            }
+            .summary-block {
+                &-title,
+                &-text {
+                    font-size: 12px;
+                }
+                &-title {
+                    margin-bottom: 3px;
+                }
+                .icon {
+                    width: 34px;
+                    height: 34px;
+                }
+                &-info {
+                    height: 90px;
+                }
+            }
+            .next-btn {
+                width: 230px;
+            }
+        }
+    }
+}
