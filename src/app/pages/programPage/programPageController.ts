@@ -68,22 +68,20 @@ class ProgramPageController {
     }
 
     private createFavs(favs: string[]): void {
-        const cards = this.model.allCard;
+        const cards = this.model.getAllCards;
         const likedCards: TWorkout[] = [];
 
         if (cards.length && favs.length) {
-            cards.forEach((cardArr: Card[]) => {
-                cardArr.forEach((card: Card) => {
-                    const favCard = favs.find((fav) => fav === card.id);
-                    if (favCard) {
-                        if (!likedCards.find((cardElem) => cardElem._id === card.id)) {
-                            likedCards.push(card.data);
-                            if (!card.liked) {
-                                card.liked = true;
-                            }
+            cards.forEach((card: Card) => {
+                const favCard = favs.find((fav) => fav === card.id);
+                if (favCard) {
+                    if (!likedCards.find((cardElem) => cardElem._id === card.id)) {
+                        likedCards.push(card.data);
+                        if (!card.liked) {
+                            card.liked = true;
                         }
                     }
-                });
+                }
             });
         }
         this.view.renderFavs(likedCards, this.handleCardClick.bind(this));

@@ -232,22 +232,21 @@ class EditPlanPageView {
     }
 
     public setPreloader(): void {
-        if(this.overflow) {
+        if (this.overflow) {
             this.rootNode.append(this.overflow, this.preloader);
         }
     }
 
     public removePreloader(callback: () => void = () => {}): void {
-        if(this.overflow) {
+        if (this.overflow) {
             this.overflow.classList.add('closed');
             this.overflow.onanimationend = () => {
                 this.preloader.remove();
-                if(this.overflow) this.overflow.remove();
+                if (this.overflow) this.overflow.remove();
                 this.overflow = null;
                 callback();
-            }
+            };
         }
-        
     }
 }
 
