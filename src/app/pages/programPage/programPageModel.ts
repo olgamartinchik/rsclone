@@ -1,5 +1,5 @@
 import WorkoutManager from '../../services/workoutManager';
-import { TSettings, TToken, TWorkoutProgram } from '../../services/types';
+import { TSettings, TToken, TWorkout, TWorkoutProgram } from '../../services/types';
 import Card from '../../components/card/card';
 import storageManager from '../../services/storageManager';
 import ClientManager from '../../services/clientManager';

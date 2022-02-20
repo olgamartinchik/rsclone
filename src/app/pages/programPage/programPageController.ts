@@ -29,22 +29,6 @@ class ProgramPageController {
 
     public async createPage(): Promise<void> {
         const settings = await this.model.getSettingsData();
-        // <<<<<<< HEAD
-        //         const trainings = await this.model.getWeekTrainings(settings!);
-        //         this.view.render(
-        //             trainings,
-        //             this.handleCardClick.bind(this),
-        //             this.model.week,
-        //             settings!,
-        //             this.handleStatBlockClick.bind(this)
-        //         );
-
-        //         this.mealSection.getLoaderMealContainer();
-        //         this.mealSection.loadMealCard(
-        //             (await this.mealData.getUserMealData()) as IDataExplore[],
-        //             this.handlerMealCards.handlerMealCard.bind(this)
-        //         );
-        // =======
         if (settings) {
             const trainings = await this.model.getWeekTrainings(settings);
             this.view.render(trainings, this.handleCardClick.bind(this), this.model.week);
@@ -66,7 +50,7 @@ class ProgramPageController {
                 calories: 0,
                 workoutsCompleted: 0,
                 minutes: 0,
-                workoutsNumber: settings.weekProgress.workoutsNumber,
+                workoutsNumber: settings.workoutsNumber,
             };
         } else {
             const calories = Utils.countValuesSum(settings.progress[weekIndex].calories);
@@ -76,7 +60,7 @@ class ProgramPageController {
                 calories: calories,
                 workoutsCompleted: settings.weekProgress.workoutsCompleted,
                 minutes: minutes,
-                workoutsNumber: settings.weekProgress.workoutsNumber,
+                workoutsNumber: settings.workoutsNumber,
             };
         }
         this.view.renderStatBlock(settings, clickHandler);
@@ -108,6 +92,7 @@ class ProgramPageController {
     public handleCardClick(e: Event): void {
         const currCard = <HTMLElement>e.currentTarget;
         const workout = this.model.getCardById(currCard.id);
+
         if (workout) {
             authManager.navigate(`workout/${workout.id}`);
         }

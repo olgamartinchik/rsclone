@@ -53,6 +53,7 @@ class DateManager {
         const arrayDate = this.getArrayDate(userSettings);
         const dayToday = this.dateToday();
         const numDay = arrayDate.indexOf(dayToday);
+        
         if (numDay <= 7) {
             numWeek = 0;
         } else if (numDay <= 14) {

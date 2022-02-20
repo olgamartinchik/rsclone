@@ -14329,7 +14329,7 @@ footer {
   top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
+  z-index: 1000;
 }
 
 @keyframes scaleUp {
@@ -15217,7 +15217,7 @@ input[type=text]:not(.browser-default) {
   padding: 0 8px 20px;
   min-height: 320px;
   overflow-x: auto;
-  overflow-y: auto;
+  overflow-y: hidden;
   transition: all 0.3s ease;
   white-space: nowrap;
   text-align: center;
@@ -15262,11 +15262,16 @@ input[type=text]:not(.browser-default) {
   margin-top: 10px;
   font-size: 24px;
 }
+.program-card .image-container {
+  display: flex;
+  justify-content: center;
+}
 .program-card .image {
-  width: 317px;
+  width: 100%;
+  max-width: 92%;
   height: 167px;
   overflow: hidden;
-  margin: 0 auto;
+  margin: 0;
   background-image: url("../../assets/img/workout1.jpg");
   background-size: cover;
   background-position: 50%;
@@ -15394,6 +15399,7 @@ input[type=text]:not(.browser-default) {
 }
 .program-card.fav-card .image {
   width: 100%;
+  max-width: 100%;
 }
 .program-card.fav-card:last-of-type {
   margin-right: 10px;
@@ -15437,6 +15443,10 @@ input[type=text]:not(.browser-default) {
   justify-content: center;
   align-items: center;
   border: none;
+}
+.program-card.fav-card-empty:hover {
+  box-shadow: none;
+  cursor: auto;
 }
 
 .fav-wrapper {
@@ -16083,16 +16093,16 @@ span.bold-text {
   box-shadow: 0 4px 20px rgba(0, 66, 129, 0.12);
 }
 .meal-card .card .card-image {
-    position: relative;
-    background-image: url('../../assets/exploreMeal/1.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    width: 100%;
-    height: 207px;
-    overflow: hidden;
-    border-radius: 12px 12px 0 0;
-    transition: 0.5s ease-in-out;
+  position: relative;
+  background-image: url("../../assets/exploreMeal/1.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 207px;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+  transition: 0.5s ease-in-out;
 }
 .meal-card .card .card-image img {
   transition: 0.5s ease-in-out;
@@ -16126,20 +16136,20 @@ span.bold-text {
 }
 
 .explore-card {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 300px;
-    height: 220px;
-    overflow: hidden;
-    opacity: 0;
-    animation: slide-up 0.5s ease-in forwards;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 300px;
+  height: 220px;
+  overflow: hidden;
+  opacity: 0;
+  animation: slide-up 0.5s ease-in forwards;
 }
 .explore-card .subtitle-meal {
-    transition: color 0.5s ease-in-out;
+  transition: color 0.5s ease-in-out;
 }
 .explore-card:hover .subtitle-meal {
-    color: #ff8a80;
+  color: #ff8a80;
 }
 
 .explore-container {
@@ -16225,16 +16235,16 @@ span.bold-text {
 
 .meal-card,
 .card {
-    opacity: 0;
-    animation: slide-up 0.5s ease-in forwards;
+  opacity: 0;
+  animation: slide-up 0.5s ease-in forwards;
 }
 .meal-card .subtitle-day-meal,
 .card .subtitle-day-meal {
-    transition: color 0.5s ease-in-out;
+  transition: color 0.5s ease-in-out;
 }
 .meal-card:hover .subtitle-day-meal,
 .card:hover .subtitle-day-meal {
-    color: #ff8a80;
+  color: #ff8a80;
 }
 
 @media (max-width: 830px) {
@@ -16767,27 +16777,27 @@ p.settings-link {
   background-color: #fbf1f1;
 }
 .recipe-main .btn-floating {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 15px;
-    left: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 15px;
+  left: 15px;
 }
 
 .black-arrow {
-    padding: 0;
-    text-shadow: 0px 0px 0px black, 0 0 0 white;
+  padding: 0;
+  text-shadow: 0px 0px 0px black, 0 0 0 white;
 }
 .black-arrow:hover {
-    transform: scale(1);
-    color: #c4a0a0;
+  transform: scale(1);
+  color: #c4a0a0;
 }
 
 .about-section {
-    padding: 0px 15px;
-    width: 46%;
-    margin: 0 auto;
-    transition: 0.3s ease-in-out;
+  padding: 0px 15px;
+  width: 46%;
+  margin: 0 auto;
+  transition: 0.3s ease-in-out;
 }
 .about-section h1 {
   margin: 0;
@@ -16798,15 +16808,15 @@ p.settings-link {
   font-weight: 500;
 }
 .about-section .about-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    overflow: hidden;
-    height: 45vh;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 66, 129, 0.12);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  height: 45vh;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 66, 129, 0.12);
 }
 .about-section .about-container img {
   width: 100%;
@@ -16875,19 +16885,19 @@ p.settings-link {
 }
 
 .recipe-section {
-    display: flex;
-    justify-content: center;
-    padding: 0 15px;
-    border-radius: 20px 20px 0 0;
-    position: relative;
-    top: -70px;
-    z-index: 5;
-    background: #fff;
-    width: 65%;
-    align-items: center;
-    margin: 0 auto;
-    box-shadow: 0 4px 20px rgba(0, 66, 129, 0.12);
-    transition: 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  padding: 0 15px;
+  border-radius: 20px 20px 0 0;
+  position: relative;
+  top: -70px;
+  z-index: 5;
+  background: #fff;
+  width: 65%;
+  align-items: center;
+  margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(0, 66, 129, 0.12);
+  transition: 0.3s ease-in-out;
 }
 
 .recipe-container {
@@ -16952,14 +16962,14 @@ p.settings-link {
 }
 
 .title-recipe .image-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    min-height: 80px;
-    width: 100%;
-    gap: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  min-height: 80px;
+  width: 100%;
+  gap: 20px;
 }
 .title-recipe .image-container img {
   width: 50px;
