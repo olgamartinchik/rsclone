@@ -6,6 +6,7 @@ class MealCard {
     private rootNodeSearching: HTMLElement;
 
     private rootNodeMeal: HTMLElement;
+   
 
     private data: IDataExplore;
 
@@ -17,6 +18,7 @@ class MealCard {
         this.rootNodeSearching.setAttribute('href', '#/recipe');
         this.rootNodeMeal = document.createElement('a');
         this.rootNodeMeal.setAttribute('href', '#/recipe');
+      
     }
 
     public getMealTemplate(onclick: (e: Event) => void, position: number): HTMLElement {
@@ -36,5 +38,6 @@ class MealCard {
         this.rootNodeSearching.insertAdjacentHTML('afterbegin', searchingCardTemplate(this.data, position));
         return this.rootNodeSearching;
     }
+ 
 }
 export default MealCard;

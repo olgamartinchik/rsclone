@@ -15,6 +15,7 @@ export const userMealCardTemplate = function (data: IDataExplore, position: numb
                     <p class="subtitle-day-meal">${data.recipe.label}</p>
                 </div>
             </div>
+            
         </div> 
     </div>
     `;

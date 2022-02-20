@@ -16591,6 +16591,7 @@ span.bold-text {
   height: 100%;
   padding-top: 25px;
   margin: 0 auto;
+  padding-bottom: 1px;
 }
 .settings-title {
   display: block;
