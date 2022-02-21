@@ -225,7 +225,7 @@ class OnboardingPageController {
 
         unitValue.textContent = this.parameter.unit;
         valueInput.value = this.parameter.value;
-
+        
         this.model.saveConvertedValues({ [parametersType]: parseInt(this.parameter.value) });
         this.handleDesiredWeightConvert(parametersType);
         this.registerSelectedValue(e);
@@ -276,6 +276,7 @@ class OnboardingPageController {
             this.activateSelectedValues(valueGroup, clickedElement);
             this.colorRangeSlider(slider, this.parameter.minValueDefault, this.parameter.maxValueDefault);
             this.model.changeHandler({ [parametersType]: parseInt(slider.value) });
+            this.model.saveConvertedValues({ [parametersType]: parseInt(this.parameter.value) });
         }
     }
 
