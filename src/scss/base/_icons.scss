@@ -1,0 +1,297 @@
+.icon-container {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    .profile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $color-text-on-dark;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: $color-settings-active;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}
+
+.icon {
+    margin-right: 8px;
+    color: $color-text-navbar;
+    @extend %fa-icon;
+    @extend .fas;
+    &.female {
+        &:before {
+            content: fa-content($fa-var-venus);
+        }
+    }
+    &.male {
+        &:before {
+            content: fa-content($fa-var-mars);
+        }
+    }
+    &.other_gender {
+        &:before {
+            content: fa-content($fa-var-mars-stroke-v);
+        }
+    }
+    &.user {
+        &:before {
+            content: fa-content($fa-var-user);
+        }
+    }
+    &.browse {
+        &:before {
+            content: fa-content($fa-var-search);
+        }
+    }
+    &.meal {
+        &:before {
+            content: fa-content($fa-var-utensils);
+        }
+    }
+    &.settings {
+        &:before {
+            content: fa-content($fa-var-cogs);
+        }
+    }
+    &.angle-left {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 50%;
+        left: 30px;
+        &:before {
+            content: fa-content($fa-var-angle-left);
+        }
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+    }
+    &.angle-right {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        &:before {
+            content: fa-content($fa-var-angle-right);
+        }
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+    }
+    &.arrow-left {
+        position: absolute;
+        left: 50px;
+        &:before {
+            content: fa-content($fa-var-arrow-left);
+            font-size: 25px;
+            color: $color-text-on-dark;
+        }
+        &:hover {
+            transform: scale(1.5);
+            transition: all 2s ease-out;
+        }
+    }
+    &.arrow-right {
+        &:before {
+            content: fa-content($fa-var-arrow-right);
+            font-size: 20px;
+            cursor: pointer;
+        }
+        &:hover {
+            transform: scale(1.5);
+            transition: all 2s ease-out;
+        }
+    }
+    &.weight {
+        &:before {
+            content: fa-content($fa-var-weight);
+        }
+    }
+    &.height {
+        &:before {
+            content: fa-content($fa-var-ruler-vertical);
+        }
+    }
+    &.profile {
+        &:before {
+            content: fa-content($fa-var-user);
+        }
+    }
+    &.plan {
+        &:before {
+            content: fa-content($fa-var-clipboard);
+        }
+    }
+    &.target {
+        &:before {
+            content: fa-content($fa-var-bullseye);
+        }
+    }
+    &.duration {
+        &:before {
+            content: fa-content($fa-var-clipboard);
+        }
+    }
+    &.frequency {
+        &:before {
+            content: fa-content($fa-var-clipboard-list);
+        }
+    }
+    &.heart {
+        &:before {
+            content: fa-content($fa-var-heart);
+        }
+    }
+    &.clock {
+        &:before {
+            content: fa-content($fa-var-clock);
+        }
+    }
+    &.calendar {
+        margin-right: 12px;
+        &:before {
+            content: fa-content($fa-var-calendar);
+        }
+    }
+    &.eye {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        font-size: 22px;
+        color: $color-border;
+        z-index: 1;
+        cursor: pointer;
+        &:before {
+            content: fa-content($fa-var-eye);
+        }
+    }
+    &.eye-closed {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        font-size: 22px;
+        color: $color-border;
+        z-index: 1;
+        cursor: pointer;
+        &:before {
+            content: fa-content($fa-var-eye-slash);
+        }
+    }
+    &.select-up {
+        &:before {
+            content: fa-content($fa-var-chevron-up);
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            color: $color-text-navbar;
+            cursor: pointer;
+        }
+    }
+    &.select-down {
+        &:before {
+            content: fa-content($fa-var-check);
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            color: $color-text-navbar;
+            cursor: pointer;
+        }
+    }
+    &.pencil {
+        margin: auto;
+        &:before {
+            content: fa-content($fa-var-pencil-alt);
+            color: $color-text-on-dark;
+            cursor: pointer;
+        }
+    }
+    &.delete {
+        margin: auto;
+        &:before {
+            content: fa-content($fa-var-trash);
+            color: $color-text-on-dark;
+            cursor: pointer;
+        }
+    }
+    &.medal {
+        margin: auto;
+        &:before {
+            content: fa-content($fa-var-medal);
+            font-size: 55px;
+            line-height: 55px;
+            @media (max-width: 650px) {
+                font-size: 45px;
+                line-height: 45px;
+            }
+            @media (max-width: 450px) {
+                font-size: 35px;
+                line-height: 35px;
+            }
+        }
+    }
+    &.calories {
+        margin: auto;
+        &:before {
+            content: fa-content($fa-var-fire-alt);
+            font-size: 55px;
+            line-height: 55px;
+            @media (max-width: 650px) {
+                font-size: 45px;
+                line-height: 45px;
+            }
+            @media (max-width: 450px) {
+                font-size: 35px;
+                line-height: 35px;
+            }
+        }
+    }
+}
+
+.icon-upload {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: $color-settings-active;
+    border-radius: 50%;
+    position: absolute;
+    left: 115px;
+    top: 105px;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.5);
+        transition: all 2s ease-out;
+    }
+}
+
+.icon-select {
+    @extend %fa-icon;
+    @extend .fas;
+    &.down {
+        &:before {
+            content: fa-content($fa-var-check);
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            color: $color-text-navbar;
+            cursor: pointer;
+        }
+    }
+    &.up {
+        &:before {
+            content: fa-content($fa-var-chevron-up);
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            color: $color-text-navbar;
+            cursor: pointer;
+        }
+    }
+}

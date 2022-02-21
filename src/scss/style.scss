@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+// materialize
+@import 'materialize/materialize.scss';
+
+//Fontawesome
+
+@import 'fontawesome/fontawesome.scss';
+@import 'fontawesome/solid.scss';
+@import 'fontawesome/regular.scss';
+@import 'fontawesome/brands.scss';
+
+//Abstract
+
+@import 'abstract/constants';
+@import 'abstract/mixins';
+@import 'abstract/placeholders';
+
+//Base
+
+@import 'base/base';
+
+//Layouts
+
+@import 'layouts/header';
+@import 'layouts/startingContent';
+@import 'layouts/mainLayout';
+@import 'layouts/registration';
+@import 'layouts/mainPage';
+@import 'layouts/workoutPage';
+@import 'layouts/footer';
+@import 'layouts/mealPage';
+@import 'layouts/customPlayer';
+@import 'layouts/settingsPage';
+@import 'layouts/explorePage';
+@import 'layouts/recipePage';
+@import 'layouts/editPlanPage';
+@import 'layouts/profilePage';
+@import 'layouts/editProfile';
+@import 'layouts/statisticWidget';
+@import 'layouts/weeklyProgress';
+@import 'layouts/browse';
+@import 'layouts/categoryPage';
+
+//Components
+
+@import 'base/buttons';
+@import 'base/inputs';
+@import 'base/icons';
+@import 'base/modal';
+@import 'base/carousel';
+@import 'base/animation';
+@import 'base/modals';
+@import 'base/popup';

@@ -1,0 +1,70 @@
+{
+    "version": "0.1.0",
+    "description": "Fiton clone",
+    "private": true,
+    "name": "rsclone",
+    "scripts": {
+        "start": "rss-scripts start -ts",
+        "dev": "concurrently \"npm run start\" \"npm run style\" ",
+        "lint": "eslint . --ext .ts && prettier --check .",
+        "lint:fix": "eslint . --ext .ts --fix && prettier --write .",
+        "style": "sass --watch src/scss/style.scss src/style.css",
+        "test": "jest",
+        "build": "rss-scripts build -ts"
+    },
+    "husky": {
+        "hooks": {
+            "pre-push": "npm run lint && npm run test"
+        }
+    },
+    "prettier": {
+        "trailingComma": "es5",
+        "tabWidth": 4,
+        "semi": true,
+        "singleQuote": true,
+        "printWidth": 120
+    },
+    "devDependencies": {
+        "@babel/preset-env": "^7.16.11",
+        "@babel/preset-typescript": "^7.16.7",
+        "@types/babel__core": "^7.1.18",
+        "@types/jest": "^27.4.0",
+        "@types/materialize-css": "^1.0.11",
+        "@types/mocha": "^9.1.0",
+        "@typescript-eslint/eslint-plugin": "^5.9.0",
+        "@typescript-eslint/parser": "^5.9.0",
+        "clean-webpack-plugin": "^4.0.0",
+        "concurrently": "^7.0.0",
+        "copy-webpack-plugin": "^8.1.1",
+        "css-loader": "^5.2.7",
+        "dotenv-webpack": "^7.1.0",
+        "eslint": "^8.6.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-plugin-import": "^2.25.4",
+        "html-webpack-plugin": "^5.3.2",
+        "husky": "^7.0.4",
+        "jest": "^27.5.1",
+        "mini-css-extract-plugin": "^1.6.2",
+        "node-fetch": "^2.6.7",
+        "node-http": "^0.0.5",
+        "rss-scripts": "^0.2.4",
+        "sass": "^1.42.1",
+        "sass-loader": "^11.1.1",
+        "ts-jest": "^27.1.3",
+        "ts-node": "^10.5.0",
+        "webpack": "^5.58.1",
+        "webpack-cli": "^4.9.0",
+        "webpack-dev-server": "^4.3.1",
+        "webpack-remove-empty-scripts": "^0.7.1"
+    },
+    "dependencies": {
+        "@cloudinary/url-gen": "^1.5.1",
+        "chart.js": "^3.7.1",
+        "dotenv": "^16.0.0",
+        "eslint-config-airbnb-typescript": "^16.1.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "materialize-css": "^1.0.0",
+        "prettier": "^2.5.1"
+    }
+}

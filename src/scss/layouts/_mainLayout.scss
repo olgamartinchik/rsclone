@@ -1,0 +1,11 @@
+.main-layout {
+    min-height: calc(100% - 144px);
+    transition: all 3s ease-in-out;
+    margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+    .main-layout {
+        min-height: calc(100% - 136px);
+    }
+}

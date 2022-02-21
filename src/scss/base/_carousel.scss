@@ -1,0 +1,98 @@
+div#carousel {
+    perspective: 1200px;
+    font-size: 0;
+    margin-bottom: 3rem;
+
+    overflow: hidden;
+}
+
+div#spinner {
+    transform-style: preserve-3d;
+    height: 300px;
+    transform-origin: 50% 50% -500px;
+    transition: 1s;
+}
+
+div#spinner .spinner-card {
+    width: 60%;
+    height: 100%;
+    max-width: 425px;
+    border: 2px solid $color-border-light;
+    position: absolute;
+    left: 20%;
+    transform-origin: 50% 50% -500px;
+    background-color: $color-text-on-dark;
+    outline: 1px solid transparent;
+    h4 {
+        font-size: 18px;
+        text-align: center;
+        font-weight: 400;
+        margin: 9px;
+    }
+    img {
+        display: block;
+        width: 75%;
+        height: 70%;
+        margin: 0 auto;
+    }
+}
+div#spinner .spinner-card:nth-child(1) {
+    transform: rotateY(0deg);
+}
+
+div#spinner .spinner-card:nth-child(2) {
+    transform: rotateY(-90deg);
+}
+
+div#spinner .spinner-card:nth-child(3) {
+    transform: rotateY(-180deg);
+}
+
+div#spinner .spinner-card:nth-child(4) {
+    transform: rotateY(-270deg);
+}
+
+div#carousel ~ span {
+    color: $color-text-navbar;
+    text-decoration: none;
+    font-size: 30px;
+    transition: 0.6s color;
+    border-bottom: none;
+    line-height: 0;
+}
+
+// .carousel-arrow {
+//   position: absolute;
+//   top: 50%;
+//   &.left {
+//     left: 40px;
+//   }
+//   &.right {
+//     right: 40px;
+//   }
+// }
+
+// div#carousel ~ span:hover {
+//   transform: scale(1.2);
+//   cursor: pointer;
+// }
+
+.spinner-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.spinner-card > .image {
+    margin-top: 30px;
+}
+
+@media (max-width: 720px) {
+    div#spinner {
+        height: 230px;
+    }
+
+    div#spinner .spinner-card h4 {
+        font-size: 14px;
+    }
+}
