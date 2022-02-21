@@ -169,3 +169,7 @@ export type TProgress = {
     calories: TProgressData[];
     workoutsCompleted: number;
 };
+
+export type TFilter = {
+    [key: string]: string[];
+}

@@ -23,6 +23,7 @@ class Card {
     }
 
     public getTemplate(onclick: (e: Event) => void, index?: number): HTMLElement {
+        this.rootNode.textContent = '';
         this.rootNode.onclick = (e: Event) => onclick(e);
         if (index) {
             this.rootNode.style.animationDelay = `${index / 10}s`;

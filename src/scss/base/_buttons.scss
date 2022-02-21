@@ -40,9 +40,15 @@
 
 .back-btn {
     position: absolute;
-    top: 50px;
-    left: 5%;
+    top: 40px;
+    left: 0;
     color: white;
+    &.category {
+        top: 10px;
+        & > .icon.arrow-left:before {
+        color: $color-off-black;
+        }
+    }
 }
 
 .btn-wrapper {

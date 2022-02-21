@@ -23,6 +23,7 @@ class SettingsPageController {
 
     public createPage() {
         this.settings = this.model.getData();
+        this.modifiedUserSettings = this.getModifiedUserSettings();
         this.view.render(<TSettings>this.settings, this.handleClick.bind(this), this.handleButtonClick.bind(this));
     }
 

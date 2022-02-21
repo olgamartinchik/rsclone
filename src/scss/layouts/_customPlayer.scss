@@ -8,26 +8,26 @@
         width: 100vw;
         min-height: 100vh;
         opacity: 0;
-        background-color: rgba(0, 0, 0, 0.9);
+        background-color: rgba(0, 0, 0, 1);
         animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         .preloader {
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -44%);
+            transform: translate(-50%, -36%);
             z-index: 1001;
         }
         .count-down {
             &-timer {
                 position: fixed;
                 z-index: 999;
-                bottom: 0;
+                bottom: 10px;
                 left: 51px;
             }
             &-time {
                 margin: 0;
                 position: fixed;
-                bottom: 59px;
+                bottom: 69px;
                 left: 120px;
                 z-index: 999;
                 font-size: 20px;
@@ -49,12 +49,11 @@
         background-color: transparent;
         overflow: hidden;
         border: none;
-        opacity: 0;
         object-fit: cover;
-        animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         filter: brightness(97%) saturate(93%) contrast(90%);
         -webkit-filter: brightness(97%) saturate(93%) contrast(90%);
         -moz-filter: brightness(97%) saturate(93%) contrast(90%);
+        transition: 0.5s;
     }
     &-controls {
         padding: 40px;
@@ -303,5 +302,103 @@
     }
     .fullscreen-on {
         visibility: hidden;
+    }
+}
+
+@media screen and (max-width: 678px) {
+    .video-player,
+    .video-controls {
+        top: 0;
+        left: 0;
+        transform: translate(0, 0);
+        height: auto;
+        width: 100%;
+    }
+    .video-controls {
+        height: 56.4vw;
+    }
+    .video-wrapper {
+        &::after {
+            content: "";
+            position: absolute;
+            z-index: 996;
+            bottom: 0;
+            left: 0;
+            height: 100%;
+            width: 100vw;
+            display: block;
+            background-image: $color-violet-gradient;
+
+        }
+        .preloader {
+            top: 28vw;
+            transform: translate(-50%, -35%);
+        }
+        .count-down-timer {
+            bottom: 9%;
+            left: 50%;
+            transform: translate(-34%, -81px);
+        }
+        .count-down-time {
+            bottom: 23.5%;
+            left: 44%;
+        }
+    }
+    .calories-timer-wrapper {
+        left: 47%;
+        top: 52%;
+    }
+    .video-controls ~ .count-down-timer,
+    .video-controls ~ .count-down-time,
+    .video-controls ~ .calories-timer-wrapper {
+        visibility: visible;
+    }
+}
+
+@media screen and (max-width: 534px) {
+    .video-wrapper {
+        .count-down-timer {
+            bottom: auto;
+            top: 100vw;
+            left: 50%;
+        }
+        .count-down-time {
+            bottom: auto;
+            top: 96vw;
+            left: 43.5vw;
+        }
+    }
+    .calories-timer-wrapper {
+        left: 46%;
+        top: 61vw;
+    }
+}
+
+@media screen and (max-width: 490px) {
+    .video-controls {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .video-wrapper {
+        .count-down-time {
+            top: 94.5vw;
+            left: 42vw;
+        }
+    }
+
+    .controls-bottom .time {
+        padding: 0 10px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 346px) {
+    .video-wrapper {
+        .count-down-time {
+            top: 94vw;
+            left: 41vw;
+        }
     }
 }

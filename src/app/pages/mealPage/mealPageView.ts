@@ -38,7 +38,6 @@ class MealPageView {
         onchange: (e: Event) => void,
         onclickBtn: (e: Event) => void
     ) {
-        // this.animationManager.initPageTransition();
         this.rootNode.textContent = '';
         this.rootNode.append(header.getTemplate());
         const user = <TUser>storageManager.getItem('user', 'local');
@@ -63,7 +62,6 @@ class MealPageView {
         onclickBtn: (e: Event) => void
     ) {
         const main = new Node(this.rootNode, 'main', 'main-layout main-meal');
-        // this.animationManager.initContentFadeout(main.node);
         main.node.insertAdjacentHTML('afterbegin', this.getSectionMeal());
 
         const sectionExplore = new Node(main.node, 'section', 'section meal-section');

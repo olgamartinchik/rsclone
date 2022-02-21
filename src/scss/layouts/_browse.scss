@@ -1,0 +1,107 @@
+.main-layout.browse {
+  position: relative;
+  .workout-header {
+    background-position: top 30% left 50%;
+    &::before {
+      height: 250px;
+    }
+  }
+  .workout-container {
+    min-height: 300px;
+    &.buttons {
+      min-height: 50px;
+      position: absolute;
+      top: 230px;
+      background-color: transparent;
+      .workout-controls {
+        padding: 0;
+        .workout-fav {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+  .workout-title {
+    font-size: 30px;
+  }
+  .workout-info {
+    bottom: 80px;
+  }
+}
+
+.browse-block {
+  padding: 15px;
+  max-width: 900px;
+  margin: 0 auto;
+  &-title {
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: 500;
+  }
+  .classes-block {
+    width: 100%;
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .type-card {
+    width: 100%;
+    height: 200px;
+    border-radius: 16px;
+    color: #fff;
+    text-align: center;
+    padding-top: 50px;
+    background-size: cover;
+    background-position: 50%;
+    background-blend-mode: multiply, normal;
+    background-image: linear-gradient(0deg, rgba(129, 131, 132, 0.7), rgba(129, 131, 132, 0.7));
+    transition: transform 1.5s ease;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
+    span {
+      font-size: 25px;
+      font-weight: 700;
+    }
+  }
+}
+
+.workouts-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  grid-gap: 30px;
+}
+
+@media (max-width: 800px) {
+  .browse-block {
+    .type-card {
+      height: 160px;
+      span {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .browse-block {
+    .type-card {
+      height: 120px;
+      span {
+        font-size: 18px;
+      }
+    }
+    .classes-block {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media (max-width: 400px) {
+    .browse-block > .classes-block {
+      grid-template-columns: repeat(1, 1fr);
+    }
+}

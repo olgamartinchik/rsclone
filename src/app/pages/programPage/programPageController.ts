@@ -79,6 +79,7 @@ class ProgramPageController {
                         likedCards.push(card.data);
                         if (!card.liked) {
                             card.liked = true;
+                            this.model.saveAllCards();
                         }
                     }
                 }

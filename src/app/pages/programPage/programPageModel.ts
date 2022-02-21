@@ -54,7 +54,7 @@ class ProgramPageModel {
         } else {
             this.cards = this.program.map((workoutPerWeek) => workoutPerWeek.map((card) => new Card(card)));
         }
-        if (settings.liked.length) {
+        if (settings.liked && settings.liked.length) {
             this.cards.forEach((cardArr: Card[]) => {
                 cardArr.forEach((card: Card) => {
                     const favCard = settings.liked.find((fav) => fav === card.id);
@@ -135,6 +135,10 @@ class ProgramPageModel {
         if (userData) {
             await this.client.changeData('userSettings', 'PATCH', userData.userID, settings);
         }
+    }
+
+    public saveAllCards(): void {
+        storageManager.addItem('all-cards', this.allCards, 'local');
     }
 }
 

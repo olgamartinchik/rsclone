@@ -42,11 +42,20 @@
             }
             &.option {
                 flex-basis: 100%;
+                &:hover {
+                    transform: scale(1.05);
+                    transition: all 0.3s ease-in;
+                }
             }
             &.active {
                 background-color: $color-primary;
                 color: $color-text-on-dark;
                 border: none;
+                &:hover {
+                    cursor: default;
+                    transform: scale(1);
+                    transition: all 0.3s ease-in;
+                }
             }
         }
         .frequency {
@@ -61,6 +70,10 @@
             cursor: pointer;
             &.option {
                 flex-basis: 100%;
+                &:hover {
+                    transform: scale(1.05);
+                    transition: all 0.5s ease-in;
+                }
             }
             &.tile {
                 flex-basis: 30%;
@@ -69,6 +82,11 @@
                 background-color: $color-primary;
                 color: $color-text-on-dark;
                 border: none;
+                &:hover {
+                    cursor: default;
+                    transform: scale(1);
+                    transition: all 0.5s ease-in;
+                }
             }
         }
         .classes {
@@ -83,9 +101,17 @@
             cursor: pointer;
             &.option {
                 flex-basis: 100%;
+                &:hover {
+                    transform: scale(1.05);
+                    transition: all 0.5s ease-in;
+                }
             }
             &.tile {
                 flex-basis: 30%;
+                &:hover {
+                    transform: scale(1.05);
+                    transition: all 0.5s ease-in;
+                }
             }
             &.active {
                 background-color: $color-primary;
@@ -127,6 +153,10 @@
             cursor: pointer;
             &.option {
                 flex-basis: 100%;
+                &:hover {
+                    transform: scale(1.05);
+                    transition: all 0.5s ease-in;
+                }
             }
             &.tile {
                 flex-basis: 30%;
@@ -135,6 +165,11 @@
                 background-color: $color-primary;
                 color: $color-text-on-dark;
                 border: none;
+                &:hover {
+                    cursor: default;
+                    transform: scale(1);
+                    transition: all 0.5s ease-in;
+                }
             }
         }
     }
@@ -173,6 +208,15 @@ div.parameters-options {
         color: $color-text-on-dark;
         border-radius: 20px;
         background-color: $color-settings-active;
+        &:hover {
+            border-radius: 25px;
+            background-color: #816ffe;
+        }
+    }
+    &:hover {
+        background-color: rgba(129, 111, 254, 0.3);
+        border-radius: 25px;
+        transition: all 0.3s ease-in;
     }
 }
 
