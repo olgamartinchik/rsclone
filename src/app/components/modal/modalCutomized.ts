@@ -10,6 +10,7 @@ export class Modal {
   }
 
   public createModal(parentNode: HTMLElement, contentsTemplate?: string): void {
+    this.angle = 0;
     this.overlay = new Node(parentNode, 'div', 'fiton-modal-overlay');
     const modalCard = Node.setChild(this.overlay.node, 'div', 'fiton-modal-card');
     const contents = Node.setChild(modalCard, 'div', 'fiton-modal-contents');

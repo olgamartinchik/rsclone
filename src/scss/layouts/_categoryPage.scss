@@ -96,6 +96,9 @@
   .main-layout.category {
     max-width: 370px;
   }
+  .main-layout .back-btn {
+    left: -13%;
+  }
 }
 
 @media (max-width: 560px) {
