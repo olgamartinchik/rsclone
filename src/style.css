@@ -17580,7 +17580,7 @@ input:not([type]).select-dropdown {
 }
 
 .workout-summary {
-  min-height: 260px;
+  min-height: 215px;
   color: white;
   background: linear-gradient(-180deg, rgba(255, 100, 162, 0.667) -8.99%, rgba(255, 134, 102, 0.8) 109.7%);
 }
@@ -17611,7 +17611,7 @@ input:not([type]).select-dropdown {
 }
 
 .container-stat .content-block {
-  margin: -110px auto 80px;
+  margin: -110px auto 57px;
   width: calc(100vw - 50%);
   min-height: calc(100% - 21px);
   height: 250px;

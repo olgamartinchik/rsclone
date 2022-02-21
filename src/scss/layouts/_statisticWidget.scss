@@ -30,7 +30,7 @@
 }
 
 .workout-summary {
-    min-height: 260px;
+    min-height: 215px;
     color: $color-text-on-dark;
     background: linear-gradient(-180deg, $color-background-linear-1 -8.99%, $color-background-linear-2 109.7%);
     .container-stat {
@@ -64,7 +64,7 @@
 
 .container-stat {
     .content-block {
-        margin: -110px auto 80px;
+        margin: -110px auto 57px;
         width: calc(100vw - 50%);
         min-height: calc(100% - 21px);
         height: 250px;
