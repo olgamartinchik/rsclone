@@ -14280,6 +14280,7 @@ body {
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 16px;
+  user-select: none;
 }
 
 header {
@@ -18065,7 +18066,7 @@ input:not([type]).select-dropdown {
   margin-right: 0;
 }
 
-.program-card .title {
+.workouts-wrapper .program-card .title {
   white-space: nowrap;
 }
 
