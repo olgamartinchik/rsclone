@@ -86,7 +86,9 @@ class VideoHandler {
         this.removeInnerContext();
         this.initVideo(parentElement, src, card.id);
         this.tracker.reset();
-        this.tracker.startTracking(card.data.caloriesPerMinute, settings!);
+        if(settings) {
+            this.tracker.startTracking(card.data.caloriesPerMinute, settings);
+        }
         this.video?.removeEventListener('canplay', this.onCanPlay.bind(this));
         this.video?.removeEventListener('ended', this.onVideoEnded.bind(this));
         this.video?.addEventListener('canplay', this.onCanPlay.bind(this));
