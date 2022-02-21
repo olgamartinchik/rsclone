@@ -14,7 +14,7 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -44%);
+            transform: translate(-50%, -36%);
             z-index: 1001;
         }
         .count-down {
@@ -321,7 +321,7 @@
         &::after {
             content: "";
             position: absolute;
-            z-index: 997;
+            z-index: 996;
             bottom: 0;
             left: 0;
             height: 100%;
@@ -329,6 +329,10 @@
             display: block;
             background-image: $color-violet-gradient;
 
+        }
+        .preloader {
+            top: 28vw;
+            transform: translate(-50%, -35%);
         }
         .count-down-timer {
             bottom: 9%;
@@ -381,7 +385,7 @@
     .video-wrapper {
         .count-down-time {
             top: 94.5vw;
-            left: 46vw;
+            left: 45vw;
         }
     }
 
@@ -391,11 +395,11 @@
     }
 }
 
-@media screen and (max-width: 346px) {
+@media screen and (max-width: 376px) {
     .video-wrapper {
         .count-down-time {
             top: 94vw;
-            left: 45vw;
+            left: 44vw;
         }
     }
 }

@@ -98,7 +98,7 @@ class VideoHandler {
                 this.play();
                 this.playBtn?.classList.remove('paused');
             }
-            this.preloader.remove();
+            // this.preloader.remove();
         };
         this.video!.onended = (e: Event): void => {
             e.stopPropagation();

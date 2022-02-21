@@ -16320,7 +16320,7 @@ span.bold-text {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -44%);
+  transform: translate(-50%, -36%);
   z-index: 1001;
 }
 .video-wrapper .count-down-timer {
@@ -16602,13 +16602,17 @@ span.bold-text {
   .video-wrapper::after {
     content: "";
     position: absolute;
-    z-index: 997;
+    z-index: 996;
     bottom: 0;
     left: 0;
     height: 100%;
     width: 100vw;
     display: block;
     background-image: linear-gradient(318deg, #7a3bb4 19%, #6200ff 100%);
+  }
+  .video-wrapper .preloader {
+    top: 28vw;
+    transform: translate(-50%, -35%);
   }
   .video-wrapper .count-down-timer {
     bottom: 9%;
@@ -16657,7 +16661,7 @@ span.bold-text {
 @media screen and (max-width: 430px) {
   .video-wrapper .count-down-time {
     top: 94.5vw;
-    left: 46vw;
+    left: 45vw;
   }
 
   .controls-bottom .time {
@@ -16665,10 +16669,10 @@ span.bold-text {
     font-size: 14px;
   }
 }
-@media screen and (max-width: 346px) {
+@media screen and (max-width: 376px) {
   .video-wrapper .count-down-time {
     top: 94vw;
-    left: 45vw;
+    left: 44vw;
   }
 }
 .settings-wrapper {
