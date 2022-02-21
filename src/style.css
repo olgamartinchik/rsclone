@@ -16617,15 +16617,15 @@ span.bold-text {
   .video-wrapper .count-down-timer {
     bottom: 9%;
     left: 50%;
-    transform: translate(-30%, -81px);
+    transform: translate(-34%, -81px);
   }
   .video-wrapper .count-down-time {
     bottom: 23.5%;
-    left: 47%;
+    left: 44%;
   }
 
   .calories-timer-wrapper {
-    left: 49%;
+    left: 47%;
     top: 52%;
   }
 
@@ -16640,16 +16640,15 @@ span.bold-text {
     bottom: auto;
     top: 100vw;
     left: 50%;
-    transform: translate(-30%, -81px);
   }
   .video-wrapper .count-down-time {
     bottom: auto;
     top: 96vw;
-    left: 46.5vw;
+    left: 43.5vw;
   }
 
   .calories-timer-wrapper {
-    left: 49%;
+    left: 46%;
     top: 61vw;
   }
 }
@@ -16661,7 +16660,7 @@ span.bold-text {
 @media screen and (max-width: 430px) {
   .video-wrapper .count-down-time {
     top: 94.5vw;
-    left: 45vw;
+    left: 42vw;
   }
 
   .controls-bottom .time {
@@ -16669,10 +16668,10 @@ span.bold-text {
     font-size: 14px;
   }
 }
-@media screen and (max-width: 376px) {
+@media screen and (max-width: 346px) {
   .video-wrapper .count-down-time {
     top: 94vw;
-    left: 44vw;
+    left: 41vw;
   }
 }
 .settings-wrapper {
