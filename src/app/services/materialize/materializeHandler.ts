@@ -29,6 +29,11 @@ class MaterializeHandler {
         const elems = document.querySelectorAll('.tooltipped');
         M.Tooltip.init(elems, {});
     }
+
+    initCarousel() {
+        var elems = document.querySelectorAll('.carousel');
+        M.Carousel.init(elems, {});
+    }
 }
 
 export default MaterializeHandler;

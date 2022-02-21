@@ -17,8 +17,15 @@ class Checkbox {
 
         let isChecked = false;
         options.forEach((option) => {
-            if (checkedOptions.includes(option.toUpperCase())) isChecked = true;
-            this.rootNode.insertAdjacentHTML('afterbegin', optionTemplate(className, option, isChecked));
+            const optionName = option.split(' ')[0];
+            if (checkedOptions.includes(optionName.toUpperCase())) {
+                isChecked = true;
+            }
+            if (optionName === 'all') {
+                this.rootNode.insertAdjacentHTML('afterbegin', optionTemplate(className, option, isChecked, true));    
+            } else {
+                this.rootNode.insertAdjacentHTML('afterbegin', optionTemplate(className, option, isChecked));
+            }
             isChecked = false;
         });
         return this.rootNode;

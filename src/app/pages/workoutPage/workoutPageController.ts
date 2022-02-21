@@ -31,7 +31,7 @@ class WorkoutPageController {
         }
     }
 
-    private async startWorkout(e: Event) {
+    public async startWorkout(e: Event) {
         const id = (<HTMLElement>e.currentTarget).id;
         const link = this.model.getVideoLink(id);
         const settings = await this.model.getSettingsData();

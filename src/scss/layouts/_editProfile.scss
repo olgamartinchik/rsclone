@@ -27,6 +27,10 @@
         &::placeholder {
             text-align: right;
         }
+        &:hover {
+            font-size: 20px;
+            transition: all 1s ease-in;
+        }
     }
 }
 
@@ -68,4 +72,8 @@
 
 .settings-wrapper.editprofile {
     padding-top: 0;
+}
+
+.settings-wrapper > .input-group {
+    height: 40px;
 }

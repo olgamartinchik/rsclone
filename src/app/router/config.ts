@@ -14,6 +14,7 @@ import StatisticPageController from '../pages/statistic/statisticPageController'
 import ExploreController from '../pages/explorePage/explorePageController';
 import RecipePageController from '../pages/recipePage/recipePageController';
 import ProgressPageController from '../pages/weeklyProgressPage/progressPageController';
+import CategoryPageController from '../pages/categoryPage/categoryPageController';
 
 class Config {
     public programPageController: ProgramPageController;
@@ -46,6 +47,8 @@ class Config {
 
     public progressPageController: ProgressPageController;
 
+    public categoryPageController: CategoryPageController;
+
     constructor() {
         this.programPageController = new ProgramPageController();
         this.mainPageController = new MainPageController();
@@ -62,6 +65,7 @@ class Config {
         this.exploreController = new ExploreController();
         this.recipePageController = new RecipePageController();
         this.progressPageController = new ProgressPageController();
+        this.categoryPageController = new CategoryPageController();
     }
 
     public getRoutes(): RouteOption[] {
@@ -110,6 +114,11 @@ class Config {
                 path: /workout\/([\deabcdf]{24})/,
                 callback: (...args) => this.workoutPageController.createPage(args),
                 isAuth: true,
+            },
+            {
+                path: /browse\/([a-zA-Z]{1,10})/,
+                callback: (...args) => this.categoryPageController.render(args),
+                isAuth: null,
             },
             {
                 path: /browse/,
