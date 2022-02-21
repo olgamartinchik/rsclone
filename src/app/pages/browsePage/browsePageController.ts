@@ -12,13 +12,13 @@ import { TToken, TSettings, TStatData } from '../../services/types';
 
 class BrowsePageController {
     private view: BrowsePageView;
-    
+
     private model: BrowsePageModel;
 
     private videoHandler: typeof videoHandler;
-    
+
     private isLogin: boolean;
-    
+
     private materializeHandler: MaterializeHandler;
 
     private modalCustomized: typeof modalCustomized;
@@ -28,7 +28,7 @@ class BrowsePageController {
     constructor() {
         this.view = new BrowsePageView();
         this.model = new BrowsePageModel();
-        this.videoHandler = videoHandler; 
+        this.videoHandler = videoHandler;
         this.modalCustomized = modalCustomized;
         this.materializeHandler = new MaterializeHandler();
         this.isLogin = false;
@@ -39,8 +39,15 @@ class BrowsePageController {
         await this.model.getData();
         this.isLogin = this.checkAuth();
         const card = this.model.getRandomWorkout();
-        this.view.render(this.isLogin, card, this.signUpHandler.bind(this), this.startWorkout.bind(this), this.onParameterClick.bind(this), this.addToFav.bind(this, card.id));
-        
+        this.view.render(
+            this.isLogin,
+            card,
+            this.signUpHandler.bind(this),
+            this.startWorkout.bind(this),
+            this.onParameterClick.bind(this),
+            this.addToFav.bind(this, card.id)
+        );
+
         this.initMaterialize();
     }
 

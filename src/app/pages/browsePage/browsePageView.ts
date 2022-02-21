@@ -12,10 +12,13 @@ import { TUser } from '../../services/types';
 
 class BrowsePageView {
     public rootNode: HTMLElement;
-    
+
     private materializeHandler: MaterializeHandler;
+
     private angle: number;
+
     private cardsWrapper!: Node<HTMLElement>;
+
     private mainLayout: HTMLElement;
 
     constructor() {
@@ -25,9 +28,16 @@ class BrowsePageView {
         this.angle = 0;
     }
 
-    public render(isLogin: boolean, card: Card, signUpHandler: () => void, startVideo: (e: Event) => void, onParameterClick: (e: Event) => void, addtoFav: (e: Event) => void) {
+    public render(
+        isLogin: boolean,
+        card: Card,
+        signUpHandler: () => void,
+        startVideo: (e: Event) => void,
+        onParameterClick: (e: Event) => void,
+        addtoFav: (e: Event) => void
+    ) {
         if (isLogin) {
-            this.createAuthorizedHeader()
+            this.createAuthorizedHeader();
         } else {
             this.createNotAuthorizedHeader(signUpHandler);
         }
@@ -63,7 +73,13 @@ class BrowsePageView {
         }
     }
 
-    private createContent(isLogin: boolean, card: Card, startVideo: (e: Event) => void, onParameterClick: (e: Event) => void, addtoFav: (e: Event) => void): void {
+    private createContent(
+        isLogin: boolean,
+        card: Card,
+        startVideo: (e: Event) => void,
+        onParameterClick: (e: Event) => void,
+        addtoFav: (e: Event) => void
+    ): void {
         const mainLayout = new Node(this.rootNode, 'main', 'main-layout browse');
         mainLayout.setAttribute('id', 'browse');
         mainLayout.node.insertAdjacentHTML('afterbegin', workoutHeaderTemplate(card));
@@ -77,7 +93,11 @@ class BrowsePageView {
         this.createParamBlock(mainLayout.node, 'Classes', onParameterClick);
     }
 
-    private getWorkoutDetailsLayout(card: Card, startVideo: (e: Event) => void, addToFav: (e: Event) => void): HTMLElement {
+    private getWorkoutDetailsLayout(
+        card: Card,
+        startVideo: (e: Event) => void,
+        addToFav: (e: Event) => void
+    ): HTMLElement {
         const workoutDetails = new Node(null, 'div', 'workout-details');
         const workoutContainer = new Node(workoutDetails.node, 'div', 'workout-container buttons');
         const controls = new Node(workoutContainer.node, 'div', 'workout-controls');
@@ -104,7 +124,7 @@ class BrowsePageView {
     }
 
     private setContent(title: string, parentNode: HTMLElement, onParameterClick: (e: Event) => void) {
-        switch(title) {
+        switch (title) {
             case 'Classes':
                 this.createClassesBlock(parentNode, onParameterClick);
                 break;
@@ -115,9 +135,9 @@ class BrowsePageView {
         const classesWrapper = new Node(parentNode, 'div', 'classes-block');
         const classes = [
             'all workouts',
-            WorkoutType.yoga, 
-            WorkoutType.stretch, 
-            WorkoutType.strength, 
+            WorkoutType.yoga,
+            WorkoutType.stretch,
+            WorkoutType.strength,
             WorkoutType.pilates,
             WorkoutType.meditation,
             WorkoutType.dance,
@@ -127,7 +147,9 @@ class BrowsePageView {
         ];
         classes.forEach((item) => {
             const classesCard = Node.setChild(classesWrapper.node, 'div', 'type-card');
-            classesCard.style.backgroundImage =  `linear-gradient(0deg, rgba(129, 131, 132, 0.7), rgba(129, 131, 132, 0.7)), url("../../../assets/img/classes/${item.split(' ').join('')}.jpg")`;
+            classesCard.style.backgroundImage = `linear-gradient(0deg, rgba(129, 131, 132, 0.7), rgba(129, 131, 132, 0.7)), url("../../../assets/img/classes/${item
+                .split(' ')
+                .join('')}.jpg")`;
             classesCard.setAttribute('data-type', 'type');
             classesCard.setAttribute('data-value', item);
             classesCard.onclick = (e: Event) => onParameterClick(e);

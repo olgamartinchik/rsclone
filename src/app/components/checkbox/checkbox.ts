@@ -22,7 +22,7 @@ class Checkbox {
                 isChecked = true;
             }
             if (optionName === 'all') {
-                this.rootNode.insertAdjacentHTML('afterbegin', optionTemplate(className, option, isChecked, true));    
+                this.rootNode.insertAdjacentHTML('afterbegin', optionTemplate(className, option, isChecked, true));
             } else {
                 this.rootNode.insertAdjacentHTML('afterbegin', optionTemplate(className, option, isChecked));
             }

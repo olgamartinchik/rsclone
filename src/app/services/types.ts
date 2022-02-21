@@ -172,4 +172,4 @@ export type TProgress = {
 
 export type TFilter = {
     [key: string]: string[];
-}
+};

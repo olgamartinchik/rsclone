@@ -221,20 +221,20 @@ export default class Utils {
     }
 
     static getFilterType(value: string) {
-        const workoutParams =
-            {'type': [            
-                WorkoutType.yoga, 
-                WorkoutType.stretch, 
-                WorkoutType.strength, 
+        const workoutParams = {
+            type: [
+                WorkoutType.yoga,
+                WorkoutType.stretch,
+                WorkoutType.strength,
                 WorkoutType.pilates,
                 WorkoutType.meditation,
                 WorkoutType.dance,
                 WorkoutType.cardio,
                 WorkoutType.boxing,
-                WorkoutType.HIIT
-                ],
-             'equipment': ['dumbbells', 'towel', 'mat', 'none'],
-            }
-        return Object.keys(workoutParams).find((key) => workoutParams[key].includes(value));;
+                WorkoutType.HIIT,
+            ],
+            equipment: ['dumbbells', 'towel', 'mat', 'none'],
+        };
+        return Object.keys(workoutParams).find((key) => workoutParams[key].includes(value));
     }
 }

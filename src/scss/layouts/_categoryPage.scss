@@ -1,124 +1,124 @@
 .main-layout.category {
-  position: relative;
-  max-width: 1200px;
+    position: relative;
+    max-width: 1200px;
 }
 
 .category-title {
-  margin: 20px 0 30px 0;
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 40px;
-  font-weight: 500;
+    margin: 20px 0 30px 0;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 40px;
+    font-weight: 500;
 }
 
 .workouts-wrapper {
-  margin-bottom: 15px;
-  &.category {
-    min-height: 200px;
-    align-items: center;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 500;
-  }
-  .program-card {
-    margin-right: 0;
-  }
+    margin-bottom: 15px;
+    &.category {
+        min-height: 200px;
+        align-items: center;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 500;
+    }
+    .program-card {
+        margin-right: 0;
+    }
 }
 
 .workouts-wrapper .program-card .title {
-  white-space: nowrap;
+    white-space: nowrap;
 }
 
 .program-card.removing {
-  height: 0;
-  width: 0;
-  min-width: 0;
-  transition: height .5s, width 0.5s, min-width 0.5s;
+    height: 0;
+    width: 0;
+    min-width: 0;
+    transition: height 0.5s, width 0.5s, min-width 0.5s;
 }
 
 .title-container.removing,
 .image-container.removing,
 .card-info.removing {
-  transform: scale(0);
-  transition: transform 0.5s;
+    transform: scale(0);
+    transition: transform 0.5s;
 }
 
 .program-card.hidden {
-  display: none;
+    display: none;
 }
 
 .filters-block {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 100px;
-  width: 100%;
-  margin-bottom: 10px;
-  select:focus {
-    outline: 1px solid $color-primary;
-  }
-  input[type=text]:not(.browser-default).select-dropdown, 
-  input:not([type]).select-dropdown {
-    width: 200px;
-    text-align: left;
-    font-size: 15px;
-  }
-  fieldset {
-    width: 370px;
-    border: 1px solid $color-border-light;
-    border-radius: 10px;
-    form {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 60px;
-      p {
-        margin: 0;
-      }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100px;
+    width: 100%;
+    margin-bottom: 10px;
+    select:focus {
+        outline: 1px solid $color-primary;
     }
-  }
+    input[type='text']:not(.browser-default).select-dropdown,
+    input:not([type]).select-dropdown {
+        width: 200px;
+        text-align: left;
+        font-size: 15px;
+    }
+    fieldset {
+        width: 370px;
+        border: 1px solid $color-border-light;
+        border-radius: 10px;
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 60px;
+            p {
+                margin: 0;
+            }
+        }
+    }
 }
 
 @media (max-width: 1300px) {
-  .main-layout.category {
-    max-width: 800px;
-  }
-
-  .workouts-wrapper {
-    &.category {
-      justify-content: space-between;
+    .main-layout.category {
+        max-width: 800px;
     }
-  }
+
+    .workouts-wrapper {
+        &.category {
+            justify-content: space-between;
+        }
+    }
 }
 
 @media (max-width: 850px) {
-  .main-layout.category {
-    max-width: 370px;
-  }
-  .main-layout .back-btn {
-    left: -13%;
-  }
+    .main-layout.category {
+        max-width: 370px;
+    }
+    .main-layout .back-btn {
+        left: -13%;
+    }
 }
 
 @media (max-width: 560px) {
-  .main-layout.category {
-    max-width: 300px;
-  }
-
-  .category-title {
-    font-size: 30px;
-  }
-
-  .back-btn.category {
-    .icon.arrow-left:before {
-      font-size: 20px;
+    .main-layout.category {
+        max-width: 300px;
     }
-  }
 
-  .workouts-wrapper {
-    &.category {
-      justify-content: center;
+    .category-title {
+        font-size: 30px;
     }
-  }
+
+    .back-btn.category {
+        .icon.arrow-left:before {
+            font-size: 20px;
+        }
+    }
+
+    .workouts-wrapper {
+        &.category {
+            justify-content: center;
+        }
+    }
 }

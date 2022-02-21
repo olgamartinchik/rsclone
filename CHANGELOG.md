@@ -1,373 +1,373 @@
-- fix: add value save on onboarding in case of input change
-- Merge pull request #37 from olgamartinchik/refactor_videoPlayerResponsive_sp5
-- fix: add checking for stat count in video handler
-- fix: merge conflicts
-- fix: fix timer position on video element
-- fix: add ability to show liked trainings; fix video preloader
-- Merge pull request #38 from olgamartinchik/feature_browse_sp5
-- fix: styles
-- fix: styles
-- feat: add video responsive layout
-- fix: hover
-- fix: pull from develop
-- fix: styles on start page
-- Merge pull request #36 from olgamartinchik/fix_workoutProgramCreation_sp5
-- fix: fix merge conflict
-- fix: change program creation logic
-- fix: pull from develop
-- fix: git pull
-- Merge pull request #35 from olgamartinchik/unit-test_sp4
-- fix: compress pictures
-- feat: add animation and hover
-- Merge branch 'develop' of https://github.com/olgamartinchik/rsclone into unit-test_sp4
-- refactor: remove add workout card
-- fix: fix conflict
-- Merge pull request #34 from olgamartinchik/fix_userDataManager_sp5
-- fix: fix merge conflict
-- feat: add min/max validation and unit convertion to editPlanPage
-- fix: fix tests
-- fix: git pull from develop
-- feat: remove team link
-- feat: minor changes in styles on browse page
-- feat: add videoStart for unathorized user
-- fix: resolve merge conflict
-- refactor: add icon to weekly progress widget
-- refactor: change icon layout
-- Merge pull request #32 from olgamartinchik/feature-recipe-page-rendering_sp3
-- fix: preloader removing
-- fix: add preloader for image recipe, delete console.log
-- fix: settings reset in the program edit page, add loader on saving
-- feat: add all workouts
-- feat: add filtering by equipment
-- fix: fix UserDataManager method on the editProfilePageController
-- fix: fix conflict
-- fix:fix lint warning
-- fix: fix onload cards after edit profile
-- fix: pull from develop
-- feat: add tests
-- feat: add adaptivity
-- Merge pull request #30 from olgamartinchik/feature_profilePage_sp4
-- feat: move category part into separate mvc block
-- refactor: update userataanager
-- fix: input type file clearance
-- fix: fix loading recipe images
-- fix: lint
-- fix: fix sort menu, fix styles recipe page
-- fix: minor fixes
-- fix: merge with develop
-- feat: remove console.log and add avatar clearance in LS in case of new user after loggedIn
-- feat: add base tests
-- Merge pull request #33 from olgamartinchik/feature_favorites_sp5
-- feat: avatar save on back
-- refactor: change cards completion logic
-- feat: change routes config to allow browse/... routes
-- fix: workouts doubling
-- feat: add workoutmanager to userdatamanager
-- feat: add avatar to user in LS from login
-- feat: add favs and badges
-- feat: add classes rendering
-- feat: set onvideoend event for not logged in users and modal window to signup
-- feat: add configuration for jest test
-- fix: fix style page
-- feat: add animation on the mael page
-- fix: lint fix
-- feat: add user menu in the mongodb
-- fix: add check if calenderInput.value is not null
-- feat: add adaptivity to editProfilePage
-- fix: fix desiredWeight convertion on Onboarding after unit select
-- feat: add rendering of different headers on browse page for loggedIn and not users
-- feat: minor changes
-- fix: pull from develop
-- init: install npm unit test
-- Merge pull request #31 from olgamartinchik/feature_statistics_sp4
-- fix: fixes
-- refactor: lint files
-- fix: reload styles
-- fix: resolve conflicts
-- fix: delete console.log
-- feat: add statistic
-- fix: pull from develop
-- fix: lint
-- feat: add avatar upload to cloudinary
-- feat: add userData and userSettings and password change
-- fix: delete period meal page
-- feat: add responsive layout
-- feat: add page transition animation
-- feat: avatar
-- feat: send updated data to BD and delete user
-- feat: add base page
-- feat: add events and validation ro editProfile
-- fix: add styles changes
-- Merge pull request #29 from olgamartinchik/feature-recipe-page-rendering_sp3
-- fix: delete console.log
-- feat: avatar
-- feat: add userName and email data to LS upon registration/login
-- refactor: add responsive layout for the program page
-- fix: merge develop
-- feat: add resipe page with recipe data
-- feat: link unit select on settings page to userSettings update
-- fix: fix avatar delete
-- fix: fix slider value on inboarding after back button + fix error after goals choice
-- feat: add layout to editProfilePage
-- refactor: fix bugs and layout
-- feat: add avatarManager and bas layout for editProfilePage
-- fix: fix units on onboarding
-- feat: merge changes from develop
-- feat: add avatar to navbar
-- feat: add upload and delete avatar methods to clientManager
-- feat: add profile link to mobile menu
-- feat: link badge activation to info about badges in userSettings
-- fix: fix modal id for deleting avatar
-- feat: link workoutsCompleted and caloriesBurned to userSettings data
-- fix: add clearance of rootNode in profilePage
-- fix: change password confirmation from onchange to oninput
-- feat: add calories timer
-- feat: add signup button in mobile menu
-- fix: git pull from develop
-- Merge pull request #27 from olgamartinchik/fix_validation_markup_sp4
-- fix: lint fixes
-- fix: solve conflicts with develop
-- feat: add option to delete avatar
-- feat: add avatar upload
-- feat: create stat tracking class
-- refactor: merge changes from develop branch
-- Merge pull request #28 from olgamartinchik/feature-explore-page-rendering_sp2
-- fix: delete comments
-- fix: lint fix
-- fix: lint fix
-- fix: fix style tabs with onload, delete console.log
-- feat: change autocomplete styles
-- fix: fix style materialaze
-- fix: fix style materialaze
-- feat: change regexp for password
-- fix: autocomplete color
-- feat: change autocomplete color
-- fix: autocomplete
-- fix: fix style for user cards
-- fix: delete console.log
-- fix: remove password confirmation check on login
-- feat: add default avatars for male and female
-- feat: add user menu on the programm page
-- fix: change regexp in name
-- fix: change pattern for email validation
-- feat: make password validation more complex
-- feat: add password confirmation during registration
-- feat: add shuffle array with user recipe, add personal meal
-- feat: add eye icon to password input field
-- feat: add basic layout and functionality for statistics
-- fix: remove deactivation of start button after such user exists error
-- fix: lint fixes
-- fix: navigation 1. add check for userSettings 2. navigate to onboarding after login in case of userSettings missing
-- fix: fix conflict
-- fix: add in localstorage nember week in the method
-- feat: add user meal all period
-- fix: reset this.form and this.birthday in onboadringModel when logout
-- feat: update TSettings and add new fields to this.form in OnboardingModel
-- fix: delete workoutLength from onboarding and TSettings type
-- feat: add calculate calories, create array user dates for workouts, add recipe data in localstorage
-- fix: 1. fix workout cards size 2. fix workout cards border (top) 3. make add workout card layout similar to other cards 4. fix overlay in mobile menu
-- feat: add basic stat page layout
-- fix: markup of workout card in programPage
-- feat: add dynamic rendering of Profile Page
-- Merge pull request #26 from olgamartinchik/feature_video-player_sp3
-- fix: fix conflicts
-- Merge pull request #25 from olgamartinchik/feature_profile_sp3
-- feat: add program saving and video preloader
-- feat: add markup of profile page
-- fix: fix video creation without reloading
-- feat: add personalized letter to profile circle
-- fix: lint fix
-- refactor: refactor of AuthPage block + add custom validation of input fields
-- feat: add recip data for recipe page in localStorage
-- Merge pull request #24 from olgamartinchik/feature_editPlanPage_sp3
-- fix: add data-num for all cards
-- fix: fix conflicts with develop
-- feat: delete program from LS upon update of plan + save userSettings to LS upon login
-- feat: add desiredWeight settings + checks + saveBtnClickhandler
-- feat: add handler for favWorkouts
-- feat: set handler for workout length change
-- feat: add cards by tabs and categories diets
-- feat:add tabs
-- refactor: split methods in View into separate actions
-- feat: set handler for goal, duration, frequency
-- feat: add video player functionality
-- feat: add adaptivity of modal window
-- feat: add adaptive design
-- fix:fix conflict
-- feat:add dase layout
-- fix: lint fixes
-- feat: add rendering of favorite types choice
-- feat: add workoutLength rendering
-- feat: add base Explore and Recipe pages with click by card
-- Merge pull request #23 from olgamartinchik/fix-meal_page-loading_sp2
-- feat: core dynamic rendering of the page
-- fix: fix height for card container, add loader
-- feat: add rendering of one plan's item block
-- feat: add basic videoplayer functionality
-- feat: add initial rendering of editPlanPage
-- fix: delete comments and console.log
-- fix: use StorageApiManager
-- fix: fix loyaut meal page
-- Merge pull request #21 from olgamartinchik/feature_mail-page-rendering_sp2
-- fix: merge conflict
-- fix: pull changes from develop
-- Merge pull request #22 from olgamartinchik/feature_settingsPage_sp3
-- fix: make isAuth obligatory in all types/interfaces
-- fix: make isAuth field in routes  obligatory
-- fix: fit naming of editPlanPageView file
-- feat: add editPlanPage folder
-- fix: delete commented code
-- fix: lint fixes
-- feat: add navigation subject to user's auth status
-- fix: fix conflict
-- fix: fix conflict
-- fix: fix section explore with static images and fix cards size
-- feat: add basic video layout
-- feat: add logout button + active class to chosen links in navbar
-- feat: add rendering of settings page + navigation
-- Merge pull request #20 from olgamartinchik/feature_AuthManager_sp3
-- feat: add authManager
-- feat: sync slider and input field
-- fix: fix background color of rangeSlider
-- fix: get rid of any in ClientManager and types
-- Merge pull request #17 from olgamartinchik/feature_mail-page-rendering_sp2
-- fix:fix conflict
-- fix: fix order of arguments
-- Merge pull request #19 from olgamartinchik/feature_workout-pages-render_sp2
-- feat: add program creation on login
-- fix: resolve conflicts
-- Merge pull request #18 from olgamartinchik/fix_adaptivity_sp2
-- fix: change styles + make possible to unchoose classes
-- Merge branch 'develop' of https://github.com/olgamartinchik/rsclone into feature_workout-pages-render_sp2
-- feat: add workouts rendering
-- fix: delete console.log and comments, fix error lint
-- fix: fix conflict
-- feat: add method getMealDataWithDay
-- feat: add data cards in localstorage, add button for serching
-- Merge pull request #16 from olgamartinchik/fix_registration_sp2
-- feat: add startDate
-- fix: resolve conflicts
-- Merge pull request #15 from olgamartinchik/refactor_registration_sp2
-- feat: add saving of chosen options + check whether the value was chosen
-- feat: add back button
-- refactor: refactor of existing code + change calender month range
-- fix: fix controls for searching section
-- feat: add basic rendering
-- feat: merge develop branch
-- feat: add responsive layout
-- Merge pull request #14 from olgamartinchik/feature_registration_sp1
-- feat: add search meal
-- fix: fix adaptivity
-- fix: conflicts with develop
-- fix: conflicts with develop
-- feat: add user meal with api data
-- feat: add posting data to db + lint fixes
-- feat: add congratulations page
-- feat: add searching section with api data
-- feat: add remaining goals choice to registration
-- feat: add basic layout
-- feat: set height/weight convertion to different units
-- Merge pull request #12 from olgamartinchik/feature_local-storage-manager_sp2
-- feat: add layout meal page, get data for explore section
-- feat: add storage manager from Tanya's PR
-- feat: add partial functionality to weight/height select
-- feat: add local and session storage manager
-- feat: add gender selection and date of birth selection
-- feat: prepare components for registration part
-- feat: add button to go back to start page from registration
-- feat: make button disabled during fetch
-- feat: add preloader
-- fix: fix conflict
-- feat: add folder matrialeze in src
-- Update tsconfig.json
-- Delete file.ts
-- Update tsconfig.json
-- Update tsconfig.json
-- fix: fix deploy
-- fix: fix deploy
-- fix: fix deploy
-- fix: fix deploy
-- Merge pull request #11 from olgamartinchik/fix_router-handling-main-route_sp1
-- fix: change start route
-- Merge pull request #10 from olgamartinchik/fix_auth-front_sp1
-- fix: lint fixes
-- fix: resolve problem with undefined message
-- fix: fix conflicts with develop
-- Merge pull request #9 from olgamartinchik/feature_start-page-rendering_sp1
-- fix: solve duplicate code
-- refactor: add login and navigation panel to start page
-- Delete .vscode directory
-- Merge branch 'develop' of https://github.com/olgamartinchik/rsclone into feature_start-page-rendering_sp1
-- Merge pull request #8 from olgamartinchik/feature_auth-front_sp1
-- feat: add route for auth
-- fix: fix conflicts with develop
-- fix: fix conflicts with develop
-- Merge branch 'feature_auth-front_sp1' of github.com:olgamartinchik/rsclone into feature_auth-front_sp1
-- feat: add login part
-- feat: add start page rendering
-- Merge pull request #7 from olgamartinchik/feature_basic-navigation_sp1
-- refactor: rename file with config class
-- refactor: add class config
-- feat: add basic pages and navigation between them
-- refactor: change node class component
-- Delete unecessary directory
-- Delete unnecessary directory
-- feat: add messages
-- feat: add npm materialize
-- fix: eslint fixes
-- fix: move frontend part to the root
-- feat: add authPageModel to register user data  and clientManager
-- Merge pull request #6 from olgamartinchik/feature_router_sp1
-- feat: create routes and routes
-- feat: add dynamic rendering of AuthPage
-- refactor: replace server files with client files in the root directory
-- Merge pull request #5 from olgamartinchik/feature_components-division_sp0
-- fix: change width of the scroll track
-- fix: minor changes to index.ts
-- fix: delete node_module directory
-- Delete node_modules directory
-- fix: fix conflicts with develop branch
-- feat: add gitignir file in the backend
-- fix: fix conflict in package.json
-- fix: fix conflicts with develop branch
-- Merge branch 'backend' into develop
-- feat: add settings eslint and prettier in the backend
-- fix: solve problem of card title  falling out of the block + add sematic tags for section and title
-- feat: add menu rendering
-- feat: create header component
-- fix: move all folders to client directory
-- refactor: move frontend files into client folder
-- fix: revert changes
-- refactor: move frontend files into client folder
-- feat: add rendering of main workout page
-- updating branch after merge from other branches
-- feat:add some components
-- Merge pull request #4 from olgamartinchik/feature_card-rendering_sp0
-- feat: add dinamic cards rendering
-- Merge branch 'feature_training-calculator_sp0' into develop
-- fix: merge commit
-- refactor: move constants into separate file
-- fix: change folders structure after team meeting
-- feat: add components for navbar
-- fix:replace javascript by typescript
-- fix:replace javascript by typescript
-- feat: add workout manager for fitness program creation
-- feat: create login request, add userName in schema
-- feat:add auth routes, create register request
-- Merge pull request #1 from olgamartinchik/markup_startingPage_sp0
-- fix: fixes after review
-- fix: fixes in markup after review
-- fix: delete unnecessary selector
-- feat: add main page markup
-- feat: add combine server and client launch
-- feat: add registerauth routes
-- add markup of registration forms
-- feat: add layout and styles of the first page
-- feat:add base settings express, conecting with mongoDB. Add base config for ts, tslint
-- init: create pacage.json for backend
-- feat: create folder for front-end
-- fix: fix package.json
-- fix: fix package.json
-- init: add assets folder
-- init: start rs-clone
-- Initial commit
+-   fix: add value save on onboarding in case of input change
+-   Merge pull request #37 from olgamartinchik/refactor_videoPlayerResponsive_sp5
+-   fix: add checking for stat count in video handler
+-   fix: merge conflicts
+-   fix: fix timer position on video element
+-   fix: add ability to show liked trainings; fix video preloader
+-   Merge pull request #38 from olgamartinchik/feature_browse_sp5
+-   fix: styles
+-   fix: styles
+-   feat: add video responsive layout
+-   fix: hover
+-   fix: pull from develop
+-   fix: styles on start page
+-   Merge pull request #36 from olgamartinchik/fix_workoutProgramCreation_sp5
+-   fix: fix merge conflict
+-   fix: change program creation logic
+-   fix: pull from develop
+-   fix: git pull
+-   Merge pull request #35 from olgamartinchik/unit-test_sp4
+-   fix: compress pictures
+-   feat: add animation and hover
+-   Merge branch 'develop' of https://github.com/olgamartinchik/rsclone into unit-test_sp4
+-   refactor: remove add workout card
+-   fix: fix conflict
+-   Merge pull request #34 from olgamartinchik/fix_userDataManager_sp5
+-   fix: fix merge conflict
+-   feat: add min/max validation and unit convertion to editPlanPage
+-   fix: fix tests
+-   fix: git pull from develop
+-   feat: remove team link
+-   feat: minor changes in styles on browse page
+-   feat: add videoStart for unathorized user
+-   fix: resolve merge conflict
+-   refactor: add icon to weekly progress widget
+-   refactor: change icon layout
+-   Merge pull request #32 from olgamartinchik/feature-recipe-page-rendering_sp3
+-   fix: preloader removing
+-   fix: add preloader for image recipe, delete console.log
+-   fix: settings reset in the program edit page, add loader on saving
+-   feat: add all workouts
+-   feat: add filtering by equipment
+-   fix: fix UserDataManager method on the editProfilePageController
+-   fix: fix conflict
+-   fix:fix lint warning
+-   fix: fix onload cards after edit profile
+-   fix: pull from develop
+-   feat: add tests
+-   feat: add adaptivity
+-   Merge pull request #30 from olgamartinchik/feature_profilePage_sp4
+-   feat: move category part into separate mvc block
+-   refactor: update userataanager
+-   fix: input type file clearance
+-   fix: fix loading recipe images
+-   fix: lint
+-   fix: fix sort menu, fix styles recipe page
+-   fix: minor fixes
+-   fix: merge with develop
+-   feat: remove console.log and add avatar clearance in LS in case of new user after loggedIn
+-   feat: add base tests
+-   Merge pull request #33 from olgamartinchik/feature_favorites_sp5
+-   feat: avatar save on back
+-   refactor: change cards completion logic
+-   feat: change routes config to allow browse/... routes
+-   fix: workouts doubling
+-   feat: add workoutmanager to userdatamanager
+-   feat: add avatar to user in LS from login
+-   feat: add favs and badges
+-   feat: add classes rendering
+-   feat: set onvideoend event for not logged in users and modal window to signup
+-   feat: add configuration for jest test
+-   fix: fix style page
+-   feat: add animation on the mael page
+-   fix: lint fix
+-   feat: add user menu in the mongodb
+-   fix: add check if calenderInput.value is not null
+-   feat: add adaptivity to editProfilePage
+-   fix: fix desiredWeight convertion on Onboarding after unit select
+-   feat: add rendering of different headers on browse page for loggedIn and not users
+-   feat: minor changes
+-   fix: pull from develop
+-   init: install npm unit test
+-   Merge pull request #31 from olgamartinchik/feature_statistics_sp4
+-   fix: fixes
+-   refactor: lint files
+-   fix: reload styles
+-   fix: resolve conflicts
+-   fix: delete console.log
+-   feat: add statistic
+-   fix: pull from develop
+-   fix: lint
+-   feat: add avatar upload to cloudinary
+-   feat: add userData and userSettings and password change
+-   fix: delete period meal page
+-   feat: add responsive layout
+-   feat: add page transition animation
+-   feat: avatar
+-   feat: send updated data to BD and delete user
+-   feat: add base page
+-   feat: add events and validation ro editProfile
+-   fix: add styles changes
+-   Merge pull request #29 from olgamartinchik/feature-recipe-page-rendering_sp3
+-   fix: delete console.log
+-   feat: avatar
+-   feat: add userName and email data to LS upon registration/login
+-   refactor: add responsive layout for the program page
+-   fix: merge develop
+-   feat: add resipe page with recipe data
+-   feat: link unit select on settings page to userSettings update
+-   fix: fix avatar delete
+-   fix: fix slider value on inboarding after back button + fix error after goals choice
+-   feat: add layout to editProfilePage
+-   refactor: fix bugs and layout
+-   feat: add avatarManager and bas layout for editProfilePage
+-   fix: fix units on onboarding
+-   feat: merge changes from develop
+-   feat: add avatar to navbar
+-   feat: add upload and delete avatar methods to clientManager
+-   feat: add profile link to mobile menu
+-   feat: link badge activation to info about badges in userSettings
+-   fix: fix modal id for deleting avatar
+-   feat: link workoutsCompleted and caloriesBurned to userSettings data
+-   fix: add clearance of rootNode in profilePage
+-   fix: change password confirmation from onchange to oninput
+-   feat: add calories timer
+-   feat: add signup button in mobile menu
+-   fix: git pull from develop
+-   Merge pull request #27 from olgamartinchik/fix_validation_markup_sp4
+-   fix: lint fixes
+-   fix: solve conflicts with develop
+-   feat: add option to delete avatar
+-   feat: add avatar upload
+-   feat: create stat tracking class
+-   refactor: merge changes from develop branch
+-   Merge pull request #28 from olgamartinchik/feature-explore-page-rendering_sp2
+-   fix: delete comments
+-   fix: lint fix
+-   fix: lint fix
+-   fix: fix style tabs with onload, delete console.log
+-   feat: change autocomplete styles
+-   fix: fix style materialaze
+-   fix: fix style materialaze
+-   feat: change regexp for password
+-   fix: autocomplete color
+-   feat: change autocomplete color
+-   fix: autocomplete
+-   fix: fix style for user cards
+-   fix: delete console.log
+-   fix: remove password confirmation check on login
+-   feat: add default avatars for male and female
+-   feat: add user menu on the programm page
+-   fix: change regexp in name
+-   fix: change pattern for email validation
+-   feat: make password validation more complex
+-   feat: add password confirmation during registration
+-   feat: add shuffle array with user recipe, add personal meal
+-   feat: add eye icon to password input field
+-   feat: add basic layout and functionality for statistics
+-   fix: remove deactivation of start button after such user exists error
+-   fix: lint fixes
+-   fix: navigation 1. add check for userSettings 2. navigate to onboarding after login in case of userSettings missing
+-   fix: fix conflict
+-   fix: add in localstorage nember week in the method
+-   feat: add user meal all period
+-   fix: reset this.form and this.birthday in onboadringModel when logout
+-   feat: update TSettings and add new fields to this.form in OnboardingModel
+-   fix: delete workoutLength from onboarding and TSettings type
+-   feat: add calculate calories, create array user dates for workouts, add recipe data in localstorage
+-   fix: 1. fix workout cards size 2. fix workout cards border (top) 3. make add workout card layout similar to other cards 4. fix overlay in mobile menu
+-   feat: add basic stat page layout
+-   fix: markup of workout card in programPage
+-   feat: add dynamic rendering of Profile Page
+-   Merge pull request #26 from olgamartinchik/feature_video-player_sp3
+-   fix: fix conflicts
+-   Merge pull request #25 from olgamartinchik/feature_profile_sp3
+-   feat: add program saving and video preloader
+-   feat: add markup of profile page
+-   fix: fix video creation without reloading
+-   feat: add personalized letter to profile circle
+-   fix: lint fix
+-   refactor: refactor of AuthPage block + add custom validation of input fields
+-   feat: add recip data for recipe page in localStorage
+-   Merge pull request #24 from olgamartinchik/feature_editPlanPage_sp3
+-   fix: add data-num for all cards
+-   fix: fix conflicts with develop
+-   feat: delete program from LS upon update of plan + save userSettings to LS upon login
+-   feat: add desiredWeight settings + checks + saveBtnClickhandler
+-   feat: add handler for favWorkouts
+-   feat: set handler for workout length change
+-   feat: add cards by tabs and categories diets
+-   feat:add tabs
+-   refactor: split methods in View into separate actions
+-   feat: set handler for goal, duration, frequency
+-   feat: add video player functionality
+-   feat: add adaptivity of modal window
+-   feat: add adaptive design
+-   fix:fix conflict
+-   feat:add dase layout
+-   fix: lint fixes
+-   feat: add rendering of favorite types choice
+-   feat: add workoutLength rendering
+-   feat: add base Explore and Recipe pages with click by card
+-   Merge pull request #23 from olgamartinchik/fix-meal_page-loading_sp2
+-   feat: core dynamic rendering of the page
+-   fix: fix height for card container, add loader
+-   feat: add rendering of one plan's item block
+-   feat: add basic videoplayer functionality
+-   feat: add initial rendering of editPlanPage
+-   fix: delete comments and console.log
+-   fix: use StorageApiManager
+-   fix: fix loyaut meal page
+-   Merge pull request #21 from olgamartinchik/feature_mail-page-rendering_sp2
+-   fix: merge conflict
+-   fix: pull changes from develop
+-   Merge pull request #22 from olgamartinchik/feature_settingsPage_sp3
+-   fix: make isAuth obligatory in all types/interfaces
+-   fix: make isAuth field in routes obligatory
+-   fix: fit naming of editPlanPageView file
+-   feat: add editPlanPage folder
+-   fix: delete commented code
+-   fix: lint fixes
+-   feat: add navigation subject to user's auth status
+-   fix: fix conflict
+-   fix: fix conflict
+-   fix: fix section explore with static images and fix cards size
+-   feat: add basic video layout
+-   feat: add logout button + active class to chosen links in navbar
+-   feat: add rendering of settings page + navigation
+-   Merge pull request #20 from olgamartinchik/feature_AuthManager_sp3
+-   feat: add authManager
+-   feat: sync slider and input field
+-   fix: fix background color of rangeSlider
+-   fix: get rid of any in ClientManager and types
+-   Merge pull request #17 from olgamartinchik/feature_mail-page-rendering_sp2
+-   fix:fix conflict
+-   fix: fix order of arguments
+-   Merge pull request #19 from olgamartinchik/feature_workout-pages-render_sp2
+-   feat: add program creation on login
+-   fix: resolve conflicts
+-   Merge pull request #18 from olgamartinchik/fix_adaptivity_sp2
+-   fix: change styles + make possible to unchoose classes
+-   Merge branch 'develop' of https://github.com/olgamartinchik/rsclone into feature_workout-pages-render_sp2
+-   feat: add workouts rendering
+-   fix: delete console.log and comments, fix error lint
+-   fix: fix conflict
+-   feat: add method getMealDataWithDay
+-   feat: add data cards in localstorage, add button for serching
+-   Merge pull request #16 from olgamartinchik/fix_registration_sp2
+-   feat: add startDate
+-   fix: resolve conflicts
+-   Merge pull request #15 from olgamartinchik/refactor_registration_sp2
+-   feat: add saving of chosen options + check whether the value was chosen
+-   feat: add back button
+-   refactor: refactor of existing code + change calender month range
+-   fix: fix controls for searching section
+-   feat: add basic rendering
+-   feat: merge develop branch
+-   feat: add responsive layout
+-   Merge pull request #14 from olgamartinchik/feature_registration_sp1
+-   feat: add search meal
+-   fix: fix adaptivity
+-   fix: conflicts with develop
+-   fix: conflicts with develop
+-   feat: add user meal with api data
+-   feat: add posting data to db + lint fixes
+-   feat: add congratulations page
+-   feat: add searching section with api data
+-   feat: add remaining goals choice to registration
+-   feat: add basic layout
+-   feat: set height/weight convertion to different units
+-   Merge pull request #12 from olgamartinchik/feature_local-storage-manager_sp2
+-   feat: add layout meal page, get data for explore section
+-   feat: add storage manager from Tanya's PR
+-   feat: add partial functionality to weight/height select
+-   feat: add local and session storage manager
+-   feat: add gender selection and date of birth selection
+-   feat: prepare components for registration part
+-   feat: add button to go back to start page from registration
+-   feat: make button disabled during fetch
+-   feat: add preloader
+-   fix: fix conflict
+-   feat: add folder matrialeze in src
+-   Update tsconfig.json
+-   Delete file.ts
+-   Update tsconfig.json
+-   Update tsconfig.json
+-   fix: fix deploy
+-   fix: fix deploy
+-   fix: fix deploy
+-   fix: fix deploy
+-   Merge pull request #11 from olgamartinchik/fix_router-handling-main-route_sp1
+-   fix: change start route
+-   Merge pull request #10 from olgamartinchik/fix_auth-front_sp1
+-   fix: lint fixes
+-   fix: resolve problem with undefined message
+-   fix: fix conflicts with develop
+-   Merge pull request #9 from olgamartinchik/feature_start-page-rendering_sp1
+-   fix: solve duplicate code
+-   refactor: add login and navigation panel to start page
+-   Delete .vscode directory
+-   Merge branch 'develop' of https://github.com/olgamartinchik/rsclone into feature_start-page-rendering_sp1
+-   Merge pull request #8 from olgamartinchik/feature_auth-front_sp1
+-   feat: add route for auth
+-   fix: fix conflicts with develop
+-   fix: fix conflicts with develop
+-   Merge branch 'feature_auth-front_sp1' of github.com:olgamartinchik/rsclone into feature_auth-front_sp1
+-   feat: add login part
+-   feat: add start page rendering
+-   Merge pull request #7 from olgamartinchik/feature_basic-navigation_sp1
+-   refactor: rename file with config class
+-   refactor: add class config
+-   feat: add basic pages and navigation between them
+-   refactor: change node class component
+-   Delete unecessary directory
+-   Delete unnecessary directory
+-   feat: add messages
+-   feat: add npm materialize
+-   fix: eslint fixes
+-   fix: move frontend part to the root
+-   feat: add authPageModel to register user data and clientManager
+-   Merge pull request #6 from olgamartinchik/feature_router_sp1
+-   feat: create routes and routes
+-   feat: add dynamic rendering of AuthPage
+-   refactor: replace server files with client files in the root directory
+-   Merge pull request #5 from olgamartinchik/feature_components-division_sp0
+-   fix: change width of the scroll track
+-   fix: minor changes to index.ts
+-   fix: delete node_module directory
+-   Delete node_modules directory
+-   fix: fix conflicts with develop branch
+-   feat: add gitignir file in the backend
+-   fix: fix conflict in package.json
+-   fix: fix conflicts with develop branch
+-   Merge branch 'backend' into develop
+-   feat: add settings eslint and prettier in the backend
+-   fix: solve problem of card title falling out of the block + add sematic tags for section and title
+-   feat: add menu rendering
+-   feat: create header component
+-   fix: move all folders to client directory
+-   refactor: move frontend files into client folder
+-   fix: revert changes
+-   refactor: move frontend files into client folder
+-   feat: add rendering of main workout page
+-   updating branch after merge from other branches
+-   feat:add some components
+-   Merge pull request #4 from olgamartinchik/feature_card-rendering_sp0
+-   feat: add dinamic cards rendering
+-   Merge branch 'feature_training-calculator_sp0' into develop
+-   fix: merge commit
+-   refactor: move constants into separate file
+-   fix: change folders structure after team meeting
+-   feat: add components for navbar
+-   fix:replace javascript by typescript
+-   fix:replace javascript by typescript
+-   feat: add workout manager for fitness program creation
+-   feat: create login request, add userName in schema
+-   feat:add auth routes, create register request
+-   Merge pull request #1 from olgamartinchik/markup_startingPage_sp0
+-   fix: fixes after review
+-   fix: fixes in markup after review
+-   fix: delete unnecessary selector
+-   feat: add main page markup
+-   feat: add combine server and client launch
+-   feat: add registerauth routes
+-   add markup of registration forms
+-   feat: add layout and styles of the first page
+-   feat:add base settings express, conecting with mongoDB. Add base config for ts, tslint
+-   init: create pacage.json for backend
+-   feat: create folder for front-end
+-   fix: fix package.json
+-   fix: fix package.json
+-   init: add assets folder
+-   init: start rs-clone
+-   Initial commit

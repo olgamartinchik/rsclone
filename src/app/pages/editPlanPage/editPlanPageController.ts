@@ -97,7 +97,7 @@ class EditPlanPageController {
         const settings = this.getUserSettings();
         const unitIsDefault = (<TSettings>settings).weightUnit === Weight.units;
 
-        if(unitIsDefault) {
+        if (unitIsDefault) {
             this.checkEnteredValue(input, value);
         } else {
             const valueConverted = this.convertWeight('lbs', parseInt(value));
@@ -107,7 +107,7 @@ class EditPlanPageController {
 
     private checkEnteredValue(input: HTMLInputElement, value: string): void {
         const settings = this.getUserSettings();
-        let valueChosen = parseInt(value);
+        const valueChosen = parseInt(value);
         if (valueChosen < parseInt(Weight.min) || valueChosen >= settings!.weight) {
             input.value = '';
             input.placeholder = '0';
@@ -120,7 +120,7 @@ class EditPlanPageController {
     private convertWeight(unit: string, valueChosen: number): number {
         let value = valueChosen;
         if (unit === 'kg') {
-            value *= Coefficients.toPounds; 
+            value *= Coefficients.toPounds;
         } else {
             value *= Coefficients.toKilograms;
         }
@@ -131,12 +131,12 @@ class EditPlanPageController {
         const settings = <TSettings>this.getUserSettings();
         const unitIsDefault = (<TSettings>settings).weightUnit === Weight.units;
         if (unitIsDefault) {
-            this.createMessage(
-                `Please enter the value between ${Weight.min} and ${settings!.weight}`
-            );
+            this.createMessage(`Please enter the value between ${Weight.min} and ${settings!.weight}`);
         } else {
             this.createMessage(
-                `Please enter the value between ${Weight.min2} and ${Math.round(settings!.weight * Coefficients.toPounds)}`
+                `Please enter the value between ${Weight.min2} and ${Math.round(
+                    settings!.weight * Coefficients.toPounds
+                )}`
             );
         }
     }

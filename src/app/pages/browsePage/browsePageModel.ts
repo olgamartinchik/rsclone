@@ -1,15 +1,19 @@
-import Card from "../../components/card/card";
-import ClientManager from "../../services/clientManager";
+import Card from '../../components/card/card';
+import ClientManager from '../../services/clientManager';
 import CloudinaryManager from '../../services/cloudinarySDK';
 import Utils from '../../services/utils';
 import { TSettings, TToken, TWorkout, TStatData, TProgressData, TProgress } from '../../services/types';
-import storageManager from "../../services/storageManager";
+import storageManager from '../../services/storageManager';
 
 class BrowsePageModel {
     private clientManager: ClientManager;
+
     private cards: Array<Card>;
+
     private sdk: CloudinaryManager;
+
     private currentCardId: string;
+
     private type: string;
 
     constructor() {
@@ -23,7 +27,7 @@ class BrowsePageModel {
     public async getData() {
         const data = await this.clientManager.getWorkouts();
         if (data) {
-            this.cards = data.map(item => {
+            this.cards = data.map((item) => {
                 return new Card(item);
             });
         }

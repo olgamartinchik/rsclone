@@ -225,7 +225,7 @@ class OnboardingPageController {
 
         unitValue.textContent = this.parameter.unit;
         valueInput.value = this.parameter.value;
-        
+
         this.model.saveConvertedValues({ [parametersType]: parseInt(this.parameter.value) });
         this.handleDesiredWeightConvert(parametersType);
         this.registerSelectedValue(e);

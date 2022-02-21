@@ -86,7 +86,7 @@ class VideoHandler {
         this.removeInnerContext();
         this.initVideo(parentElement, src, card.id);
         this.tracker.reset();
-        if(settings) {
+        if (settings) {
             this.tracker.startTracking(card.data.caloriesPerMinute, settings);
         }
         this.video?.removeEventListener('canplay', this.onCanPlay.bind(this));
@@ -97,15 +97,15 @@ class VideoHandler {
 
     private onCanPlay(e: Event) {
         e.stopPropagation();
-            this.setFullTime();
+        this.setFullTime();
 
-            if (this.currentTime > 0 && this.video!.paused) {
-                this.video!.pause();
-            } else {
-                this.play();
-                this.playBtn?.classList.remove('paused');
-            }
-            this.preloader.remove();
+        if (this.currentTime > 0 && this.video!.paused) {
+            this.video!.pause();
+        } else {
+            this.play();
+            this.playBtn?.classList.remove('paused');
+        }
+        this.preloader.remove();
     }
 
     private onVideoEnded(e: Event): void {

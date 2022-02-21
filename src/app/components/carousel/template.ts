@@ -1,5 +1,5 @@
 export default function carouselTemplate(): string {
-  return `
+    return `
   <h3 class="fiton-modal-title">Please sign up for free to benefit from all the advantages FitOn provides</h3>
   <div id="carousel">
       <div id="spinner">
@@ -39,5 +39,5 @@ export default function carouselTemplate(): string {
   <div class="btn-wrapper">
       <a href="/#register" class ='waves-effect waves-light btn-large'>SignUp</a>
   </div>
-  `
+  `;
 }

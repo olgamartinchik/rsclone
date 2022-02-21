@@ -203,7 +203,7 @@ class EditPlanPageView {
         } else {
             this.getParameters(input, userSettings!);
         }
-        
+
         const unit = (<TSettings>userSettings).weightUnit;
         Node.setChild(wrapper, 'span', 'editplan-unit', `${unit}`);
 

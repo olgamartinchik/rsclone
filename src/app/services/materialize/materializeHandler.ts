@@ -31,7 +31,7 @@ class MaterializeHandler {
     }
 
     initCarousel() {
-        var elems = document.querySelectorAll('.carousel');
+        const elems = document.querySelectorAll('.carousel');
         M.Carousel.init(elems, {});
     }
 }

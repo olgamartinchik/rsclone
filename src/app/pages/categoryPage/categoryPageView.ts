@@ -9,6 +9,7 @@ import { TUser } from '../../services/types';
 
 export default class CategoryPageView {
     public rootNode: HTMLElement;
+
     private mainLayout: Node<HTMLElement> | null;
 
     constructor() {
@@ -67,43 +68,55 @@ export default class CategoryPageView {
     }
 
     private renderTitle(text: string): void {
-      const title = (text !== 'all') ? text : 'all workouts';
-      new Node(this.mainLayout!.node, 'h2', 'category-title', title);
+        const title = text !== 'all' ? text : 'all workouts';
+        new Node(this.mainLayout!.node, 'h2', 'category-title', title);
     }
 
     private addBackButton(): void {
-      const backButton = Node.setChild(this.mainLayout!.node, 'a', 'back-btn category');
-      backButton.setAttribute('href', '#/browse');
-      Node.setChild(backButton, 'i', 'icon arrow-left');
+        const backButton = Node.setChild(this.mainLayout!.node, 'a', 'back-btn category');
+        backButton.setAttribute('href', '#/browse');
+        Node.setChild(backButton, 'i', 'icon arrow-left');
     }
 
     private renderFiltersBlock(): void {
-      const filtersWrapper = Node.setChild(this.mainLayout!.node, 'div', 'filters-block');
-      this.renderFiltersSubBlock(filtersWrapper, 'equipment', 'Choose equipment needed', ['dumbbells', 'towel', 'mat', 'none', 'all equipment'], ['ALL']);
+        const filtersWrapper = Node.setChild(this.mainLayout!.node, 'div', 'filters-block');
+        this.renderFiltersSubBlock(
+            filtersWrapper,
+            'equipment',
+            'Choose equipment needed',
+            ['dumbbells', 'towel', 'mat', 'none', 'all equipment'],
+            ['ALL']
+        );
     }
 
-    private renderFiltersSubBlock(parentNode: HTMLElement, type: string, text: string, options: Array<string>, selectedOptions: Array<string>): void {
+    private renderFiltersSubBlock(
+        parentNode: HTMLElement,
+        type: string,
+        text: string,
+        options: Array<string>,
+        selectedOptions: Array<string>
+    ): void {
         const filtersSubBlockWrapper = Node.setChild(parentNode, 'fieldset', 'checkbox');
         filtersSubBlockWrapper.setAttribute('data-type', type);
-        Node.setChild(filtersSubBlockWrapper, 'legend', '', text); 
+        Node.setChild(filtersSubBlockWrapper, 'legend', '', text);
         filtersSubBlockWrapper.append(checkbox.getTemplate('', options, selectedOptions));
     }
 
     public renderFilteredWorkouts(data: Card[], onclick: (e: Event) => void): void {
         const cardElems = data.map((card: Card, index: number) => card.getTemplate(onclick, index));
         let cardsWrapper = <HTMLElement>this.rootNode.querySelector('.workouts-wrapper.category');
-        
+
         if (!cardsWrapper) {
             cardsWrapper = Node.setChild(this.mainLayout!.node, 'div', 'workouts-wrapper category');
         } else {
             cardsWrapper.textContent = '';
         }
-        
+
         cardsWrapper.append(...cardElems);
     }
-    
+
     public renderMessage(text: string) {
-        let cardsWrapper = <HTMLElement>this.rootNode.querySelector('.workouts-wrapper.category');
+        const cardsWrapper = <HTMLElement>this.rootNode.querySelector('.workouts-wrapper.category');
         if (cardsWrapper) {
             cardsWrapper.textContent = text;
         }
@@ -115,6 +128,6 @@ export default class CategoryPageView {
         const spans = checkboxFieldset.querySelectorAll('span');
         spans.forEach((span) => {
             span.onclick = (e: Event) => e.stopPropagation();
-        })
+        });
     }
 }

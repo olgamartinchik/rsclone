@@ -319,7 +319,7 @@
     }
     .video-wrapper {
         &::after {
-            content: "";
+            content: '';
             position: absolute;
             z-index: 996;
             bottom: 0;
@@ -328,7 +328,6 @@
             width: 100vw;
             display: block;
             background-image: $color-violet-gradient;
-
         }
         .preloader {
             top: 28vw;
