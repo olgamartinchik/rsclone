@@ -8,7 +8,7 @@
         width: 100vw;
         min-height: 100vh;
         opacity: 0;
-        background-color: rgba(0, 0, 0, 0.9);
+        background-color: rgba(0, 0, 0, 1);
         animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         .preloader {
             position: fixed;

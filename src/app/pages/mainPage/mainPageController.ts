@@ -1,4 +1,3 @@
-// import router from '../../router/router';
 import MainPageView from './mainPageView';
 import authManager from '../../services/authManager';
 

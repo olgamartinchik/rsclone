@@ -56,11 +56,45 @@
             content: fa-content($fa-var-cogs);
         }
     }
+    &.angle-left {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 50%;
+        left: 30px;
+        &:before {
+            content: fa-content($fa-var-angle-left);
+        }
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+    }
+    &.angle-right {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        &:before {
+            content: fa-content($fa-var-angle-right);
+        }
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+    }
     &.arrow-left {
+        position: absolute;
+        left: 50px;
         &:before {
             content: fa-content($fa-var-arrow-left);
             font-size: 25px;
             color: $color-text-on-dark;
+        }
+        &:hover {
+            transform: scale(1.5);
+            transition: all 2s ease-out;
         }
     }
     &.arrow-right {
@@ -68,6 +102,10 @@
             content: fa-content($fa-var-arrow-right);
             font-size: 20px;
             cursor: pointer;
+        }
+        &:hover {
+            transform: scale(1.5);
+            transition: all 2s ease-out;
         }
     }
     &.weight {
@@ -227,7 +265,10 @@
     left: 115px;
     top: 105px;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    &:hover {
+        transform: scale(1.5);
+        transition: all 2s ease-out;
+    } 
 }
 
 .icon-select {
@@ -254,3 +295,5 @@
         }
     }
 }
+
+

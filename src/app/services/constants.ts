@@ -62,6 +62,7 @@ export enum Message {
     invalidPassword = 'Password should not be less than 6 symbols',
     invalidValue = 'Please enter a valid value',
     passwordEqual = 'Please choose a password different from a last one',
+    noCards = 'Sorry, no workouts match the criteria you chose',
 }
 
 export enum Height {
