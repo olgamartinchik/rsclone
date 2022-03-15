@@ -25,17 +25,17 @@ FitOn-clone is a project developed as a part of the learning process in the [RSS
 
 **Testing:**
 
--   [Jest](https://jestjs.io/) is a JavaScript Testing Framework.
+-   [Jest](https://jestjs.io/)
 
 **Code style and linting:**
 
--   ESLint with airbnb-base config.
--   Prettier.
+-   [ESLint](https://eslint.org/) with airbnb-base config.
+-   [Prettier](https://prettier.io/)
 
 **API:**
 
--   Cloudinary API.
--   Edamam API.
+-   [Cloudinary API](https://cloudinary.com/documentation/image_upload_api_reference).
+-   [Edamam API](https://developer.edamam.com/edamam-recipe-api).
 
 ## Installation
 
@@ -43,35 +43,30 @@ Clone the repo:
 
 ```
 git clone https://github.com/olgamartinchik/rsclone.git
-
 ```
 
 Install packages:
 
 ```
 npm install
-
 ```
 
 Then start the dev server with the command:
 
 ```
 npm run dev
-
 ```
 
 Or create a build:
 
 ```
 npm run build
-
 ```
 
 To start tests:
 
 ```
 npm run test
-
 ```
 
 ## Authors
