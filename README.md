@@ -1,5 +1,7 @@
 # About FitOn-clone
 
+![fitOn-clone](https://user-images.githubusercontent.com/76964682/158422680-4ad2e5ca-69c9-4f8e-8218-f2e5e06621ad.JPG)
+
 This project is a copy of the [FitOn application](https://fitonapp.com/). FitOn is a digital fitness platform that offers unlimited free classes spanning everything from cardio training to meditation, many of which are taught by celebrity trainers.
 FitOn-clone is a project developed as a part of the learning process in the [RSSchool](https://rs.school/).
 
