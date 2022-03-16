@@ -9,6 +9,7 @@ class DateManager {
     }
 
     getArrayDate(userSettings: TSettings) {
+        this.arrayDates = [];
         const allDaysWeek = 7;
         const allDaysProgramme = userSettings.duration * allDaysWeek;
         const startDate = new Date(Number(userSettings.startDate));
@@ -53,7 +54,6 @@ class DateManager {
         const arrayDate = this.getArrayDate(userSettings);
         const dayToday = this.dateToday();
         const numDay = arrayDate.indexOf(dayToday);
-
         if (numDay <= 7) {
             numWeek = 0;
         } else if (numDay <= 14) {
