@@ -66,6 +66,7 @@ class ProgramPageModel {
         }
 
         this.saveData();
+
         return this.cards[this.week];
     }
 
@@ -87,11 +88,13 @@ class ProgramPageModel {
             this.allCards = tempCards;
         } else {
             const workouts = await this.client.getWorkouts();
-            if (workouts)
+            if (workouts) {
+                this.allCards = [];
                 workouts.forEach((workoutElem) => {
                     this.allCards.push(new Card(workoutElem));
                 });
-            storageManager.addItem('all-cards', this.allCards, 'local');
+                storageManager.addItem('all-cards', this.allCards, 'local');
+            }
         }
     }
 
