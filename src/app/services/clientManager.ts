@@ -21,6 +21,8 @@ class ClientManager {
 
     isSuccess: boolean;
 
+    baseURL = 'https://rsclonebackend.onrender.com/api/';
+
     constructor() {
         if (!ClientManager._instance) {
             ClientManager._instance = this;
@@ -39,7 +41,7 @@ class ClientManager {
         form: TLoginForm | TSettings
     ): Promise<void | TAuthResult | TSettings | TLoginResponse> {
         try {
-            const response = await fetch(`https://rsclonebackend.herokuapp.com/api/${path}`, {
+            const response = await fetch(`${this.baseURL}${path}`, {
                 method: 'POST',
                 body: JSON.stringify({ ...form }),
                 headers: {
@@ -70,7 +72,7 @@ class ClientManager {
         form: TLoginForm | TSettings | TChangeUserDataForm
     ): Promise<void | TSettings> {
         try {
-            const response = await fetch(`https://rsclonebackend.herokuapp.com/api/${path}/${id}`, {
+            const response = await fetch(`${this.baseURL}${path}/${id}`, {
                 method: `${method.toUpperCase()}`,
                 body: JSON.stringify({ ...form }),
                 headers: {
@@ -95,7 +97,7 @@ class ClientManager {
 
     public async deleteUserData(path: string, id: string): Promise<void> {
         try {
-            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/${path}/${id}`, {
+            const res = await fetch(`${this.baseURL}${path}/${id}`, {
                 method: 'DELETE',
             });
 
@@ -107,7 +109,7 @@ class ClientManager {
 
     public async getWorkouts(): Promise<void | TWorkout[]> {
         try {
-            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/workouts`);
+            const res = await fetch(`${this.baseURL}workouts`);
 
             if (res.status !== 200) {
                 return workoutsMock as TWorkout[];
@@ -121,7 +123,7 @@ class ClientManager {
 
     public async getUserSettings(id: string): Promise<TSettings | void> {
         try {
-            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/userSettings/${id}`);
+            const res = await fetch(`${this.baseURL}userSettings/${id}`);
 
             return (await res.json()) as TSettings;
         } catch (e: unknown) {
@@ -131,7 +133,7 @@ class ClientManager {
 
     public async postProgram(program: TWorkoutProgram, id: string) {
         try {
-            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/workoutSettings`, {
+            const res = await fetch(`${this.baseURL}workoutSettings`, {
                 method: 'POST',
                 body: JSON.stringify({ _id: id, program }),
                 headers: {
@@ -147,7 +149,7 @@ class ClientManager {
 
     public async getProgram(id: string): Promise<TWorkoutProgram | void> {
         try {
-            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/workoutSettings/${id}`);
+            const res = await fetch(`${this.baseURL}workoutSettings/${id}`);
 
             return (await res.json()).program as TWorkoutProgram;
         } catch (e: unknown) {
@@ -157,7 +159,7 @@ class ClientManager {
 
     public async updateProgram(program: TWorkoutProgram, id: string): Promise<TWorkoutProgram | void> {
         try {
-            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/workoutSettings/${id}`, {
+            const res = await fetch(`${this.baseURL}workoutSettings/${id}`, {
                 method: 'PATCH',
                 body: JSON.stringify({ _id: id, program }),
                 headers: {
@@ -253,7 +255,7 @@ class ClientManager {
 
     public async postUserMenu(id: string, periodUserMeal: IDataExplore[]) {
         try {
-            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/menu`, {
+            const res = await fetch(`${this.baseURL}menu`, {
                 method: 'POST',
                 body: JSON.stringify({ _id: id, periodUserMeal }),
                 headers: {
@@ -269,7 +271,7 @@ class ClientManager {
 
     public async getUserMenu(id: string): Promise<{ id: string; periodUserMeal: object } | void> {
         try {
-            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/menu/${id}`, {
+            const res = await fetch(`${this.baseURL}menu/${id}`, {
                 method: 'GET',
 
                 headers: {
@@ -288,7 +290,7 @@ class ClientManager {
         periodUserMeal: object
     ): Promise<{ id: string; periodUserMeal: object } | void> {
         try {
-            const res = await fetch(`https://rsclonebackend.herokuapp.com/api/menu/${id}`, {
+            const res = await fetch(`${this.baseURL}menu/${id}`, {
                 method: 'PATCH',
                 body: JSON.stringify({ periodUserMeal }),
                 headers: {
