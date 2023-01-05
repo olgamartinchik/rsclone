@@ -1,6 +1,7 @@
 import { IDataExplore } from '../../services/types';
 
 export const userMealCardTemplate = function (data: IDataExplore, position: number): string {
+    console.log('img', data.recipe)
     return `
     <div class="meal-card" data-num=${position} data-diet=${
         data.recipe.dietLabels
@@ -8,7 +9,7 @@ export const userMealCardTemplate = function (data: IDataExplore, position: numb
         <div class="col s12 m6">
             <div class="card">
                 <div class="card-image">
-                    <img src="${data.recipe.image}" alt="meal" />
+                    <img src="${data.recipe.image}" alt="" />
                 </div>
                 <div class="card-content">
                     <h6 class="title-meal-card">${data.recipe.mealType!.toString()}</h6>
@@ -22,6 +23,7 @@ export const userMealCardTemplate = function (data: IDataExplore, position: numb
 };
 
 export const exploreCardTemplate = function (data: IDataExplore, position: number): string {
+    console.log('img', data.recipe)
     return `    
         <div class="explore-card" data-edamam=${data.recipe.diet} data-num=${position}>
             <div class="explore-img-container">
@@ -41,7 +43,7 @@ export const searchingCardTemplate = function mealCardTemplate(data: IDataExplor
             <div class="col s12 m6">
                 <div class="card">
                     <div class="card-image">
-                        <img src="${data.recipe.image}" alt="meal"/>
+                        <img src="${data.recipe.image}" alt=""/>
                     </div>
                     <div class="card-content">
                         <h6 class="title-meal-card">${data.recipe.label}</h6>
